@@ -175,21 +175,24 @@ public sealed class PrintHistoryStore
         ArgumentNullException.ThrowIfNull(entry);
         Directory.CreateDirectory(Folder);
         byte[] line = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(entry, Options) + "\n");
-        var deadline = DateTime.UtcNow + TimeSpan.FromSeconds(5);
-        while (true)
+        // FileShare tek başına Unix'te aynı süreçteki yazıcıları sıralamaz. Aynı dosyayı kullanan
+        // bütün örnekler ve süreçler, dosya sonuna gitme + yazma işlemini tek kilitte yapar.
+        string identity = Path.GetFullPath(LogPath);
+        if (OperatingSystem.IsWindows()) identity = identity.ToUpperInvariant();
+        string key = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(identity)));
+        using var mutex = new Mutex(false, "EtiketTasarim-PrintHistory-" + key);
+        bool acquired = false;
+        try
         {
-            try
-            {
-                using var stream = new FileStream(LogPath, FileMode.Append, FileAccess.Write, FileShare.Read);
-                stream.Write(line);
-                stream.Flush(flushToDisk: true);
-                return;
-            }
-            catch (IOException) when (DateTime.UtcNow < deadline)
-            {
-                Thread.Sleep(30);
-            }
+            try { acquired = mutex.WaitOne(TimeSpan.FromSeconds(5)); }
+            catch (AbandonedMutexException) { acquired = true; }
+            if (!acquired) throw new IOException("Baskı geçmişi başka bir işlem tarafından kullanılıyor; kayıt eklenemedi.");
+            using var stream = new FileStream(LogPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
+            stream.Seek(0, SeekOrigin.End);
+            stream.Write(line);
+            stream.Flush(flushToDisk: true);
         }
+        finally { if (acquired) mutex.ReleaseMutex(); }
     }
 
     /// <summary>Bütün kayıtlar, en yenisi önce.</summary>
@@ -248,11 +251,14 @@ public sealed class PrintHistoryStore
                 return name;
             }
             var copy = new LabelProject(ModelJson.Clone(project.Document), project.Assets);
-            using (var stream = new FileStream(path + ".tmp", FileMode.Create, FileAccess.Write, FileShare.None))
+            string temp = path + "." + Guid.NewGuid().ToString("N") + ".tmp";
+            try
             {
-                ProjectFile.Write(copy, stream);
+                using (var stream = new FileStream(temp, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+                    ProjectFile.Write(copy, stream);
+                File.Move(temp, path, overwrite: true);
             }
-            File.Move(path + ".tmp", path, overwrite: true);
+            finally { if (File.Exists(temp)) File.Delete(temp); }
             return name;
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ProjectFileException)

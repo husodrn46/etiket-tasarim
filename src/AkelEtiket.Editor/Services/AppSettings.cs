@@ -55,8 +55,10 @@ public sealed class AppSettings
     public string? LastProjectFolder { get; set; }
     public string? LastImageFolder { get; set; }
     public string? LastDataFolder { get; set; }
+    public string? LastQuickTemplatePath { get; set; }
 
     public bool FirstRunCompleted { get; set; }
+    public bool OnboardingCompleted { get; set; }
     public WindowPlacementSettings Window { get; set; } = new();
 
     public string EffectiveTemplatesFolder =>

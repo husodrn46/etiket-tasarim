@@ -61,8 +61,11 @@ public sealed partial class ProductsViewModel : ObservableObject
         var data = _catalog.Data;
         var found = _catalog.Search(Query ?? "", MaxShown);
         var extras = data.Columns.Where(c => !string.Equals(c, data.KeyColumn, StringComparison.OrdinalIgnoreCase)).ToList();
+        string? selectedKey = SelectedProduct?.Key;
+        SelectedProduct = null;
         Results.Clear();
         foreach (var product in found) Results.Add(new ProductRowViewModel(product, _catalog.DisplayName(product), extras));
+        SelectedProduct = Results.FirstOrDefault(p => p.Key == selectedKey);
         Summary = data.Products.Count == 0
             ? "Ürün listesi boş. \"Excel/CSV'den aktar\" ile ürünlerinizi bir kez aktarın."
             : $"{data.Products.Count} ürün · anahtar sütun: {data.KeyColumn} · kaynak: {Path.GetFileName(data.SourceFile)} " +

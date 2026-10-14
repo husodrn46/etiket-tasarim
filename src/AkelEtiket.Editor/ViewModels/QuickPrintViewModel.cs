@@ -35,10 +35,12 @@ public sealed partial class QuickPrintViewModel : ObservableObject
         Products = products;
         foreach (var template in main.Templates.Library.List().Where(t => t.Problem is null))
             Templates.Add(new QuickTemplateChoice(template));
-        SelectedTemplate = Templates.FirstOrDefault(t => t.UsesData) ?? Templates.FirstOrDefault();
+        SelectedTemplate = Templates.FirstOrDefault(t => t.Info.FilePath == main.Settings.LastQuickTemplatePath)
+            ?? Templates.FirstOrDefault(t => t.UsesData) ?? Templates.FirstOrDefault();
         Products.PropertyChanged += (_, e) =>
         {
             if (e.PropertyName != nameof(ProductsViewModel.SelectedProduct)) return;
+            if (Products.SelectedProduct is not null) { ScanInput = ""; ScanMessage = null; }
             UpdatePreview();
             PrintCommand.NotifyCanExecuteChanged();
         };
@@ -66,6 +68,14 @@ public sealed partial class QuickPrintViewModel : ObservableObject
     [ObservableProperty]
     public partial string ScanInput { get; set; } = "";
 
+    [ObservableProperty]
+    public partial string? ScanMessage { get; set; }
+
+    public string EmptyHint => Templates.Count == 0 ? "Şablon bulunamadı. Şablonlar panelinden örnekleri ekleyin veya tasarımınızı şablon olarak kaydedin."
+        : Products.Count == 0 ? "Ürün listesi boş. Ürün listesi düğmesinden Excel/CSV dosyanızı aktarabilirsiniz." : "";
+
+    partial void OnScanInputChanged(string value) => PrintCommand.NotifyCanExecuteChanged();
+
     /// <summary>Pencere kapanmalı (baskı penceresine geçilirken).</summary>
     public event EventHandler? CloseRequested;
 
@@ -83,17 +93,23 @@ public sealed partial class QuickPrintViewModel : ObservableObject
     {
         string text = (ScanInput ?? "").Trim();
         if (text.Length == 0) return;
+        // Başarısız veya belirsiz bir okutma önceki ürünü baskıya hazır bırakmamalı.
+        Products.SelectedProduct = null;
+        ScanMessage = null;
         Products.Query = text;
         var exact = Products.Results.Where(r => string.Equals(r.Key, text, StringComparison.OrdinalIgnoreCase)
                                                 || r.Record.Fields.Values.Any(v => string.Equals(v.Trim(), text, StringComparison.OrdinalIgnoreCase)))
             .ToList();
-        var pick = exact.Count == 1 ? exact[0] : Products.Results.Count == 1 ? Products.Results[0] : null;
+        var pick = exact.Count == 1 ? exact[0] : null;
         if (pick is not null)
         {
             Products.SelectedProduct = pick;
             ScanInput = "";
             FocusCopiesRequested?.Invoke(this, EventArgs.Empty);
         }
+        else ScanMessage = Products.Results.Count == 0
+            ? "Bu kodla ürün bulunamadı. Kodu kontrol edin veya ürün listesini güncelleyin."
+            : "Birden fazla ürün eşleşti. Listeden doğru ürünü seçin.";
     }
 
     private void UpdatePreview()
@@ -108,7 +124,7 @@ public sealed partial class QuickPrintViewModel : ObservableObject
                 ? new CompositeFieldSource(Products.FieldsFor(product.Record), new BuiltInFieldSource(1, DateTime.Now))
                 : new BuiltInFieldSource(1, DateTime.Now);
             var render = PreviewRenderer.Render(project.Document, project.Assets, fields, _main.Session.ImageResolver,
-                Products.SelectedProduct is null ? RenderMode.Design : RenderMode.Print, 6);
+                Products.SelectedProduct is null ? RenderMode.Design : RenderMode.Print, _main.DotsPerMm);
             PreviewPng = PreviewRenderer.EncodeMono(render.Bitmap, render.DotsPerMm);
             var errors = render.Issues.Where(i => i.Severity == RenderIssueSeverity.Error).Select(i => i.ToString()).Distinct().ToList();
             if (Products.SelectedProduct is not null && errors.Count > 0) Problem = string.Join("\n", errors.Take(4));
@@ -131,7 +147,7 @@ public sealed partial class QuickPrintViewModel : ObservableObject
     }
 
     private bool CanPrint() =>
-        SelectedTemplate is not null && Copies is > 0 and <= 99999 && Problem is null &&
+        SelectedTemplate is not null && Copies is > 0 and <= 9999 && Problem is null && string.IsNullOrWhiteSpace(ScanInput) &&
         (Products.SelectedProduct is not null || !SelectedTemplate.UsesData);
 
     /// <summary>Şablonu ve ürünü baskı penceresine aktarır (yazıcı seçimi, onay ve rapor orada).</summary>
@@ -141,6 +157,8 @@ public sealed partial class QuickPrintViewModel : ObservableObject
         if (SelectedTemplate is null) return;
         var product = Products.SelectedProduct?.Record;
         if (!_main.StartQuickPrint(SelectedTemplate.Info.FilePath, product, Products.Columns, Copies)) return;
+        _main.Settings.LastQuickTemplatePath = SelectedTemplate.Info.FilePath;
+        _main.SaveSettings();
         CloseRequested?.Invoke(this, EventArgs.Empty);
         _main.OpenPrintDialogAfterQuickPrint();
     }

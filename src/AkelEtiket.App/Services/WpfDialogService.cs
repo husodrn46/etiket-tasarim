@@ -52,6 +52,8 @@ public sealed class WpfDialogService : IDialogService
             CalibrationViewModel calibration => new CalibrationWindow(calibration),
             CountersViewModel counters => new CountersWindow(counters),
             PreviewViewModel preview => new PreviewWindow(preview),
+            FirstSetupViewModel first => new FirstSetupWindow(first),
+            ColumnMappingViewModel mapping => new ColumnMappingWindow(mapping),
             SettingsViewModel settings => new SettingsWindow(settings),
             LabelSetupViewModel setup => new LabelSetupWindow(setup),
             DataSourceViewModel data => new DataTableWindow(data),

@@ -59,6 +59,8 @@
             <TextBox DockPanel.Dock="Top" Text="{Binding Products.Query, UpdateSourceTrigger=PropertyChanged, Delay=200}" Margin="0,0,0,6"
                      ToolTip="Listeyi ada, koda veya barkoda göre süz" />
             <TextBlock DockPanel.Dock="Top" Text="{Binding Products.Summary}" Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="0,0,0,6" />
+            <TextBlock DockPanel.Dock="Top" Text="{Binding ScanMessage}" Foreground="{DynamicResource Brush.Warning}" TextWrapping="Wrap" Margin="0,0,0,6" />
+            <TextBlock DockPanel.Dock="Top" Text="{Binding EmptyHint}" TextWrapping="Wrap" Style="{StaticResource Text.Hint}" Margin="0,0,0,6"/>
             <ListBox ItemsSource="{Binding Products.Results}" SelectedItem="{Binding Products.SelectedProduct}" VirtualizingPanel.IsVirtualizing="True">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -88,7 +90,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Adet" Style="{StaticResource Text.Label}" Margin="0,0,10,0" />
-                    <controls:NumberBox x:Name="CopiesBox" Grid.Column="1" Value="{Binding Copies}" Minimum="1" Maximum="99999" Step="1" Decimals="0" />
+                    <controls:NumberBox x:Name="CopiesBox" Grid.Column="1" Value="{Binding Copies}" Minimum="1" Maximum="9999" Step="1" Decimals="0" />
                 </Grid>
             </StackPanel>
             <Border Background="White" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="1" Padding="6">

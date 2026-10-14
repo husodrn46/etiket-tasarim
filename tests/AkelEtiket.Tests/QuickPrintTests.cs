@@ -129,6 +129,43 @@ public sealed class QuickPrintTests : IDisposable
         Assert.False(quick.PrintCommand.CanExecute(null));
     }
 
+    [Fact]
+    public async Task QuickPrint_UnknownAndPartialScans_ClearPreviousSelection()
+    {
+        var products = new ProductsViewModel(_main.Products, _dialogs);
+        await products.ImportFileAsync(WriteCsv(), null);
+        string template = WriteTemplate();
+        var quick = new QuickPrintViewModel(_main, new ProductsViewModel(_main.Products, _dialogs));
+        quick.SelectedTemplate = quick.Templates.Single(t => t.Info.FilePath == template);
+        quick.ScanInput = "TST001"; quick.ScanCommand.Execute(null);
+        Assert.True(quick.PrintCommand.CanExecute(null));
+        quick.Copies = 10000; Assert.False(quick.PrintCommand.CanExecute(null));
+        quick.Copies = 1;
+        quick.ScanInput = "BULUNAMADI";
+        Assert.False(quick.PrintCommand.CanExecute(null));
+        quick.ScanCommand.Execute(null);
+        Assert.Null(quick.Products.SelectedProduct);
+        Assert.NotNull(quick.ScanMessage);
+        Assert.False(quick.PrintCommand.CanExecute(null));
+        quick.ScanInput = "TST01"; quick.ScanCommand.Execute(null);
+        Assert.Null(quick.Products.SelectedProduct); // Kısmi kodla tek sonuç bile otomatik seçilmez.
+        Assert.False(quick.PrintCommand.CanExecute(null));
+        quick.Products.SelectedProduct = Assert.Single(quick.Products.Results);
+        Assert.Equal("", quick.ScanInput);
+        Assert.True(quick.PrintCommand.CanExecute(null));
+    }
+
+    [Fact]
+    public async Task Products_FilterCannotLeaveInvisibleProductSelected()
+    {
+        var products = new ProductsViewModel(_main.Products, _dialogs);
+        await products.ImportFileAsync(WriteCsv(), null);
+        products.SelectedProduct = products.Results.First();
+        products.Query = "BULUNAMADI";
+        Assert.Empty(products.Results);
+        Assert.Null(products.SelectedProduct);
+    }
+
     private sealed class RecordingDialogs : IDialogService
     {
         public List<object> Shown { get; } = [];

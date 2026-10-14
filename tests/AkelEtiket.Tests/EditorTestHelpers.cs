@@ -21,7 +21,8 @@ internal static class EditorTestHelpers
         var deadline = DateTime.UtcNow.AddMilliseconds(timeoutMs);
         while (DateTime.UtcNow < deadline)
         {
-            if (session.Elements.All(e => !e.IsRendering && e.RenderResult is not null)) return;
+            if (session.Elements.All(e => !e.IsRendering && !e.PendingRender && e.RenderResult is not null &&
+                e.RenderedKey == RenderCache.ComputeKey(e.Model, session.Fields, session.DotsPerMm))) return;
             Thread.Sleep(10);
         }
         throw new TimeoutException("Render tamamlanmadı.");

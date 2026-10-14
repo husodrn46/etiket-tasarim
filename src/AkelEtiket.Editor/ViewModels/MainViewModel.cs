@@ -80,6 +80,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         };
         Data.ReloadFailed += (_, message) => Dialogs.ShowMessage("Veri kaynağı", message, MessageKind.Error);
         Templates = new TemplatesViewModel(this);
+        Data.MappingRequested += (_, _) => OpenColumnMappingCommand.Execute(null);
         foreach (var path in Settings.Recent.Items) RecentFiles.Add(path);
         // {SAYAC} (belgenin kendi sayacı) açık belgenin adını kullanır.
         Printing.CounterIntegration.DocumentName = () => Session?.Document.Name;
@@ -307,12 +308,15 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         bool recovered = TryOfferRecovery();
         if (!Settings.FirstRunCompleted)
         {
-            Templates.EnsureSamples(Settings.Company.LogoPng ?? _services.LogoProvider());
+            // Eski sürümde kurulumunu tamamlayan kullanıcılar yeniden kesintiye uğramaz.
+            // Kurtarılan veya dışarıdan açılan bir tasarımın üzerine başlangıç tasarımı yazılmaz.
+            if (!recovered && args.Count == 0) RunFirstSetup(firstRun: true);
+            if (_setupAddTemplates) Templates.EnsureSamples(Settings.Company.LogoPng ?? _services.LogoProvider());
             Settings.FirstRunCompleted = true;
             SaveSettings();
             if (!recovered)
             {
-                var sample = SampleTemplates.CreateProductLabel(Settings.Company.LogoPng ?? _services.LogoProvider(), Settings.Company);
+                var sample = SampleTemplates.CreateForSize(Settings.DefaultLabelWidthMm, Settings.DefaultLabelHeightMm, Settings.Company);
                 Session = CreateSession(sample);
                 SetStatus("Hoş geldiniz! Örnek şablon açıldı. Sol panelden öğe ekleyebilir, Şablonlar'dan diğer örneklere ulaşabilirsiniz.");
             }
@@ -327,6 +331,13 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         if (fileArgs.Count > 0) HandleFileDrop(fileArgs, null, null);
         Templates.Refresh();
         RequestFit();
+
+        if (_setupPreviewRequested)
+        {
+            _setupPreviewRequested = false;
+            // Önizleme penceresi Yazdır'a ayrıca basılmadan hiçbir baskı başlatmaz.
+            PreviewCommand.Execute(null);
+        }
 
         // Yapay zekâ: bekleyen öneriler (uygulama kapalıyken gelenler dahil) ve bağlantı (ayarlarda açıksa).
         Ai.Initialize();

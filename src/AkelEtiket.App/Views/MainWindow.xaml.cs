@@ -158,13 +158,17 @@ public partial class MainWindow : ThemedWindow
         menu.Items.Add(new MenuItem { Header = "Sayaçlar…", Command = _vm.OpenCountersCommand });
         menu.Items.Add(new Separator());
         menu.Items.Add(new MenuItem { Header = "Excel / CSV veri kaynağı seç…", Command = _vm.LoadDataCommand });
+        menu.Items.Add(new MenuItem { Header = "Veri sütunlarını eşleştir…", Command = _vm.OpenColumnMappingCommand });
         menu.IsOpen = true;
     }
 
     private void OnHelpClick(object sender, RoutedEventArgs e)
     {
         var menu = new ContextMenu { PlacementTarget = HelpButton, Placement = PlacementMode.Bottom };
+        menu.Items.Add(new MenuItem { Header = "İlk kurulum…", Command = _vm.OpenFirstSetupCommand });
         menu.Items.Add(new MenuItem { Header = "Yardım ve kısayollar", Command = _vm.OpenHelpCommand, InputGestureText = "F1" });
+        menu.Items.Add(new MenuItem { Header = "Firma, şablon ve ürün yedeği oluştur…", Command = _vm.ExportWorkspaceBackupCommand });
+        menu.Items.Add(new MenuItem { Header = "Firma yedeğini geri yükle…", Command = _vm.ImportWorkspaceBackupCommand });
         menu.Items.Add(new MenuItem { Header = "Bu tasarımın yedekleri…", Command = _vm.OpenBackupsCommand });
         menu.Items.Add(new MenuItem { Header = "Ürün listesi…", Command = _vm.OpenProductsCommand });
         menu.Items.Add(new Separator());

@@ -490,3 +490,10 @@ artifacts/
 # Local Python packaging tool caches
 __pycache__/
 *.pyc
+
+# Task-local SDK home (never publish SDK state)
+.dotnet-home/
+
+# Private user backups
+*.etiketyedek
+*.onceki-*.json

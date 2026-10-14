@@ -102,6 +102,30 @@ public sealed class ProductCatalog
         return data;
     }
 
+    /// <summary>Geri yüklemeden önce JSON verisini doğrular ve bağımsız kopyasını verir.</summary>
+    public static ProductCatalogData ValidateBackup(ProductCatalogData data)
+    {
+        if (data.Columns is null || data.Products is null || data.Columns.Any(string.IsNullOrWhiteSpace) ||
+            data.Columns.Select(FieldNames.Normalize).Distinct().Count() != data.Columns.Count ||
+            data.Products.Any(p => p is null || string.IsNullOrWhiteSpace(p.Key) || p.Fields is null || p.Fields.Values.Any(v => v is null)) ||
+            data.Products.Select(p => p.Key).Distinct(StringComparer.OrdinalIgnoreCase).Count() != data.Products.Count ||
+            data.Products.Count > 0 && FieldNames.FindIndex(data.Columns, data.KeyColumn ?? "") < 0)
+            throw new InvalidDataException("Yedekteki ürün listesi geçersiz.");
+        return JsonSerializer.Deserialize<ProductCatalogData>(JsonSerializer.Serialize(data, Options), Options)!;
+    }
+
+    /// <summary>Ürünleri değiştirir; önceki listenin ayrı kopyasını korur.</summary>
+    public void RestoreBackup(ProductCatalogData data)
+    {
+        var copy = ValidateBackup(data);
+        lock (_lock)
+        {
+            if (File.Exists(FilePath)) File.Copy(FilePath, FilePath + ".onceki-" + Guid.NewGuid().ToString("N") + ".json", overwrite: false);
+            Save(copy);
+            _data = copy;
+        }
+    }
+
     public ProductRecord? Find(string key)
     {
         string wanted = key.Trim();
