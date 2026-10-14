@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Baskı motoru: TSPL üretimi, Windows yazdırma kuyruğu (RAW), sürücü üzerinden GDI baskı.
+    Sürücü yolu doğrudan gdi32/winspool kullanır (System.Drawing gerekmez): DEVMODE'a özel kağıt boyutu
+    0,1 mm hassasiyetle yazılabilir ve görüntü ölçeklemeden aygıt noktasına basılır.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AkelEtiket.Core\AkelEtiket.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="AkelEtiket.PrintEngine.Tests" />
+    <InternalsVisibleTo Include="AkelEtiket.Tests" />
+  </ItemGroup>
+</Project>

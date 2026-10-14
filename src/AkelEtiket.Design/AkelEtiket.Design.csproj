@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Arayüzsüz tasarım servisleri: yapay zekâ/MCP/yerel API ve masaüstünün ortak tasarım araçları -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AkelEtiket.Core\AkelEtiket.Core.csproj" />
+    <ProjectReference Include="..\AkelEtiket.BarcodeEngine\AkelEtiket.BarcodeEngine.csproj" />
+    <ProjectReference Include="..\AkelEtiket.ImageProcessor\AkelEtiket.ImageProcessor.csproj" />
+    <ProjectReference Include="..\AkelEtiket.Rendering\AkelEtiket.Rendering.csproj" />
+    <ProjectReference Include="..\AkelEtiket.ProjectManager\AkelEtiket.ProjectManager.csproj" />
+    <ProjectReference Include="..\AkelEtiket.DataImport\AkelEtiket.DataImport.csproj" />
+    <ProjectReference Include="..\AkelEtiket.Gs1\AkelEtiket.Gs1.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="AkelEtiket.Design.Tests" />
+    <InternalsVisibleTo Include="AkelEtiket.Tests" />
+    <InternalsVisibleTo Include="AkelEtiket.LocalApi.Tests" />
+  </ItemGroup>
+</Project>

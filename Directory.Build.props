@@ -1,0 +1,19 @@
+<Project>
+  <!-- Tüm projeler için ortak ayarlar -->
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Deterministic>true</Deterministic>
+    <SatelliteResourceLanguages>tr</SatelliteResourceLanguages>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CA1416</NoWarn>
+
+    <Company>husodrn46</Company>
+    <Product>Etiket Tasarım</Product>
+    <Version>2.0.0</Version>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <NeutralLanguage>tr-TR</NeutralLanguage>
+  </PropertyGroup>
+</Project>

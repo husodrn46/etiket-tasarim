@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- GS1 firma profili: GLN, firma öneki (GCP), kayıtlı GTIN'ler, kalıcı SSCC kaydı, AI listesi -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AkelEtiket.Core\AkelEtiket.Core.csproj" />
+    <ProjectReference Include="..\AkelEtiket.BarcodeEngine\AkelEtiket.BarcodeEngine.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="AkelEtiket.Gs1.Tests" />
+    <InternalsVisibleTo Include="AkelEtiket.Tests" />
+  </ItemGroup>
+</Project>

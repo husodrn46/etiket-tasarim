@@ -1,0 +1,56 @@
+<Project>
+  <!--
+    Merkezi paket sürüm yönetimi. Lisans özeti: docs/LISANSLAR.md
+    Sürümler 13.10.2026 tarihinde nuget.org üzerinden doğrulandı.
+  -->
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <!-- Dolaylı (transitive) bağımlılıkları da buradaki sürümlere sabitler. -->
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+
+  <ItemGroup Label="Uygulama">
+    <!-- MIT. 4.x serisi Haziran 2026'da çıktı ve hâlâ sık yama alıyor; olgun 3.x hattı kullanılıyor. -->
+    <PackageVersion Include="SkiaSharp" Version="3.119.4" />
+    <!-- Apache-2.0 -->
+    <PackageVersion Include="ZXing.Net" Version="0.16.11" />
+    <!-- MIT -->
+    <PackageVersion Include="ClosedXML" Version="0.105.1" />
+    <!--
+      ClosedXML'in dolaylı bağımlılığı. 1.0.x = Apache-2.0.
+      2.0 ve sonrası "Six Labors Split License" (ticari kullanımda ücretli lisans gerekebilir).
+      Bu yüzden bilerek 1.0.1 sürümüne sabitlendi; YÜKSELTMEYİN.
+    -->
+    <PackageVersion Include="SixLabors.Fonts" Version="1.0.1" />
+    <!--
+      MIT. Eski Excel (.xls, Excel 97-2003) okuma; net8.0 hedefinde bağımlılığı yok.
+      3.9.0 = 16.06.2026 kararlı sürüm (13.10.2026'da nuget.org'da doğrulandı).
+    -->
+    <PackageVersion Include="ExcelDataReader" Version="3.9.0" />
+    <!-- MIT. ClosedXML'in de kullandığı Excel sayı biçimi motoru; .xls hücreleri .xlsx ile aynı biçimlenir. -->
+    <PackageVersion Include="ExcelNumberFormat" Version="1.1.0" />
+    <!-- MS-PL veya Apache-2.0 -->
+    <PackageVersion Include="CsvHelper" Version="33.1.0" />
+    <!-- MIT -->
+    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <!-- MIT (SVG desteği; SkiaSharp 3.x ile uyumlu son hat) -->
+    <PackageVersion Include="Svg.Skia" Version="4.9.1" />
+  </ItemGroup>
+
+  <ItemGroup Label="Yapay zekâ / MCP / yerel API (v2)">
+    <!-- Apache-2.0. Resmî MCP C# SDK'sı (modelcontextprotocol/csharp-sdk); 2.2.0 = 13.08.2026 kararlı sürüm. -->
+    <PackageVersion Include="ModelContextProtocol" Version="2.2.0" />
+    <PackageVersion Include="ModelContextProtocol.AspNetCore" Version="2.2.0" />
+    <!-- MIT. .NET 10.0.12 çalışma zamanıyla aynı hat. -->
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.12" />
+    <!-- MIT. API anahtarları Windows DPAPI (CurrentUser) ile şifrelenir. -->
+    <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="10.0.12" />
+  </ItemGroup>
+
+  <ItemGroup Label="Test">
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageVersion Include="xunit" Version="2.9.3" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.4" />
+    <PackageVersion Include="coverlet.collector" Version="6.0.4" />
+  </ItemGroup>
+</Project>

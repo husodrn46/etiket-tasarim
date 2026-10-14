@@ -1,0 +1,121 @@
+UrunKodu;UrunAdi;Barkod;Fiyat;Adet
+DEMO001;Örnek Ürün A;8691234567890;120,00;1
+DEMO002;Örnek Ürün B;8691234567891;160,00;2
+DEMO003;Yemek Tabaðý 27 cm - Beyaz;8691234100035;532,00;2
+DEMO004;Pilav Tabaðý 24 cm - Krem;8691234100042;372,50;2
+DEMO005;Çorba Kasesi 15 cm - Ýnci Beyazý;8691234100059;330,50;2
+DEMO006;Salata Kasesi 20 cm - Ahþap Desen;8691234100066;69,00;3
+DEMO007;Pasta Tabaðý 19 cm - Mermer Desen;8691234100073;325,00;1
+DEMO008;Çay Tabaðý 13 cm - Çiçek Desenli;8691234100080;52,50;2
+DEMO009;Oval Servis Tabaðý 36 cm - Siyah;8691234100097;113,50;2
+DEMO010;Kayýk Tabak 30 cm - Gökkuþaðý;8691234100103;567,90;2
+DEMO011;Meze Tabaðý 4 Bölmeli - Lacivert Þerit;8691234100110;486,90;1
+DEMO012;Kahvaltýlýk 6 Gözlü - Bakýr Yaldýz;8691234100127;412,50;1
+DEMO013;Þekerlik Kapaklý - Beyaz;8691234100134;163,50;1
+DEMO014;Sosluk 8 cm - Krem;8691234100141;168,00;3
+DEMO015;Çerezlik Üçlü - Ýnci Beyazý;8691234100158;91,90;2
+DEMO016;Zeytinlik Yaprak - Ahþap Desen;8691234100165;351,00;1
+DEMO017;Reçellik Ýkili - Mermer Desen;8691234100172;537,50;3
+DEMO018;Ekmek Sepeti Oval - Çiçek Desenli;8691234100189;644,00;2
+DEMO019;Börek Tepsisi 40 cm - Siyah;8691234100196;440,50;1
+DEMO020;Dikdörtgen Tepsi 35x50 cm - Gökkuþaðý;8691234100202;329,50;1
+DEMO021;Yuvarlak Tepsi 40 cm - Lacivert Þerit;8691234100219;35,90;2
+DEMO022;Çocuk Tabaðý Bölmeli - Bakýr Yaldýz;8691234100226;93,90;3
+DEMO023;Kupa 300 ml - Beyaz;8691234100233;243,90;3
+DEMO024;Fincan Takýmý 6'lý - Krem;8691234100240;302,90;2
+DEMO025;Sürahi 1,5 L - Ýnci Beyazý;8691234100257;515,00;3
+DEMO026;Peçetelik - Ahþap Desen;8691234100264;140,90;2
+DEMO027;Buz Kovasý - Mermer Desen;8691234100271;603,50;2
+DEMO028;Lokum Tabaðý - Çiçek Desenli;8691234100288;291,00;1
+DEMO029;Kek Servis Tabaðý - Siyah;8691234100295;362,90;2
+DEMO030;Kare Mezelik 12 cm - Gökkuþaðý;8691234100301;456,90;1
+DEMO031;Bardak Altlýðý 6'lý - Lacivert Þerit;8691234100318;127,90;1
+DEMO032;Baharatlýk Seti - Bakýr Yaldýz;8691234100325;101,00;1
+DEMO033;Yemek Tabaðý 27 cm - Krem;8691234100332;245,90;3
+DEMO034;Pilav Tabaðý 24 cm - Ýnci Beyazý;8691234100349;472,00;1
+DEMO035;Çorba Kasesi 15 cm - Ahþap Desen;8691234100356;97,50;3
+DEMO036;Salata Kasesi 20 cm - Mermer Desen;8691234100363;224,00;3
+DEMO037;Pasta Tabaðý 19 cm - Çiçek Desenli;8691234100370;273,50;2
+DEMO038;Çay Tabaðý 13 cm - Siyah;8691234100387;288,50;3
+DEMO039;Oval Servis Tabaðý 36 cm - Gökkuþaðý;8691234100394;446,50;3
+DEMO040;Kayýk Tabak 30 cm - Lacivert Þerit;8691234100400;280,50;1
+DEMO041;Meze Tabaðý 4 Bölmeli - Bakýr Yaldýz;8691234100417;121,50;3
+DEMO042;Kahvaltýlýk 6 Gözlü - Beyaz;8691234100424;599,00;1
+DEMO043;Þekerlik Kapaklý - Krem;8691234100431;311,90;1
+DEMO044;Sosluk 8 cm - Ýnci Beyazý;8691234100448;426,90;3
+DEMO045;Çerezlik Üçlü - Ahþap Desen;8691234100455;453,00;2
+DEMO046;Zeytinlik Yaprak - Mermer Desen;8691234100462;195,00;2
+DEMO047;Reçellik Ýkili - Çiçek Desenli;8691234100479;295,00;2
+DEMO048;Ekmek Sepeti Oval - Siyah;8691234100486;456,00;2
+DEMO049;Börek Tepsisi 40 cm - Gökkuþaðý;8691234100493;314,90;1
+DEMO050;Dikdörtgen Tepsi 35x50 cm - Lacivert Þerit;8691234100509;283,50;2
+DEMO051;Yuvarlak Tepsi 40 cm - Bakýr Yaldýz;8691234100516;304,90;2
+DEMO052;Çocuk Tabaðý Bölmeli - Beyaz;8691234100523;591,50;2
+DEMO053;Kupa 300 ml - Krem;8691234100530;194,00;1
+DEMO054;Fincan Takýmý 6'lý - Ýnci Beyazý;8691234100547;403,90;2
+DEMO055;Sürahi 1,5 L - Ahþap Desen;8691234100554;602,90;2
+DEMO056;Peçetelik - Mermer Desen;8691234100561;457,90;2
+DEMO057;Buz Kovasý - Çiçek Desenli;8691234100578;222,50;1
+DEMO058;Lokum Tabaðý - Siyah;8691234100585;175,90;2
+DEMO059;Kek Servis Tabaðý - Gökkuþaðý;8691234100592;366,50;2
+DEMO060;Kare Mezelik 12 cm - Lacivert Þerit;8691234100608;309,50;2
+DEMO061;Bardak Altlýðý 6'lý - Bakýr Yaldýz;8691234100615;614,00;1
+DEMO062;Baharatlýk Seti - Beyaz;8691234100622;283,00;3
+DEMO063;Yemek Tabaðý 27 cm - Ýnci Beyazý;8691234100639;347,90;2
+DEMO064;Pilav Tabaðý 24 cm - Ahþap Desen;8691234100646;596,00;1
+DEMO065;Çorba Kasesi 15 cm - Mermer Desen;8691234100653;383,90;2
+DEMO066;Salata Kasesi 20 cm - Çiçek Desenli;8691234100660;647,90;2
+DEMO067;Pasta Tabaðý 19 cm - Siyah;8691234100677;532,90;1
+DEMO068;Çay Tabaðý 13 cm - Gökkuþaðý;8691234100684;546,00;1
+DEMO069;Oval Servis Tabaðý 36 cm - Lacivert Þerit;8691234100691;261,00;3
+DEMO070;Kayýk Tabak 30 cm - Bakýr Yaldýz;8691234100707;93,50;1
+DEMO071;Meze Tabaðý 4 Bölmeli - Beyaz;8691234100714;139,90;3
+DEMO072;Kahvaltýlýk 6 Gözlü - Krem;8691234100721;374,50;3
+DEMO073;Þekerlik Kapaklý - Ýnci Beyazý;8691234100738;221,50;2
+DEMO074;Sosluk 8 cm - Ahþap Desen;8691234100745;509,00;3
+DEMO075;Çerezlik Üçlü - Mermer Desen;8691234100752;465,50;2
+DEMO076;Zeytinlik Yaprak - Çiçek Desenli;8691234100769;117,50;1
+DEMO077;Reçellik Ýkili - Siyah;8691234100776;633,50;3
+DEMO078;Ekmek Sepeti Oval - Gökkuþaðý;8691234100783;530,50;3
+DEMO079;Börek Tepsisi 40 cm - Lacivert Þerit;8691234100790;367,00;3
+DEMO080;Dikdörtgen Tepsi 35x50 cm - Bakýr Yaldýz;8691234100806;159,00;3
+DEMO081;Yuvarlak Tepsi 40 cm - Beyaz;8691234100813;598,50;2
+DEMO082;Çocuk Tabaðý Bölmeli - Krem;8691234100820;358,90;1
+DEMO083;Kupa 300 ml - Ýnci Beyazý;8691234100837;287,00;1
+DEMO084;Fincan Takýmý 6'lý - Ahþap Desen;8691234100844;375,90;1
+DEMO085;Sürahi 1,5 L - Mermer Desen;8691234100851;647,00;2
+DEMO086;Peçetelik - Çiçek Desenli;8691234100868;65,00;3
+DEMO087;Buz Kovasý - Siyah;8691234100875;418,00;2
+DEMO088;Lokum Tabaðý - Gökkuþaðý;8691234100882;538,00;3
+DEMO089;Kek Servis Tabaðý - Lacivert Þerit;8691234100899;296,50;1
+DEMO090;Kare Mezelik 12 cm - Bakýr Yaldýz;8691234100905;49,00;2
+DEMO091;Bardak Altlýðý 6'lý - Beyaz;8691234100912;566,00;2
+DEMO092;Baharatlýk Seti - Krem;8691234100929;382,90;3
+DEMO093;Yemek Tabaðý 27 cm - Ahþap Desen;8691234100936;371,00;2
+DEMO094;Pilav Tabaðý 24 cm - Mermer Desen;8691234100943;170,90;2
+DEMO095;Çorba Kasesi 15 cm - Çiçek Desenli;8691234100950;639,50;3
+DEMO096;Salata Kasesi 20 cm - Siyah;8691234100967;308,90;2
+DEMO097;Pasta Tabaðý 19 cm - Gökkuþaðý;8691234100974;103,50;3
+DEMO098;Çay Tabaðý 13 cm - Lacivert Þerit;8691234100981;183,50;3
+DEMO099;Oval Servis Tabaðý 36 cm - Bakýr Yaldýz;8691234100998;303,00;1
+DEMO100;Kayýk Tabak 30 cm - Beyaz;8691234101001;394,00;2
+DEMO101;Meze Tabaðý 4 Bölmeli - Krem;8691234101018;41,50;1
+DEMO102;Kahvaltýlýk 6 Gözlü - Ýnci Beyazý;8691234101025;416,90;2
+DEMO103;Þekerlik Kapaklý - Ahþap Desen;8691234101032;506,50;1
+DEMO104;Sosluk 8 cm - Mermer Desen;8691234101049;538,50;3
+DEMO105;Çerezlik Üçlü - Çiçek Desenli;8691234101056;71,50;2
+DEMO106;Zeytinlik Yaprak - Siyah;8691234101063;592,90;3
+DEMO107;Reçellik Ýkili - Gökkuþaðý;8691234101070;635,90;2
+DEMO108;Ekmek Sepeti Oval - Lacivert Þerit;8691234101087;388,90;2
+DEMO109;Börek Tepsisi 40 cm - Bakýr Yaldýz;8691234101094;385,50;2
+DEMO110;Dikdörtgen Tepsi 35x50 cm - Beyaz;8691234101100;450,00;3
+DEMO111;Yuvarlak Tepsi 40 cm - Krem;8691234101117;327,90;1
+DEMO112;Çocuk Tabaðý Bölmeli - Ýnci Beyazý;8691234101124;199,00;2
+DEMO113;Kupa 300 ml - Ahþap Desen;8691234101131;428,50;3
+DEMO114;Fincan Takýmý 6'lý - Mermer Desen;8691234101148;191,90;2
+DEMO115;Sürahi 1,5 L - Çiçek Desenli;8691234101155;292,00;3
+DEMO116;Peçetelik - Siyah;8691234101162;46,00;1
+DEMO117;Buz Kovasý - Gökkuþaðý;8691234101179;215,50;1
+DEMO118;Lokum Tabaðý - Lacivert Þerit;8691234101186;396,50;1
+DEMO119;Kek Servis Tabaðý - Bakýr Yaldýz;8691234101193;542,50;2
+DEMO120;Kare Mezelik 12 cm - Beyaz;8691234101209;333,00;1

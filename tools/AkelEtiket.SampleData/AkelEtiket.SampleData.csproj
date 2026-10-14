@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Geliştirici aracı (uygulamayla dağıtılmaz). Kullanım için Program.cs başındaki açıklamaya bakın:
+    örnek Excel/CSV dosyaları, örnek .akelabel şablonları ve uygulama ikonu üretir.
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AkelEtiket.Core\AkelEtiket.Core.csproj" />
+    <ProjectReference Include="..\..\src\AkelEtiket.Editor\AkelEtiket.Editor.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" />
+    <PackageReference Include="SkiaSharp" />
+  </ItemGroup>
+</Project>

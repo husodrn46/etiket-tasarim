@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Editör: arayüzden bağımsız görünüm modelleri (MVVM), seçim, geri al/ileri al, hizalama, toplu baskı akışı -->
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AkelEtiket.Core\AkelEtiket.Core.csproj" />
+    <ProjectReference Include="..\AkelEtiket.BarcodeEngine\AkelEtiket.BarcodeEngine.csproj" />
+    <ProjectReference Include="..\AkelEtiket.ImageProcessor\AkelEtiket.ImageProcessor.csproj" />
+    <ProjectReference Include="..\AkelEtiket.Rendering\AkelEtiket.Rendering.csproj" />
+    <ProjectReference Include="..\AkelEtiket.PrintEngine\AkelEtiket.PrintEngine.csproj" />
+    <ProjectReference Include="..\AkelEtiket.DataImport\AkelEtiket.DataImport.csproj" />
+    <ProjectReference Include="..\AkelEtiket.ProjectManager\AkelEtiket.ProjectManager.csproj" />
+    <ProjectReference Include="..\AkelEtiket.Gs1\AkelEtiket.Gs1.csproj" />
+    <ProjectReference Include="..\AkelEtiket.Design\AkelEtiket.Design.csproj" />
+    <ProjectReference Include="..\AkelEtiket.Assistant\AkelEtiket.Assistant.csproj" />
+    <ProjectReference Include="..\AkelEtiket.LocalApi\AkelEtiket.LocalApi.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="AkelEtiket.Tests" />
+  </ItemGroup>
+</Project>

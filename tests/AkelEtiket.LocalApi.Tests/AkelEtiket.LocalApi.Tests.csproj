@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Yerel API (kimlik, Host denetimi, araç çağrıları, sürüm çakışması) ve uçtan uca MCP (stdio köprüsü + Worker) testleri -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+    <PackageReference Include="ModelContextProtocol" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AkelEtiket.LocalApi\AkelEtiket.LocalApi.csproj" />
+    <!-- Uçtan uca testler derlenmiş exe'leri çalıştırır; derleme sırası için başvurulur. -->
+    <ProjectReference Include="..\..\src\AkelEtiket.Mcp\AkelEtiket.Mcp.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\..\src\AkelEtiket.Worker\AkelEtiket.Worker.csproj" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+</Project>

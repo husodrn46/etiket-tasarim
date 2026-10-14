@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <title>Bu taraf yukarı</title>
+  <line x1="34" y1="80" x2="34" y2="30" fill="none" stroke="#000" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="34,10 45,32 23,32" fill="#000" stroke="none"/>
+  <line x1="66" y1="80" x2="66" y2="30" fill="none" stroke="#000" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="66,10 77,32 55,32" fill="#000" stroke="none"/>
+  <line x1="16" y1="90" x2="84" y2="90" fill="none" stroke="#000" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,108 @@
+<views:ThemedWindow x:Class="AkelEtiket.App.Views.CalibrationWindow"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:views="clr-namespace:AkelEtiket.App.Views"
+                    xmlns:controls="clr-namespace:AkelEtiket.App.Controls"
+                    Title="Kalibrasyon yardımcısı" Width="760" Height="800" MinWidth="640" MinHeight="560" ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
+        <Style x:Key="Step" TargetType="TextBlock" BasedOn="{StaticResource Text.Section}">
+            <Setter Property="Margin" Value="0,14,0,6" />
+        </Style>
+        <Style x:Key="Unit" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource Brush.TextSecondary}" />
+            <Setter Property="FontSize" Value="11.5" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="6,0,0,0" />
+        </Style>
+    </Window.Resources>
+    <DockPanel Margin="22,16,22,14">
+        <StackPanel DockPanel.Dock="Top">
+            <TextBlock Text="Kalibrasyon yardımcısı" Style="{StaticResource Text.Title}" FontSize="18" />
+            <TextBlock Style="{StaticResource Text.Hint}" Margin="0,4,0,0" TextWrapping="Wrap">
+                <Run Text="{Binding PrinterText, Mode=OneWay}" FontWeight="SemiBold" />
+                <Run Text=" · " />
+                <Run Text="{Binding LabelText, Mode=OneWay}" />
+            </TextBlock>
+            <TextBlock Style="{StaticResource Text.Hint}" Foreground="{DynamicResource Brush.Warning}" TextWrapping="Wrap" Margin="0,6,0,0"
+                       Text="Ofsetler yalnızca TSPL doğrudan yönteminde uygulanır. Windows sürücüsü yönteminde kaydırmayı sürücünün kağıt ayarlarından yapın."
+                       Visibility="{Binding IsTspl, Converter={StaticResource BoolToVisibility}, ConverterParameter=Invert}" />
+        </StackPanel>
+
+        <DockPanel DockPanel.Dock="Bottom" Margin="0,12,0,0">
+            <Button DockPanel.Dock="Right" Content="Kapat" MinWidth="96" IsCancel="True" Click="OnClose" />
+            <TextBlock Text="{Binding Status}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,16,0" FontWeight="SemiBold"
+                       Foreground="{DynamicResource Brush.Info}" />
+        </DockPanel>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Margin="0,0,10,0">
+                <!-- 1. Sensör -->
+                <TextBlock Text="1. ETİKET SENSÖRÜ (İSTEĞE BAĞLI)" Style="{StaticResource Step}" />
+                <TextBlock Text="{Binding SensorText}" TextWrapping="Wrap" FontSize="12.5" />
+                <Button Content="Sensör kalibrasyonu gönder…" Command="{Binding DetectSensorCommand}" HorizontalAlignment="Left" Margin="0,8,0,0" Padding="12,4"
+                        IsEnabled="{Binding CanDetectSensor}" ToolTip="Onay sorulur; yazıcı birkaç etiket ilerletir" />
+
+                <!-- 2. Kalibrasyon etiketi -->
+                <TextBlock Text="2. KALİBRASYON ETİKETİNİ BAS" Style="{StaticResource Step}" />
+                <TextBlock TextWrapping="Wrap" FontSize="12.5"
+                           Text="Etiket ölçüsünde bir cetvel etiketi basılır: her kenarda milimetre cetveli, kenarlardan tam 2 mm içeride bir çerçeve, ortada artı işareti, &quot;▲ ÜST&quot; işareti ve ölçü bilgisi. Baskı penceresindeki yoğunluk, hız, yön ve ofset ayarları kullanılır; gönderimden önce onay sorulur." />
+                <Button Content="Kalibrasyon etiketini bas…" Command="{Binding PrintLabelCommand}" HorizontalAlignment="Left" Margin="0,8,0,0" Padding="12,4" />
+
+                <!-- 3. Yön -->
+                <TextBlock Text="3. YÖNÜ KONTROL ET" Style="{StaticResource Step}" />
+                <TextBlock TextWrapping="Wrap" FontSize="12.5"
+                           Text="Etiket yazıcıdan çıkarken &quot;▲ ÜST&quot; işareti istediğiniz tarafı gösteriyor mu? Ters çıkıyorsa baskı yönünü değiştirin; yön değişince kayma da değişeceği için etiketi yeniden basıp ölçün." />
+                <TextBlock Text="{Binding DirectionText}" Style="{StaticResource Text.Hint}" Margin="0,6,0,0" />
+                <Button Content="Yön ters — 180° çevir" Command="{Binding FlipDirectionCommand}" HorizontalAlignment="Left" Margin="0,8,0,0" Padding="12,4" />
+
+                <!-- 4. Ölçüm -->
+                <TextBlock Text="4. KAYMAYI ÖLÇ VE KAYDET" Style="{StaticResource Step}" />
+                <TextBlock TextWrapping="Wrap" FontSize="12.5"
+                           Text="Etiketi &quot;▲ ÜST&quot; yukarıda olacak şekilde tutun. Cetvelle etiketin sol kenarından çerçevenin dış çizgisine ve üst kenarından çerçevenin dış çizgisine olan uzaklığı ölçün. Kayma yoksa iki değer de 2 mm'dir." />
+                <Grid Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="230" />
+                        <ColumnDefinition Width="90" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="8" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Sol kenar → çerçeve" Style="{StaticResource Text.Label}" />
+                    <controls:NumberBox Grid.Column="1" Value="{Binding MeasuredLeftMm}" Minimum="0" Maximum="50" Step="0.25" Decimals="2" />
+                    <TextBlock Grid.Column="2" Text="mm" Style="{StaticResource Unit}" />
+                    <TextBlock Grid.Row="2" Text="Üst kenar (▲ ÜST tarafı) → çerçeve" Style="{StaticResource Text.Label}" />
+                    <controls:NumberBox Grid.Row="2" Grid.Column="1" Value="{Binding MeasuredTopMm}" Minimum="0" Maximum="50" Step="0.25" Decimals="2" />
+                    <TextBlock Grid.Row="2" Grid.Column="2" Text="mm" Style="{StaticResource Unit}" />
+                </Grid>
+                <Border Style="{StaticResource Border.Card}" Padding="12,9" Margin="0,12,0,0">
+                    <StackPanel>
+                        <TextBlock FontSize="12.5">
+                            <Run Text="Şu anki ofset (sağ / aşağı):" />
+                            <Run Text="{Binding CurrentOffsetXMm, Mode=OneWay, StringFormat={}{0:0.###}}" FontWeight="SemiBold" />
+                            <Run Text="/" />
+                            <Run Text="{Binding CurrentOffsetYMm, Mode=OneWay, StringFormat={}{0:0.###}}" FontWeight="SemiBold" />
+                            <Run Text="mm" />
+                        </TextBlock>
+                        <TextBlock FontSize="12.5" Margin="0,4,0,0">
+                            <Run Text="Yeni ofset (sağ / aşağı):" />
+                            <Run Text="{Binding NewOffsetXMm, Mode=OneWay, StringFormat={}{0:0.###}}" FontWeight="SemiBold" />
+                            <Run Text="/" />
+                            <Run Text="{Binding NewOffsetYMm, Mode=OneWay, StringFormat={}{0:0.###}}" FontWeight="SemiBold" />
+                            <Run Text="mm" />
+                        </TextBlock>
+                        <TextBlock Text="{Binding ShiftText}" Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="0,6,0,0" />
+                        <TextBlock Text="{Binding TargetProfileText}" Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="0,4,0,0" />
+                    </StackPanel>
+                </Border>
+                <Button Content="Ofsetleri uygula ve profile kaydet" Command="{Binding ApplyCommand}" Style="{StaticResource Button.Accent}"
+                        HorizontalAlignment="Left" Margin="0,10,0,0" Padding="14,5" />
+                <TextBlock Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="0,8,0,0"
+                           Text="Uyguladıktan sonra kalibrasyon etiketini yeniden basıp çerçevenin her yandan 2 mm içeride çıktığını kontrol edin. 1 nokta (203 DPI'da 0,125 mm) altındaki farklar düzeltilemez." />
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</views:ThemedWindow>

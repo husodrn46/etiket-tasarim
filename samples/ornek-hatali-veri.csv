@@ -1,0 +1,17 @@
+﻿UrunKodu;UrunAdi;Barkod;Fiyat;Adet
+DEMO003;Yemek Tabağı 27 cm - Beyaz;8691234100035;532,00;2
+DEMO004;Pilav Tabağı 24 cm - Krem;8691234100042;372,50;2
+DEMO005;Çorba Kasesi 15 cm - İnci Beyazı;8691234100059;330,50;2
+DEMO006;Salata Kasesi 20 cm - Ahşap Desen;8691234100066;69,00;3
+DEMO007;Pasta Tabağı 19 cm - Mermer Desen;8691234100073;325,00;1
+DEMO008;Çay Tabağı 13 cm - Çiçek Desenli;8691234100080;52,50;2
+DEMO009;Oval Servis Tabağı 36 cm - Siyah;8691234100097;113,50;2
+DEMO010;Kayık Tabak 30 cm - Gökkuşağı;8691234100103;567,90;2
+DEMO011;Meze Tabağı 4 Bölmeli - Lacivert Şerit;8691234100110;486,90;1
+DEMO012;Kahvaltılık 6 Gözlü - Bakır Yaldız;8691234100127;412,50;1
+HTL01;Bilimsel Gösterime Dönmüş Barkod;8,69123E+12;45,00;1
+HTL02;Baştaki Sıfırları Kaybolmuş Barkod;12345678905;52,50;1
+HTL03;Harf İçeren Barkod;86912345ABC90;38,90;2
+HTL04;Eksik Haneli Barkod;869123456;61,00;1
+HTL05;Boş Barkod;;27,50;3
+HTL06;Kontrol Basamağı Hatalı Barkod;8691234567891;160,00;1

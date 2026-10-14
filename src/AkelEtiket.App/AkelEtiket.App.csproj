@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Etiket Tasarım — WPF masaüstü uygulaması (görünümler, tuval kontrolü, platform servisleri) -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>Etiket Tasarim</AssemblyName>
+    <RootNamespace>AkelEtiket.App</RootNamespace>
+    <ApplicationIcon>Assets\AkelEtiket.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyTitle>Etiket Tasarım</AssemblyTitle>
+    <Description>Çevrimdışı etiket ve barkod tasarım uygulaması</Description>
+    <InvariantGlobalization>false</InvariantGlobalization>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AkelEtiket.Editor\AkelEtiket.Editor.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\AkelEtiket.ico" />
+    <Resource Include="Assets\AkelEtiket-256.png" />
+  </ItemGroup>
+</Project>

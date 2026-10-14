@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Görsel işleme: yükleme, gri tonlama, ayarlar, eşikleme ve dithering ile 1-bit dönüşüm -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AkelEtiket.Core\AkelEtiket.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" />
+    <!-- SVG desteği (MIT). SkiaSharp 3.119.4 ile çalışma zamanında doğrulandı; dış kaynak çözümleme kapalı. -->
+    <PackageReference Include="Svg.Skia" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="AkelEtiket.ImageProcessor.Tests" />
+    <InternalsVisibleTo Include="AkelEtiket.Tests" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Ortak render motoru: ekran önizlemesi ve baskı aynı 1-bit çıktıyı buradan alır -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AkelEtiket.Core\AkelEtiket.Core.csproj" />
+    <ProjectReference Include="..\AkelEtiket.BarcodeEngine\AkelEtiket.BarcodeEngine.csproj" />
+    <ProjectReference Include="..\AkelEtiket.ImageProcessor\AkelEtiket.ImageProcessor.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Hazır simgeler (SVG): AkelEtiket.Rendering.Symbols.<anahtar>.svg -->
+    <EmbeddedResource Include="Symbols\*.svg" LogicalName="AkelEtiket.Rendering.Symbols.%(Filename)%(Extension)" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="AkelEtiket.Tests" />
+    <InternalsVisibleTo Include="AkelEtiket.Rendering.Tests" />
+  </ItemGroup>
+</Project>

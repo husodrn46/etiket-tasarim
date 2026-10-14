@@ -1,0 +1,16 @@
+{
+  "files": 420,
+  "excluded": [
+    "docs/KURULUM.md",
+    "docs/RAPOR-v1.md",
+    "docs/RAPOR.md",
+    "docs/V2-PLAN.md",
+    "docs/XP-470B-KURULUM-VE-TEST.md",
+    "docs/YAPAY-ZEKA-BAGLANTI.md",
+    "src/AkelEtiket.App/Assets/akel-logo.png",
+    "src/AkelEtiket.Design/Assets/akel-logo.png"
+  ],
+  "findings": [],
+  "historyIncluded": false,
+  "published": false
+}

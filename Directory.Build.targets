@@ -1,0 +1,13 @@
+<Project>
+  <!--
+    SkiaSharp/HarfBuzzSharp yerel paketlerindeki .pdb dosyaları (~100 MB) derleme/yayın çıktısına
+    kopyalanmasın. Uygulamanın kendi .pdb dosyaları etkilenmez.
+  -->
+  <Target Name="AkelRemoveNativePdbs" AfterTargets="ResolvePackageAssets">
+    <ItemGroup>
+      <NativeCopyLocalItems Remove="@(NativeCopyLocalItems)" Condition="'%(Extension)' == '.pdb'" />
+      <RuntimeCopyLocalItems Remove="@(RuntimeCopyLocalItems)" Condition="'%(Extension)' == '.pdb'" />
+      <ResourceCopyLocalItems Remove="@(ResourceCopyLocalItems)" Condition="'%(Extension)' == '.pdb'" />
+    </ItemGroup>
+  </Target>
+</Project>

@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Çekirdek, barkod, render, proje ve editör testleri -->
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AkelEtiket.Core\AkelEtiket.Core.csproj" />
+    <ProjectReference Include="..\..\src\AkelEtiket.BarcodeEngine\AkelEtiket.BarcodeEngine.csproj" />
+    <ProjectReference Include="..\..\src\AkelEtiket.ImageProcessor\AkelEtiket.ImageProcessor.csproj" />
+    <ProjectReference Include="..\..\src\AkelEtiket.Rendering\AkelEtiket.Rendering.csproj" />
+    <ProjectReference Include="..\..\src\AkelEtiket.PrintEngine\AkelEtiket.PrintEngine.csproj" />
+    <ProjectReference Include="..\..\src\AkelEtiket.DataImport\AkelEtiket.DataImport.csproj" />
+    <ProjectReference Include="..\..\src\AkelEtiket.ProjectManager\AkelEtiket.ProjectManager.csproj" />
+    <ProjectReference Include="..\..\src\AkelEtiket.Editor\AkelEtiket.Editor.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+</Project>

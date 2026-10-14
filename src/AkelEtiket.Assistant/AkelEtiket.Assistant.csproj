@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Uygulama içi yapay zekâ asistanı: sağlayıcıdan bağımsız model katmanı (Anthropic, OpenAI uyumlu/yerel) ve araç döngüsü -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AkelEtiket.Design\AkelEtiket.Design.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="AkelEtiket.Assistant.Tests" />
+    <InternalsVisibleTo Include="AkelEtiket.Tests" />
+  </ItemGroup>
+</Project>

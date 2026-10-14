@@ -1,0 +1,273 @@
+<views:ThemedWindow x:Class="AkelEtiket.App.Views.MainWindow"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:views="clr-namespace:AkelEtiket.App.Views"
+                    xmlns:controls="clr-namespace:AkelEtiket.App.Controls"
+                    Title="{Binding WindowTitle}" Icon="/Assets/AkelEtiket.ico"
+                    MinWidth="1080" MinHeight="660" Width="1440" Height="900"
+                    WindowStartupLocation="CenterScreen" AllowDrop="True">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- ───────────── Üst araç çubuğu ───────────── -->
+        <Border Background="{DynamicResource Brush.Toolbar}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,0,1">
+            <DockPanel Height="52" Margin="12,0,10,0" LastChildFill="True">
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Image Source="/Assets/AkelEtiket-256.png" Width="26" Height="26" RenderOptions.BitmapScalingMode="HighQuality" />
+                    <TextBlock Text="Etiket Tasarım" FontWeight="SemiBold" FontSize="14.5" Margin="9,0,14,0" VerticalAlignment="Center" />
+                    <Separator Style="{StaticResource Separator.Vertical}" />
+
+                    <Button Style="{StaticResource Button.Toolbar}" Command="{Binding NewCommand}" ToolTip="Yeni etiket (Ctrl+N)">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.New}" />
+                            <TextBlock Text="Yeni" Margin="6,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource Button.Toolbar}" Command="{Binding OpenCommand}" ToolTip="Proje aç (Ctrl+O)">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Open}" />
+                            <TextBlock Text="Aç" Margin="6,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="RecentButton" Style="{StaticResource Button.Icon}" Width="22" ToolTip="Son kullanılanlar" Click="OnRecentClick">
+                        <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.ChevronDown}" FontSize="10" />
+                    </Button>
+                    <Button Style="{StaticResource Button.Toolbar}" Command="{Binding SaveDocumentCommand}" ToolTip="Kaydet (Ctrl+S)">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Save}" />
+                            <TextBlock Text="Kaydet" Margin="6,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="MoreFileButton" Style="{StaticResource Button.Icon}" Width="22" ToolTip="Farklı kaydet, şablon, PNG/PDF, baskı geçmişi, sayaçlar, veri kaynağı" Click="OnMoreFileClick">
+                        <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.ChevronDown}" FontSize="10" />
+                    </Button>
+                    <Separator Style="{StaticResource Separator.Vertical}" />
+                    <Button Style="{StaticResource Button.Icon}" Command="{Binding UndoCommand}" ToolTip="Geri al (Ctrl+Z)">
+                        <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Undo}" />
+                    </Button>
+                    <Button x:Name="UndoHistoryButton" Style="{StaticResource Button.Icon}" Width="22" ToolTip="Geri alma geçmişi: listeden bir noktaya dönün" Click="OnUndoHistoryClick">
+                        <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.ChevronDown}" FontSize="10" />
+                    </Button>
+                    <Button Style="{StaticResource Button.Icon}" Command="{Binding RedoCommand}" ToolTip="İleri al (Ctrl+Y)">
+                        <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Redo}" />
+                    </Button>
+                    <Separator Style="{StaticResource Separator.Vertical}" />
+                    <Button Style="{StaticResource Button.Icon}" Command="{Binding CutCommand}" ToolTip="Kes (Ctrl+X)">
+                        <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Cut}" />
+                    </Button>
+                    <Button Style="{StaticResource Button.Icon}" Command="{Binding CopyCommand}" ToolTip="Kopyala (Ctrl+C)">
+                        <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Copy}" />
+                    </Button>
+                    <Button Style="{StaticResource Button.Icon}" Command="{Binding PasteCommand}" ToolTip="Yapıştır (Ctrl+V)">
+                        <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Paste}" />
+                    </Button>
+                    <Separator Style="{StaticResource Separator.Vertical}" />
+                    <Button Style="{StaticResource Button.Toolbar}" Command="{Binding LabelSetupCommand}" ToolTip="Etiket ölçüsü ve medya">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Ruler}" />
+                            <TextBlock Text="{Binding LabelSizeText}" Margin="6,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Style="{StaticResource Button.Icon}" Command="{Binding ZoomOutCommand}" ToolTip="Uzaklaştır (Ctrl −)">
+                        <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.ZoomOut}" />
+                    </Button>
+                    <Button Style="{StaticResource Button.Toolbar}" MinWidth="58" Command="{Binding ZoomActualSizeCommand}" ToolTip="Gerçek boyut (%100 = fiziksel ölçü) (Ctrl+1)">
+                        <TextBlock Text="{Binding ZoomText}" />
+                    </Button>
+                    <Button Style="{StaticResource Button.Icon}" Command="{Binding ZoomInCommand}" ToolTip="Yakınlaştır (Ctrl +)">
+                        <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.ZoomIn}" />
+                    </Button>
+                    <Button Style="{StaticResource Button.Icon}" Command="{Binding ZoomFitCommand}" ToolTip="Pencereye sığdır (Ctrl+0)">
+                        <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Fit}" />
+                    </Button>
+                    <Separator Style="{StaticResource Separator.Vertical}" />
+                    <Button Style="{StaticResource Button.Icon}" Click="OnToggleGrid" ToolTip="Izgarayı göster/gizle">
+                        <Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.Grid}" />
+                    </Button>
+                    <Button Style="{StaticResource Button.Icon}" Click="OnToggleSnap" ToolTip="Yakalamayı aç/kapat (taşırken Alt: geçici kapat)">
+                        <Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.Magnet}" />
+                    </Button>
+                    <Button Style="{StaticResource Button.Icon}" Command="{Binding ToggleThemeCommand}" ToolTip="Açık / koyu tema">
+                        <TextBlock x:Name="ThemeGlyph" Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Sun}" />
+                    </Button>
+                    <Button Style="{StaticResource Button.Icon}" Command="{Binding OpenSettingsCommand}" AutomationProperties.AutomationId="OpenGeneralSettings" AutomationProperties.Name="Ayarlar" ToolTip="Ayarlar">
+                        <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Settings}" />
+                    </Button>
+                    <Button x:Name="HelpButton" Style="{StaticResource Button.Icon}" Click="OnHelpClick" ToolTip="Yardım (F1), yedekler, destek paketi">
+                        <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Info}" />
+                    </Button>
+                    <Separator Style="{StaticResource Separator.Vertical}" />
+                    <Button Style="{StaticResource Button.Toolbar}" Command="{Binding ToggleAiPanelCommand}"
+                            ToolTip="Yapay Zekâ paneli: öneriler, uygulama içi asistan, bağlantı durumu">
+                        <Grid>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Ai}" />
+                                <TextBlock Text="Yapay Zekâ" Margin="6,0,0,0" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <Border HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-6,-10,0" MinWidth="16" Height="16" CornerRadius="8"
+                                    Background="{DynamicResource Brush.Warning}" Padding="4,0"
+                                    Visibility="{Binding Ai.PendingCount, Converter={StaticResource PositiveToVisibility}}"
+                                    ToolTip="Onay bekleyen yapay zekâ önerisi">
+                                <TextBlock Text="{Binding Ai.PendingCount}" FontSize="10" FontWeight="Bold" Foreground="Black"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </Grid>
+                    </Button>
+                    <Separator Style="{StaticResource Separator.Vertical}" />
+                    <Button Style="{StaticResource Button.Toolbar}" Command="{Binding OpenQuickPrintCommand}"
+                            ToolTip="Hızlı Baskı: şablon seç, ürünü ara veya barkodu okut, adeti yaz, yazdır (Ctrl+Shift+P)">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Label}" />
+                            <TextBlock Text="Hızlı Baskı" Margin="6,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource Button.Toolbar}" Command="{Binding PreviewCommand}" ToolTip="Baskı önizlemesi (gerçek çözünürlük)">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Preview}" />
+                            <TextBlock Text="Önizleme" Margin="6,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource Button.Accent}" Command="{Binding PrintCommand}" Margin="6,0,0,0" Padding="14,6" ToolTip="Yazdır (Ctrl+P)">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Print}" />
+                            <TextBlock Text="Yazdır" Margin="7,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                <Border />
+            </DockPanel>
+        </Border>
+
+        <!-- ───────────── Ana alan ───────────── -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="76" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="340" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Sol gezinme şeridi -->
+            <Border Background="{DynamicResource Brush.Toolbar}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,1,0">
+                <StackPanel Margin="0,8,0,0">
+                    <RadioButton Style="{StaticResource Radio.Rail}" GroupName="Rail" Click="OnRailClick" ToolTip="Metin ekle"
+                                 IsChecked="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter=Text}">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource Text.Glyph}" FontSize="19" Text="{StaticResource Glyph.Text}" />
+                            <TextBlock Text="Metin" FontSize="11" Margin="0,4,0,0" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource Radio.Rail}" GroupName="Rail" Click="OnRailClick" ToolTip="Barkod ekle"
+                                 IsChecked="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter=Barcode}">
+                        <StackPanel>
+                            <Path Style="{StaticResource Path.Icon}" Width="19" Height="19" Data="{StaticResource Icon.Barcode}" />
+                            <TextBlock Text="Barkod" FontSize="11" Margin="0,4,0,0" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource Radio.Rail}" GroupName="Rail" Click="OnRailClick" ToolTip="QR kod, Data Matrix, PDF417"
+                                 IsChecked="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter=QrCode}">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource Text.Glyph}" FontSize="19" Text="{StaticResource Glyph.QrCode}" />
+                            <TextBlock Text="QR Kod" FontSize="11" Margin="0,4,0,0" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource Radio.Rail}" GroupName="Rail" Click="OnRailClick" ToolTip="Görsel ekle"
+                                 IsChecked="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter=Image}">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource Text.Glyph}" FontSize="19" Text="{StaticResource Glyph.Image}" />
+                            <TextBlock Text="Görsel" FontSize="11" Margin="0,4,0,0" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource Radio.Rail}" GroupName="Rail" Click="OnRailClick" ToolTip="Şekil ekle"
+                                 IsChecked="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter=Shapes}">
+                        <StackPanel>
+                            <Path Style="{StaticResource Path.Icon}" Width="19" Height="19" Data="{StaticResource Icon.Shapes}" />
+                            <TextBlock Text="Şekil" FontSize="11" Margin="0,4,0,0" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </RadioButton>
+                    <Rectangle Height="1" Margin="14,8" Fill="{DynamicResource Brush.Border}" />
+                    <RadioButton Style="{StaticResource Radio.Rail}" GroupName="Rail" Click="OnRailClick" ToolTip="Şablonlar"
+                                 IsChecked="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter=Templates}">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource Text.Glyph}" FontSize="19" Text="{StaticResource Glyph.Templates}" />
+                            <TextBlock Text="Şablonlar" FontSize="11" Margin="0,4,0,0" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource Radio.Rail}" GroupName="Rail" Click="OnRailClick" ToolTip="Veri kaynakları (Excel / CSV)"
+                                 IsChecked="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter=Data}">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource Text.Glyph}" FontSize="19" Text="{StaticResource Glyph.Data}" />
+                            <TextBlock Text="Veri" FontSize="11" Margin="0,4,0,0" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource Radio.Rail}" GroupName="Rail" Click="OnRailClick" ToolTip="Katmanlar"
+                                 IsChecked="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter=Layers}">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource Text.Glyph}" FontSize="19" Text="{StaticResource Glyph.Layers}" />
+                            <TextBlock Text="Katmanlar" FontSize="11" Margin="0,4,0,0" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </RadioButton>
+                </StackPanel>
+            </Border>
+
+            <!-- Sol panel -->
+            <views:LeftPanel x:Name="LeftPanelHost" Grid.Column="1" Width="300"
+                             Visibility="{Binding IsPanelOpen, Converter={StaticResource BoolToVisibility}}" />
+
+            <!-- Tuval -->
+            <Grid Grid.Column="2" Background="{DynamicResource Brush.Workspace}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border x:Name="RulerCorner" Width="22" Height="22" Background="{DynamicResource Brush.Ruler}"
+                        BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,1,1">
+                    <TextBlock Text="mm" FontSize="8.5" Foreground="{DynamicResource Brush.RulerText}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <controls:RulerControl x:Name="TopRuler" Grid.Column="1" Height="22" Orientation="Horizontal" Surface="{Binding ElementName=Surface}" />
+                <controls:RulerControl x:Name="LeftRuler" Grid.Row="1" Width="22" Orientation="Vertical" Surface="{Binding ElementName=Surface}" />
+                <ScrollViewer x:Name="CanvasScroll" Grid.Row="1" Grid.Column="1" HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto" Focusable="False" ScrollChanged="OnCanvasScrollChanged">
+                    <controls:DesignSurface x:Name="Surface" ViewModel="{Binding}" Zoom="{Binding Zoom}" />
+                </ScrollViewer>
+                <Border Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="14,0,0,14"
+                        Background="{DynamicResource Brush.Panel}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="1"
+                        CornerRadius="8" Padding="10,5" Opacity="0.92" IsHitTestVisible="False">
+                    <TextBlock FontSize="11.5" Foreground="{DynamicResource Brush.TextSecondary}"
+                               Text="Tuvalde görünen siyah-beyaz noktalar baskıyla birebir aynıdır." />
+                </Border>
+            </Grid>
+
+            <Rectangle Grid.Column="3" Width="1" Fill="{DynamicResource Brush.Border}" />
+
+            <!-- Özellikler / Yapay Zekâ -->
+            <views:PropertiesPanel x:Name="Properties" Grid.Column="4"
+                                   Visibility="{Binding IsAiPanelOpen, Converter={StaticResource BoolToVisibility}, ConverterParameter=Invert}" />
+            <views:AiPanel x:Name="AiPanelHost" Grid.Column="4" DataContext="{Binding Ai}"
+                           Visibility="{Binding DataContext.IsAiPanelOpen, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibility}}" />
+        </Grid>
+
+        <!-- ───────────── Durum çubuğu ───────────── -->
+        <Border Grid.Row="2" Background="{DynamicResource Brush.Toolbar}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,1,0,0">
+            <DockPanel Height="27" Margin="14,0">
+                <TextBlock DockPanel.Dock="Right" Text="{Binding ZoomText}" Foreground="{DynamicResource Brush.TextSecondary}" FontSize="12" VerticalAlignment="Center" />
+                <TextBlock DockPanel.Dock="Right" Text="{Binding LabelSizeText}" Foreground="{DynamicResource Brush.TextSecondary}" FontSize="12" Margin="0,0,22,0" VerticalAlignment="Center" />
+                <TextBlock DockPanel.Dock="Right" Text="{Binding CursorText}" Foreground="{DynamicResource Brush.TextSecondary}" FontSize="12" Margin="0,0,22,0" VerticalAlignment="Center" MinWidth="130" />
+                <TextBlock DockPanel.Dock="Right" Text="{Binding SelectionText}" Foreground="{DynamicResource Brush.TextSecondary}" FontSize="12" Margin="0,0,22,0" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding StatusMessage}" FontSize="12" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+            </DockPanel>
+        </Border>
+    </Grid>
+</views:ThemedWindow>

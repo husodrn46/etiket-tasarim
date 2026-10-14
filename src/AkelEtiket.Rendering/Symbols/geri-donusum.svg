@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <title>Geri dönüştürülebilir</title>
+  <line x1="55.99" y1="20.4" x2="77.02" y2="56.93" fill="none" stroke="#000" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="83.01,67.33 68.09,57.46 81.96,49.48" fill="#000" stroke="none"/>
+  <line x1="76" y1="76" x2="34" y2="76" fill="none" stroke="#000" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="22,76 38,68 38,84" fill="#000" stroke="none"/>
+  <line x1="17.99" y1="65.6" x2="39.02" y2="29.07" fill="none" stroke="#000" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="45.01,18.67 43.96,36.52 30.09,28.54" fill="#000" stroke="none"/>
+</svg>

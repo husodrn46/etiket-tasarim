@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Etiket Tasarım MCP sunucusu (stdio): Claude Desktop/Claude Code gibi istemcileri yerel API'ye bağlar -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>AkelEtiket.Mcp</AssemblyName>
+    <RootNamespace>AkelEtiket.Mcp</RootNamespace>
+    <ApplicationIcon>..\AkelEtiket.App\Assets\AkelEtiket.ico</ApplicationIcon>
+    <AssemblyTitle>Etiket Tasarım MCP sunucusu</AssemblyTitle>
+    <InvariantGlobalization>false</InvariantGlobalization>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AkelEtiket.Core\AkelEtiket.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ModelContextProtocol" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="AkelEtiket.LocalApi.Tests" />
+  </ItemGroup>
+</Project>

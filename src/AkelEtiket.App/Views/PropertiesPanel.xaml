@@ -1,0 +1,677 @@
+<UserControl x:Class="AkelEtiket.App.Views.PropertiesPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:views="clr-namespace:AkelEtiket.App.Views"
+             xmlns:controls="clr-namespace:AkelEtiket.App.Controls"
+             xmlns:geo="clr-namespace:AkelEtiket.Core.Geometry;assembly=AkelEtiket.Core"
+             xmlns:model="clr-namespace:AkelEtiket.Core.Model;assembly=AkelEtiket.Core">
+    <UserControl.Resources>
+        <Style x:Key="FieldLabel" TargetType="TextBlock" BasedOn="{StaticResource Text.Label}">
+            <Setter Property="Margin" Value="0,0,8,0" />
+        </Style>
+        <Style x:Key="Row" TargetType="Grid">
+            <Setter Property="Margin" Value="0,0,0,8" />
+        </Style>
+        <Style x:Key="Unit" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource Brush.TextSecondary}" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="5,0,0,0" />
+        </Style>
+
+        <!-- ───────── METİN ───────── -->
+        <DataTemplate x:Key="TextTemplate">
+            <StackPanel>
+                <Expander Header="METİN">
+                    <StackPanel>
+                        <TextBox Tag="ContentEditor" Style="{StaticResource TextBox.Multiline}"
+                                 Text="{Binding Model.Text, UpdateSourceTrigger=PropertyChanged}" FontSize="13.5" />
+                        <TextBlock Style="{StaticResource Text.Hint}" Margin="0,5,0,8" Text="{}{SütunAdı} ile veri bağlayın; {TARIH}, {SAAT}, {SIRA} yerleşik alanlardır." />
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="8" />
+                                <ColumnDefinition Width="74" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox IsEditable="True" IsTextSearchEnabled="True" ToolTip="Yazı tipi"
+                                      ItemsSource="{Binding DataContext.FontFamilies, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                      Text="{Binding Model.FontFamily, UpdateSourceTrigger=PropertyChanged, Delay=400}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" FontFamily="{Binding}" FontSize="13" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <controls:NumberBox Grid.Column="2" Value="{Binding Model.FontSize}" Minimum="2" Maximum="500" Step="1" Decimals="1" ToolTip="Yazı boyutu (punto)" />
+                            <TextBlock Grid.Column="3" Text="pt" Style="{StaticResource Unit}" />
+                        </Grid>
+                        <WrapPanel Margin="0,0,0,8">
+                            <ToggleButton Style="{StaticResource Toggle.Icon}" IsChecked="{Binding Model.Bold}" ToolTip="Kalın" Margin="0,0,4,0">
+                                <TextBlock Text="K" FontWeight="Bold" FontSize="14" />
+                            </ToggleButton>
+                            <ToggleButton Style="{StaticResource Toggle.Icon}" IsChecked="{Binding Model.Italic}" ToolTip="İtalik" Margin="0,0,4,0">
+                                <TextBlock Text="T" FontStyle="Italic" FontSize="14" FontFamily="Times New Roman" />
+                            </ToggleButton>
+                            <ToggleButton Style="{StaticResource Toggle.Icon}" IsChecked="{Binding Model.Underline}" ToolTip="Altı çizili" Margin="0,0,12,0">
+                                <TextBlock Text="A" TextDecorations="Underline" FontSize="14" />
+                            </ToggleButton>
+                            <RadioButton Style="{StaticResource Radio.Segment}" GroupName="{Binding Id, StringFormat=h{0}}" ToolTip="Sola hizala"
+                                         IsChecked="{Binding Model.HorizontalAlignment, Converter={StaticResource EqualsConverter}, ConverterParameter=Left}">
+                                <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.TextLeft}" FontSize="14" />
+                            </RadioButton>
+                            <RadioButton Style="{StaticResource Radio.Segment}" GroupName="{Binding Id, StringFormat=h{0}}" ToolTip="Ortala"
+                                         IsChecked="{Binding Model.HorizontalAlignment, Converter={StaticResource EqualsConverter}, ConverterParameter=Center}">
+                                <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.TextCenter}" FontSize="14" />
+                            </RadioButton>
+                            <RadioButton Style="{StaticResource Radio.Segment}" GroupName="{Binding Id, StringFormat=h{0}}" ToolTip="Sağa hizala"
+                                         IsChecked="{Binding Model.HorizontalAlignment, Converter={StaticResource EqualsConverter}, ConverterParameter=Right}">
+                                <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.TextRight}" FontSize="14" />
+                            </RadioButton>
+                        </WrapPanel>
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="92" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Dikey" Style="{StaticResource FieldLabel}" />
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <RadioButton Style="{StaticResource Radio.Segment}" GroupName="{Binding Id, StringFormat=v{0}}" Content="Üst"
+                                             IsChecked="{Binding Model.VerticalAlignment, Converter={StaticResource EqualsConverter}, ConverterParameter=Top}" />
+                                <RadioButton Style="{StaticResource Radio.Segment}" GroupName="{Binding Id, StringFormat=v{0}}" Content="Orta"
+                                             IsChecked="{Binding Model.VerticalAlignment, Converter={StaticResource EqualsConverter}, ConverterParameter=Middle}" />
+                                <RadioButton Style="{StaticResource Radio.Segment}" GroupName="{Binding Id, StringFormat=v{0}}" Content="Alt"
+                                             IsChecked="{Binding Model.VerticalAlignment, Converter={StaticResource EqualsConverter}, ConverterParameter=Bottom}" />
+                            </StackPanel>
+                        </Grid>
+                        <CheckBox Content="Satırları kaydır" IsChecked="{Binding Model.WordWrap}" />
+                        <CheckBox Content="Kutuya sığdır (yazıyı otomatik küçült)" IsChecked="{Binding Model.AutoShrink}" />
+                        <Grid Style="{StaticResource Row}" Margin="0,6,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="92" />
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Satır aralığı" Style="{StaticResource FieldLabel}" />
+                            <controls:NumberBox Grid.Column="1" Value="{Binding Model.LineSpacing}" Minimum="0.5" Maximum="3" Step="0.05" Decimals="2" />
+                        </Grid>
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="92" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Yazı rengi" Style="{StaticResource FieldLabel}" />
+                            <ComboBox Grid.Column="1" ItemsSource="{x:Static views:Choices.InkColors}" DisplayMemberPath="Value" SelectedValuePath="Key"
+                                      SelectedValue="{Binding Model.TextColor}" />
+                        </Grid>
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="92" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Zemin" Style="{StaticResource FieldLabel}" />
+                            <ComboBox Grid.Column="1" ItemsSource="{x:Static views:Choices.Fills}" DisplayMemberPath="Value" SelectedValuePath="Key"
+                                      SelectedValue="{Binding Model.Background}" />
+                        </Grid>
+                        <TextBlock Style="{StaticResource Text.Hint}">
+                            <Run Text="Basılacak boyut:" />
+                            <Run Text="{Binding RenderResult.Text.EffectiveFontSizePt, StringFormat={}{0:0.#} pt, Mode=OneWay}" />
+                            <Run Text="•" />
+                            <Run Text="{Binding RenderResult.Text.UsedFamily, Mode=OneWay}" />
+                        </TextBlock>
+                    </StackPanel>
+                </Expander>
+            </StackPanel>
+        </DataTemplate>
+
+        <!-- ───────── BARKOD ───────── -->
+        <DataTemplate x:Key="BarcodeTemplate">
+            <StackPanel>
+                <Expander Header="BARKOD">
+                    <StackPanel>
+                        <ComboBox ItemsSource="{Binding DataContext.AllBarcodeTypes, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                  DisplayMemberPath="DisplayName" SelectedValuePath="Type" SelectedValue="{Binding Model.Symbology}" Margin="0,0,0,8" />
+                        <DockPanel Margin="0,0,0,6">
+                            <Button DockPanel.Dock="Right" Style="{StaticResource Button.Icon}" Margin="6,0,0,0" ToolTip="Otomatik değer üret (EAN: firma öneki + sıra + kontrol basamağı)"
+                                    Command="{Binding DataContext.GenerateBarcodeValueCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                                <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Refresh}" FontSize="14" />
+                            </Button>
+                            <TextBox Tag="ContentEditor" Text="{Binding Model.Content, UpdateSourceTrigger=PropertyChanged, Delay=250}" FontFamily="Consolas" FontSize="13.5" />
+                        </DockPanel>
+                        <TextBlock Style="{StaticResource Text.Hint}" Margin="0,0,0,8"
+                                   Text="Değer, {Barkod} gibi bir veri alanı da olabilir. EAN/UPC'de kontrol basamağı eksikse hesaplanır, varsa doğrulanır." />
+                        <!-- GS1 içerik oluşturucu (GS1-128, GS1 DataMatrix, GS1 QR) -->
+                        <Button Margin="0,0,0,8" HorizontalAlignment="Left"
+                                Visibility="{Binding Model.Symbology, Converter={StaticResource InListToVisibility}, ConverterParameter='Gs1_128,Gs1DataMatrix,Gs1QrCode'}"
+                                Command="{Binding DataContext.OpenGs1BuilderCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                ToolTip="İçeriği AI listesinden kurun: kayıtlı GTIN'ler, (00){SSCC} kısayolu, {Alan} bağlama ve canlı GS1 doğrulaması">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Edit}" FontSize="14" />
+                                <TextBlock Text="GS1 içerik oluşturucu…" Margin="7,0,0,0" />
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Modül genişliği -->
+                        <Border Style="{StaticResource Border.Card}" Padding="10,8" Margin="0,0,0,8"
+                                Visibility="{Binding BarcodeModuleText, Converter={StaticResource NullToVisibility}}">
+                            <DockPanel>
+                                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                                    <Button Style="{StaticResource Button.Icon}" ToolTip="Modülü küçült (kutuyu daralt)"
+                                            Command="{Binding DataContext.BarcodeModuleDownCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                                        <TextBlock Text="−" FontSize="16" />
+                                    </Button>
+                                    <Button Style="{StaticResource Button.Icon}" ToolTip="Kutuyu barkoda tam oturt"
+                                            Command="{Binding DataContext.BarcodeFitCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                                        <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Fit}" FontSize="13" />
+                                    </Button>
+                                    <Button Style="{StaticResource Button.Icon}" ToolTip="Modülü büyüt (kutuyu genişlet)"
+                                            Command="{Binding DataContext.BarcodeModuleUpCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                                        <TextBlock Text="+" FontSize="16" />
+                                    </Button>
+                                </StackPanel>
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock Text="Modül (X) genişliği" Style="{StaticResource Text.Hint}" />
+                                    <TextBlock Text="{Binding BarcodeModuleText}" FontWeight="SemiBold" />
+                                </StackPanel>
+                            </DockPanel>
+                        </Border>
+
+                        <CheckBox Content="Okunabilir metni göster" IsChecked="{Binding Model.ShowText}" />
+                        <Grid Style="{StaticResource Row}" Margin="0,4,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Metin boyutu" Style="{StaticResource FieldLabel}" />
+                            <controls:NumberBox Grid.Column="1" Value="{Binding Model.TextSize}" Minimum="0" Maximum="72" Step="0.5" Decimals="1" ToolTip="0 = otomatik" />
+                            <TextBlock Grid.Column="2" Text="pt (0 = otomatik)" Style="{StaticResource Unit}" />
+                        </Grid>
+                        <CheckBox Content="Sessiz bölgeyi kutuya dahil et" IsChecked="{Binding Model.QuietZone}"
+                                  ToolTip="Barkodun iki yanındaki zorunlu beyaz boşluk. EAN/UPC'de her zaman eklenir." />
+
+                        <!-- Code 39 / ITF -->
+                        <StackPanel Visibility="{Binding Model.Symbology, Converter={StaticResource InListToVisibility}, ConverterParameter='Code39,Itf,Itf14'}" Margin="0,6,0,0">
+                            <Grid Style="{StaticResource Row}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="40" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Geniş/dar oranı" Style="{StaticResource FieldLabel}" />
+                                <Slider Grid.Column="1" Minimum="2" Maximum="3" SmallChange="0.1" LargeChange="0.25" TickFrequency="0.1" IsSnapToTickEnabled="True"
+                                        Value="{Binding Model.WideToNarrowRatio}" />
+                                <TextBlock Grid.Column="2" Text="{Binding Model.WideToNarrowRatio, StringFormat={}{0:0.0}}" Style="{StaticResource Unit}" />
+                            </Grid>
+                        </StackPanel>
+                        <CheckBox Content="Kontrol karakteri ekle (Code 39: mod 43, ITF: mod 10)" IsChecked="{Binding Model.AppendCheckDigit}"
+                                  Visibility="{Binding Model.Symbology, Converter={StaticResource InListToVisibility}, ConverterParameter='Code39,Itf'}" />
+                        <CheckBox Content="Taşıyıcı çerçeve (bearer bar)" IsChecked="{Binding Model.BearerBars}"
+                                  Visibility="{Binding Model.Symbology, Converter={StaticResource InListToVisibility}, ConverterParameter='Itf14'}" />
+
+                        <!-- QR -->
+                        <Grid Style="{StaticResource Row}" Margin="0,6,0,8"
+                              Visibility="{Binding Model.Symbology, Converter={StaticResource InListToVisibility}, ConverterParameter='QrCode,Gs1QrCode'}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Hata düzeltme" Style="{StaticResource FieldLabel}" />
+                            <ComboBox Grid.Column="1" ItemsSource="{x:Static views:Choices.QrLevels}" DisplayMemberPath="Value" SelectedValuePath="Key"
+                                      SelectedValue="{Binding Model.QrErrorCorrection}" />
+                        </Grid>
+                        <!-- Data Matrix -->
+                        <Grid Style="{StaticResource Row}" Margin="0,6,0,8"
+                              Visibility="{Binding Model.Symbology, Converter={StaticResource InListToVisibility}, ConverterParameter='DataMatrix,Gs1DataMatrix'}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Şekil" Style="{StaticResource FieldLabel}" />
+                            <ComboBox Grid.Column="1" ItemsSource="{x:Static views:Choices.DataMatrixShapes}" DisplayMemberPath="Value" SelectedValuePath="Key"
+                                      SelectedValue="{Binding Model.DataMatrixShape}" />
+                        </Grid>
+                        <!-- PDF417 -->
+                        <StackPanel Visibility="{Binding Model.Symbology, Converter={StaticResource InListToVisibility}, ConverterParameter='Pdf417'}" Margin="0,6,0,0">
+                            <Grid Style="{StaticResource Row}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Hata düzeltme" Style="{StaticResource FieldLabel}" />
+                                <ComboBox Grid.Column="1" ItemsSource="{x:Static views:Choices.Pdf417Levels}" DisplayMemberPath="Value" SelectedValuePath="Key"
+                                          SelectedValue="{Binding Model.Pdf417ErrorCorrection}" />
+                            </Grid>
+                            <Grid Style="{StaticResource Row}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120" />
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Sütun sayısı" Style="{StaticResource FieldLabel}" />
+                                <controls:NumberBox Grid.Column="1" Value="{Binding Model.Pdf417Columns}" Minimum="0" Maximum="30" Step="1" Decimals="0" />
+                                <TextBlock Grid.Column="2" Text="0 = otomatik" Style="{StaticResource Unit}" />
+                            </Grid>
+                        </StackPanel>
+
+                        <Button Margin="0,10,0,0" Command="{Binding DataContext.VerifyBarcodeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                ToolTip="Yazıcı çözünürlüğünde üretilen gerçek 1-bit görüntü bağımsız bir çözücüyle okunur">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Success}" FontSize="14" />
+                                <TextBlock Text="Okunabilirlik kontrolü" Margin="7,0,0,0" />
+                            </StackPanel>
+                        </Button>
+                        <Border Margin="0,8,0,0" Padding="10,8" CornerRadius="8" Background="{DynamicResource Brush.Panel2}"
+                                Visibility="{Binding VerificationMessage, Converter={StaticResource NullToVisibility}}">
+                            <DockPanel>
+                                <TextBlock DockPanel.Dock="Left" FontFamily="{DynamicResource IconFont}" FontSize="15" Margin="0,1,8,0"
+                                           Text="{Binding VerificationSuccess, Converter={StaticResource StateToGlyph}}"
+                                           Foreground="{Binding VerificationSuccess, Converter={StaticResource SeverityToBrush}}" />
+                                <TextBlock Text="{Binding VerificationMessage}" TextWrapping="Wrap" FontSize="12" />
+                            </DockPanel>
+                        </Border>
+                    </StackPanel>
+                </Expander>
+            </StackPanel>
+        </DataTemplate>
+
+        <!-- ───────── GÖRSEL ───────── -->
+        <DataTemplate x:Key="ImageTemplate">
+            <StackPanel>
+                <Expander Header="GÖRSEL">
+                    <StackPanel>
+                        <TextBlock Text="{Binding ImageSourceText}" TextWrapping="Wrap" FontSize="12" Margin="0,0,0,8" />
+                        <UniformGrid Columns="2" Margin="0,0,0,10">
+                            <Button Content="Görseli değiştir…" Margin="0,0,4,0"
+                                    Command="{Binding DataContext.ReplaceImageCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                            <Button Content="Özgün oran" Margin="4,0,0,0" ToolTip="Kutu yüksekliğini görselin oranına göre ayarla"
+                                    Command="{Binding DataContext.RestoreImageAspectCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                        </UniformGrid>
+                    </StackPanel>
+                </Expander>
+                <Expander Header="SİYAH-BEYAZ DÖNÜŞÜM">
+                    <StackPanel>
+                        <ComboBox ItemsSource="{x:Static views:Choices.ImageMethods}" DisplayMemberPath="Value" SelectedValuePath="Key"
+                                  SelectedValue="{Binding Model.Method}" Margin="0,0,0,4" />
+                        <TextBlock Style="{StaticResource Text.Hint}" Margin="0,0,0,10">
+                            <Run Text="Uygulanan:" />
+                            <Run Text="{Binding RenderResult.Image.AppliedMethodText, Mode=OneWay}" FontWeight="SemiBold" />
+                        </TextBlock>
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Eşik" Style="{StaticResource FieldLabel}" ToolTip="Eşik yönteminde sınır değer; diğer yöntemlerde yüksek değer daha koyu basar" />
+                            <Slider Grid.Column="1" Minimum="1" Maximum="254" Value="{Binding Model.Threshold, Delay=120}" SmallChange="1" LargeChange="8" />
+                            <TextBlock Grid.Column="2" Text="{Binding Model.Threshold}" Style="{StaticResource Unit}" />
+                        </Grid>
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Parlaklık" Style="{StaticResource FieldLabel}" />
+                            <Slider Grid.Column="1" Minimum="-100" Maximum="100" Value="{Binding Model.Brightness, Delay=120}" SmallChange="1" LargeChange="10" />
+                            <TextBlock Grid.Column="2" Text="{Binding Model.Brightness}" Style="{StaticResource Unit}" />
+                        </Grid>
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Kontrast" Style="{StaticResource FieldLabel}" />
+                            <Slider Grid.Column="1" Minimum="-100" Maximum="100" Value="{Binding Model.Contrast, Delay=120}" SmallChange="1" LargeChange="10" />
+                            <TextBlock Grid.Column="2" Text="{Binding Model.Contrast}" Style="{StaticResource Unit}" />
+                        </Grid>
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Keskinlik" Style="{StaticResource FieldLabel}" ToolTip="Kenarları keskinleştirir (0 = kapalı)" />
+                            <Slider Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding Model.Sharpen, Delay=120}" SmallChange="1" LargeChange="10" />
+                            <TextBlock Grid.Column="2" Text="{Binding Model.Sharpen}" Style="{StaticResource Unit}" />
+                        </Grid>
+                        <CheckBox Content="Siyah / beyazı ters çevir" IsChecked="{Binding Model.Invert}" />
+                    </StackPanel>
+                </Expander>
+                <Expander Header="SATIRA GÖRE GÖRSEL">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="0,0,0,6"
+                                   Text="Her etikette farklı görsel için dosya adını içeren veri sütununu seçin. Görseller veri dosyasının klasöründe veya onun Görseller alt klasöründe aranır; bulunamayan satır basılmaz ve raporlanır." />
+                        <ComboBox IsEditable="True" Text="{Binding Model.SourceField, UpdateSourceTrigger=LostFocus}"
+                                  ItemsSource="{Binding DataContext.Data.Columns, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                        <TextBlock Style="{StaticResource Text.Hint}" Margin="0,4,0,0" Text="Boş bırakırsanız her etikette aynı görsel basılır." />
+                    </StackPanel>
+                </Expander>
+                <Expander Header="YERLEŞİM VE KIRPMA">
+                    <StackPanel>
+                        <ComboBox ItemsSource="{x:Static views:Choices.FitModes}" DisplayMemberPath="Value" SelectedValuePath="Key"
+                                  SelectedValue="{Binding Model.FitMode}" Margin="0,0,0,10" />
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Soldan %" Style="{StaticResource FieldLabel}" />
+                            <Slider Grid.Column="1" Minimum="0" Maximum="90" Value="{Binding Model.CropLeft, Converter={StaticResource FractionToPercent}, Delay=120}" />
+                            <TextBlock Grid.Column="2" Text="{Binding Model.CropLeft, Converter={StaticResource FractionToPercent}, StringFormat={}{0:0}}" Style="{StaticResource Unit}" />
+                        </Grid>
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Sağdan %" Style="{StaticResource FieldLabel}" />
+                            <Slider Grid.Column="1" Minimum="0" Maximum="90" Value="{Binding Model.CropRight, Converter={StaticResource FractionToPercent}, Delay=120}" />
+                            <TextBlock Grid.Column="2" Text="{Binding Model.CropRight, Converter={StaticResource FractionToPercent}, StringFormat={}{0:0}}" Style="{StaticResource Unit}" />
+                        </Grid>
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Üstten %" Style="{StaticResource FieldLabel}" />
+                            <Slider Grid.Column="1" Minimum="0" Maximum="90" Value="{Binding Model.CropTop, Converter={StaticResource FractionToPercent}, Delay=120}" />
+                            <TextBlock Grid.Column="2" Text="{Binding Model.CropTop, Converter={StaticResource FractionToPercent}, StringFormat={}{0:0}}" Style="{StaticResource Unit}" />
+                        </Grid>
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Alttan %" Style="{StaticResource FieldLabel}" />
+                            <Slider Grid.Column="1" Minimum="0" Maximum="90" Value="{Binding Model.CropBottom, Converter={StaticResource FractionToPercent}, Delay=120}" />
+                            <TextBlock Grid.Column="2" Text="{Binding Model.CropBottom, Converter={StaticResource FractionToPercent}, StringFormat={}{0:0}}" Style="{StaticResource Unit}" />
+                        </Grid>
+                    </StackPanel>
+                </Expander>
+            </StackPanel>
+        </DataTemplate>
+
+        <!-- ───────── ŞEKİL ───────── -->
+        <DataTemplate x:Key="ShapeTemplate">
+            <Expander Header="ŞEKİL">
+                <StackPanel>
+                    <ComboBox ItemsSource="{x:Static views:Choices.ShapeKinds}" DisplayMemberPath="Value" SelectedValuePath="Key"
+                              SelectedValue="{Binding Model.Kind}" Margin="0,0,0,10" />
+                    <Grid Style="{StaticResource Row}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Çizgi kalınlığı" Style="{StaticResource FieldLabel}" />
+                        <controls:NumberBox Grid.Column="1" Value="{Binding Model.StrokeWidth}" Minimum="0" Maximum="50" Step="0.125" Decimals="3" />
+                        <TextBlock Grid.Column="2" Text="mm (0,125 mm = 1 nokta)" Style="{StaticResource Unit}" />
+                    </Grid>
+                    <Grid Style="{StaticResource Row}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Çizgi rengi" Style="{StaticResource FieldLabel}" />
+                        <ComboBox Grid.Column="1" ItemsSource="{x:Static views:Choices.InkColors}" DisplayMemberPath="Value" SelectedValuePath="Key"
+                                  SelectedValue="{Binding Model.StrokeColor}" />
+                    </Grid>
+                    <Grid Style="{StaticResource Row}"
+                          Visibility="{Binding Model.Kind, Converter={StaticResource InListToVisibility}, ConverterParameter='Rectangle,Ellipse'}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Dolgu" Style="{StaticResource FieldLabel}" />
+                        <ComboBox Grid.Column="1" ItemsSource="{x:Static views:Choices.Fills}" DisplayMemberPath="Value" SelectedValuePath="Key"
+                                  SelectedValue="{Binding Model.Fill}" />
+                    </Grid>
+                    <Grid Style="{StaticResource Row}"
+                          Visibility="{Binding Model.Kind, Converter={StaticResource InListToVisibility}, ConverterParameter='Rectangle'}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Köşe yarıçapı" Style="{StaticResource FieldLabel}" />
+                        <controls:NumberBox Grid.Column="1" Value="{Binding Model.CornerRadius}" Minimum="0" Maximum="500" Step="0.5" Decimals="2" />
+                        <TextBlock Grid.Column="2" Text="mm" Style="{StaticResource Unit}" />
+                    </Grid>
+                    <Grid Style="{StaticResource Row}"
+                          Visibility="{Binding Model.Kind, Converter={StaticResource InListToVisibility}, ConverterParameter='Line'}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Çizgi yönü" Style="{StaticResource FieldLabel}" />
+                        <ComboBox Grid.Column="1" ItemsSource="{x:Static views:Choices.LineOrientations}" DisplayMemberPath="Value" SelectedValuePath="Key"
+                                  SelectedValue="{Binding Model.LineOrientation}" />
+                    </Grid>
+                </StackPanel>
+            </Expander>
+        </DataTemplate>
+
+        <views:ElementTemplateSelector x:Key="ElementTemplateSelector"
+                                       TextTemplate="{StaticResource TextTemplate}"
+                                       BarcodeTemplate="{StaticResource BarcodeTemplate}"
+                                       ImageTemplate="{StaticResource ImageTemplate}"
+                                       ShapeTemplate="{StaticResource ShapeTemplate}" />
+
+        <Style x:Key="AlignButton" TargetType="Button" BasedOn="{StaticResource Button.Icon}">
+            <Setter Property="Width" Value="34" />
+            <Setter Property="Command" Value="{Binding AlignCommand}" />
+        </Style>
+    </UserControl.Resources>
+
+    <Border Background="{DynamicResource Brush.Panel}">
+        <Grid>
+            <!-- ───────── Seçim yok: etiket ───────── -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Visibility="{Binding HasSelection, Converter={StaticResource BoolToVisibility}, ConverterParameter=Invert}">
+                <StackPanel Margin="18,16,18,18">
+                    <TextBlock Text="Etiket" Style="{StaticResource Text.Title}" />
+                    <TextBlock Text="Bir öğe seçin veya soldan yeni öğe ekleyin." Style="{StaticResource Text.Hint}" Margin="0,4,0,8" />
+                    <TextBlock Text="BELGE" Style="{StaticResource Text.Section}" />
+                    <TextBox Text="{Binding Session.Document.Name, UpdateSourceTrigger=LostFocus}" ToolTip="Belge / şablon adı" />
+                    <TextBox Style="{StaticResource TextBox.Multiline}" MinHeight="48" Margin="0,8,0,0" ToolTip="Açıklama (isteğe bağlı)"
+                             Text="{Binding Session.Document.Description, UpdateSourceTrigger=LostFocus}" />
+                    <TextBlock Text="ÖLÇÜ VE MEDYA" Style="{StaticResource Text.Section}" />
+                    <Border Style="{StaticResource Border.Card}">
+                        <StackPanel>
+                            <TextBlock FontSize="18" FontWeight="SemiBold">
+                                <Run Text="{Binding Session.Document.Label.WidthMm, Mode=OneWay, StringFormat={}{0:0.##}}" />
+                                <Run Text="×" />
+                                <Run Text="{Binding Session.Document.Label.HeightMm, Mode=OneWay, StringFormat={}{0:0.##}}" />
+                                <Run Text="mm" FontSize="13" />
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource Text.Hint}" Margin="0,4,0,10">
+                                <Run Text="Etiketler arası boşluk:" />
+                                <Run Text="{Binding Session.Document.Label.GapMm, Mode=OneWay, StringFormat={}{0:0.##} mm}" />
+                                <Run Text="•" />
+                                <Run Text="{Binding Session.Document.Label.Media, Mode=OneWay}" />
+                            </TextBlock>
+                            <Button Content="Etiket ölçüsünü değiştir…" Command="{Binding LabelSetupCommand}" />
+                        </StackPanel>
+                    </Border>
+                    <TextBlock Text="İPUÇLARI" Style="{StaticResource Text.Section}" />
+                    <TextBlock Style="{StaticResource Text.Hint}" LineHeight="18"
+                               Text="• Fareyle sürükleyin; köşelerden boyutlandırın, üstteki daireden döndürün.&#10;• Shift: oran/eksen kilidi • Alt: yakalamasız taşıma&#10;• Ctrl+tekerlek: yakınlaştır • Orta tuş: kaydır&#10;• Ok tuşları: 0,5 mm • Shift+ok: 5 mm • Ctrl+ok: 1 nokta&#10;• Cetvelden sürükleyerek kılavuz çizgisi ekleyin." />
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- ───────── Çoklu seçim ───────── -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Visibility="{Binding HasMultipleSelection, Converter={StaticResource BoolToVisibility}}">
+                <StackPanel Margin="18,16,18,18">
+                    <TextBlock Text="{Binding SelectionText}" Style="{StaticResource Text.Title}" />
+                    <TextBlock Text="HİZALA" Style="{StaticResource Text.Section}" />
+                    <WrapPanel>
+                        <Button Style="{StaticResource AlignButton}" CommandParameter="{x:Static geo:AlignMode.Left}" ToolTip="Sola hizala"><Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.AlignLeft}" /></Button>
+                        <Button Style="{StaticResource AlignButton}" CommandParameter="{x:Static geo:AlignMode.CenterHorizontal}" ToolTip="Yatay ortala"><Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.AlignCenterH}" /></Button>
+                        <Button Style="{StaticResource AlignButton}" CommandParameter="{x:Static geo:AlignMode.Right}" ToolTip="Sağa hizala"><Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.AlignRight}" /></Button>
+                        <Button Style="{StaticResource AlignButton}" CommandParameter="{x:Static geo:AlignMode.Top}" ToolTip="Üste hizala"><Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.AlignTop}" /></Button>
+                        <Button Style="{StaticResource AlignButton}" CommandParameter="{x:Static geo:AlignMode.CenterVertical}" ToolTip="Dikey ortala"><Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.AlignCenterV}" /></Button>
+                        <Button Style="{StaticResource AlignButton}" CommandParameter="{x:Static geo:AlignMode.Bottom}" ToolTip="Alta hizala"><Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.AlignBottom}" /></Button>
+                        <Button Style="{StaticResource AlignButton}" CommandParameter="{x:Static geo:AlignMode.DistributeHorizontal}" ToolTip="Yatay eşit dağıt (3+ öğe)"><Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.DistributeH}" /></Button>
+                        <Button Style="{StaticResource AlignButton}" CommandParameter="{x:Static geo:AlignMode.DistributeVertical}" ToolTip="Dikey eşit dağıt (3+ öğe)"><Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.DistributeV}" /></Button>
+                    </WrapPanel>
+                    <TextBlock Text="DÜZEN" Style="{StaticResource Text.Section}" />
+                    <UniformGrid Columns="2">
+                        <Button Content="En öne" Command="{Binding BringToFrontCommand}" Margin="0,0,4,6" />
+                        <Button Content="En arkaya" Command="{Binding SendToBackCommand}" Margin="4,0,0,6" />
+                        <Button Content="Kilitle / aç" Command="{Binding ToggleLockCommand}" Margin="0,0,4,6" />
+                        <Button Content="Çoğalt" Command="{Binding DuplicateCommand}" Margin="4,0,0,6" />
+                    </UniformGrid>
+                    <Button Content="Seçili öğeleri sil" Command="{Binding DeleteCommand}" />
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- ───────── Tek öğe ───────── -->
+            <ScrollViewer x:Name="SingleScroll" VerticalScrollBarVisibility="Auto"
+                          Visibility="{Binding SelectedElement, Converter={StaticResource NullToVisibility}}">
+                <StackPanel Margin="18,14,18,18" DataContext="{Binding SelectedElement}">
+                    <DockPanel Margin="0,0,0,4">
+                        <TextBlock DockPanel.Dock="Left" Text="{Binding Model.KindName}" Style="{StaticResource Text.Title}" VerticalAlignment="Center" />
+                        <TextBlock DockPanel.Dock="Right" Text="{StaticResource Glyph.Lock}" FontFamily="{DynamicResource IconFont}" FontSize="14"
+                                   Foreground="{DynamicResource Brush.Warning}" ToolTip="Kilitli: taşınamaz ve silinemez" VerticalAlignment="Center"
+                                   Visibility="{Binding Model.Locked, Converter={StaticResource BoolToVisibility}}" />
+                        <Border />
+                    </DockPanel>
+                    <TextBox Text="{Binding Model.Name, UpdateSourceTrigger=LostFocus}" ToolTip="Öğe adı (katmanlar panelinde görünür)" Margin="0,4,0,0" />
+
+                    <Expander Header="KONUM VE BOYUT">
+                        <StackPanel>
+                            <Grid Style="{StaticResource Row}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="22" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="14" />
+                                    <ColumnDefinition Width="22" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="X" Style="{StaticResource FieldLabel}" />
+                                <controls:NumberBox Grid.Column="1" Value="{Binding Model.X}" Step="0.5" Decimals="2" Minimum="-1000" Maximum="2000" ToolTip="Soldan uzaklık (mm)" />
+                                <TextBlock Grid.Column="3" Text="Y" Style="{StaticResource FieldLabel}" />
+                                <controls:NumberBox Grid.Column="4" Value="{Binding Model.Y}" Step="0.5" Decimals="2" Minimum="-1000" Maximum="2000" ToolTip="Üstten uzaklık (mm)" />
+                            </Grid>
+                            <Grid Style="{StaticResource Row}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="22" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="14" />
+                                    <ColumnDefinition Width="22" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="G" Style="{StaticResource FieldLabel}" ToolTip="Genişlik" />
+                                <controls:NumberBox Grid.Column="1" Value="{Binding Model.Width}" Step="0.5" Decimals="2" Minimum="0.1" Maximum="2000" ToolTip="Genişlik (mm)" />
+                                <TextBlock Grid.Column="3" Text="Y" Style="{StaticResource FieldLabel}" ToolTip="Yükseklik" />
+                                <controls:NumberBox Grid.Column="4" Value="{Binding Model.Height}" Step="0.5" Decimals="2" Minimum="0.1" Maximum="2000" ToolTip="Yükseklik (mm)" />
+                            </Grid>
+                            <Grid Style="{StaticResource Row}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Döndürme" Style="{StaticResource FieldLabel}" />
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <controls:NumberBox Width="64" Value="{Binding Model.Rotation}" Step="1" Decimals="1" Minimum="-360" Maximum="720" ToolTip="Derece (saat yönünde)" />
+                                    <TextBlock Text="°" Style="{StaticResource Unit}" Margin="3,0,8,0" />
+                                    <Button Style="{StaticResource Button.Icon}" Click="OnRotate90" ToolTip="90° döndür">
+                                        <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Rotate}" FontSize="14" />
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                            <WrapPanel>
+                                <CheckBox Content="Kilitli" IsChecked="{Binding Model.Locked}" Margin="0,0,18,0" />
+                                <CheckBox Content="Görünür (basılır)" IsChecked="{Binding Model.Visible}" />
+                            </WrapPanel>
+                        </StackPanel>
+                    </Expander>
+
+                    <Expander Header="HİZALA VE SIRALA">
+                        <StackPanel DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                            <WrapPanel Margin="0,0,0,6">
+                                <Button Style="{StaticResource AlignButton}" CommandParameter="{x:Static geo:AlignMode.Left}" ToolTip="Etiketin soluna"><Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.AlignLeft}" /></Button>
+                                <Button Style="{StaticResource AlignButton}" CommandParameter="{x:Static geo:AlignMode.CenterHorizontal}" ToolTip="Yatayda ortala"><Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.AlignCenterH}" /></Button>
+                                <Button Style="{StaticResource AlignButton}" CommandParameter="{x:Static geo:AlignMode.Right}" ToolTip="Etiketin sağına"><Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.AlignRight}" /></Button>
+                                <Button Style="{StaticResource AlignButton}" CommandParameter="{x:Static geo:AlignMode.Top}" ToolTip="Etiketin üstüne"><Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.AlignTop}" /></Button>
+                                <Button Style="{StaticResource AlignButton}" CommandParameter="{x:Static geo:AlignMode.CenterVertical}" ToolTip="Dikeyde ortala"><Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.AlignCenterV}" /></Button>
+                                <Button Style="{StaticResource AlignButton}" CommandParameter="{x:Static geo:AlignMode.Bottom}" ToolTip="Etiketin altına"><Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.AlignBottom}" /></Button>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Button Style="{StaticResource Button.Icon}" Width="34" Command="{Binding BringToFrontCommand}" ToolTip="En öne getir"><Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.BringToFront}" /></Button>
+                                <Button Style="{StaticResource Button.Icon}" Width="34" Command="{Binding BringForwardCommand}" ToolTip="Öne getir"><Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.BringForward}" /></Button>
+                                <Button Style="{StaticResource Button.Icon}" Width="34" Command="{Binding SendBackwardCommand}" ToolTip="Arkaya gönder"><Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.SendBackward}" /></Button>
+                                <Button Style="{StaticResource Button.Icon}" Width="34" Command="{Binding SendToBackCommand}" ToolTip="En arkaya gönder"><Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.SendToBack}" /></Button>
+                                <Button Style="{StaticResource Button.Icon}" Width="34" Command="{Binding DuplicateCommand}" ToolTip="Çoğalt (Ctrl+D)"><TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Duplicate}" FontSize="14" /></Button>
+                                <Button Style="{StaticResource Button.Icon}" Width="34" Command="{Binding DeleteCommand}" ToolTip="Sil (Delete)"><TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Delete}" FontSize="14" /></Button>
+                            </WrapPanel>
+                        </StackPanel>
+                    </Expander>
+
+                    <Expander Header="KOŞULLU GÖSTERME">
+                        <StackPanel>
+                            <CheckBox Content="Yalnızca şu koşulda bas" IsChecked="{Binding ConditionEnabled}" Margin="0,0,0,6"
+                                      ToolTip="Öğe her etikette o etiketin verisine göre basılır ya da basılmaz (ör. İNDİRİM yazısı yalnızca {Indirim} doluysa)" />
+                            <StackPanel Visibility="{Binding ConditionEnabled, Converter={StaticResource BoolToVisibility}}">
+                                <Grid Style="{StaticResource Row}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Alan" Style="{StaticResource FieldLabel}" />
+                                    <ComboBox Grid.Column="1" IsEditable="True" Text="{Binding ConditionField, UpdateSourceTrigger=LostFocus}"
+                                              ItemsSource="{Binding DataContext.Data.Columns, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                              ToolTip="Veri sütunu (ör. Indirim) ya da yerleşik alan" />
+                                </Grid>
+                                <Grid Style="{StaticResource Row}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Koşul" Style="{StaticResource FieldLabel}" />
+                                    <ComboBox Grid.Column="1" ItemsSource="{x:Static views:Choices.ConditionOperators}" DisplayMemberPath="Value"
+                                              SelectedValuePath="Key" SelectedValue="{Binding ConditionOperator}" />
+                                </Grid>
+                                <Grid Style="{StaticResource Row}" Visibility="{Binding ConditionNeedsValue, Converter={StaticResource BoolToVisibility}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Değer" Style="{StaticResource FieldLabel}" />
+                                    <TextBox Grid.Column="1" Text="{Binding ConditionValue, UpdateSourceTrigger=LostFocus}"
+                                             ToolTip="Büyük/küçük harf duyarsız (Türkçe kurallarla) karşılaştırılır" />
+                                </Grid>
+                                <TextBlock Text="{Binding ConditionStatusText}" Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="0,2,0,0"
+                                           Visibility="{Binding ConditionStatusText, Converter={StaticResource NullToVisibility}}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Expander>
+
+                    <ContentControl Content="{Binding}" ContentTemplateSelector="{StaticResource ElementTemplateSelector}" Focusable="False" />
+
+                    <!-- Sorunlar -->
+                    <ItemsControl ItemsSource="{Binding Issues}" Margin="0,8,0,0">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="0,0,0,6" Padding="10,7" CornerRadius="8" Background="{DynamicResource Brush.Panel2}">
+                                    <DockPanel>
+                                        <TextBlock DockPanel.Dock="Left" FontFamily="{DynamicResource IconFont}" FontSize="14" Margin="0,1,8,0"
+                                                   Text="{Binding Severity, Converter={StaticResource StateToGlyph}}"
+                                                   Foreground="{Binding Severity, Converter={StaticResource SeverityToBrush}}" />
+                                        <TextBlock Text="{Binding Message}" TextWrapping="Wrap" FontSize="12" />
+                                    </DockPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</UserControl>

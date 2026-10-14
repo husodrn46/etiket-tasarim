@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Barkod motoru: doğrulama, kontrol basamağı, GS1, kodlama, okunabilirlik kontrolü -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AkelEtiket.Core\AkelEtiket.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ZXing.Net" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="AkelEtiket.Tests" />
+    <InternalsVisibleTo Include="AkelEtiket.Core.Tests" />
+  </ItemGroup>
+</Project>

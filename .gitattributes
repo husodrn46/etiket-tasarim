@@ -1,0 +1,2 @@
+# Generated CSV samples intentionally use Windows line endings.
+*.csv text eol=crlf whitespace=cr-at-eol

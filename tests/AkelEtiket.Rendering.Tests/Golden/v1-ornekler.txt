@@ -1,0 +1,6 @@
+# Nötr v1 dosyaları; değiştirilmemiş 2bc1894 render motorundan alınmış özetler.
+# Font ve şirket varlığı içermez; 8 nokta/mm, tasarım kipi.
+Ornek-100x100-Excel-Toplu-Etiket.akelabel|800|800|67884|e41bf0bdfe94abfb8728ba3aee656242781e4371ec9b1cf43906cb370777ef0a
+Ornek-100x100-Urun-Etiketi.akelabel|800|800|69072|8df4f9d2c54345910120b9c657d1b9e4d4d5920e5004acc0d1c89018324fdde8
+Ornek-100x150-Koli-Etiketi-GS1.akelabel|800|1200|191320|a39bd5b3d477747190c750474945e3cd784714748035f76a57dcb2604690bc35
+Ornek-58x40-Raf-Etiketi.akelabel|464|320|18360|7bab4694f6cd667e92ea546dc266e1d9ff018f8f1da3310308eebafb070c7fe7

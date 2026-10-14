@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Ortak render motoru testleri (ekran = baskı tutarlılığı, metin, barkod, görsel, şekil) -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AkelEtiket.Core\AkelEtiket.Core.csproj" />
+    <ProjectReference Include="..\..\src\AkelEtiket.BarcodeEngine\AkelEtiket.BarcodeEngine.csproj" />
+    <ProjectReference Include="..\..\src\AkelEtiket.ImageProcessor\AkelEtiket.ImageProcessor.csproj" />
+    <ProjectReference Include="..\..\src\AkelEtiket.Rendering\AkelEtiket.Rendering.csproj" />
+    <ProjectReference Include="..\..\src\AkelEtiket.ProjectManager\AkelEtiket.ProjectManager.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+</Project>

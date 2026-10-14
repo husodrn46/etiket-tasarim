@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Ortak çekirdek: tasarım modeli, ölçü birimleri, 1-bit bitmap, değişken alanlar -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="AkelEtiket.Tests" />
+    <InternalsVisibleTo Include="AkelEtiket.Core.Tests" />
+  </ItemGroup>
+</Project>
