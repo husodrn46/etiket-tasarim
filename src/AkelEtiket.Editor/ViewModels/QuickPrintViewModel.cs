@@ -3,6 +3,7 @@ using AkelEtiket.Core.Data;
 using AkelEtiket.Design.Data;
 using AkelEtiket.Design.Preview;
 using AkelEtiket.ProjectManager;
+using AkelEtiket.Editor.Printing;
 using AkelEtiket.Rendering;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -66,6 +67,10 @@ public sealed partial class QuickPrintViewModel : ObservableObject
     public partial string? Problem { get; set; }
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(PrintCommand))]
+    public partial bool RequiresProduct { get; private set; } = true;
+
+    [ObservableProperty]
     public partial string ScanInput { get; set; } = "";
 
     [ObservableProperty]
@@ -97,19 +102,24 @@ public sealed partial class QuickPrintViewModel : ObservableObject
         Products.SelectedProduct = null;
         ScanMessage = null;
         Products.Query = text;
-        var exact = Products.Results.Where(r => string.Equals(r.Key, text, StringComparison.OrdinalIgnoreCase)
-                                                || r.Record.Fields.Values.Any(v => string.Equals(v.Trim(), text, StringComparison.OrdinalIgnoreCase)))
-            .ToList();
+        var exact = Products.FindScanMatches(text);
         var pick = exact.Count == 1 ? exact[0] : null;
         if (pick is not null)
         {
+            // WPF seçimi yalnız listede bulunan öğelerde tutar. Tam eşleşme 300'lük görünümün dışında kalabilir.
+            if (!Products.Results.Contains(pick))
+            {
+                if (Products.Results.Count >= ProductsViewModel.MaxShown) Products.Results.RemoveAt(Products.Results.Count - 1);
+                Products.Results.Insert(0, pick);
+            }
             Products.SelectedProduct = pick;
             ScanInput = "";
             FocusCopiesRequested?.Invoke(this, EventArgs.Empty);
         }
         else ScanMessage = Products.Results.Count == 0
             ? "Bu kodla ürün bulunamadı. Kodu kontrol edin veya ürün listesini güncelleyin."
-            : "Birden fazla ürün eşleşti. Listeden doğru ürünü seçin.";
+            : exact.Count > 1 ? "Birden fazla ürün aynı koda sahip. Listeden doğru ürünü seçin."
+            : "Tam kod eşleşmesi yok. Listeden doğru ürünü seçin.";
     }
 
     private void UpdatePreview()
@@ -120,15 +130,18 @@ public sealed partial class QuickPrintViewModel : ObservableObject
         try
         {
             var project = Load(SelectedTemplate.Info.FilePath);
+            var builtIns = EditorFields.BuiltIns(1, DateTime.Now);
+            RequiresProduct = project.Document.Elements.SelectMany(DataSourceViewModel.FieldReferencesOf)
+                .Any(f => !builtIns.TryGetValue(f.Raw, null, out _) && !builtIns.TryGetValue(f.Base, null, out _));
             IFieldValueSource fields = Products.SelectedProduct is { } product
-                ? new CompositeFieldSource(Products.FieldsFor(product.Record), new BuiltInFieldSource(1, DateTime.Now))
-                : new BuiltInFieldSource(1, DateTime.Now);
+                ? new CompositeFieldSource(Products.FieldsFor(product.Record), builtIns)
+                : builtIns;
             var render = PreviewRenderer.Render(project.Document, project.Assets, fields, _main.Session.ImageResolver,
                 Products.SelectedProduct is null ? RenderMode.Design : RenderMode.Print, _main.DotsPerMm);
             PreviewPng = PreviewRenderer.EncodeMono(render.Bitmap, render.DotsPerMm);
             var errors = render.Issues.Where(i => i.Severity == RenderIssueSeverity.Error).Select(i => i.ToString()).Distinct().ToList();
-            if (Products.SelectedProduct is not null && errors.Count > 0) Problem = string.Join("\n", errors.Take(4));
-            else if (Products.SelectedProduct is null && SelectedTemplate.UsesData) Problem = "Ürün seçin (arayın ya da barkod okutun).";
+            if ((!RequiresProduct || Products.SelectedProduct is not null) && errors.Count > 0) Problem = string.Join("\n", errors.Take(4));
+            else if (Products.SelectedProduct is null && RequiresProduct) Problem = "Ürün seçin (arayın ya da barkod okutun).";
         }
         catch (ProjectFileException ex)
         {
@@ -148,7 +161,7 @@ public sealed partial class QuickPrintViewModel : ObservableObject
 
     private bool CanPrint() =>
         SelectedTemplate is not null && Copies is > 0 and <= 9999 && Problem is null && string.IsNullOrWhiteSpace(ScanInput) &&
-        (Products.SelectedProduct is not null || !SelectedTemplate.UsesData);
+        (Products.SelectedProduct is not null || !RequiresProduct);
 
     /// <summary>Şablonu ve ürünü baskı penceresine aktarır (yazıcı seçimi, onay ve rapor orada).</summary>
     [RelayCommand(CanExecute = nameof(CanPrint))]

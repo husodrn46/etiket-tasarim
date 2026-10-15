@@ -138,7 +138,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
     internal AppServices Services => _services;
     internal IDialogService Dialogs => _services.Dialogs;
 
-    public AppSettings Settings { get; }
+    public AppSettings Settings { get; private set; }
     public DataSourceViewModel Data { get; }
     public TemplatesViewModel Templates { get; }
     public ObservableCollection<string> RecentFiles { get; } = [];
@@ -311,14 +311,17 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
             // Eski sürümde kurulumunu tamamlayan kullanıcılar yeniden kesintiye uğramaz.
             // Kurtarılan veya dışarıdan açılan bir tasarımın üzerine başlangıç tasarımı yazılmaz.
             if (!recovered && args.Count == 0) RunFirstSetup(firstRun: true);
-            if (_setupAddTemplates) Templates.EnsureSamples(Settings.Company.LogoPng ?? _services.LogoProvider());
-            Settings.FirstRunCompleted = true;
-            SaveSettings();
+            if (!_setupSaveFailed)
+            {
+                if (_setupAddTemplates) Templates.EnsureSamples(Settings.Company.LogoPng ?? _services.LogoProvider());
+                Settings.FirstRunCompleted = true;
+                SaveSettings();
+            }
             if (!recovered)
             {
                 var sample = SampleTemplates.CreateForSize(Settings.DefaultLabelWidthMm, Settings.DefaultLabelHeightMm, Settings.Company);
                 Session = CreateSession(sample);
-                SetStatus("Hoş geldiniz! Örnek şablon açıldı. Sol panelden öğe ekleyebilir, Şablonlar'dan diğer örneklere ulaşabilirsiniz.");
+                SetStatus("Hoş geldiniz! Etiketiniz hazır. Tasarımınızı oluşturabilir veya Şablonlar panelinden bir örnek seçebilirsiniz.");
             }
             if (_services.ImportedLegacySettings)
                 SetStatus("AKEL Etiket (v1) ayarlarınız devralındı: yazıcı ayarları, son kullanılan dosyalar ve klasörler" +

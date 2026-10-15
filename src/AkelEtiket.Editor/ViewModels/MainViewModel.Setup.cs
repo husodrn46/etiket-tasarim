@@ -1,4 +1,5 @@
 using AkelEtiket.Editor.Services;
+using AkelEtiket.Core.Serialization;
 using AkelEtiket.ProjectManager;
 using CommunityToolkit.Mvvm.Input;
 
@@ -15,10 +16,21 @@ public sealed partial class MainViewModel
 
     private bool RunFirstSetup(bool firstRun)
     {
+        _setupSaveFailed = false;
         var setup = new FirstSetupViewModel(Settings, Dialogs);
         if (!Dialogs.ShowDialog(setup)) return false;
-        setup.ApplyTo(Settings);
-        SaveSettings();
+        var candidate = ModelJson.Clone(Settings);
+        setup.ApplyTo(candidate);
+        candidate.FirstRunCompleted |= firstRun;
+        candidate.Recent.Items = RecentFiles.ToList();
+        try { _services.SettingsStore.Save(candidate); }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            _setupSaveFailed = true;
+            Dialogs.ShowMessage("Kurulum kaydedilemedi", ex.Message + "\nMevcut ayarlar korundu; kaydetmeyi yeniden deneyebilirsiniz.", MessageKind.Error);
+            return false;
+        }
+        Settings = candidate;
         Session.SetDotsPerMm(Settings.Printer.DotsPerMm);
         Templates.ChangeFolder(Settings.EffectiveTemplatesFolder);
         OnPropertyChanged(nameof(Settings)); OnPropertyChanged(nameof(LabelSizeText)); OnPropertyChanged(nameof(DotsPerMm));
@@ -35,6 +47,7 @@ public sealed partial class MainViewModel
         return true;
     }
 
+    private bool _setupSaveFailed;
     private bool _setupPreviewRequested;
     private bool _setupAddTemplates = true;
 }

@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using AkelEtiket.PrintEngine;
 using AkelEtiket.ProjectManager;
 using AkelEtiket.Core;
@@ -61,6 +62,7 @@ public sealed class AppSettings
     public bool OnboardingCompleted { get; set; }
     public WindowPlacementSettings Window { get; set; } = new();
 
+    [JsonIgnore]
     public string EffectiveTemplatesFolder =>
         string.IsNullOrWhiteSpace(TemplatesFolder) ? TemplateLibrary.DefaultFolder : TemplatesFolder;
 

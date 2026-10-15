@@ -49,6 +49,7 @@ public sealed partial class FirstSetupViewModel : ObservableObject
 
     partial void OnStepIndexChanged(int value)
     {
+        if (value < 0 || value >= Steps.Count) { StepIndex = Math.Clamp(value, 0, Steps.Count - 1); return; }
         OnPropertyChanged(nameof(IsCompanyStep)); OnPropertyChanged(nameof(IsPrinterStep));
         OnPropertyChanged(nameof(IsFinishStep)); OnPropertyChanged(nameof(IsNotFinishStep)); OnPropertyChanged(nameof(StepTitle));
         NextCommand.NotifyCanExecuteChanged(); PreviousCommand.NotifyCanExecuteChanged();

@@ -34,7 +34,7 @@ public sealed partial class ColumnMappingViewModel : ObservableObject
         _document = document;
         var builtIns = EditorFields.BuiltIns(1, DateTime.Now);
         foreach (string field in document.Elements.SelectMany(DataSourceViewModel.FieldReferencesOf).Select(f => f.Base)
-            .Where(f => !builtIns.TryGetValue(f, null, out _)).DistinctBy(FieldNames.Normalize))
+            .Where(f => !builtIns.TryGetValue(f, null, out _)).Distinct(StringComparer.Ordinal))
         {
             var row = new ColumnMappingRow(field, table.Columns, sample ?? table.Rows.FirstOrDefault());
             row.PropertyChanged += (_, _) => OnPropertyChanged(nameof(IsValid));
@@ -46,8 +46,14 @@ public sealed partial class ColumnMappingViewModel : ObservableObject
     public LabelDocument CreateMappedDocument()
     {
         if (!IsValid) throw new InvalidOperationException("Her etiket alanı için bir veri sütunu seçin.");
-        var map = Rows.ToDictionary(r => FieldNames.Normalize(r.Field), r => r.SelectedColumn!);
-        string Name(string field) => map.GetValueOrDefault(FieldNames.Normalize(field), field);
+        var names = Rows.Select(r => r.Field).ToList();
+        var map = Rows.ToDictionary(r => r.Field, r => r.SelectedColumn!, StringComparer.Ordinal);
+        string Name(string field)
+        {
+            if (map.TryGetValue(field, out string? exact)) return exact;
+            int index = FieldNames.FindIndex(names, field);
+            return index >= 0 ? Rows[index].SelectedColumn! : field;
+        }
         string Text(string text)
         {
             foreach (var token in FieldTemplate.GetTokens(text).OrderByDescending(t => t.Start))

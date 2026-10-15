@@ -51,6 +51,13 @@ public sealed partial class ProductsViewModel : ObservableObject
     [ObservableProperty]
     public partial ProductRowViewModel? SelectedProduct { get; set; }
 
+    public IReadOnlyList<ProductRowViewModel> FindScanMatches(string code)
+    {
+        var extras = _catalog.Data.Columns.Where(c => c != _catalog.Data.KeyColumn).ToList();
+        return _catalog.FindScanMatches(code).Select(p => Results.FirstOrDefault(r => r.Key == p.Key)
+            ?? new ProductRowViewModel(p, _catalog.DisplayName(p), extras)).ToList();
+    }
+
     public int Count => _catalog.Data.Products.Count;
 
     partial void OnQueryChanged(string value) => Refresh();

@@ -88,6 +88,9 @@ public sealed partial class TemplatesViewModel : ObservableObject
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
+            Items.Clear();
+            SelectedItem = null;
+            OnPropertyChanged(nameof(ResultSummary));
             _main.Dialogs.ShowMessage("Şablonlar", "Şablon klasörü okunamadı: " + ex.Message, MessageKind.Warning);
         }
     }

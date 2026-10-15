@@ -187,7 +187,12 @@ public sealed class PrintHistoryStore
             try { acquired = mutex.WaitOne(TimeSpan.FromSeconds(5)); }
             catch (AbandonedMutexException) { acquired = true; }
             if (!acquired) throw new IOException("Baskı geçmişi başka bir işlem tarafından kullanılıyor; kayıt eklenemedi.");
-            using var stream = new FileStream(LogPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
+            using var stream = new FileStream(LogPath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read);
+            if (stream.Length > 0)
+            {
+                stream.Seek(-1, SeekOrigin.End);
+                if (stream.ReadByte() != '\n') stream.WriteByte((byte)'\n');
+            }
             stream.Seek(0, SeekOrigin.End);
             stream.Write(line);
             stream.Flush(flushToDisk: true);

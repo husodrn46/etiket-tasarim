@@ -265,6 +265,106 @@ public sealed class OnboardingAndUsabilityTests : IDisposable
             new JsonSettingsStore<AppSettings>(Path.Combine(_folder, "ayarlar.json")).Load().TemplatesFolder);
     }
 
+    [Theory]
+    [InlineData(-1, 0)] [InlineData(99, 2)]
+    public void Setup_InvalidStepSelectionCannotIndexOutsideSteps(int requested, int expected)
+    {
+        var setup = new FirstSetupViewModel(new AppSettings(), new ScriptedDialogs()) { StepIndex = requested };
+        Assert.Equal(expected, setup.StepIndex);
+        Assert.Equal(setup.Steps[expected], setup.StepTitle);
+    }
+
+    [Fact]
+    public void Setup_SaveFailureKeepsLiveSettingsAndAllowsRetry()
+    {
+        var dialogs = new ScriptedDialogs { DialogAnswer = vm =>
+        {
+            if (vm is not FirstSetupViewModel setup) return false;
+            setup.Profile.CompanyName = "Kaydedilmemeli"; setup.OpenPreview = false; return true;
+        }};
+        using var main = CreateMain(dialogs);
+        var previous = main.Settings;
+        Directory.CreateDirectory(Path.Combine(_folder, "ayarlar.json.tmp"));
+        main.Initialize([]);
+        Assert.Same(previous, main.Settings);
+        Assert.Equal("", main.Settings.Company.Name);
+        Assert.False(main.Settings.FirstRunCompleted);
+        Assert.False(main.Settings.OnboardingCompleted);
+        Assert.Empty(main.Templates.Library.List());
+        Assert.Contains(dialogs.Messages, m => m.Contains("Mevcut ayarlar korundu"));
+    }
+
+    [Fact]
+    public void BackupCommands_SettingsSaveFailureRollsBackProductsAndDoesNotApplySettings()
+    {
+        var dialogs = new ScriptedDialogs();
+        using var main = CreateMain(dialogs);
+        main.Settings.Company.Name = "Yedek firma";
+        string[] columns = ["Kod"];
+        main.Products.Import(new("kaynak.csv", "CSV", null, 1, columns, [new(2, ["YEDEK"], columns)], []), "Kod");
+        string backupFile = Path.Combine(_folder, "aktar.etiketyedek");
+        dialogs.SaveFileAnswer = backupFile; main.ExportWorkspaceBackupCommand.Execute(null);
+        main.Settings.Company.Name = "Mevcut firma";
+        main.Products.Import(new("mevcut.csv", "CSV", null, 1, columns, [new(2, ["MEVCUT"], columns)], []), "Kod");
+        main.SaveSettings();
+        byte[] previousFile = File.ReadAllBytes(main.Products.FilePath);
+        byte[] previousSettings = File.ReadAllBytes(Path.Combine(_folder, "ayarlar.json"));
+        var previous = main.Settings;
+        Directory.CreateDirectory(Path.Combine(_folder, "ayarlar.json.tmp"));
+        dialogs.OpenFileAnswer = backupFile; main.ImportWorkspaceBackupCommand.Execute(null);
+        Assert.Same(previous, main.Settings);
+        Assert.Equal("Mevcut firma", main.Settings.Company.Name);
+        Assert.Equal("MEVCUT", Assert.Single(main.Products.Data.Products).Key);
+        Assert.Equal(previousFile, File.ReadAllBytes(main.Products.FilePath));
+        Assert.Equal(previousSettings, File.ReadAllBytes(Path.Combine(_folder, "ayarlar.json")));
+        Assert.DoesNotContain(dialogs.Messages, m => m.Contains("ürün geri yüklendi"));
+    }
+
+    [Fact]
+    public void CatalogRestore_FailedCommitRollsBackFileAndMemory()
+    {
+        var catalog = new ProductCatalog(Path.Combine(_folder, "catalog.json"));
+        var old = new ProductCatalogData { Columns = ["Kod"], KeyColumn = "Kod", Products = [new() { Key = "Eski", Fields = new() { ["Kod"] = "Eski" } }] };
+        catalog.RestoreBackup(old);
+        byte[] previous = File.ReadAllBytes(catalog.FilePath);
+        Assert.Throws<IOException>(() => catalog.RestoreBackup(new(), () => throw new IOException("commit failed")));
+        Assert.Equal("Eski", Assert.Single(catalog.Data.Products).Key);
+        Assert.Equal(previous, File.ReadAllBytes(catalog.FilePath));
+    }
+
+    [Fact]
+    public void Mapping_ExactColumnsWithSameFoldedNameRemainIndependentAndCanBeBackedUp()
+    {
+        var doc = LabelDocument.CreateBlank();
+        doc.Elements.Add(new TextElement { Text = "{Ürün Kodu}|{UrunKodu}" });
+        string[] columns = ["Ürün Kodu", "UrunKodu"];
+        var record = new DataRecord(2, ["FIRST", "SECOND"], columns);
+        var table = new DataSourceTable("test.csv", "CSV", null, 1, columns, [record], []);
+        var mapping = new ColumnMappingViewModel(doc, table);
+        Assert.Equal(2, mapping.Rows.Count);
+        Assert.True(mapping.IsValid);
+        var mapped = mapping.CreateMappedDocument();
+        Assert.Equal("{Ürün Kodu}|{UrunKodu}", ((TextElement)mapped.Elements[0]).Text);
+        Assert.Equal("FIRST|SECOND", FieldTemplate.Resolve(((TextElement)mapped.Elements[0]).Text, record.ToFieldSource()).Text);
+        var catalog = new ProductCatalog(Path.Combine(_folder, "catalog.json"));
+        var imported = catalog.Import(table, "Ürün Kodu");
+        var backup = ProductCatalog.ValidateBackup(imported);
+        Assert.Equal("FIRST", backup.Products[0].Fields["Ürün Kodu"]);
+        Assert.Equal("SECOND", backup.Products[0].Fields["UrunKodu"]);
+    }
+
+    [Fact]
+    public void Backup_DoesNotSerializeComputedMachineSpecificTemplatePath()
+    {
+        using var main = CreateMain();
+        string path = Path.Combine(_folder, "tasima.etiketyedek");
+        WorkspaceBackup.Export(path, main.Settings, main.Templates.Library, new ProductCatalogData());
+        var backup = WorkspaceBackup.Read(path);
+        using var json = JsonDocument.Parse(backup.Files["settings.json"]);
+        Assert.False(json.RootElement.TryGetProperty("effectiveTemplatesFolder", out _));
+        Assert.False(json.RootElement.TryGetProperty("templatesFolder", out _));
+    }
+
     private string CreateArchive(Dictionary<string, byte[]> files, bool tamper = false)
     {
         string path = Path.Combine(_folder, Guid.NewGuid() + ".etiketyedek");

@@ -1,4 +1,5 @@
 using System.Text.Json;
+using AkelEtiket.Core.Serialization;
 using AkelEtiket.Core;
 using AkelEtiket.Editor.Services;
 using AkelEtiket.ProjectManager;
@@ -41,16 +42,18 @@ public sealed partial class MainViewModel
                 "Geri yükle", "Vazgeç")) return;
             string folder = Path.Combine(AppIdentity.DocumentsFolder, "Geri yüklenenler", Guid.NewGuid().ToString("N"));
             WorkspaceBackup.ExtractToNewFolder(backup, folder);
-            // Ürün listesi başarısızsa ayar/şablon seçimi değiştirilmez. Önceki liste ayrıca korunur.
-            Products.RestoreBackup(backup.Products);
+            var candidate = ModelJson.Clone(Settings);
             var profile = new SettingsViewModel(backup.Settings)
             {
                 TemplatesFolder = Path.Combine(folder, "templates"),
                 Gs1Prefix = Settings.Gs1CompanyPrefix,
             };
-            var (theme, _, _) = profile.ApplyTo(Settings);
-            Settings.Printer.PrinterName = ""; // Başka bilgisayardaki kuyruk adı otomatik kullanılmaz.
-            _services.SettingsStore.Save(Settings);
+            var (theme, _, _) = profile.ApplyTo(candidate);
+            candidate.Printer.PrinterName = "";
+            candidate.Recent.Items = RecentFiles.ToList();
+            // Ayar kaydı başarısız olursa ürün dosyası ve önbelleği geri alınır. Canlı ayarlar yalnız başarıda değişir.
+            Products.RestoreBackup(backup.Products, () => _services.SettingsStore.Save(candidate));
+            Settings = candidate;
             Templates.ChangeFolder(Settings.EffectiveTemplatesFolder);
             Session.SetDotsPerMm(Settings.Printer.DotsPerMm);
             OnPropertyChanged(nameof(Settings)); OnPropertyChanged(nameof(LabelSizeText)); OnPropertyChanged(nameof(DotsPerMm));

@@ -11,7 +11,7 @@ import sys
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[2]
-PUBLIC_DOCS = {'docs/GENEL-URUN.md', 'docs/MIMARI.md', 'docs/LISANSLAR.md', 'docs/KULLANIM-GELISTIRMELERI.md'}
+PUBLIC_DOCS = {'docs/GENEL-URUN.md', 'docs/MIMARI.md', 'docs/LISANSLAR.md', 'docs/KULLANIM-GELISTIRMELERI.md', 'docs/VALIDATION-2026-10-15.json'}
 GENERATED_REPORTS = {'SOURCE-MANIFEST.json', 'PUBLICATION-CHECK.json'}
 PRIVATE_ASSETS = {'src/AkelEtiket.App/Assets/akel-logo.png', 'src/AkelEtiket.Design/Assets/akel-logo.png'}
 RULES = {

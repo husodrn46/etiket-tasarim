@@ -50,6 +50,8 @@ public static class WorkspaceBackup
             if (!AllowedName(name)) throw new InvalidDataException("Şablon dosyasının adını Windows ile uyumlu olacak şekilde değiştirin: " + item.Name);
             files.Add(name, File.ReadAllBytes(item.FilePath));
         }
+        if (files.Keys.Distinct(StringComparer.OrdinalIgnoreCase).Count() != files.Count)
+            throw new InvalidDataException("Şablon dosya adları Windows'ta birbirinden farklı olmalı.");
         if (files.Count > MaxFiles || files.Values.Sum(b => (long)b.Length) > MaxBytes)
             throw new InvalidDataException("Yedek en fazla 1000 dosya ve 128 MB olabilir.");
         var manifest = new WorkspaceBackupManifest { Files = files.ToDictionary(p => p.Key, p => Hash(p.Value)) };
@@ -72,7 +74,7 @@ public static class WorkspaceBackup
     {
         using var stream = File.OpenRead(path);
         using var zip = new ZipArchive(stream, ZipArchiveMode.Read);
-        if (zip.Entries.Count > MaxFiles + 1 || zip.Entries.Sum(e => e.Length) > MaxBytes ||
+        if (zip.Entries.Count > MaxFiles + 1 || zip.Entries.Where(e => e.FullName != "manifest.json").Sum(e => e.Length) > MaxBytes ||
             zip.Entries.Select(e => e.FullName).Distinct(StringComparer.OrdinalIgnoreCase).Count() != zip.Entries.Count)
             throw new InvalidDataException("Yedek boyutu veya dosya listesi geçersiz.");
         var manifestEntry = zip.GetEntry("manifest.json") ?? throw new InvalidDataException("Yedek manifesti eksik.");

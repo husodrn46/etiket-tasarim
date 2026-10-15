@@ -32,7 +32,7 @@ Yedekler işletme verisi içerir ve yereldir; paylaşılmadan önce içeriği de
 ## Yerel doğrulama
 
 - Çözüm Mac üzerinde Windows hedeflemesiyle derlendi. Bu, WPF ekranlarının çalıştırıldığı anlamına gelmez.
-- Seçilmiş **906 test geçti, 0 başarısız**: editör 204, Core 203, DataImport 83, Rendering 49, Design 35,
+- Seçilmiş **920 test geçti, 0 başarısız**: editör 218, Core 203, DataImport 83, Rendering 49, Design 35,
   GS1 78, PrintEngine 58, ImageProcessor 107, Assistant 81 ve LocalApi 8.
 - Dört bağımsız .NET süreci aynı geçmiş dosyasına 80'er kayıt yazdı: **320/320 geçerli ve benzersiz kayıt**,
   tüm süreçler başarılı çıkış yaptı. Süreç içi 80 kayıtlık eşzamanlı ekleme regresyon testi de geçiyor.
@@ -42,3 +42,20 @@ Yedekler işletme verisi içerir ve yereldir; paylaşılmadan önce içeriği de
 - Windows kurulum/arayüz ve gerçek yazıcı testleri kullanıcının isteğiyle ertelendi.
   `windows_acceptance.ps1`, ilk kurulum sihirbazını erteleyerek önceki ayar ekranı akışını sınayacak biçimde
   güncellendi; bu betik de Windows'ta çalıştırılmadı. Sihirbazın görsel/klavye kabulü ayrıca yapılmalıdır.
+
+## 15 Ekim inceleme düzeltmeleri
+
+- Kurulum kaydı başarısızsa canlı ayarlar korunur; kurulum tamamlandı olarak işaretlenmez.
+  Geçersiz adım seçimleri aralık içinde tutulur.
+- Geri yüklemede ayar kaydı başarısızsa ürün dosyası ve ürün önbelleği geri alınır. Canlı ayarlar yalnız
+  başarılı kayıt sonrasında değiştirilir. Önceki ürün kopyası ayrıca korunur.
+- Okutma, bütün ürün kataloğundaki kod/barkod tam eşleşmeleriyle doğrulanır. Tek tam eşleşme görünür listeye
+  alınır; ilk 300 sonuç dışında ikinci eşleşme varsa otomatik seçim yapılmaz. Fiyat/açıklama kod sayılmaz.
+- Yalnız yerleşik alanları kullanan şablonlar ürün seçimi istemez. Sabit hatalı barkodlar da önizlemede engellenir.
+- “Ürün Kodu” ve “UrunKodu” gibi ayrı Excel sütunları birleştirilmez; yedekleme de bu ayrımı korur.
+- Geçmişte son satır yarım kalırsa yeni kayıt ayrı satıra eklenir; bozuk satır yeni kaydı yutmaz.
+- Yedekte türetilmiş bilgisayar yolu yazılmaz; dosya adı çakışma ve boyut sınırları tutarlı denetlenir.
+  Okunamayan şablon klasöründe eski liste ve seçim görünür kalmaz.
+
+[15 Ekim toplu doğrulama raporu](VALIDATION-2026-10-15.json) 10 test grubunu, filtreleri ve çok süreçli geçmiş
+sonucunu içerir. GitHub'da CI tanımlı değildir; bunlar yerel doğrulama sonuçlarıdır.
