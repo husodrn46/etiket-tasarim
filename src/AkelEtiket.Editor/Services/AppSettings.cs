@@ -25,6 +25,9 @@ public sealed class WindowPlacementSettings
 /// <summary>Uygulama ayarları (%APPDATA%\AKEL Etiket\ayarlar.json).</summary>
 public sealed class AppSettings
 {
+    /// <summary>auto = OS language; legacy installations without this field keep Turkish.</summary>
+    public string? UiLanguage { get; set; }
+
     public int SettingsVersion { get; set; } = 1;
     public CompanyProfile Company { get; set; } = new();
     public AppTheme Theme { get; set; } = AppTheme.Dark;
@@ -69,6 +72,7 @@ public sealed class AppSettings
     /// <summary>Okunan dosyadaki eksik/bozuk değerleri onarır.</summary>
     public void Normalize()
     {
+        if (UiLanguage is not ("auto" or "tr" or "en")) UiLanguage = FirstRunCompleted ? "tr" : "auto";
         Company ??= new CompanyProfile();
         Company.Normalize();
         Gs1CompanyPrefix ??= "";

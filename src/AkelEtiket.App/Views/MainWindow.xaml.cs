@@ -8,6 +8,7 @@ using System.Windows.Threading;
 using AkelEtiket.App.Services;
 using AkelEtiket.Editor.Services;
 using AkelEtiket.Editor.ViewModels;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.App.Views;
 
@@ -103,7 +104,7 @@ public partial class MainWindow : ThemedWindow
     private void OnRecentClick(object sender, RoutedEventArgs e)
     {
         var menu = new ContextMenu { PlacementTarget = RecentButton, Placement = PlacementMode.Bottom };
-        if (_vm.RecentFiles.Count == 0) menu.Items.Add(new MenuItem { Header = "Son kullanılan dosya yok", IsEnabled = false });
+        if (_vm.RecentFiles.Count == 0) menu.Items.Add(new MenuItem { Header = L10n.T("Son kullanılan dosya yok"), IsEnabled = false });
         foreach (var path in _vm.RecentFiles)
         {
             menu.Items.Add(new MenuItem
@@ -124,11 +125,11 @@ public partial class MainWindow : ThemedWindow
         var history = _vm.GetUndoHistory();
         if (history.Count == 0)
         {
-            menu.Items.Add(new MenuItem { Header = "Geri alınacak değişiklik yok", IsEnabled = false });
+            menu.Items.Add(new MenuItem { Header = L10n.T("Geri alınacak değişiklik yok"), IsEnabled = false });
         }
         else
         {
-            menu.Items.Add(new MenuItem { Header = "Seçilen değişikliğe kadar geri al (en yeni üstte):", IsEnabled = false });
+            menu.Items.Add(new MenuItem { Header = L10n.T("Seçilen değişikliğe kadar geri al (en yeni üstte):"), IsEnabled = false });
             menu.Items.Add(new Separator());
         }
         foreach (var item in history)
@@ -137,7 +138,7 @@ public partial class MainWindow : ThemedWindow
             {
                 Header = new TextBlock { Text = item.Description },
                 InputGestureText = item.Time.ToString("HH:mm:ss"),
-                ToolTip = item.Steps == 1 ? "Bu değişikliği geri al" : $"Buraya kadar geri al ({item.Steps} adım; Ctrl+Y ile ileri alınır)",
+                ToolTip = item.Steps == 1 ? L10n.T("Bu değişikliği geri al") : L10n.T($"Buraya kadar geri al ({item.Steps} adım; Ctrl+Y ile ileri alınır)"),
                 Command = _vm.UndoToCommand,
                 CommandParameter = item,
             });
@@ -148,31 +149,31 @@ public partial class MainWindow : ThemedWindow
     private void OnMoreFileClick(object sender, RoutedEventArgs e)
     {
         var menu = new ContextMenu { PlacementTarget = MoreFileButton, Placement = PlacementMode.Bottom };
-        menu.Items.Add(new MenuItem { Header = "Farklı kaydet…", Command = _vm.SaveDocumentAsCommand, InputGestureText = "Ctrl+Shift+S" });
-        menu.Items.Add(new MenuItem { Header = "Şablon olarak kaydet…", Command = _vm.SaveAsTemplateCommand });
+        menu.Items.Add(new MenuItem { Header = L10n.T("Farklı kaydet…"), Command = _vm.SaveDocumentAsCommand, InputGestureText = "Ctrl+Shift+S" });
+        menu.Items.Add(new MenuItem { Header = L10n.T("Şablon olarak kaydet…"), Command = _vm.SaveAsTemplateCommand });
         menu.Items.Add(new Separator());
-        menu.Items.Add(new MenuItem { Header = "PNG olarak dışa aktar…", Command = _vm.ExportPngCommand, InputGestureText = "Ctrl+E" });
-        menu.Items.Add(new MenuItem { Header = "PDF olarak kaydet…", Command = _vm.ExportPdfCommand });
+        menu.Items.Add(new MenuItem { Header = L10n.T("PNG olarak dışa aktar…"), Command = _vm.ExportPngCommand, InputGestureText = "Ctrl+E" });
+        menu.Items.Add(new MenuItem { Header = L10n.T("PDF olarak kaydet…"), Command = _vm.ExportPdfCommand });
         menu.Items.Add(new Separator());
-        menu.Items.Add(new MenuItem { Header = "Baskı geçmişi…", Command = _vm.OpenPrintHistoryCommand });
-        menu.Items.Add(new MenuItem { Header = "Sayaçlar…", Command = _vm.OpenCountersCommand });
+        menu.Items.Add(new MenuItem { Header = L10n.T("Baskı geçmişi…"), Command = _vm.OpenPrintHistoryCommand });
+        menu.Items.Add(new MenuItem { Header = L10n.T("Sayaçlar…"), Command = _vm.OpenCountersCommand });
         menu.Items.Add(new Separator());
-        menu.Items.Add(new MenuItem { Header = "Excel / CSV veri kaynağı seç…", Command = _vm.LoadDataCommand });
-        menu.Items.Add(new MenuItem { Header = "Veri sütunlarını eşleştir…", Command = _vm.OpenColumnMappingCommand });
+        menu.Items.Add(new MenuItem { Header = L10n.T("Excel / CSV veri kaynağı seç…"), Command = _vm.LoadDataCommand });
+        menu.Items.Add(new MenuItem { Header = L10n.T("Veri sütunlarını eşleştir…"), Command = _vm.OpenColumnMappingCommand });
         menu.IsOpen = true;
     }
 
     private void OnHelpClick(object sender, RoutedEventArgs e)
     {
         var menu = new ContextMenu { PlacementTarget = HelpButton, Placement = PlacementMode.Bottom };
-        menu.Items.Add(new MenuItem { Header = "İlk kurulum…", Command = _vm.OpenFirstSetupCommand });
-        menu.Items.Add(new MenuItem { Header = "Yardım ve kısayollar", Command = _vm.OpenHelpCommand, InputGestureText = "F1" });
-        menu.Items.Add(new MenuItem { Header = "Firma, şablon ve ürün yedeği oluştur…", Command = _vm.ExportWorkspaceBackupCommand });
-        menu.Items.Add(new MenuItem { Header = "Firma yedeğini geri yükle…", Command = _vm.ImportWorkspaceBackupCommand });
-        menu.Items.Add(new MenuItem { Header = "Bu tasarımın yedekleri…", Command = _vm.OpenBackupsCommand });
-        menu.Items.Add(new MenuItem { Header = "Ürün listesi…", Command = _vm.OpenProductsCommand });
+        menu.Items.Add(new MenuItem { Header = L10n.T("İlk kurulum…"), Command = _vm.OpenFirstSetupCommand });
+        menu.Items.Add(new MenuItem { Header = L10n.T("Yardım ve kısayollar"), Command = _vm.OpenHelpCommand, InputGestureText = "F1" });
+        menu.Items.Add(new MenuItem { Header = L10n.T("Firma, şablon ve ürün yedeği oluştur…"), Command = _vm.ExportWorkspaceBackupCommand });
+        menu.Items.Add(new MenuItem { Header = L10n.T("Firma yedeğini geri yükle…"), Command = _vm.ImportWorkspaceBackupCommand });
+        menu.Items.Add(new MenuItem { Header = L10n.T("Bu tasarımın yedekleri…"), Command = _vm.OpenBackupsCommand });
+        menu.Items.Add(new MenuItem { Header = L10n.T("Ürün listesi…"), Command = _vm.OpenProductsCommand });
         menu.Items.Add(new Separator());
-        menu.Items.Add(new MenuItem { Header = "Destek paketi oluştur…", Command = _vm.CreateSupportBundleCommand });
+        menu.Items.Add(new MenuItem { Header = L10n.T("Destek paketi oluştur…"), Command = _vm.CreateSupportBundleCommand });
         menu.IsOpen = true;
     }
 

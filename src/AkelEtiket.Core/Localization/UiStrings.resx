@@ -1,0 +1,3750 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
+  </resheader>
+  <data xml:space="preserve" name="T_00076d2ac90b">
+    <value>ASİSTAN</value>
+  </data>
+  <data xml:space="preserve" name="T_00480b8f2d84">
+    <value>Seçileni sil</value>
+  </data>
+  <data xml:space="preserve" name="T_0059bfc57922">
+    <value>Alan</value>
+  </data>
+  <data xml:space="preserve" name="T_00d2fd7ef973">
+    <value>Eşik değeri</value>
+  </data>
+  <data xml:space="preserve" name="T_01611fca8842">
+    <value>Yeni {0:0.#} × {1:0.#} mm etiket oluşturuldu.</value>
+  </data>
+  <data xml:space="preserve" name="T_01fde6ea1d06">
+    <value>Yazıcı ve ölçü</value>
+  </data>
+  <data xml:space="preserve" name="T_022f98848d06">
+    <value>Çizim hatası: </value>
+  </data>
+  <data xml:space="preserve" name="T_023b1747b437">
+    <value>Şablon baskıdan sonra değişmiş; güncel hâli kullanılıyor (baskıdaki kopya yok).</value>
+  </data>
+  <data xml:space="preserve" name="T_025443f49864">
+    <value>Şablon klasörü okunamadı: </value>
+  </data>
+  <data xml:space="preserve" name="T_02caeb350578">
+    <value>Otomatik kurtarma aralığı</value>
+  </data>
+  <data xml:space="preserve" name="T_0308e67479f3">
+    <value>Şablon açılamadı: </value>
+  </data>
+  <data xml:space="preserve" name="T_036ca1ae75e0">
+    <value>Logo alınamadı</value>
+  </data>
+  <data xml:space="preserve" name="T_037b5bb4e386">
+    <value> (baskıdaki kopya)</value>
+  </data>
+  <data xml:space="preserve" name="T_038dab327842">
+    <value>Yazıcı</value>
+  </data>
+  <data xml:space="preserve" name="T_03f33b7c42fd">
+    <value>Yazıcıya otomatik etiket/boşluk algılama komutu ({0}) gönderilecek. Yazıcı birkaç etiket ilerletebilir.
+
+</value>
+  </data>
+  <data xml:space="preserve" name="T_03f4f7edf2c6">
+    <value>Uyarı: önceki sürümün yedeği alınamadı (</value>
+  </data>
+  <data xml:space="preserve" name="T_03f8bc974056">
+    <value>Sensör kalibrasyonu, cetvelli kalibrasyon etiketi ve ölçüme göre ofset ayarı</value>
+  </data>
+  <data xml:space="preserve" name="T_03ff5ae8fa2d">
+    <value>Gönderilen: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_041319b7c7e2">
+    <value>Otomatik kurtarma kopyası yazılamadı: </value>
+  </data>
+  <data xml:space="preserve" name="T_04194d26a35d">
+    <value>Çapraz (↗)</value>
+  </data>
+  <data xml:space="preserve" name="T_0442143b72bb">
+    <value>Farklı kaydet, şablon, PNG/PDF, baskı geçmişi, sayaçlar, veri kaynağı</value>
+  </data>
+  <data xml:space="preserve" name="T_044a0ffdd5f9">
+    <value>YERLEŞİM VE KIRPMA</value>
+  </data>
+  <data xml:space="preserve" name="T_0450b6cb1dde">
+    <value>Etiket yazıcı çözünürlüğünde 1-bit görüntü olarak üretilir ve TSPL BITMAP komutuyla doğrudan yazıcıya gönderilir. Ölçekleme yapılmaz.</value>
+  </data>
+  <data xml:space="preserve" name="T_04875a14b7ff">
+    <value>Metin ya da barkoda {SAYAC} (bu etiketin kendi sayacı) veya {SAYAC.Koli} gibi adlı sayaç yazın; </value>
+  </data>
+  <data xml:space="preserve" name="T_0498bffb3556">
+    <value>{0} öğe seçili</value>
+  </data>
+  <data xml:space="preserve" name="T_049d9f2015d1">
+    <value> Dosyada veri satırı olmayan: </value>
+  </data>
+  <data xml:space="preserve" name="T_04ecfee5c483">
+    <value>Her satırın kaç adet basılacağı bu sütundan okunur</value>
+  </data>
+  <data xml:space="preserve" name="T_050c0536feb2">
+    <value>Kabul et</value>
+  </data>
+  <data xml:space="preserve" name="T_059ce90d7179">
+    <value>Yedek geri yüklendi</value>
+  </data>
+  <data xml:space="preserve" name="T_06455df7d342">
+    <value>Metin ekle</value>
+  </data>
+  <data xml:space="preserve" name="T_06c02f85a7af">
+    <value>, {0} satırda uyarı var.</value>
+  </data>
+  <data xml:space="preserve" name="T_06e44c77accf">
+    <value>Bilgisayar</value>
+  </data>
+  <data xml:space="preserve" name="T_06e63e63f6a1">
+    <value>OLUŞAN İÇERİK</value>
+  </data>
+  <data xml:space="preserve" name="T_06f80b2d813c">
+    <value>{0} etiket basılacak.</value>
+  </data>
+  <data xml:space="preserve" name="T_0729216bc964">
+    <value>Sürücü</value>
+  </data>
+  <data xml:space="preserve" name="T_07361857526c">
+    <value>Rulo değiştirdiğinizde, baskı her etikette aynı yerden başlamıyorsa ya da yazıcı kırmızı ışıkla duruyorsa yapın.</value>
+  </data>
+  <data xml:space="preserve" name="T_074664b77811">
+    <value>Etiket genişliği yazıcının baskı genişliğini aşıyor. Ölçüyü veya yazıcı genişliğini düzeltin.</value>
+  </data>
+  <data xml:space="preserve" name="T_074ac785e8b1">
+    <value>Bu tasarım henüz kaydedilmedi; yedekler kaydedilen dosyalar için tutulur.</value>
+  </data>
+  <data xml:space="preserve" name="T_074e464dc790">
+    <value>Hazırlanıyor…</value>
+  </data>
+  <data xml:space="preserve" name="T_0788f382774e">
+    <value>{0} biçimi kopyalandı. Aynı türdeki öğeleri seçip Ctrl+Shift+V ile uygulayın.</value>
+  </data>
+  <data xml:space="preserve" name="T_07c883e0e986">
+    <value>Biçim yapıştırıldı</value>
+  </data>
+  <data xml:space="preserve" name="T_07fecf18ff4c">
+    <value>Kenar çerçevesi, cetvel, merkez ve barkodlar içeren ölçü/kayma kontrol etiketi</value>
+  </data>
+  <data xml:space="preserve" name="T_082a2d588e00">
+    <value>Dikey çizgi</value>
+  </data>
+  <data xml:space="preserve" name="T_0839d629db05">
+    <value>{0} etiket basılacak. Devam edilsin mi?</value>
+  </data>
+  <data xml:space="preserve" name="T_0858e57a21bd">
+    <value>{0} adım geri alındı (Ctrl+Y ile ileri alınır).</value>
+  </data>
+  <data xml:space="preserve" name="T_08721bbd5ede">
+    <value>gönderilmedi</value>
+  </data>
+  <data xml:space="preserve" name="T_088cd77aa2ba">
+    <value>Genişlik × yükseklik</value>
+  </data>
+  <data xml:space="preserve" name="T_08a24723d591">
+    <value>Uygula</value>
+  </data>
+  <data xml:space="preserve" name="T_08ede57f7e04">
+    <value>Veri okunamadı.</value>
+  </data>
+  <data xml:space="preserve" name="T_0907f493150a">
+    <value>Türkçe karakterler (ğüşıöç) desteklenir. Telefonla okuma için modül en az 3 nokta (0,375 mm) önerilir.</value>
+  </data>
+  <data xml:space="preserve" name="T_090a85bf9bfd">
+    <value>İçeriği AI listesinden kurun: kayıtlı GTIN'ler, (00){SSCC} kısayolu, {Alan} bağlama ve canlı GS1 doğrulaması</value>
+  </data>
+  <data xml:space="preserve" name="T_09663f202d87">
+    <value>Yazıcı profili: medya ayarı</value>
+  </data>
+  <data xml:space="preserve" name="T_0969f8e8ffc1">
+    <value>"{0}" sıradaki {1}</value>
+  </data>
+  <data xml:space="preserve" name="T_09a6289e5566">
+    <value>Şekil ekle</value>
+  </data>
+  <data xml:space="preserve" name="T_09a76b0d3760">
+    <value>Sessiz bölgeyi kutuya dahil et</value>
+  </data>
+  <data xml:space="preserve" name="T_09e5a284f6c9">
+    <value>Yeniden adlandır…</value>
+  </data>
+  <data xml:space="preserve" name="T_0a6779636721">
+    <value>Şablon dosyası bulunamadı; baskıdaki tasarımın kopyası açıldı (kaydedilmemiş belge).</value>
+  </data>
+  <data xml:space="preserve" name="T_0a9a1aa98814">
+    <value>Toplu baskı</value>
+  </data>
+  <data xml:space="preserve" name="T_0afa41a2930b">
+    <value>Bu dosya türü eklenemez: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_0b417b2fdb53">
+    <value>"{0}" anlaşılamadı. Örnek: {1} (40- yazılırsa 40'tan sona kadar).</value>
+  </data>
+  <data xml:space="preserve" name="T_0bcb5ff74923">
+    <value>Son 7 gün</value>
+  </data>
+  <data xml:space="preserve" name="T_0c223cb5a132">
+    <value>Hoş geldiniz! Etiketiniz hazır. Tasarımınızı oluşturabilir veya Şablonlar panelinden bir örnek seçebilirsiniz.</value>
+  </data>
+  <data xml:space="preserve" name="T_0c70be7a66c9">
+    <value>Şekil</value>
+  </data>
+  <data xml:space="preserve" name="T_0cceaa1115be">
+    <value>Baskı hızı</value>
+  </data>
+  <data xml:space="preserve" name="T_0cdb41b16824">
+    <value>Bu etiketlere yeni SSCC numaraları verilir (gönderilmeyenlerin numaraları kullanılmadı olarak kaldı). </value>
+  </data>
+  <data xml:space="preserve" name="T_0cdef1362b87">
+    <value>Baskı verisi üretilemedi.</value>
+  </data>
+  <data xml:space="preserve" name="T_0d649df19ddb">
+    <value> Uyarı: </value>
+  </data>
+  <data xml:space="preserve" name="T_0db0c402e9f2">
+    <value>"{0}" bu baskıdan sonra değiştirilmiş. Satırlar baskıdaki satır numaralarıyla seçilecek; </value>
+  </data>
+  <data xml:space="preserve" name="T_0e155665a54b">
+    <value>Öne getir</value>
+  </data>
+  <data xml:space="preserve" name="T_0e6fac1300f3">
+    <value>Doldur (taşan kırpılır)</value>
+  </data>
+  <data xml:space="preserve" name="T_0e8cf2505599">
+    <value>Kalıcı sayaçlar ve seri numaraları</value>
+  </data>
+  <data xml:space="preserve" name="T_0eeeaa7a144f">
+    <value>Proje açıldı (uyarılar)</value>
+  </data>
+  <data xml:space="preserve" name="T_0f1f456914da">
+    <value>Baskıdaki hâli</value>
+  </data>
+  <data xml:space="preserve" name="T_0f8b5cb2e84b">
+    <value>Türkçe</value>
+  </data>
+  <data xml:space="preserve" name="T_0fa5590881e5">
+    <value>Önizleme</value>
+  </data>
+  <data xml:space="preserve" name="T_0ff927f2e196">
+    <value>Otsu (otomatik eşik)</value>
+  </data>
+  <data xml:space="preserve" name="T_0ffadf2bf014">
+    <value>Kopyala (Ctrl+C)</value>
+  </data>
+  <data xml:space="preserve" name="T_102efb6b9493">
+    <value>Yalnızca hatasızları seç</value>
+  </data>
+  <data xml:space="preserve" name="T_107ef0e40ef0">
+    <value>Koli</value>
+  </data>
+  <data xml:space="preserve" name="T_116712041101">
+    <value>Yapay zekânın okuyabileceği klasörü seçin</value>
+  </data>
+  <data xml:space="preserve" name="T_11fb682be0a0">
+    <value>AI</value>
+  </data>
+  <data xml:space="preserve" name="T_122a47549d70">
+    <value>Dosyadan görsel ekle</value>
+  </data>
+  <data xml:space="preserve" name="T_12375d126577">
+    <value>Gönderilecek komutların özeti (tanılama)</value>
+  </data>
+  <data xml:space="preserve" name="T_1264dd08f398">
+    <value>Uygulanan:</value>
+  </data>
+  <data xml:space="preserve" name="T_1279dae674df">
+    <value>Bugün</value>
+  </data>
+  <data xml:space="preserve" name="T_1298e583f63d">
+    <value>KONUM VE BOYUT</value>
+  </data>
+  <data xml:space="preserve" name="T_13be6cbab43a">
+    <value>Barkod</value>
+  </data>
+  <data xml:space="preserve" name="T_13ed3649db40">
+    <value>Eşik yönteminde sınır değer; diğer yöntemlerde yüksek değer daha koyu basar</value>
+  </data>
+  <data xml:space="preserve" name="T_141c233d2a7b">
+    <value>Düzenli (Bayer) dithering</value>
+  </data>
+  <data xml:space="preserve" name="T_1420a3d47c4b">
+    <value>Windows sürücüsü üzerinden</value>
+  </data>
+  <data xml:space="preserve" name="T_1428d629a9e2">
+    <value>Kayıtlı GTIN</value>
+  </data>
+  <data xml:space="preserve" name="T_14add07ada4a">
+    <value>Açıkken Etiket Tasarım yalnızca bu bilgisayardan (127.0.0.1) ve anahtarla erişilebilen bir yerel API açar. Uygulama kapalıyken istek gelirse penceresiz Worker başlar ve boşta kalınca kapanır. Bağlanan ajan, tasarım içeriğini kendi yapay zekâ servisine gönderebilir.</value>
+  </data>
+  <data xml:space="preserve" name="T_14f06929e3ff">
+    <value>Yazıcı profili kaydedildi: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_154024daac1f">
+    <value>Firma öneki doğrulaması</value>
+  </data>
+  <data xml:space="preserve" name="T_157353fe86ee">
+    <value>Ürün listesi boş. Ürün listesi düğmesinden Excel/CSV dosyanızı aktarabilirsiniz.</value>
+  </data>
+  <data xml:space="preserve" name="T_15de1c011090">
+    <value>Gerçek boyut</value>
+  </data>
+  <data xml:space="preserve" name="T_1659e1146a16">
+    <value>Yazdır (Ctrl+P)</value>
+  </data>
+  <data xml:space="preserve" name="T_17233932ffda">
+    <value>Ara</value>
+  </data>
+  <data xml:space="preserve" name="T_17280276b19a">
+    <value> ({0} hatalı satır atlanacak).</value>
+  </data>
+  <data xml:space="preserve" name="T_175099e088f7">
+    <value>Seri referansı {0} hane: 1 – {1}</value>
+  </data>
+  <data xml:space="preserve" name="T_17752bd72ce7">
+    <value>Logo seçilmedi; firma adı kullanılır.</value>
+  </data>
+  <data xml:space="preserve" name="T_177cf3f6b86f">
+    <value>Yakalama açık</value>
+  </data>
+  <data xml:space="preserve" name="T_184c6c59a9fe">
+    <value>Zemin</value>
+  </data>
+  <data xml:space="preserve" name="T_18e7af93c3b0">
+    <value>Rulo değiştirdiğinizde, baskı her etikette aynı yerden başlamıyorsa (etiketler kayarak ya da iki etikete bölünerek </value>
+  </data>
+  <data xml:space="preserve" name="T_18f5384d58bc">
+    <value>Y</value>
+  </data>
+  <data xml:space="preserve" name="T_18fc0056f547">
+    <value>Cetvelleri göster</value>
+  </data>
+  <data xml:space="preserve" name="T_1902d32feb24">
+    <value>"{0}" simgesi eklendi ({1:0.#} mm). Boyutunu tutamaçlardan değiştirebilirsiniz.</value>
+  </data>
+  <data xml:space="preserve" name="T_190f382a5aff">
+    <value>Baskı kullanıcı tarafından iptal edildi; gönderilmiş etiketler basılmaya devam edebilir.</value>
+  </data>
+  <data xml:space="preserve" name="T_1968a465e1ba">
+    <value>Yeniden adlandırılamadı</value>
+  </data>
+  <data xml:space="preserve" name="T_19a3d2db551c">
+    <value>GS1 Firma Profili'nde kayıtlı GTIN yok. Ayarlar → GS1 Firma Profili… bölümünden ekleyebilirsiniz.</value>
+  </data>
+  <data xml:space="preserve" name="T_19d982d28c61">
+    <value>Pencereye sığdır (Ctrl+0)</value>
+  </data>
+  <data xml:space="preserve" name="T_1a116abb390d">
+    <value>Çizgi kalınlığı</value>
+  </data>
+  <data xml:space="preserve" name="T_1a36957b18e1">
+    <value>Ürün listesi değişmeden önce ayrı bir kopyası saklanacak.
+
+</value>
+  </data>
+  <data xml:space="preserve" name="T_1a3c29bd88b2">
+    <value>Sütunlar eşleştirildi. Kaynak dosya değişmedi; eşleştirmeyi tasarımla birlikte kaydedebilirsiniz.</value>
+  </data>
+  <data xml:space="preserve" name="T_1a6f38874da7">
+    <value>SORUNLAR</value>
+  </data>
+  <data xml:space="preserve" name="T_1a808a5db984">
+    <value>Basılacak boyut:</value>
+  </data>
+  <data xml:space="preserve" name="T_1ac4e2987465">
+    <value>Görsel ekle</value>
+  </data>
+  <data xml:space="preserve" name="T_1acdb207777d">
+    <value>Sorun bildirirken ? → Destek paketi oluştur; paket yalnızca bu bilgisayara kaydedilir.</value>
+  </data>
+  <data xml:space="preserve" name="T_1b1ab065b3db">
+    <value>Seçili yedeği aç</value>
+  </data>
+  <data xml:space="preserve" name="T_1b4a8d9119f0">
+    <value>Sağdan %</value>
+  </data>
+  <data xml:space="preserve" name="T_1ba1702caea0">
+    <value>{0} farklı etiket, toplam {1} adet</value>
+  </data>
+  <data xml:space="preserve" name="T_1bca30b4bbf4">
+    <value>içerik</value>
+  </data>
+  <data xml:space="preserve" name="T_1be26e1dfd26">
+    <value>İZİNLİ KLASÖRLER</value>
+  </data>
+  <data xml:space="preserve" name="T_1c39c043b395">
+    <value>SÜTUNLAR (tıklayınca etikete bağlanır)</value>
+  </data>
+  <data xml:space="preserve" name="T_1c5d04f6b263">
+    <value>"{0}" adında bir şablon var. Üzerine yazılsın mı?</value>
+  </data>
+  <data xml:space="preserve" name="T_1cae9843d949">
+    <value>Yakınlaştırma</value>
+  </data>
+  <data xml:space="preserve" name="T_1ce145dd5958">
+    <value>Geçerli bir tam sayı girin ({0} veya büyük).</value>
+  </data>
+  <data xml:space="preserve" name="T_1d02026506c1">
+    <value>Eşleştirmeyi uygula</value>
+  </data>
+  <data xml:space="preserve" name="T_1d7b69eae06e">
+    <value>{0} hatalı satır atlanacak, {1} etiket basılacak.
+
+</value>
+  </data>
+  <data xml:space="preserve" name="T_1d97c9fec35a">
+    <value>Ad</value>
+  </data>
+  <data xml:space="preserve" name="T_1dac06874c34">
+    <value>eşit değildir</value>
+  </data>
+  <data xml:space="preserve" name="T_1de4bd6bfd9c">
+    <value>Değiştir</value>
+  </data>
+  <data xml:space="preserve" name="T_1e39652d0d29">
+    <value>sürekli rulo</value>
+  </data>
+  <data xml:space="preserve" name="T_1e439d3c0b6d">
+    <value>Yalnızca yarım kalanlar</value>
+  </data>
+  <data xml:space="preserve" name="T_1e857796acd6">
+    <value>Listeden bir AI seçin (rakamını yazarak da arayabilirsiniz).</value>
+  </data>
+  <data xml:space="preserve" name="T_1e8d893669ce">
+    <value> (v1'deki asıllar değişmedi).</value>
+  </data>
+  <data xml:space="preserve" name="T_1eb5794349ad">
+    <value>Yedek açılamadı</value>
+  </data>
+  <data xml:space="preserve" name="T_1f0b3400958b">
+    <value>Tuvaldeki siyah-beyaz noktalar baskıyla birebir aynıdır (203 dpi, 1-bit).</value>
+  </data>
+  <data xml:space="preserve" name="T_1f6eaed5ee84">
+    <value>Veri kaynakları</value>
+  </data>
+  <data xml:space="preserve" name="T_2030958ff03c">
+    <value>TSPL doğrudan</value>
+  </data>
+  <data xml:space="preserve" name="T_20e905dc87dc">
+    <value>Katmanlar</value>
+  </data>
+  <data xml:space="preserve" name="T_213193bd9dad">
+    <value>İlk kurulum…</value>
+  </data>
+  <data xml:space="preserve" name="T_213905768b86">
+    <value>Sil (Delete)</value>
+  </data>
+  <data xml:space="preserve" name="T_213aa2553584">
+    <value>Dosyanın üzerine her kayıtta önceki hâli saklanır. Seçtiğiniz yedek yeni belge olarak açılır; asıl dosya değişmez.</value>
+  </data>
+  <data xml:space="preserve" name="T_2174b28cffa2">
+    <value>{0} öğe silindi</value>
+  </data>
+  <data xml:space="preserve" name="T_21b547ae546b">
+    <value>Örnek şablonlar zaten mevcut.</value>
+  </data>
+  <data xml:space="preserve" name="T_21d18cafc84d">
+    <value>Her kayıtta önceki sürümün yedeği alınır: ? → Bu tasarımın yedekleri.</value>
+  </data>
+  <data xml:space="preserve" name="T_220b8926fd40">
+    <value>Elips</value>
+  </data>
+  <data xml:space="preserve" name="T_2220eff09654">
+    <value>Otomatik EAN-13 üretiminde kullanılır</value>
+  </data>
+  <data xml:space="preserve" name="T_222c121df428">
+    <value>Görseli değiştir</value>
+  </data>
+  <data xml:space="preserve" name="T_234165059ef3">
+    <value>Hazır profil değiştirilemez: uygularken yeni bir profil adı sorulur (vazgeçerseniz ofsetler yalnızca yazıcı ayarlarına kaydedilir).</value>
+  </data>
+  <data xml:space="preserve" name="T_234629522e49">
+    <value>Dolgu</value>
+  </data>
+  <data xml:space="preserve" name="T_23a9eaaf836e">
+    <value>Son kullanılanlar</value>
+  </data>
+  <data xml:space="preserve" name="T_23bfb50dd06c">
+    <value>Şablon çoğaltılamadı</value>
+  </data>
+  <data xml:space="preserve" name="T_23e7f11beaaa">
+    <value>Ofset (sağ / aşağı)</value>
+  </data>
+  <data xml:space="preserve" name="T_241dc2b51eb4">
+    <value>"{0}" profili zaten var. Üzerine yazılsın mı?</value>
+  </data>
+  <data xml:space="preserve" name="T_2429d9e8a265">
+    <value>Tam kod eşleşmesi yok. Listeden doğru ürünü seçin.</value>
+  </data>
+  <data xml:space="preserve" name="T_245f0a878376">
+    <value>Etiketin üstüne</value>
+  </data>
+  <data xml:space="preserve" name="T_24e4107ec1a2">
+    <value>Şablon adı veya ölçü ara</value>
+  </data>
+  <data xml:space="preserve" name="T_24ee22fca982">
+    <value>Ayar dosyası:</value>
+  </data>
+  <data xml:space="preserve" name="T_2507e7d789e0">
+    <value>Excel/CSV'den aktar…</value>
+  </data>
+  <data xml:space="preserve" name="T_2516db321dbd">
+    <value>henüz kullanılmadı</value>
+  </data>
+  <data xml:space="preserve" name="T_25246ccd7060">
+    <value>Açıldı: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_261a51344dab">
+    <value>"{0}" sayacı zaten var.</value>
+  </data>
+  <data xml:space="preserve" name="T_267f47a08053">
+    <value>Sorun bulunmadı.</value>
+  </data>
+  <data xml:space="preserve" name="T_26bfc08ea86f">
+    <value>Adet sütunu</value>
+  </data>
+  <data xml:space="preserve" name="T_271e612916a3">
+    <value>Eşit dağıtıldı</value>
+  </data>
+  <data xml:space="preserve" name="T_279b0d2aa9ea">
+    <value>Yazıcı çevrimdışı görünse de gönder (gelişmiş)</value>
+  </data>
+  <data xml:space="preserve" name="T_280505a1c0b0">
+    <value>yazı boyutu</value>
+  </data>
+  <data xml:space="preserve" name="T_28ed729e7118">
+    <value>FİRMA BİLGİLERİ</value>
+  </data>
+  <data xml:space="preserve" name="T_292491241e16">
+    <value>Ürün kodu</value>
+  </data>
+  <data xml:space="preserve" name="T_2948b4756a31">
+    <value>Yazıcı: {0} · {1}</value>
+  </data>
+  <data xml:space="preserve" name="T_2952e28f6c2c">
+    <value>Kaldığı yerden devam</value>
+  </data>
+  <data xml:space="preserve" name="T_2965a52668dc">
+    <value>Onayınızı bekleyen {0} yapay zekâ önerisi var (sağdaki Yapay Zekâ paneli).</value>
+  </data>
+  <data xml:space="preserve" name="T_2966ac6511d8">
+    <value>(adsız)</value>
+  </data>
+  <data xml:space="preserve" name="T_296b7ee4327f">
+    <value>Satır aralığı</value>
+  </data>
+  <data xml:space="preserve" name="T_29c06e870544">
+    <value>Belge / şablon adı</value>
+  </data>
+  <data xml:space="preserve" name="T_29d74b7c2a95">
+    <value>{0} haneli önek, üyelik belgesinden doğrulandı. SSCC üretilebilir.</value>
+  </data>
+  <data xml:space="preserve" name="T_2a43d517a66a">
+    <value>Yazıcı baskı sırasında seçilecek.</value>
+  </data>
+  <data xml:space="preserve" name="T_2a7c046a4bbf">
+    <value>Şablon klasörünü aç</value>
+  </data>
+  <data xml:space="preserve" name="T_2aa2e1a98dcd">
+    <value>
+
+Şablonlar: </value>
+  </data>
+  <data xml:space="preserve" name="T_2ab1921b90e7">
+    <value>2. KALİBRASYON ETİKETİNİ BAS</value>
+  </data>
+  <data xml:space="preserve" name="T_2ac0b6855963">
+    <value>Doğrudan: değişiklikler hemen uygulanır (her adım Ctrl+Z ile geri alınabilir; dosyalardan önce yedek alınır).</value>
+  </data>
+  <data xml:space="preserve" name="T_2b2d7a44c946">
+    <value>En arkaya gönder</value>
+  </data>
+  <data xml:space="preserve" name="T_2b809c29c769">
+    <value>Değer baskıda {0} alanından gelir.</value>
+  </data>
+  <data xml:space="preserve" name="T_2bc4396b93f7">
+    <value>Tasarım yedekleri</value>
+  </data>
+  <data xml:space="preserve" name="T_2bcf6be9b3e7">
+    <value>Claude Desktop: %APPDATA%\Claude\claude_desktop_config.json dosyasına ekleyin, sonra Claude Desktop'ı yeniden başlatın.</value>
+  </data>
+  <data xml:space="preserve" name="T_2c237a0d520f">
+    <value>Önce geçerli bir barkod içeriği girin (değişken alanlı barkodlarda veri kaynağı yükleyin).</value>
+  </data>
+  <data xml:space="preserve" name="T_2c65952a3209">
+    <value>… ve {0} satır daha atlandı.</value>
+  </data>
+  <data xml:space="preserve" name="T_2c6b3833afbf">
+    <value>Hızlı Baskı (şablon + ürün + adet)</value>
+  </data>
+  <data xml:space="preserve" name="T_2ca72b9585ac">
+    <value>Ofsetler uygulandı. Hazır profil değiştirilemediği (ya da profil seçilmediği) için ayarlar yeni bir profile kaydedilecek. Profil adı:</value>
+  </data>
+  <data xml:space="preserve" name="T_2cc69ff337ad">
+    <value>Aktarılamadı: </value>
+  </data>
+  <data xml:space="preserve" name="T_2ce62c77163b">
+    <value>Sensör kalibrasyonu komutu yazıcı kuyruğuna gönderildi. Yazıcı birkaç etiket ilerletip durmalı; ardından kalibrasyon etiketini basın.</value>
+  </data>
+  <data xml:space="preserve" name="T_2d067f54ba4b">
+    <value>Yardım ve kısayollar</value>
+  </data>
+  <data xml:space="preserve" name="T_2d0cf3a0aff6">
+    <value>Geri yükle</value>
+  </data>
+  <data xml:space="preserve" name="T_2d707032859e">
+    <value>Sütun seçin</value>
+  </data>
+  <data xml:space="preserve" name="T_2d955117ca5e">
+    <value>{0} haneli önek. SSCC üretimi için "Üyelik belgesinden doğrulandı" kutusunu işaretleyin.</value>
+  </data>
+  <data xml:space="preserve" name="T_2dc4fb4b1056">
+    <value>Yalnızca {0} basılır.</value>
+  </data>
+  <data xml:space="preserve" name="T_2de4a3caa03d">
+    <value>Çerçeve</value>
+  </data>
+  <data xml:space="preserve" name="T_2de7525d280c">
+    <value>Yeniden adlandır</value>
+  </data>
+  <data xml:space="preserve" name="T_2df68e2624fa">
+    <value>Yatay ortala</value>
+  </data>
+  <data xml:space="preserve" name="T_2e1ff8caca5d">
+    <value>{0} sayfa kaydedildi. Şu etiketler üretilemediği için PDF'e eklenmedi:
+</value>
+  </data>
+  <data xml:space="preserve" name="T_2e85d12ddea4">
+    <value>Satır numaraları Excel/CSV dosyasındaki gerçek satırlardır. Hatalı satırlar basılmaz, diğerleri etkilenmez.</value>
+  </data>
+  <data xml:space="preserve" name="T_2e9b20ff6b23">
+    <value>Barkod oluşturulamadı.</value>
+  </data>
+  <data xml:space="preserve" name="T_2f3eccbc685a">
+    <value>Şu an: 180° döndürülmüş (TSPL DIRECTION 0 — sipariş sistemiyle aynı).</value>
+  </data>
+  <data xml:space="preserve" name="T_2f63000712c8">
+    <value>Bu etiketin kullandığı sayaçlar: </value>
+  </data>
+  <data xml:space="preserve" name="T_2f71973dd568">
+    <value>GLN (Küresel Lokasyon No.)</value>
+  </data>
+  <data xml:space="preserve" name="T_2f7e7a3c1018">
+    <value>Büyük/küçük harf duyarsız (Türkçe kurallarla) karşılaştırılır</value>
+  </data>
+  <data xml:space="preserve" name="T_2fabc8647dc5">
+    <value>{0} / {1} kayıt</value>
+  </data>
+  <data xml:space="preserve" name="T_300e04bff0de">
+    <value>Bugünün tarihi (gg.aa.yyyy)</value>
+  </data>
+  <data xml:space="preserve" name="T_307a221c7ed5">
+    <value>Eklenen her görsel termal baskıya uygun 1-bit siyah-beyaza dönüştürülür. Logo/çizim için keskin eşikleme, fotoğraf için detay koruyan dithering otomatik seçilir; sağ panelden yöntem, eşik, parlaklık, kontrast, ters çevirme, sığdırma ve kırpma ayarlanabilir. Şeffaf alanlar beyaz basılır.</value>
+  </data>
+  <data xml:space="preserve" name="T_3096ff975b43">
+    <value>Yeni sayaç</value>
+  </data>
+  <data xml:space="preserve" name="T_30c97c570b64">
+    <value>; {0} şablon kopyalandı</value>
+  </data>
+  <data xml:space="preserve" name="T_30dafe693625">
+    <value>Firma, şablon ve ürün yedeği</value>
+  </data>
+  <data xml:space="preserve" name="T_30fd220911bd">
+    <value>Geri alınacak değişiklik yok</value>
+  </data>
+  <data xml:space="preserve" name="T_310c98d37991">
+    <value>Barkod üretilemedi</value>
+  </data>
+  <data xml:space="preserve" name="T_314e42bd6fa8">
+    <value>Geçerli GLN (kontrol basamağı doğru). GLN bir yer/firma numarasıdır; ürün barkodu ve firma öneki değildir.</value>
+  </data>
+  <data xml:space="preserve" name="T_3154d3e5560f">
+    <value>Görseli değiştir…</value>
+  </data>
+  <data xml:space="preserve" name="T_31e16e46f0e9">
+    <value>Öğe her etikette o etiketin verisine göre basılır ya da basılmaz (ör. İNDİRİM yazısı yalnızca {Indirim} doluysa)</value>
+  </data>
+  <data xml:space="preserve" name="T_31ec96e448ca">
+    <value>HTTP üzerinden MCP uç noktası (/mcp) — stdio desteklemeyen yerel istemciler için</value>
+  </data>
+  <data xml:space="preserve" name="T_31ef8081d5af">
+    <value> • {0} hatalı satır atlanacak</value>
+  </data>
+  <data xml:space="preserve" name="T_31f64f835580">
+    <value>Etiket Tasarım – {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_3217e2f49b34">
+    <value>Lütfen baskı penceresinde bir yazıcı seçin.</value>
+  </data>
+  <data xml:space="preserve" name="T_324881c4287a">
+    <value>Alt başlık</value>
+  </data>
+  <data xml:space="preserve" name="T_326ba1f328e5">
+    <value>Baskıdaki tasarımın kopyası açıldı (kaydedilmemiş belge).</value>
+  </data>
+  <data xml:space="preserve" name="T_32747fdee2f6">
+    <value>Baskı verisi üretildi: {0} etiket görüntüsü, toplam {1} adet ({2}).</value>
+  </data>
+  <data xml:space="preserve" name="T_32ba9ec93bff">
+    <value>Dışa aktarılamadı</value>
+  </data>
+  <data xml:space="preserve" name="T_32c6bebf1cb0">
+    <value>Adres</value>
+  </data>
+  <data xml:space="preserve" name="T_32d1fc5926c2">
+    <value>{0} öğe gruplandı (birlikte seçilir ve taşınır). Çözmek için Ctrl+Shift+G.</value>
+  </data>
+  <data xml:space="preserve" name="T_3313156e3b30">
+    <value>SSCC aralığı: {0} – {1} ({2} numara)</value>
+  </data>
+  <data xml:space="preserve" name="T_333e0a1e2781">
+    <value>G</value>
+  </data>
+  <data xml:space="preserve" name="T_334eac4783af">
+    <value>"{0}" sayacının ilk değeri:</value>
+  </data>
+  <data xml:space="preserve" name="T_339daf924864">
+    <value>Çözünürlük</value>
+  </data>
+  <data xml:space="preserve" name="T_33b15963bad7">
+    <value>Lojistik etiket standardı SSCC için GS1-128 barkod ister; GS1 DataMatrix / GS1 QR'ı ona ek olarak kullanın.</value>
+  </data>
+  <data xml:space="preserve" name="T_33c022ced3fa">
+    <value>Şablon açılamadı</value>
+  </data>
+  <data xml:space="preserve" name="T_3413a2cfe791">
+    <value>Kaydettikten sonra baskı önizlemesini aç</value>
+  </data>
+  <data xml:space="preserve" name="T_34658ade9050">
+    <value>Küçük metin ekle</value>
+  </data>
+  <data xml:space="preserve" name="T_34efca536c20">
+    <value>{0:0.##} mm {1} kaymış</value>
+  </data>
+  <data xml:space="preserve" name="T_35f9315b2240">
+    <value>Sıradaki değer</value>
+  </data>
+  <data xml:space="preserve" name="T_3611691e5fe7">
+    <value>Firma, şablon ve ürün yedeği oluştur…</value>
+  </data>
+  <data xml:space="preserve" name="T_3639300c0b11">
+    <value>Çizgi yönü</value>
+  </data>
+  <data xml:space="preserve" name="T_365a5948f989">
+    <value>Soldan %</value>
+  </data>
+  <data xml:space="preserve" name="T_369ce2e0ede9">
+    <value>Örn: Logoyu 5 mm sağa taşı, ürün adını büyüt. (Göndermek için Ctrl+Enter)</value>
+  </data>
+  <data xml:space="preserve" name="T_36a6fb9dac11">
+    <value>Şekiller</value>
+  </data>
+  <data xml:space="preserve" name="T_36c6bb3c5cbf">
+    <value>Firma öneki ve uzunluğu GLN'den tahmin edilmez. GS1 Türkiye üyelik belgenizdeki öneki aynen yazın, belgeyle karşılaştırdıktan sonra "Üyelik belgesinden doğrulandı" kutusunu işaretleyin. Doğrulanmadan SSCC üretilmez; yanlış önekle basılan SSCC'ler geri alınamaz.</value>
+  </data>
+  <data xml:space="preserve" name="T_36e5bf6939f2">
+    <value>Şablon kaydedildi: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_373bf4e53b57">
+    <value>Örnek şablonları geri yükle</value>
+  </data>
+  <data xml:space="preserve" name="T_3768026a47db">
+    <value>Yeni sayaç…</value>
+  </data>
+  <data xml:space="preserve" name="T_376859792c69">
+    <value>Modülü küçült (kutuyu daralt)</value>
+  </data>
+  <data xml:space="preserve" name="T_38676e87c754">
+    <value>Pencereye sığdır / gerçek boyut</value>
+  </data>
+  <data xml:space="preserve" name="T_38a7461cf7cd">
+    <value>En öne getir</value>
+  </data>
+  <data xml:space="preserve" name="T_38a8552ebcbe">
+    <value>Görsel eklendi ve 1-bit siyah-beyaza dönüştürüldü ({0} × {1} px). Ayarlar sağ panelde.</value>
+  </data>
+  <data xml:space="preserve" name="T_38dd504fe577">
+    <value>Bu tarihe kadar (dahil)</value>
+  </data>
+  <data xml:space="preserve" name="T_39563a322e22">
+    <value>Bu şablon en son şu veri dosyasıyla kullanıldı:
+{0}
+
+Yüklensin mi?</value>
+  </data>
+  <data xml:space="preserve" name="T_398c68219f11">
+    <value>TSPL komutları</value>
+  </data>
+  <data xml:space="preserve" name="T_399de06e1d61">
+    <value>Kilitle / kilidi aç</value>
+  </data>
+  <data xml:space="preserve" name="T_39a8d28c1c6b">
+    <value>Vazgeç</value>
+  </data>
+  <data xml:space="preserve" name="T_3a90dc9bbd9b">
+    <value>{0} satırda hata var; içerik ancak hatalar düzeltilince uygulanabilir.</value>
+  </data>
+  <data xml:space="preserve" name="T_3ac40db3ff20">
+    <value>Harf dönüşümü: {Alan:BUYUK}, {Alan:KUCUK}, {Alan:BASHARF} (Türkçe i/İ, ı/I doğru). Biçimle birlikte: {TARIH:dd MMMM yyyy|BUYUK}.</value>
+  </data>
+  <data xml:space="preserve" name="T_3b0a85eb1e43">
+    <value>Sığdır (oran korunur)</value>
+  </data>
+  <data xml:space="preserve" name="T_3b696607380e">
+    <value>Bu baskının veri dosyası bulunamadı</value>
+  </data>
+  <data xml:space="preserve" name="T_3b719801ba3f">
+    <value> (baskıdaki hâlinin kopyası saklı)</value>
+  </data>
+  <data xml:space="preserve" name="T_3b94d5d1f5ac">
+    <value>yalnızca 127.0.0.1 (uzak erişim yok)</value>
+  </data>
+  <data xml:space="preserve" name="T_3bdc43dad304">
+    <value>Yatay çizgi</value>
+  </data>
+  <data xml:space="preserve" name="T_3bea0519b08e">
+    <value>Belgeler klasörü bulunamadı (geliştirme sürümünde belgeler depodaki docs klasöründedir).</value>
+  </data>
+  <data xml:space="preserve" name="T_3c100927aa05">
+    <value>siyah-beyaz ayarı</value>
+  </data>
+  <data xml:space="preserve" name="T_3c4ff0240c46">
+    <value>Hiçbirini seçme</value>
+  </data>
+  <data xml:space="preserve" name="T_3c51fed99bcb">
+    <value>Claude Code (stdio, önerilen): komut satırında çalıştırın.</value>
+  </data>
+  <data xml:space="preserve" name="T_3c5d8951ca04">
+    <value>Mevcut {0} ürünlük liste, seçilen dosyadakilerle değiştirilsin mi?</value>
+  </data>
+  <data xml:space="preserve" name="T_3c61ab0065b1">
+    <value>Kontrol karakteri ekle (Code 39: mod 43, ITF: mod 10)</value>
+  </data>
+  <data xml:space="preserve" name="T_3c989a2b16cc">
+    <value>Yapıştırıldı</value>
+  </data>
+  <data xml:space="preserve" name="T_3cbdbb888443">
+    <value>(01) ve (02) birlikte kullanılmaz: koli bir ticari ürünse (01), içindeki ürünleri gösteriyorsa (02) kullanılır.</value>
+  </data>
+  <data xml:space="preserve" name="T_3cdb19af8f1c">
+    <value>Yatay kaydırma (mm); + sağa</value>
+  </data>
+  <data xml:space="preserve" name="T_3d6610acca3c">
+    <value>Test etiketi bas</value>
+  </data>
+  <data xml:space="preserve" name="T_3da7e921e5b6">
+    <value>Etiketler arası boşluk:</value>
+  </data>
+  <data xml:space="preserve" name="T_3dda2368e5f9">
+    <value>Şablon olarak kaydet</value>
+  </data>
+  <data xml:space="preserve" name="T_3e1ccc36249e">
+    <value>Genişlik</value>
+  </data>
+  <data xml:space="preserve" name="T_3e5d57c19300">
+    <value>GAPDETECT: yazıcı birkaç etiket ilerleterek etiketler arasındaki boşluğu ölçer ve etiket boyunu hafızasına yazar. </value>
+  </data>
+  <data xml:space="preserve" name="T_3e7c86028e42">
+    <value>Hatalı</value>
+  </data>
+  <data xml:space="preserve" name="T_3f0a3653ae48">
+    <value>Kilitli</value>
+  </data>
+  <data xml:space="preserve" name="T_3f42acc85e4c">
+    <value>Xprinter XP-470B algılandı (203 DPI, en fazla 108 mm baskı genişliği).</value>
+  </data>
+  <data xml:space="preserve" name="T_3f48be73fb7d">
+    <value>İstenen</value>
+  </data>
+  <data xml:space="preserve" name="T_3f5d764c85b3">
+    <value>Yardım (F1), yedekler, destek paketi</value>
+  </data>
+  <data xml:space="preserve" name="T_3f7032d603d5">
+    <value>Ürün listesi</value>
+  </data>
+  <data xml:space="preserve" name="T_3fb8998e50b0">
+    <value>Profili yeniden adlandır</value>
+  </data>
+  <data xml:space="preserve" name="T_3fb91e79782d">
+    <value>Profilin rulo ölçüsü {0:0.##} × {1:0.##} mm, tasarım {2:0.##} × {3:0.##} mm. Rulo ile tasarımın aynı ölçüde olduğundan emin olun.</value>
+  </data>
+  <data xml:space="preserve" name="T_40baf449a813">
+    <value>Ürün kodu/barkod okutun ya da yazıp Enter'a basın</value>
+  </data>
+  <data xml:space="preserve" name="T_40c7deca7601">
+    <value>Biçim yalnızca {0} öğelerine uygulanabilir (kilitli öğeler hariç).</value>
+  </data>
+  <data xml:space="preserve" name="T_40f300e450d1">
+    <value>boş ise</value>
+  </data>
+  <data xml:space="preserve" name="T_416c889215e0">
+    <value>Etiket Tasarım – </value>
+  </data>
+  <data xml:space="preserve" name="T_41712eb27799">
+    <value>Yükle</value>
+  </data>
+  <data xml:space="preserve" name="T_41aec37a3467">
+    <value>Bu bilgisayarın seri aralığı</value>
+  </data>
+  <data xml:space="preserve" name="T_41b48e380039">
+    <value>Taşıyıcı çerçeve (bearer bar)</value>
+  </data>
+  <data xml:space="preserve" name="T_41d23437d010">
+    <value>Gönderilen</value>
+  </data>
+  <data xml:space="preserve" name="T_42711dcdf4ff">
+    <value>Izgaraya yakala</value>
+  </data>
+  <data xml:space="preserve" name="T_42bc70369a44">
+    <value>İlk kurulum kaydedildi. Tasarımınızı açıp baskı önizlemesini kontrol edebilirsiniz.</value>
+  </data>
+  <data xml:space="preserve" name="T_436afd8b2eb9">
+    <value>Daire</value>
+  </data>
+  <data xml:space="preserve" name="T_43bca619d160">
+    <value>Sıradaki değer…</value>
+  </data>
+  <data xml:space="preserve" name="T_43c026680c1f">
+    <value>Yalnızca seçili satırlar</value>
+  </data>
+  <data xml:space="preserve" name="T_44001e869f42">
+    <value>Yalnızca bu etiket</value>
+  </data>
+  <data xml:space="preserve" name="T_4414e80b1e26">
+    <value>Katman sırası değişti</value>
+  </data>
+  <data xml:space="preserve" name="T_44598980613e">
+    <value>GS1 üyelik belgenizdeki firma öneki (GCP). GLN veya ülke kodu girmeyin. Ürün numarası sıradaki değerden devam eder:</value>
+  </data>
+  <data xml:space="preserve" name="T_4478ccfbc5d5">
+    <value>Yapay zekâ bağlantısına izin ver (Claude Desktop, Claude Code ve diğer MCP istemcileri)</value>
+  </data>
+  <data xml:space="preserve" name="T_44baa1017b67">
+    <value>Beklenmeyen baskı hatası: </value>
+  </data>
+  <data xml:space="preserve" name="T_44d9ea438daa">
+    <value>  ✓ Baskı verisi üretildi: {0} etiket görüntüsü, toplam {1} adet</value>
+  </data>
+  <data xml:space="preserve" name="T_451feb1b6459">
+    <value>En arkaya</value>
+  </data>
+  <data xml:space="preserve" name="T_4528ef4bf893">
+    <value>DIŞ AJAN BAĞLANTISI (MCP / YEREL API)</value>
+  </data>
+  <data xml:space="preserve" name="T_458d4375e725">
+    <value>Farklı kaydet</value>
+  </data>
+  <data xml:space="preserve" name="T_459749e7125d">
+    <value>Tıklayınca etiketin ortasına eklenir ve hemen yazabilirsiniz (Enter: bitir, Shift+Enter: yeni satır). Tuvaldeki metni çift tıklayarak ya da seçip Enter'a basarak düzenleyin.</value>
+  </data>
+  <data xml:space="preserve" name="T_45b2d1c03591">
+    <value>Şablon dosyası değişmez: etiket yeni belge olarak açılır ve baskı penceresi gelir.</value>
+  </data>
+  <data xml:space="preserve" name="T_45d121a1fad5">
+    <value>YAZICI</value>
+  </data>
+  <data xml:space="preserve" name="T_45e8353adc33">
+    <value>Sürekli ruloda etiket arası olmadığı için sensör kalibrasyonu gerekmez.</value>
+  </data>
+  <data xml:space="preserve" name="T_4615c1fde964">
+    <value>Tuvale ekle</value>
+  </data>
+  <data xml:space="preserve" name="T_46afe2d03884">
+    <value>Veri kaynağı</value>
+  </data>
+  <data xml:space="preserve" name="T_46e38b555a7d">
+    <value>Veri kaynağı okunamadı</value>
+  </data>
+  <data xml:space="preserve" name="T_46f83c8d8c1e">
+    <value>Profil adı (yazıcı, yöntem, yoğunluk, hız, yön, ofset ve rulo bilgisi kaydedilir):</value>
+  </data>
+  <data xml:space="preserve" name="T_47116548d47b">
+    <value>L – düşük (%7)</value>
+  </data>
+  <data xml:space="preserve" name="T_472a7956e059">
+    <value>Varsayılan ölçü</value>
+  </data>
+  <data xml:space="preserve" name="T_47b493352c9a">
+    <value>yazı tipi</value>
+  </data>
+  <data xml:space="preserve" name="T_47ba418cd3f5">
+    <value>Çoğalt</value>
+  </data>
+  <data xml:space="preserve" name="T_47d7b12105b7">
+    <value>Tabloyu aç: satır seçimi ve adetler…</value>
+  </data>
+  <data xml:space="preserve" name="T_47dacde79e0c">
+    <value>Sayaç kaydedilemedi</value>
+  </data>
+  <data xml:space="preserve" name="T_480d1b993e11">
+    <value>Şablon adı:</value>
+  </data>
+  <data xml:space="preserve" name="T_480f13ddfb93">
+    <value>Bu tasarımın yedekleri…</value>
+  </data>
+  <data xml:space="preserve" name="T_481778bd37cc">
+    <value>Gruplandı</value>
+  </data>
+  <data xml:space="preserve" name="T_48611b33a0d8">
+    <value>Sütun sayısı</value>
+  </data>
+  <data xml:space="preserve" name="T_488c8aa7f7f9">
+    <value>Şablon kaydedilemedi</value>
+  </data>
+  <data xml:space="preserve" name="T_49851065daf3">
+    <value>"{0}" sayacı silinsin mi?{1}</value>
+  </data>
+  <data xml:space="preserve" name="T_49a24f1ef83e">
+    <value>Veri kaynağındaki seçili satırları bas</value>
+  </data>
+  <data xml:space="preserve" name="T_49af6e145635">
+    <value>Bu şablonla yeni etiket</value>
+  </data>
+  <data xml:space="preserve" name="T_49efe92859f2">
+    <value>Yön tuşları</value>
+  </data>
+  <data xml:space="preserve" name="T_49fafa879e69">
+    <value>HAZIR ÖLÇÜLER</value>
+  </data>
+  <data xml:space="preserve" name="T_4a1eb35f8323">
+    <value>
+
+{0} satır eklenmedi:
+</value>
+  </data>
+  <data xml:space="preserve" name="T_4a36c90d53b0">
+    <value>1. ETİKET SENSÖRÜ (İSTEĞE BAĞLI)</value>
+  </data>
+  <data xml:space="preserve" name="T_4a44259d4a05">
+    <value>Dosya bulunamadı:
+{0}</value>
+  </data>
+  <data xml:space="preserve" name="T_4a66f7780c8e">
+    <value>Basılacak etiket:</value>
+  </data>
+  <data xml:space="preserve" name="T_4a9cbcac3c9f">
+    <value>"{0}" profili penceredeki ayarlarla güncellensin mi?</value>
+  </data>
+  <data xml:space="preserve" name="T_4ae0d741608d">
+    <value>Dikey ortala</value>
+  </data>
+  <data xml:space="preserve" name="T_4b01bf980409">
+    <value>Baskı yönü değiştirildi. </value>
+  </data>
+  <data xml:space="preserve" name="T_4b2b841218e1">
+    <value>Ayrıntılar Veri panelindeki listede satır numarasıyla gösterilir.</value>
+  </data>
+  <data xml:space="preserve" name="T_4b68ab3847fe">
+    <value>X</value>
+  </data>
+  <data xml:space="preserve" name="T_4be7bd2213d6">
+    <value>Tekrar baskı: {0} tarihli iş ({1} etiket).</value>
+  </data>
+  <data xml:space="preserve" name="T_4c92ffece010">
+    <value>Yırtma konumu açık</value>
+  </data>
+  <data xml:space="preserve" name="T_4cca5298a2fa">
+    <value>Hazır etiket ölçüsü</value>
+  </data>
+  <data xml:space="preserve" name="T_4ce876eaee32">
+    <value>GS1 UYGULAMA TANIMLAYICILARI (AI)</value>
+  </data>
+  <data xml:space="preserve" name="T_4cfa2b03d54b">
+    <value>Değer</value>
+  </data>
+  <data xml:space="preserve" name="T_4cfa97b79cae">
+    <value>Hızlı Baskı: "{0}"</value>
+  </data>
+  <data xml:space="preserve" name="T_4d568c56ba86">
+    <value>Yazıcı bulunamadı. Bu adımı boş bırakıp daha sonra seçebilirsiniz.</value>
+  </data>
+  <data xml:space="preserve" name="T_4d7acf540230">
+    <value>Modül (X) genişliği</value>
+  </data>
+  <data xml:space="preserve" name="T_4ddbf0f624df">
+    <value>Soldan uzaklık (mm)</value>
+  </data>
+  <data xml:space="preserve" name="T_4df38779294a">
+    <value>Yakınlaştır (Ctrl +)</value>
+  </data>
+  <data xml:space="preserve" name="T_4e41dbb08860">
+    <value>Şablon adı ya da dosya adı (bir kısmı da yazılabilir)</value>
+  </data>
+  <data xml:space="preserve" name="T_4e67365dc6df">
+    <value>Güncel şablon: dosyanın şimdiki hâli açılır.</value>
+  </data>
+  <data xml:space="preserve" name="T_4e7c4636b6ee">
+    <value>Yükseklik</value>
+  </data>
+  <data xml:space="preserve" name="T_4ed316983a69">
+    <value>Geri al / İleri al</value>
+  </data>
+  <data xml:space="preserve" name="T_4f3d2ac9d6b1">
+    <value>İlk etiketinize hazırlanalım</value>
+  </data>
+  <data xml:space="preserve" name="T_4f52beae4e65">
+    <value>Görünenlerin seçimini kaldır</value>
+  </data>
+  <data xml:space="preserve" name="T_4f74750a1759">
+    <value>Başlangıç no</value>
+  </data>
+  <data xml:space="preserve" name="T_4fc233b3de36">
+    <value>{0} öğe kopyalandı.</value>
+  </data>
+  <data xml:space="preserve" name="T_5020939e9234">
+    <value>Her etiketteki barkodu basmadan önce okuyarak doğrula</value>
+  </data>
+  <data xml:space="preserve" name="T_5042b321686b">
+    <value>  ! Kullanıcı tarafından iptal edildi</value>
+  </data>
+  <data xml:space="preserve" name="T_505c9273badf">
+    <value>Veri kaynağı seç (Excel/CSV)</value>
+  </data>
+  <data xml:space="preserve" name="T_50d13a143905">
+    <value>Dikey kaydırma (mm); + aşağı</value>
+  </data>
+  <data xml:space="preserve" name="T_518c61d8701a">
+    <value>"{0}" yedeği ({1:dd.MM.yyyy HH:mm}) yeni belge olarak açıldı. Gerekirse farklı kaydedin.</value>
+  </data>
+  <data xml:space="preserve" name="T_51bda150e1ae">
+    <value>SSCC</value>
+  </data>
+  <data xml:space="preserve" name="T_527534366db7">
+    <value>Dil / Language</value>
+  </data>
+  <data xml:space="preserve" name="T_52d1f3bf0b82">
+    <value>Profildeki "{0}" yazıcısı bu bilgisayarda bulunamadı; mevcut yazıcı seçimi korundu.</value>
+  </data>
+  <data xml:space="preserve" name="T_532995393bbe">
+    <value>Ayrıntılı belgeler: BENİOKU, kurulum, XP-470B kurulum ve test, yapay zekâ bağlantı rehberi.</value>
+  </data>
+  <data xml:space="preserve" name="T_533f1b8bdf28">
+    <value>Karakter kodlaması</value>
+  </data>
+  <data xml:space="preserve" name="T_53a1a38c4b64">
+    <value>Sıradaki</value>
+  </data>
+  <data xml:space="preserve" name="T_53aab93016de">
+    <value>Şablon bulunamadı. Şablonlar panelinden örnekleri ekleyin veya tasarımınızı şablon olarak kaydedin.</value>
+  </data>
+  <data xml:space="preserve" name="T_5432275f09d4">
+    <value>Yedek oluşturuldu</value>
+  </data>
+  <data xml:space="preserve" name="T_5444ad83f745">
+    <value>Seçili öğeleri sil</value>
+  </data>
+  <data xml:space="preserve" name="T_54c66e1eb6d3">
+    <value>BAĞLANTI ETKİNLİĞİ</value>
+  </data>
+  <data xml:space="preserve" name="T_54cec00c31ae">
+    <value>Uyarı</value>
+  </data>
+  <data xml:space="preserve" name="T_54e0a4d46df2">
+    <value>Hızlı Baskı: ürün listesini bir kez aktarın; sonra ürünü okutup adet yazmanız yeterli.</value>
+  </data>
+  <data xml:space="preserve" name="T_54edb8ea5194">
+    <value>UYGULAMA İÇİ ASİSTAN</value>
+  </data>
+  <data xml:space="preserve" name="T_554a4cd614ff">
+    <value>Son aralık</value>
+  </data>
+  <data xml:space="preserve" name="T_5559c97206ee">
+    <value>pt (0 = otomatik)</value>
+  </data>
+  <data xml:space="preserve" name="T_5572d72b3ebb">
+    <value>Geniş/dar oranı</value>
+  </data>
+  <data xml:space="preserve" name="T_559aead08264">
+    <value>A</value>
+  </data>
+  <data xml:space="preserve" name="T_567bac84e5ff">
+    <value>PNG, JPG, JPEG, BMP, GIF, WEBP ve SVG. Orijinal dosya projeye gömülür; ayarlar her seferinde orijinalden uygulanır, kalite kaybı birikmez.</value>
+  </data>
+  <data xml:space="preserve" name="T_5694c05b1a70">
+    <value>Görsel</value>
+  </data>
+  <data xml:space="preserve" name="T_56a6b2f472d4">
+    <value>Yırtma konumu</value>
+  </data>
+  <data xml:space="preserve" name="T_56d81fb08bf6">
+    <value>Belgeler klasörünü aç</value>
+  </data>
+  <data xml:space="preserve" name="T_56e5bb0fbe18">
+    <value>"{0}" bu baskıdan sonra değiştirilmiş.
+
+</value>
+  </data>
+  <data xml:space="preserve" name="T_572b394ff19f">
+    <value>— yedekleyin; silinirse sayaçlar 1'den başlar.</value>
+  </data>
+  <data xml:space="preserve" name="T_5769a8f8aecd">
+    <value>Durdur</value>
+  </data>
+  <data xml:space="preserve" name="T_57a01dbd710b">
+    <value>Etiket alanı hangi sütundan gelsin?</value>
+  </data>
+  <data xml:space="preserve" name="T_57a796aa6100">
+    <value>Etiket genişliği yazıcının en fazla baskı genişliğini ({0:0.#} mm) aşıyor; taşan kısım basılmaz.</value>
+  </data>
+  <data xml:space="preserve" name="T_57ca4eb55ec8">
+    <value>{0} örnek şablon geri yüklendi.</value>
+  </data>
+  <data xml:space="preserve" name="T_57d68a8b4a93">
+    <value>Dikeyde ortala</value>
+  </data>
+  <data xml:space="preserve" name="T_57db98fa924b">
+    <value>KAYITLI GTIN'LER</value>
+  </data>
+  <data xml:space="preserve" name="T_586cf0ced444">
+    <value>Dil değişikliği uygulama yeniden açıldığında geçerli olur.</value>
+  </data>
+  <data xml:space="preserve" name="T_58c7e447f020">
+    <value>GTIN listesi seç (Excel/CSV)</value>
+  </data>
+  <data xml:space="preserve" name="T_590ecef4dfdd">
+    <value>Bu etikette {SSCC} alanı var: her etikete baskı anında yeni bir SSCC numarası verilir.
+
+</value>
+  </data>
+  <data xml:space="preserve" name="T_593b20e435ad">
+    <value>Ayarlar kaydedildi; şablonlar eklenemedi: </value>
+  </data>
+  <data xml:space="preserve" name="T_5977c361f198">
+    <value>Değer ya da listeden bir alan ({SSCC}, {TARIH:yyMMdd}, veri sütunları)</value>
+  </data>
+  <data xml:space="preserve" name="T_59ab35ebe9b4">
+    <value>Worker boşta kapanma</value>
+  </data>
+  <data xml:space="preserve" name="T_59db1c471e6b">
+    <value>Firma yedeğini geri yükle…</value>
+  </data>
+  <data xml:space="preserve" name="T_59f636c9e9b5">
+    <value>Tümünü göster (yalnızca sık kullanılanlar yerine)</value>
+  </data>
+  <data xml:space="preserve" name="T_5a490f2e095d">
+    <value> · {0} sonuç{1}</value>
+  </data>
+  <data xml:space="preserve" name="T_5a59a76009d6">
+    <value>Önceki satır</value>
+  </data>
+  <data xml:space="preserve" name="T_5a5e68db76d7">
+    <value>Boşluk / işaret</value>
+  </data>
+  <data xml:space="preserve" name="T_5a75c4f30466">
+    <value>
+
+Baskıdaki tasarımın kopyası da yok (eski kayıt ya da test baskısı).</value>
+  </data>
+  <data xml:space="preserve" name="T_5ac97ac8617d">
+    <value>Geçerli {0} içeriği. Okunur metin: {1}</value>
+  </data>
+  <data xml:space="preserve" name="T_5b2207e11590">
+    <value>Ofsetler yalnızca TSPL doğrudan yönteminde uygulanır. Windows sürücüsü yönteminde kaydırmayı sürücünün kağıt ayarlarından yapın.</value>
+  </data>
+  <data xml:space="preserve" name="T_5b2db6074c5d">
+    <value>BLINEDETECT: yazıcı birkaç etiket ilerleterek arkadaki siyah işaretleri ölçer ve etiket boyunu hafızasına yazar. </value>
+  </data>
+  <data xml:space="preserve" name="T_5b563d78049a">
+    <value>Dosyada ürün satırı bulunamadı.</value>
+  </data>
+  <data xml:space="preserve" name="T_5b693271b7a2">
+    <value>Sonraki satır</value>
+  </data>
+  <data xml:space="preserve" name="T_5bc7eefff5d4">
+    <value>Artış</value>
+  </data>
+  <data xml:space="preserve" name="T_5bd24cbccb7c">
+    <value>boşluklu (boşluk {0:0.##} mm)</value>
+  </data>
+  <data xml:space="preserve" name="T_5d0b017cd876">
+    <value>Yazı tipi</value>
+  </data>
+  <data xml:space="preserve" name="T_5d681cdfe49c">
+    <value>EAN firma öneki</value>
+  </data>
+  <data xml:space="preserve" name="T_5d6dd22cba82">
+    <value>{0}, {1} → yeni ofset sağ {2:0.###} mm, aşağı {3:0.###} mm</value>
+  </data>
+  <data xml:space="preserve" name="T_5d83ebf4f387">
+    <value>30 gün sonraki tarih (son kullanma vb.). Örnekler: {TARIH-7}, {TARIH+2 hafta}, {TARIH+6ay}, {TARIH+1yıl:dd.MM.yyyy}</value>
+  </data>
+  <data xml:space="preserve" name="T_5d8db23d1ade">
+    <value>Yön ters — 180° çevir</value>
+  </data>
+  <data xml:space="preserve" name="T_5e2c614c23f0">
+    <value>Model</value>
+  </data>
+  <data xml:space="preserve" name="T_5e47f9009fba">
+    <value>QR kod, Data Matrix, PDF417</value>
+  </data>
+  <data xml:space="preserve" name="T_5efda9c85481">
+    <value>aşağı</value>
+  </data>
+  <data xml:space="preserve" name="T_5f843a0216e3">
+    <value>0,5 mm taşı (Shift ile 5 mm, Ctrl ile 1 nokta = 0,125 mm)</value>
+  </data>
+  <data xml:space="preserve" name="T_601027233417">
+    <value>Şablon: </value>
+  </data>
+  <data xml:space="preserve" name="T_60f2b7774890">
+    <value>İlk {0} etiket gösteriliyor.</value>
+  </data>
+  <data xml:space="preserve" name="T_6135a42bf53e">
+    <value>Veri</value>
+  </data>
+  <data xml:space="preserve" name="T_61b8c59f967e">
+    <value>Firma öneki gerekli</value>
+  </data>
+  <data xml:space="preserve" name="T_61d65fd13f05">
+    <value>{0}
+
+{1}
+
+Yedek yalnız bu bilgisayara kaydedildi.</value>
+  </data>
+  <data xml:space="preserve" name="T_61f56942c870">
+    <value>Tekrar baskı</value>
+  </data>
+  <data xml:space="preserve" name="T_6231978688e7">
+    <value>Şu an: normal yön (TSPL DIRECTION 1).</value>
+  </data>
+  <data xml:space="preserve" name="T_6282f5326f11">
+    <value>Yazı boyutu (punto)</value>
+  </data>
+  <data xml:space="preserve" name="T_6295d805893c">
+    <value>Değişiklik</value>
+  </data>
+  <data xml:space="preserve" name="T_62fad07e44bf">
+    <value>Web sitesi</value>
+  </data>
+  <data xml:space="preserve" name="T_639af9157a61">
+    <value>Seçili satırlar: {0} satır, {1} etiket</value>
+  </data>
+  <data xml:space="preserve" name="T_63cd725787a8">
+    <value>Yenile</value>
+  </data>
+  <data xml:space="preserve" name="T_63f3019009d3">
+    <value> O baskının yazıcısı: {0}.</value>
+  </data>
+  <data xml:space="preserve" name="T_64609f6213d3">
+    <value>Yazıcıdan çıkan son etiketi kontrol edin: kağıt bitmesi gibi bir sorunda kuyruğa gitmiş ama basılamamış etiketler </value>
+  </data>
+  <data xml:space="preserve" name="T_64778cbb2f5e">
+    <value>YAZICI PROFİLİ</value>
+  </data>
+  <data xml:space="preserve" name="T_64e7d98b410c">
+    <value>Kalibrasyon etiketi yazıcı kuyruğuna gönderildi. Etiketi alın: önce ▲ ÜST işaretinin yönünü kontrol edin, sonra sol ve üst kenardan çerçeveye olan uzaklığı ölçün.</value>
+  </data>
+  <data xml:space="preserve" name="T_650cc9c6902a">
+    <value>H – en yüksek (%30)</value>
+  </data>
+  <data xml:space="preserve" name="T_65168e89ccdf">
+    <value>Şablon baskıdan sonra değişmiş; güncel hâli kullanılıyor.</value>
+  </data>
+  <data xml:space="preserve" name="T_651868dac4c4">
+    <value>{0} etiket gönderilmedi. "{1}" ile yalnızca bunları basabilirsiniz.</value>
+  </data>
+  <data xml:space="preserve" name="T_65b61e5c16ad">
+    <value>Uyarı: </value>
+  </data>
+  <data xml:space="preserve" name="T_65c955d7a7b0">
+    <value>Lütfen bir yazıcı seçin.</value>
+  </data>
+  <data xml:space="preserve" name="T_6665d044932d">
+    <value>Satırı sil</value>
+  </data>
+  <data xml:space="preserve" name="T_66aab99a1f9c">
+    <value>Kalıcı seri numarası: her basılan etikette bir artar, program kapansa da kaldığı yerden devam eder. Adlı sayaç için {SAYAC.Koli}. Sayaçları Kaydet düğmesinin yanındaki oktan (Sayaçlar…) ya da Yazdır penceresinden yönetin.</value>
+  </data>
+  <data xml:space="preserve" name="T_6816403f28c0">
+    <value>Basılacak etiket seçilmedi.</value>
+  </data>
+  <data xml:space="preserve" name="T_6820b3bd2486">
+    <value>Yukarı taşı</value>
+  </data>
+  <data xml:space="preserve" name="T_687be9833cf7">
+    <value>GS1 Firma Profili</value>
+  </data>
+  <data xml:space="preserve" name="T_6881a0652635">
+    <value>Excel/CSV verisi: Veri panelinden dosya seçin; metne {SütunAdı} yazarak alan bağlayın.</value>
+  </data>
+  <data xml:space="preserve" name="T_688beea357c1">
+    <value>Kaydedilmemiş değişiklikler</value>
+  </data>
+  <data xml:space="preserve" name="T_68ee8f1bdcb3">
+    <value>Ölçülen uzaklık etiketin yarısından büyük olamaz. Etiketin kenarından çerçevenin dış çizgisine kadar ölçün.</value>
+  </data>
+  <data xml:space="preserve" name="T_68fd79af3412">
+    <value>Etiket ölçüsü ve medya</value>
+  </data>
+  <data xml:space="preserve" name="T_69593a8b9000">
+    <value>Baskıdaki hâli: o gün basılan tasarımın kopyası açılır (kaydedilmemiş belge olarak).
+</value>
+  </data>
+  <data xml:space="preserve" name="T_69602884e571">
+    <value>ÖZEL ÖLÇÜ</value>
+  </data>
+  <data xml:space="preserve" name="T_69e46cc0c631">
+    <value>Etiketin sağına</value>
+  </data>
+  <data xml:space="preserve" name="T_69ee9e211515">
+    <value>Logo / çizim (keskin kenar)</value>
+  </data>
+  <data xml:space="preserve" name="T_6a61f20c6ec1">
+    <value>Yalnızca yazıcı kuyruğuna gönderilmemiş etiketleri basar (onay sorulur)</value>
+  </data>
+  <data xml:space="preserve" name="T_6a9e4450b768">
+    <value>Şablonu sil</value>
+  </data>
+  <data xml:space="preserve" name="T_6b24218bc6d6">
+    <value>Hızlı Baskı (ürün listesi)</value>
+  </data>
+  <data xml:space="preserve" name="T_6b2c64c33c7d">
+    <value>Sayfa</value>
+  </data>
+  <data xml:space="preserve" name="T_6b5c49a00271">
+    <value>4. KAYMAYI ÖLÇ VE KAYDET</value>
+  </data>
+  <data xml:space="preserve" name="T_6b65036ad697">
+    <value>Sensör kalibrasyonu komutu gönderilemedi; baskı penceresindeki rapora bakın.</value>
+  </data>
+  <data xml:space="preserve" name="T_6b6697427451">
+    <value>Etiket genişliği ve yüksekliği 5–1000 mm arasında olmalı.</value>
+  </data>
+  <data xml:space="preserve" name="T_6b9926cf8ee9">
+    <value>Listeyi ada, koda veya barkoda göre süz</value>
+  </data>
+  <data xml:space="preserve" name="T_6bd809330c0e">
+    <value>Kilit açıldı</value>
+  </data>
+  <data xml:space="preserve" name="T_6bf936ffe8c6">
+    <value>Koşul</value>
+  </data>
+  <data xml:space="preserve" name="T_6caa06b138cc">
+    <value>Seç</value>
+  </data>
+  <data xml:space="preserve" name="T_6cceb6797962">
+    <value>Diğer</value>
+  </data>
+  <data xml:space="preserve" name="T_6cdb1b6d6445">
+    <value>({0}) bir ürün numarasına bağlıdır: (01) GTIN ya da (02) içerik GTIN'i de ekleyin.</value>
+  </data>
+  <data xml:space="preserve" name="T_6d4bc8079cee">
+    <value>(02) olarak yaz</value>
+  </data>
+  <data xml:space="preserve" name="T_6d4e39f2a6ec">
+    <value>Destek paketi oluştur…</value>
+  </data>
+  <data xml:space="preserve" name="T_6d6f82479820">
+    <value>Hızlı Baskı: şablon seç, ürünü ara veya barkodu okut, adeti yaz, yazdır (Ctrl+Shift+P)</value>
+  </data>
+  <data xml:space="preserve" name="T_6d99092abc81">
+    <value>Siyah işaretli</value>
+  </data>
+  <data xml:space="preserve" name="T_6e015c9cbfb7">
+    <value>İleri al (Ctrl+Y)</value>
+  </data>
+  <data xml:space="preserve" name="T_6e1ef9c11ac3">
+    <value>Yapıştırıldı.</value>
+  </data>
+  <data xml:space="preserve" name="T_6e6217e89d55">
+    <value> • {0} uyarı</value>
+  </data>
+  <data xml:space="preserve" name="T_6eaffbd583d1">
+    <value>Otomatik değer üret (EAN: firma öneki + sıra + kontrol basamağı)</value>
+  </data>
+  <data xml:space="preserve" name="T_6ee6aeea53ff">
+    <value>Kullanılmayan: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_6f1929898d7f">
+    <value>Sorun yok.</value>
+  </data>
+  <data xml:space="preserve" name="T_6f5697f24c96">
+    <value>Mevcut tasarımı şablon olarak kaydet…</value>
+  </data>
+  <data xml:space="preserve" name="T_6faed16c11cd">
+    <value>{0} / {1} (satır {2})</value>
+  </data>
+  <data xml:space="preserve" name="T_6ff8021ebc21">
+    <value>Tarih</value>
+  </data>
+  <data xml:space="preserve" name="T_70bca6dff14c">
+    <value>Atlanan satırlar / etiketler:</value>
+  </data>
+  <data xml:space="preserve" name="T_70f96d0349ca">
+    <value>Kalibrasyon etiketi gönderilemedi; baskı penceresindeki rapora bakın.</value>
+  </data>
+  <data xml:space="preserve" name="T_7103ac7055ef">
+    <value>Baskı geçmişine yazılamadı: </value>
+  </data>
+  <data xml:space="preserve" name="T_7134ea23fc81">
+    <value>İptal ediliyor (tek parça: o ana kadar yazılan etiketler tek iş olarak kuyruğa verilir)…</value>
+  </data>
+  <data xml:space="preserve" name="T_714a221492f6">
+    <value>içerir</value>
+  </data>
+  <data xml:space="preserve" name="T_716df669b395">
+    <value>Sütunları eşleştir…</value>
+  </data>
+  <data xml:space="preserve" name="T_71d0fd101658">
+    <value>Firma öneki</value>
+  </data>
+  <data xml:space="preserve" name="T_722779670ad6">
+    <value>Hizalandı</value>
+  </data>
+  <data xml:space="preserve" name="T_7276e05c1a52">
+    <value>YAZICI AYARLARI (TSPL)</value>
+  </data>
+  <data xml:space="preserve" name="T_72e9a59f5a1d">
+    <value>Port</value>
+  </data>
+  <data xml:space="preserve" name="T_731230ab7c58">
+    <value>{SSCC}: numara her etiket için baskı anında GS1 Firma Profili'nden ayrılır ve kaydedilir (önizlemede 18 sıfır görünür). Firma öneki doğrulanmış olmalıdır.</value>
+  </data>
+  <data xml:space="preserve" name="T_73e61a366089">
+    <value>Küçük metin</value>
+  </data>
+  <data xml:space="preserve" name="T_749ef784c3d2">
+    <value>Çapraz çizgi</value>
+  </data>
+  <data xml:space="preserve" name="T_74a0c4ce3e49">
+    <value>İş</value>
+  </data>
+  <data xml:space="preserve" name="T_74be5e6b5fe8">
+    <value>BAĞLANTI BİLGİLERİ</value>
+  </data>
+  <data xml:space="preserve" name="T_74d7707ff3d0">
+    <value>Mevcut şablonlar korunur. Firma bilgileri GS1 kodu oluşturmaz. Ürünler Excel/CSV ile bağlanabilir; hesap gerekmez.</value>
+  </data>
+  <data xml:space="preserve" name="T_759aab337542">
+    <value>Çizgi</value>
+  </data>
+  <data xml:space="preserve" name="T_765eb2f15309">
+    <value>Sonra</value>
+  </data>
+  <data xml:space="preserve" name="T_7663a9a55c99">
+    <value>mm (XP-470B: 108)</value>
+  </data>
+  <data xml:space="preserve" name="T_766d2634fcf3">
+    <value>{0} × {1} nokta (gerçek baskı çözünürlüğü)</value>
+  </data>
+  <data xml:space="preserve" name="T_76ee69ba9ef5">
+    <value>Değer {0} → {1} olarak geri alınacak. Daha önce basılmış numaralar tekrar basılabilir. Devam edilsin mi?</value>
+  </data>
+  <data xml:space="preserve" name="T_773f6d015f09">
+    <value>Logoyu kaldır</value>
+  </data>
+  <data xml:space="preserve" name="T_77f5238f225c">
+    <value>Yedek oluşturulamadı</value>
+  </data>
+  <data xml:space="preserve" name="T_7837f93a7394">
+    <value>USB durumu yanlış algılanırsa kullanın. Yazıcı gerçekten kapalıysa iş kuyrukta bekler.</value>
+  </data>
+  <data xml:space="preserve" name="T_7856aa3c2171">
+    <value>Şablonlar</value>
+  </data>
+  <data xml:space="preserve" name="T_78c0c7cf3810">
+    <value>AI seçin.</value>
+  </data>
+  <data xml:space="preserve" name="T_78e5fdae705f">
+    <value>Yedekler:</value>
+  </data>
+  <data xml:space="preserve" name="T_79bc2a1fc4e1">
+    <value>Excel/CSV sütunlarını eşleştir</value>
+  </data>
+  <data xml:space="preserve" name="T_79c4b04b6ee8">
+    <value>Tamam</value>
+  </data>
+  <data xml:space="preserve" name="T_79ce61fc66a6">
+    <value>
+Ayarları kontrol edip "Yazdır"a basın.</value>
+  </data>
+  <data xml:space="preserve" name="T_7a1af5aa6651">
+    <value>Seçimde grup yok.</value>
+  </data>
+  <data xml:space="preserve" name="T_7a56611c1d0d">
+    <value>Bu yardım</value>
+  </data>
+  <data xml:space="preserve" name="T_7ac8c79fd8cf">
+    <value>saniye (0 = kapalı)</value>
+  </data>
+  <data xml:space="preserve" name="T_7add36aec044">
+    <value>Veri sütunu (ör. Indirim) ya da yerleşik alan</value>
+  </data>
+  <data xml:space="preserve" name="T_7aebb7c03eb7">
+    <value>{0} • {1} öğe{2}</value>
+  </data>
+  <data xml:space="preserve" name="T_7aec34bd23e9">
+    <value>GS1 içerik oluşturucu yalnızca GS1-128, GS1 DataMatrix ve GS1 QR içindir.</value>
+  </data>
+  <data xml:space="preserve" name="T_7b31a9fc4816">
+    <value>Kapat</value>
+  </data>
+  <data xml:space="preserve" name="T_7b791e1cee4f">
+    <value>GS1 belgenizdeki firma öneki; GLN değildir</value>
+  </data>
+  <data xml:space="preserve" name="T_7bfa9b4dc86a">
+    <value>Kaydederken firma bilgileriyle yeni örnek şablonlar oluştur</value>
+  </data>
+  <data xml:space="preserve" name="T_7c45b4a6739b">
+    <value>Veri kaynağını kaldır</value>
+  </data>
+  <data xml:space="preserve" name="T_7c6f3f5f37bc">
+    <value>Tamamlandı</value>
+  </data>
+  <data xml:space="preserve" name="T_7c7d4b080b10">
+    <value>eşittir</value>
+  </data>
+  <data xml:space="preserve" name="T_7c8e041b17ff">
+    <value>
+
+Şablon açıldı; veri dosyasını seçip satırları elle seçebilirsiniz.</value>
+  </data>
+  <data xml:space="preserve" name="T_7c98a31b398d">
+    <value>Yapay Zekâ paneli: dış ajanların (Claude vb.) ve uygulama içi asistanın önerileri burada; siz onaylamadan tasarım değişmez.</value>
+  </data>
+  <data xml:space="preserve" name="T_7df4133fa976">
+    <value>Sayaç</value>
+  </data>
+  <data xml:space="preserve" name="T_7dfe57324c6a">
+    <value>Excel / CSV veri kaynağı seç…</value>
+  </data>
+  <data xml:space="preserve" name="T_7e1f3a1bb475">
+    <value>GÖRÜNÜM</value>
+  </data>
+  <data xml:space="preserve" name="T_7e717bfddd7b">
+    <value>{0} • {1} satır • {2} sütun</value>
+  </data>
+  <data xml:space="preserve" name="T_7eb2c3c07b7f">
+    <value>Kes (Ctrl+X)</value>
+  </data>
+  <data xml:space="preserve" name="T_7eee7ff8111a">
+    <value>4 × 6 inç (101,6 × 152,4 mm)</value>
+  </data>
+  <data xml:space="preserve" name="T_7efe3d904c19">
+    <value>İlk kurulum</value>
+  </data>
+  <data xml:space="preserve" name="T_7f296ad00591">
+    <value>Sensör kalibrasyonu gönder…</value>
+  </data>
+  <data xml:space="preserve" name="T_7f688376417f">
+    <value>Kilitli öğeler gruplanamaz.</value>
+  </data>
+  <data xml:space="preserve" name="T_7f6988485885">
+    <value>Yırtma konumu kapalı</value>
+  </data>
+  <data xml:space="preserve" name="T_7fa1a56b7569">
+    <value>Doğrulama notu</value>
+  </data>
+  <data xml:space="preserve" name="T_7fe0fcf5954c">
+    <value>DÜZEN</value>
+  </data>
+  <data xml:space="preserve" name="T_80422e38652c">
+    <value>Metin</value>
+  </data>
+  <data xml:space="preserve" name="T_8090db94d735">
+    <value>— bu klasörü yedekleyin; kayıtlar silinirse kullanılmış numaralar bilinemez.</value>
+  </data>
+  <data xml:space="preserve" name="T_80ad54ad05fa">
+    <value>Ayarlar</value>
+  </data>
+  <data xml:space="preserve" name="T_80e62b675a8c">
+    <value>Hatalı satırlar</value>
+  </data>
+  <data xml:space="preserve" name="T_8127782e90e5">
+    <value>Açık / koyu tema</value>
+  </data>
+  <data xml:space="preserve" name="T_81d5f128419b">
+    <value>Etiket ölçüsü</value>
+  </data>
+  <data xml:space="preserve" name="T_821596a74dfb">
+    <value>Etiketi "▲ ÜST" yukarıda olacak şekilde tutun. Cetvelle etiketin sol kenarından çerçevenin dış çizgisine ve üst kenarından çerçevenin dış çizgisine olan uzaklığı ölçün. Kayma yoksa iki değer de 2 mm'dir.</value>
+  </data>
+  <data xml:space="preserve" name="T_8231cc7a4476">
+    <value>Nesnelere yakala</value>
+  </data>
+  <data xml:space="preserve" name="T_82b8884018aa">
+    <value>ÖNİZLEME SATIRI</value>
+  </data>
+  <data xml:space="preserve" name="T_82b9b909d4d5">
+    <value>Üyelik belgesinden doğrulandı</value>
+  </data>
+  <data xml:space="preserve" name="T_82c50a2e9fd7">
+    <value>Sıfırla</value>
+  </data>
+  <data xml:space="preserve" name="T_82d963fecc19">
+    <value>Logo ayarlarda saklanıyor.</value>
+  </data>
+  <data xml:space="preserve" name="T_8349832e4d31">
+    <value>Yalnızca bu işte yazıcı kuyruğuna gönderilmemiş etiketleri seçip baskı penceresini açar</value>
+  </data>
+  <data xml:space="preserve" name="T_838c96361e33">
+    <value>Başlamaya hazırsınız</value>
+  </data>
+  <data xml:space="preserve" name="T_857637dac12a">
+    <value>basılıyorsa) veya yazıcı kırmızı ışıkla duruyorsa yapın. Komut birkaç boş etiket harcayabilir.</value>
+  </data>
+  <data xml:space="preserve" name="T_859797d0ac71">
+    <value>Aşamalar:</value>
+  </data>
+  <data xml:space="preserve" name="T_85c9ac02a10d">
+    <value>GS1 içeriği yazıldı: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_85d740295b99">
+    <value>görünürlük</value>
+  </data>
+  <data xml:space="preserve" name="T_866bec73b815">
+    <value>siyah işaretli ({0:0.##} mm)</value>
+  </data>
+  <data xml:space="preserve" name="T_8699a582c206">
+    <value>BARKOD</value>
+  </data>
+  <data xml:space="preserve" name="T_869ef8c28249">
+    <value>Değişken içerikli barkod: veri kaynağı yüklenince her satır baskı öncesi ayrıca doğrulanır.</value>
+  </data>
+  <data xml:space="preserve" name="T_86be9a55762d">
+    <value>K</value>
+  </data>
+  <data xml:space="preserve" name="T_87547255b4a9">
+    <value>Windows sürücüsü</value>
+  </data>
+  <data xml:space="preserve" name="T_875a42db6980">
+    <value>{0} bilinen bir GS1 AI değil; bu satırlar için listeden AI seçin ya da satırı silin.</value>
+  </data>
+  <data xml:space="preserve" name="T_87a67d198e8d">
+    <value>NOTLAR</value>
+  </data>
+  <data xml:space="preserve" name="T_87da055900cb">
+    <value>Sola hizala</value>
+  </data>
+  <data xml:space="preserve" name="T_87de99d3b26f">
+    <value>Logo seç…</value>
+  </data>
+  <data xml:space="preserve" name="T_87f8f4ea6a8d">
+    <value>Hata düzeltme</value>
+  </data>
+  <data xml:space="preserve" name="T_883f654ed0d4">
+    <value>{0} satırdan toplam {1} etiket basılacak</value>
+  </data>
+  <data xml:space="preserve" name="T_88566a9de0cf">
+    <value>Buraya kadar geri al ({0} adım; Ctrl+Y ile ileri alınır)</value>
+  </data>
+  <data xml:space="preserve" name="T_88574d610115">
+    <value>kırpma</value>
+  </data>
+  <data xml:space="preserve" name="T_88adde4c9867">
+    <value>Yapıştır (Ctrl+V)</value>
+  </data>
+  <data xml:space="preserve" name="T_892c1df07244">
+    <value>Sayacı sil</value>
+  </data>
+  <data xml:space="preserve" name="T_89556acedc05">
+    <value>Seçtiğiniz GTIN (01) ya da (02) satırına yazılır; satır yoksa eklenir.</value>
+  </data>
+  <data xml:space="preserve" name="T_8957194bb7c1">
+    <value>Sohbeti temizle</value>
+  </data>
+  <data xml:space="preserve" name="T_899371267f8f">
+    <value>Seçili satırlar ({0})</value>
+  </data>
+  <data xml:space="preserve" name="T_89b0f49648f5">
+    <value>Sürekli rulo</value>
+  </data>
+  <data xml:space="preserve" name="T_89c9f4a6b483">
+    <value>Yazıcının en fazla baskı genişliği (mm)</value>
+  </data>
+  <data xml:space="preserve" name="T_8a10270c4615">
+    <value>Baskı geçmişi…</value>
+  </data>
+  <data xml:space="preserve" name="T_8a408daf36a2">
+    <value>Yazı rengi</value>
+  </data>
+  <data xml:space="preserve" name="T_8a4b4a7f2111">
+    <value>Baskıdan önce her barkodu okuyarak doğrula</value>
+  </data>
+  <data xml:space="preserve" name="T_8b077e4a6947">
+    <value>{0} öğe taşındı</value>
+  </data>
+  <data xml:space="preserve" name="T_8b3b47febe19">
+    <value>Veri dosyası baskıdan sonra değişmiş: seçili satırları kontrol edin.</value>
+  </data>
+  <data xml:space="preserve" name="T_8bd057388e28">
+    <value>Durum</value>
+  </data>
+  <data xml:space="preserve" name="T_8be82d7983e0">
+    <value>Veri sütununu ekle</value>
+  </data>
+  <data xml:space="preserve" name="T_8c0d331f3ab5">
+    <value>{0} satırda hata bulundu. Hatalı satırlar yazdırılmaz; diğer satırlar etkilenmez.
+</value>
+  </data>
+  <data xml:space="preserve" name="T_8c4cc65fc3d8">
+    <value>sayaç ilerlemez. Numaralı etiketleri basmak için Yazdır'ı kullanın.
+
+Devam edilsin mi?</value>
+  </data>
+  <data xml:space="preserve" name="T_8cabe3f7f4d0">
+    <value>Modül genişliği {0} nokta ({1:0.###} mm); kutu barkoda oturtuldu.</value>
+  </data>
+  <data xml:space="preserve" name="T_8dc19058a96f">
+    <value>Yapay zekâ görselleri ve Excel/CSV dosyalarını yalnızca bu klasörlerden okuyabilir (Şablonlar klasörü her zaman izinlidir). Örn. ürün görselleri ve logo klasörü.</value>
+  </data>
+  <data xml:space="preserve" name="T_8dc4e51d4e2a">
+    <value>Kılavuz çizgisi taşındı</value>
+  </data>
+  <data xml:space="preserve" name="T_8dca00ec98e8">
+    <value>Satır {0} • {1} × {2} nokta (gerçek baskı çözünürlüğü)</value>
+  </data>
+  <data xml:space="preserve" name="T_8df3e5bf101a">
+    <value>HTTP MCP (uygulama açıkken; anahtarı içerir, paylaşmayın):</value>
+  </data>
+  <data xml:space="preserve" name="T_8e121230c7e9">
+    <value>Gönderilmeyenler:</value>
+  </data>
+  <data xml:space="preserve" name="T_8e1419c3d3ae">
+    <value>Bu ad hazır bir profile ait; farklı bir ad seçin.</value>
+  </data>
+  <data xml:space="preserve" name="T_8e59ecdc9ccc">
+    <value>Yazıcılar listelenemedi.</value>
+  </data>
+  <data xml:space="preserve" name="T_8e793367275a">
+    <value>Hedef:</value>
+  </data>
+  <data xml:space="preserve" name="T_8e99c29e8731">
+    <value>Izgarayı göster/gizle</value>
+  </data>
+  <data xml:space="preserve" name="T_8ee4241a5305">
+    <value>sağa</value>
+  </data>
+  <data xml:space="preserve" name="T_8f215bd4f2e0">
+    <value>Profil ve SSCC kayıtları:</value>
+  </data>
+  <data xml:space="preserve" name="T_8fa1dddd5360">
+    <value>mm</value>
+  </data>
+  <data xml:space="preserve" name="T_8fb67ed57952">
+    <value>Artış…</value>
+  </data>
+  <data xml:space="preserve" name="T_903687e966b3">
+    <value>Soldan bir baskı işi seçin.</value>
+  </data>
+  <data xml:space="preserve" name="T_907b8ec7ae0f">
+    <value>Genişlik (mm)</value>
+  </data>
+  <data xml:space="preserve" name="T_91075b416380">
+    <value>Şablon dosyasının kendisini düzenle</value>
+  </data>
+  <data xml:space="preserve" name="T_9113527ea795">
+    <value>3. YÖNÜ KONTROL ET</value>
+  </data>
+  <data xml:space="preserve" name="T_912e9fb3c62b">
+    <value>Firma logosunu seçin</value>
+  </data>
+  <data xml:space="preserve" name="T_916ca2404bb7">
+    <value>Yazıcı: </value>
+  </data>
+  <data xml:space="preserve" name="T_918d4a61b17e">
+    <value>ADET VE VERİ</value>
+  </data>
+  <data xml:space="preserve" name="T_919616b0cb28">
+    <value>yazı stili</value>
+  </data>
+  <data xml:space="preserve" name="T_91cfda70614e">
+    <value>Otomatik (görsel türüne göre)</value>
+  </data>
+  <data xml:space="preserve" name="T_91d5c425d18f">
+    <value>Sayaçlar</value>
+  </data>
+  <data xml:space="preserve" name="T_91e9e783f6b4">
+    <value>Izgara aralığı</value>
+  </data>
+  <data xml:space="preserve" name="T_920fb19d923a">
+    <value>Klasör ekle…</value>
+  </data>
+  <data xml:space="preserve" name="T_92d262631b8e">
+    <value>Döndürme</value>
+  </data>
+  <data xml:space="preserve" name="T_930232a8288d">
+    <value>Gruplamak için en az iki öğe seçin.</value>
+  </data>
+  <data xml:space="preserve" name="T_930a0da1ee3b">
+    <value>Hızlı Baskı</value>
+  </data>
+  <data xml:space="preserve" name="T_930a77066593">
+    <value>SON SSCC KAYITLARI</value>
+  </data>
+  <data xml:space="preserve" name="T_931d40166f2b">
+    <value>Şablon klasörü</value>
+  </data>
+  <data xml:space="preserve" name="T_9364546f15cc">
+    <value>FİRMA</value>
+  </data>
+  <data xml:space="preserve" name="T_937d7598ae88">
+    <value>{0} satır seçildi</value>
+  </data>
+  <data xml:space="preserve" name="T_93877e687bde">
+    <value>Grup çözüldü</value>
+  </data>
+  <data xml:space="preserve" name="T_93dccf6fc9dc">
+    <value>Ofsetler uygulandı ({0}) ama profil kaydedilemedi.</value>
+  </data>
+  <data xml:space="preserve" name="T_9494ff896e95">
+    <value>dakika</value>
+  </data>
+  <data xml:space="preserve" name="T_94bb131ce248">
+    <value>Bir veri sütunu seçin ve örnek değerini kontrol edin. Eşleştirme tasarımınıza kaydedilir; Excel/CSV dosyanız değişmez. Ctrl+Z ile geri alabilirsiniz.</value>
+  </data>
+  <data xml:space="preserve" name="T_94c8518d2345">
+    <value>Geri alındı.</value>
+  </data>
+  <data xml:space="preserve" name="T_95289cc73cb9">
+    <value>Profil seçilince yazıcı, yöntem, yoğunluk, hız, yön, ofset, tek parça ve rulo (medya, boşluk) ayarları uygulanır. Etiket ölçüsü değişmez.</value>
+  </data>
+  <data xml:space="preserve" name="T_959effc5d14f">
+    <value>Proje aç (Ctrl+O)</value>
+  </data>
+  <data xml:space="preserve" name="T_95b2e6c8a864">
+    <value>"{0}" şablonu silinsin mi?
+(Geri Dönüşüm Kutusu'na gönderilir.)</value>
+  </data>
+  <data xml:space="preserve" name="T_95c6b3719d6d">
+    <value>Yalnızca şu koşulda bas</value>
+  </data>
+  <data xml:space="preserve" name="T_95d791b97083">
+    <value>100 × 100 mm (varsayılan)</value>
+  </data>
+  <data xml:space="preserve" name="T_9602fb17db44">
+    <value>{0} etikete yeni SSCC numarası verilecek</value>
+  </data>
+  <data xml:space="preserve" name="T_96910885ab65">
+    <value>Uygulandı ve "{0}" profiline kaydedildi ({1}).</value>
+  </data>
+  <data xml:space="preserve" name="T_96a91ee0f726">
+    <value>Etiket yazıcıdan çıkarken "▲ ÜST" işareti istediğiniz tarafı gösteriyor mu? Ters çıkıyorsa baskı yönünü değiştirin; yön değişince kayma da değişeceği için etiketi yeniden basıp ölçün.</value>
+  </data>
+  <data xml:space="preserve" name="T_96f19d2d96d4">
+    <value>Satır no</value>
+  </data>
+  <data xml:space="preserve" name="T_970dbbd01996">
+    <value>Hazır</value>
+  </data>
+  <data xml:space="preserve" name="T_983952c4424b">
+    <value>Üzerine yaz</value>
+  </data>
+  <data xml:space="preserve" name="T_98571bdc7b21">
+    <value>Tüm sütunlarda ve sorun metninde arar; Türkçe harf ve büyük/küçük harf farkı gözetilmez (isik → IŞIK). Birden çok sözcük yazılırsa hepsini içeren satırlar gösterilir.</value>
+  </data>
+  <data xml:space="preserve" name="T_985f36a18d22">
+    <value>  ✗ Windows kuyruğuna gönderilmedi</value>
+  </data>
+  <data xml:space="preserve" name="T_986a70ece69a">
+    <value>Kurulum adımı</value>
+  </data>
+  <data xml:space="preserve" name="T_989c70e40d2d">
+    <value>Uygulama Tanımlayıcısı (AI)</value>
+  </data>
+  <data xml:space="preserve" name="T_99c291df249f">
+    <value>Fotoğraf (detay koruyan)</value>
+  </data>
+  <data xml:space="preserve" name="T_99dbc4861caa">
+    <value>GS1 içerik oluşturucu — {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_99de9ce1e0f7">
+    <value>DEĞİŞİKLİK MODU</value>
+  </data>
+  <data xml:space="preserve" name="T_99ff11c535e7">
+    <value>Yedek geri yüklenemedi</value>
+  </data>
+  <data xml:space="preserve" name="T_9a9093e537a3">
+    <value> Yön değişince kayma da değişir: kalibrasyon etiketini yeniden basıp ölçün.</value>
+  </data>
+  <data xml:space="preserve" name="T_9ab861f8c2d4">
+    <value>Değer boş.</value>
+  </data>
+  <data xml:space="preserve" name="T_9b13de85b6c1">
+    <value>Yazdır</value>
+  </data>
+  <data xml:space="preserve" name="T_9b1be60f99f3">
+    <value>Aşağı taşı</value>
+  </data>
+  <data xml:space="preserve" name="T_9b6338171a92">
+    <value>{0} satırın tamamı yazdırmaya hazır.</value>
+  </data>
+  <data xml:space="preserve" name="T_9bbb9a0bba95">
+    <value>Yalnızca hatalı satırlar</value>
+  </data>
+  <data xml:space="preserve" name="T_9bd3c084d7c8">
+    <value>Dikey</value>
+  </data>
+  <data xml:space="preserve" name="T_9befd633efbf">
+    <value>ÖLÇÜ VE MEDYA</value>
+  </data>
+  <data xml:space="preserve" name="T_9bf96e0f3a83">
+    <value>{0} ürün aktarıldı (anahtar sütun: {1}).</value>
+  </data>
+  <data xml:space="preserve" name="T_9c5816ece93f">
+    <value>Yakalamayı aç/kapat (taşırken Alt: geçici kapat)</value>
+  </data>
+  <data xml:space="preserve" name="T_9c75302d9991">
+    <value>Genişlik ve yükseklik {0:0}–{1:0} mm arasında olmalı.</value>
+  </data>
+  <data xml:space="preserve" name="T_9cd477a88196">
+    <value>Ölçüler milimetredir; tasarım yazıcı çözünürlüğünden bağımsızdır.</value>
+  </data>
+  <data xml:space="preserve" name="T_9cf4f251fc80">
+    <value>BİÇİMLER</value>
+  </data>
+  <data xml:space="preserve" name="T_9d0ccf19ae87">
+    <value>Üst</value>
+  </data>
+  <data xml:space="preserve" name="T_9d119cdc2fad">
+    <value>Göster</value>
+  </data>
+  <data xml:space="preserve" name="T_9dce5fdba924">
+    <value>Üst kenar (▲ ÜST tarafı) → çerçeve</value>
+  </data>
+  <data xml:space="preserve" name="T_9de0257ea86f">
+    <value>Baskı önizlemesi (gerçek çözünürlük)</value>
+  </data>
+  <data xml:space="preserve" name="T_9de82e46c609">
+    <value>PNG olarak dışa aktar…</value>
+  </data>
+  <data xml:space="preserve" name="T_9e0d6f34b2bf">
+    <value>Uyguladıktan sonra kalibrasyon etiketini yeniden basıp çerçevenin her yandan 2 mm içeride çıktığını kontrol edin. 1 nokta (203 DPI'da 0,125 mm) altındaki farklar düzeltilemez.</value>
+  </data>
+  <data xml:space="preserve" name="T_9e178edf8cb5">
+    <value>Etiket görüntüsü üretilemedi.</value>
+  </data>
+  <data xml:space="preserve" name="T_9e7b6b0c1ccf">
+    <value>Etiket: {0} istendi · {1} kuyruğa gönderildi · {2} gönderilmedi · {3} hatalı</value>
+  </data>
+  <data xml:space="preserve" name="T_9e94fffba14d">
+    <value>Firma öneki girilmedi. GS1 Türkiye üyelik belgenizdeki öneki yazın; GLN'den tahmin edilmez.</value>
+  </data>
+  <data xml:space="preserve" name="T_9eed28ba6a73">
+    <value>Atlandı – </value>
+  </data>
+  <data xml:space="preserve" name="T_9f8dd932de3b">
+    <value>Metne {SütunAdı} yazarak Excel/CSV verisine bağlayın. Seçili metne eklemek veya yeni metin oluşturmak için tıklayın.</value>
+  </data>
+  <data xml:space="preserve" name="T_9fccc1fd61de">
+    <value>Boş bırakırsanız her etikette aynı görsel basılır.</value>
+  </data>
+  <data xml:space="preserve" name="T_9fcff6c48225">
+    <value>Windows yazdırma kuyruğuna gönderildi (iş no: {0}).</value>
+  </data>
+  <data xml:space="preserve" name="T_9fdccc420426">
+    <value>taşındı</value>
+  </data>
+  <data xml:space="preserve" name="T_a01c513f7d02">
+    <value>(02) içerik GTIN'i, (37) adet ile birlikte kullanılır.</value>
+  </data>
+  <data xml:space="preserve" name="T_a024bf947423">
+    <value>Çizgi rengi</value>
+  </data>
+  <data xml:space="preserve" name="T_a03425caed30">
+    <value>Etiket Tasarım</value>
+  </data>
+  <data xml:space="preserve" name="T_a039831c42de">
+    <value>Seri Nakliye Konteyner Kodu: numara her etiket için baskı anında GS1 Firma Profili'nden ayrılır</value>
+  </data>
+  <data xml:space="preserve" name="T_a062c203f5e1">
+    <value>Bu numaralarda veri satırı yok ({0}). Dosyadaki veri satırları </value>
+  </data>
+  <data xml:space="preserve" name="T_a0bc30f18b9d">
+    <value>Kenar kalınlıkları baskıda tam yazıcı noktasına yuvarlanır.</value>
+  </data>
+  <data xml:space="preserve" name="T_a0cc6769f7f2">
+    <value>Henüz baskı yapılmadı. Rapor; veri üretimi, Windows kuyruğuna gönderim, kuyruk durumu ve fiziksel doğrulamayı ayrı ayrı gösterir.</value>
+  </data>
+  <data xml:space="preserve" name="T_a0dbf92659bd">
+    <value>"{0}" yazıcısına 1 adet {1:0.##} × {2:0.##} mm kalibrasyon etiketi gönderilecek </value>
+  </data>
+  <data xml:space="preserve" name="T_a10b562d52d4">
+    <value>GLN, firma öneki (GCP), SSCC numaralandırması ve kayıtlı ürün numaraları (GTIN). SSCC numaraları yalnızca gerçek baskı sırasında {SSCC} alanı için ayrılır ve kalıcı olarak kaydedilir.</value>
+  </data>
+  <data xml:space="preserve" name="T_a118cfc13fa7">
+    <value>Şablonu ve veriyi açıp aynı satır seçimi ve adetlerle baskı penceresini açar (baskı için yine onay gerekir)</value>
+  </data>
+  <data xml:space="preserve" name="T_a1b120da7d68">
+    <value>Farklı kaydet…</value>
+  </data>
+  <data xml:space="preserve" name="T_a20d1881f1f9">
+    <value>DOSYALAR</value>
+  </data>
+  <data xml:space="preserve" name="T_a2254f68c2fb">
+    <value>Değer, {Barkod} gibi bir veri alanı da olabilir. EAN/UPC'de kontrol basamağı eksikse hesaplanır, varsa doğrulanır.</value>
+  </data>
+  <data xml:space="preserve" name="T_a2381a982dbc">
+    <value>Biçim</value>
+  </data>
+  <data xml:space="preserve" name="T_a29a6ecb3812">
+    <value>Yeni / Aç / Kaydet (Ctrl+Shift+S farklı kaydet)</value>
+  </data>
+  <data xml:space="preserve" name="T_a2a1a42069bd">
+    <value>ŞABLON</value>
+  </data>
+  <data xml:space="preserve" name="T_a2b993762f59">
+    <value>Yeni etiket (Ctrl+N)</value>
+  </data>
+  <data xml:space="preserve" name="T_a2e6aa564941">
+    <value>TSPL doğrudan (RAW) — önerilen</value>
+  </data>
+  <data xml:space="preserve" name="T_a2fee7b1b79e">
+    <value>"{0}" sayacının sıradaki değeri (bir sonraki etiket bu numarayı alır):</value>
+  </data>
+  <data xml:space="preserve" name="T_a30d1d5791a1">
+    <value>Önizleme görüntüsünü de gönder (görsel anlayan modeller için)</value>
+  </data>
+  <data xml:space="preserve" name="T_a30d403156fb">
+    <value>Veri kaynağında sorunlar var</value>
+  </data>
+  <data xml:space="preserve" name="T_a3209e795c1a">
+    <value>Baskı geçmişi okunamadı: </value>
+  </data>
+  <data xml:space="preserve" name="T_a35ab11a04f2">
+    <value>Etiketin altına</value>
+  </data>
+  <data xml:space="preserve" name="T_a36200bb9264">
+    <value>İLERLEME VE RAPOR</value>
+  </data>
+  <data xml:space="preserve" name="T_a3943a07f2e9">
+    <value> · Kayıt klasörü:</value>
+  </data>
+  <data xml:space="preserve" name="T_a3b8c0cb41b2">
+    <value>Başlık</value>
+  </data>
+  <data xml:space="preserve" name="T_a3d706901282">
+    <value>"{0}" için henüz yedek yok. Dosyanın üzerine her kayıtta önceki hâli yedeklenir (son {1}).</value>
+  </data>
+  <data xml:space="preserve" name="T_a400e1011910">
+    <value>PROFİL</value>
+  </data>
+  <data xml:space="preserve" name="T_a437b12f9a0f">
+    <value>Barkod içeriği {0} alanına bağlandı.</value>
+  </data>
+  <data xml:space="preserve" name="T_a449fc303f99">
+    <value>QR Kod</value>
+  </data>
+  <data xml:space="preserve" name="T_a45c9f6328b5">
+    <value>Yazıcının en fazla baskı genişliği 20–300 mm arasında olmalı.</value>
+  </data>
+  <data xml:space="preserve" name="T_a496b563cdcb">
+    <value>  ✗ Baskı verisi üretilemedi</value>
+  </data>
+  <data xml:space="preserve" name="T_a4d1a301b437">
+    <value>Uç nokta adresi</value>
+  </data>
+  <data xml:space="preserve" name="T_a51ec95dbda3">
+    <value>Bu kodla ürün bulunamadı. Kodu kontrol edin veya ürün listesini güncelleyin.</value>
+  </data>
+  <data xml:space="preserve" name="T_a52123b61b26">
+    <value>Yardım</value>
+  </data>
+  <data xml:space="preserve" name="T_a52d28e08331">
+    <value>Şablon klasörünü seçin</value>
+  </data>
+  <data xml:space="preserve" name="T_a530d9cfd0e2">
+    <value>Kılavuz çizgisi</value>
+  </data>
+  <data xml:space="preserve" name="T_a5a0bdef956a">
+    <value>Üstten %</value>
+  </data>
+  <data xml:space="preserve" name="T_a6372c376cd8">
+    <value>Satır numaralarını yazın (ör. {0}).</value>
+  </data>
+  <data xml:space="preserve" name="T_a6574138b250">
+    <value>Görünen {0} satırı seç</value>
+  </data>
+  <data xml:space="preserve" name="T_a6c406c21137">
+    <value>
+
+Ayarlar → GS1 Firma Profili bölümünden firma önekini girip üyelik belgenizle doğrulayın.</value>
+  </data>
+  <data xml:space="preserve" name="T_a6d58bc760b7">
+    <value>Seçili metne/barkoda bağla; seçim yoksa yeni metin oluştur</value>
+  </data>
+  <data xml:space="preserve" name="T_a6e831816b47">
+    <value>Örnek şablonlar</value>
+  </data>
+  <data xml:space="preserve" name="T_a722139f39be">
+    <value>Excel/CSV yüklenince sütunlar burada listelenir (Veri sekmesi).</value>
+  </data>
+  <data xml:space="preserve" name="T_a7b5784b8c6c">
+    <value>Yazıcı seçilmedi</value>
+  </data>
+  <data xml:space="preserve" name="T_a8a333d316ec">
+    <value>Görsel okunamadı</value>
+  </data>
+  <data xml:space="preserve" name="T_a8bcca42d9ce">
+    <value>Kopyala</value>
+  </data>
+  <data xml:space="preserve" name="T_a90c9480255d">
+    <value>Ürün listesi (Excel/CSV)</value>
+  </data>
+  <data xml:space="preserve" name="T_a914e95b0c73">
+    <value>Baskı önizlemesi</value>
+  </data>
+  <data xml:space="preserve" name="T_a942007517cb">
+    <value>Boş: 1</value>
+  </data>
+  <data xml:space="preserve" name="T_a96bc2d31f4d">
+    <value>Son kullanılan dosya yok</value>
+  </data>
+  <data xml:space="preserve" name="T_a9f7381f89a7">
+    <value> Bu etiket sayacı kullanıyor; bir sonraki baskıda sayaç 1'den başlar.</value>
+  </data>
+  <data xml:space="preserve" name="T_aa325a1495a5">
+    <value>Alta hizala</value>
+  </data>
+  <data xml:space="preserve" name="T_aac3482558f7">
+    <value>Tek parça gönder (araya başka iş girmesin)</value>
+  </data>
+  <data xml:space="preserve" name="T_ab9617c5e5db">
+    <value>Bu işte gönderilmemiş etiket yok.</value>
+  </data>
+  <data xml:space="preserve" name="T_ab9dc54564e0">
+    <value>Yatayda ortala</value>
+  </data>
+  <data xml:space="preserve" name="T_abc0eead78bd">
+    <value>Örn. http://127.0.0.1:11434/v1 (Ollama) veya http://127.0.0.1:1234/v1 (LM Studio)</value>
+  </data>
+  <data xml:space="preserve" name="T_abeba3d76238">
+    <value>Birden fazla ürün aynı koda sahip. Listeden doğru ürünü seçin.</value>
+  </data>
+  <data xml:space="preserve" name="T_ac0e0fe25fa2">
+    <value>GS1 içeriği yazılmadı: barkod bu arada değişti ya da silindi.</value>
+  </data>
+  <data xml:space="preserve" name="T_ac12fe881291">
+    <value>Arkaya gönder</value>
+  </data>
+  <data xml:space="preserve" name="T_ac2fb43d285a">
+    <value>Bu etikette {SSCC} ya da sayaç alanı var. PDF'te bu alanlar önizleme değeriyle yer alır: SSCC numarası ayrılmaz, </value>
+  </data>
+  <data xml:space="preserve" name="T_ac359f8530b7">
+    <value>Excel/CSV satır numaraları: 2-20, 35, 40-42 (40- = 40'tan sona kadar). Seç'e basınca seçim yalnızca bu satırlar olur.</value>
+  </data>
+  <data xml:space="preserve" name="T_ac3f47d51ca7">
+    <value>Yazıcı listesini yenile</value>
+  </data>
+  <data xml:space="preserve" name="T_ac6ecd28f32e">
+    <value>FİRMA ÖNEKİ (GCP)</value>
+  </data>
+  <data xml:space="preserve" name="T_acc80e8cf965">
+    <value>"{0}" şablonundan yeni etiket oluşturuldu.</value>
+  </data>
+  <data xml:space="preserve" name="T_acef372a1c56">
+    <value>Kaldığı yerden devam ({0} etiket)</value>
+  </data>
+  <data xml:space="preserve" name="T_ad645248f840">
+    <value>{0} şablon ve {1} ürün geri yüklendi. Yazıcınızı baskı sırasında seçin.</value>
+  </data>
+  <data xml:space="preserve" name="T_ad8426dd3685">
+    <value>Yazıcı (isteğe bağlı)</value>
+  </data>
+  <data xml:space="preserve" name="T_ad8fa3274ed5">
+    <value>Alternatif (düğmeyle): yazıcıyı kapatın, FEED düğmesini basılı tutarak açın; ışık kırmızı yanıp sönerken bırakın.
+
+Komut gönderilsin mi?</value>
+  </data>
+  <data xml:space="preserve" name="T_ad95c472881e">
+    <value>Görüntü sürücünün bildirdiği gerçek çözünürlükte üretilip ölçeklemeden basılır. Sürücünün kağıt ayarları ve kenar boşlukları geçerlidir.</value>
+  </data>
+  <data xml:space="preserve" name="T_adbe51b7d5f5">
+    <value>Kutuyu barkoda tam oturt</value>
+  </data>
+  <data xml:space="preserve" name="T_ae12d2ad9e94">
+    <value>Çapraz (↘)</value>
+  </data>
+  <data xml:space="preserve" name="T_ae24e6b73192">
+    <value>Metin boyutu</value>
+  </data>
+  <data xml:space="preserve" name="T_ae4cf0c1e081">
+    <value>Yazıcı çözünürlüğünde üretilen gerçek 1-bit görüntü bağımsız bir çözücüyle okunur</value>
+  </data>
+  <data xml:space="preserve" name="T_ae5f63ca3325">
+    <value>Firma öneki değiştiği için "doğrulandı" işareti kaldırıldı. Yeni öneki üyelik belgenizle kontrol edip yeniden işaretleyin.</value>
+  </data>
+  <data xml:space="preserve" name="T_ae92bb348094">
+    <value>Etiket ilerlet</value>
+  </data>
+  <data xml:space="preserve" name="T_ae933cf9e9dc">
+    <value>(penceredeki yoğunluk, hız, yön ve ofset ayarlarıyla).
+
+Gönderilsin mi?</value>
+  </data>
+  <data xml:space="preserve" name="T_aee08a56046a">
+    <value>PNG olarak dışa aktar</value>
+  </data>
+  <data xml:space="preserve" name="T_af2bb2217169">
+    <value>(00){SSCC} ekle</value>
+  </data>
+  <data xml:space="preserve" name="T_af6d1eb04348">
+    <value>Şablon açıldı (uyarılar)</value>
+  </data>
+  <data xml:space="preserve" name="T_af6f3859af7c">
+    <value>Sensör kalibrasyonu</value>
+  </data>
+  <data xml:space="preserve" name="T_af740fb3ed66">
+    <value>(21) seri numarası (01) GTIN ile birlikte kullanılır.</value>
+  </data>
+  <data xml:space="preserve" name="T_afdffe699908">
+    <value>Etiket çerçevesi</value>
+  </data>
+  <data xml:space="preserve" name="T_aff848ed8bd6">
+    <value>Her baskı işi bu bilgisayarda kaydedilir: şablon, veri dosyası ve seçili satırlar, adet, yazıcı ayarları, rapor aşamaları, hatalar ve kuyruğa gönderilen etiketler. Fiziksel baskı bu kayıtla doğrulanamaz; etiketleri yazıcıdan kontrol edin.</value>
+  </data>
+  <data xml:space="preserve" name="T_b02f503935f9">
+    <value>Etiket ölçüsünde bir cetvel etiketi basılır: her kenarda milimetre cetveli, kenarlardan tam 2 mm içeride bir çerçeve, ortada artı işareti, "▲ ÜST" işareti ve ölçü bilgisi. Baskı penceresindeki yoğunluk, hız, yön ve ofset ayarları kullanılır; gönderimden önce onay sorulur.</value>
+  </data>
+  <data xml:space="preserve" name="T_b0602177142d">
+    <value>Şablon (uyarılar)</value>
+  </data>
+  <data xml:space="preserve" name="T_b0c8114dcd65">
+    <value>Toplu baskıda sıra numarası (0001, 0002…)</value>
+  </data>
+  <data xml:space="preserve" name="T_b0cfe2154b74">
+    <value>DEĞİŞKEN ALANLAR</value>
+  </data>
+  <data xml:space="preserve" name="T_b0d24ebb5bd1">
+    <value>{0} kayıt</value>
+  </data>
+  <data xml:space="preserve" name="T_b0dc157fef6d">
+    <value>(01) olarak yaz</value>
+  </data>
+  <data xml:space="preserve" name="T_b10697e84402">
+    <value>YÖNTEM</value>
+  </data>
+  <data xml:space="preserve" name="T_b11c26a7f004">
+    <value>Sayaçlar kaldığı değerden sürer. </value>
+  </data>
+  <data xml:space="preserve" name="T_b200dbc9ac7f">
+    <value>Test baskısı</value>
+  </data>
+  <data xml:space="preserve" name="T_b252af229922">
+    <value>Uyarılar:</value>
+  </data>
+  <data xml:space="preserve" name="T_b2c34226a602">
+    <value>Geri alma geçmişi: listeden bir noktaya dönün</value>
+  </data>
+  <data xml:space="preserve" name="T_b2e376b0a20c">
+    <value>Ayarlar kaydedildi, ancak yeni şablonlar eklenemedi: </value>
+  </data>
+  <data xml:space="preserve" name="T_b3298ba4c936">
+    <value>Baskı geçmişi</value>
+  </data>
+  <data xml:space="preserve" name="T_b33226a5d92c">
+    <value>Köşe yarıçapı</value>
+  </data>
+  <data xml:space="preserve" name="T_b3e1a6068621">
+    <value>Eşik</value>
+  </data>
+  <data xml:space="preserve" name="T_b3e7b95fcf9e">
+    <value>Yapay Zekâ paneli: öneriler, uygulama içi asistan, bağlantı durumu</value>
+  </data>
+  <data xml:space="preserve" name="T_b40b5093308c">
+    <value>Satır {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_b41ef904c993">
+    <value>TOPLU ÖNİZLEME</value>
+  </data>
+  <data xml:space="preserve" name="T_b4ab14504349">
+    <value>Etiket ölçüsü/medya</value>
+  </data>
+  <data xml:space="preserve" name="T_b4dece1fdeb8">
+    <value>Basılabilecek geçerli satır yok. Hatalı satırlar:
+</value>
+  </data>
+  <data xml:space="preserve" name="T_b4e49495350f">
+    <value>Önizleme, yazıcıya gönderilecek 1-bit görüntünün kendisidir.</value>
+  </data>
+  <data xml:space="preserve" name="T_b5a038364a82">
+    <value>VERİ UYARILARI</value>
+  </data>
+  <data xml:space="preserve" name="T_b5bb050ab092">
+    <value>HAZIR SİMGELER</value>
+  </data>
+  <data xml:space="preserve" name="T_b5dfaa2e74f9">
+    <value>Derece (saat yönünde)</value>
+  </data>
+  <data xml:space="preserve" name="T_b68a3150ea85">
+    <value>Geri</value>
+  </data>
+  <data xml:space="preserve" name="T_b69ef08add74">
+    <value>{0} satır</value>
+  </data>
+  <data xml:space="preserve" name="T_b6a09fa8fb6d">
+    <value>Yatay eşit dağıt (3+ öğe)</value>
+  </data>
+  <data xml:space="preserve" name="T_b70eb9cefdf8">
+    <value>Seçilen değişikliğe kadar geri al (en yeni üstte):</value>
+  </data>
+  <data xml:space="preserve" name="T_b74b73d709d2">
+    <value>Görsel eklenemedi</value>
+  </data>
+  <data xml:space="preserve" name="T_b74c06f7f8a5">
+    <value>GS1 Firma Profili…</value>
+  </data>
+  <data xml:space="preserve" name="T_b79f64e364f6">
+    <value>Şablon değişmiş</value>
+  </data>
+  <data xml:space="preserve" name="T_b81b314a4b65">
+    <value>{0} satır yazdırılabilir, {1} satır hatalı</value>
+  </data>
+  <data xml:space="preserve" name="T_b831d808452c">
+    <value>boyutlandırıldı</value>
+  </data>
+  <data xml:space="preserve" name="T_b8326732aab4">
+    <value>AKEL Etiket (v1) ayarlarınız devralındı: yazıcı ayarları, son kullanılan dosyalar ve klasörler</value>
+  </data>
+  <data xml:space="preserve" name="T_b84e18cbfc6d">
+    <value>Yakalamayı geçici kapat</value>
+  </data>
+  <data xml:space="preserve" name="T_b88019aa289e">
+    <value>Kaldır</value>
+  </data>
+  <data xml:space="preserve" name="T_b89007ecfee0">
+    <value>Ürün seçin (arayın ya da barkod okutun).</value>
+  </data>
+  <data xml:space="preserve" name="T_b8bedfa2f9b8">
+    <value>Ürün listesi…</value>
+  </data>
+  <data xml:space="preserve" name="T_b8e2b5e0d035">
+    <value>Ofsetler uygulandı ({0}); profile kaydedilmedi.</value>
+  </data>
+  <data xml:space="preserve" name="T_b91950d23ded">
+    <value>Devam</value>
+  </data>
+  <data xml:space="preserve" name="T_b944868efd23">
+    <value>Ayrıntılı rehber: Belgeler klasöründeki YAPAY-ZEKA-BAGLANTI.md (Claude, Atlas, Hermes ve diğer ajanlar).</value>
+  </data>
+  <data xml:space="preserve" name="T_b95e9e0fcb67">
+    <value>PDF hazırlanıyor ({0} etiket)…</value>
+  </data>
+  <data xml:space="preserve" name="T_b9a73526483a">
+    <value>GS1 içerik oluşturucu</value>
+  </data>
+  <data xml:space="preserve" name="T_b9b9ad3b6c6b">
+    <value>
+{0} satırda veri uyarısı var; ayrıntılar Veri panelinde dosya açılınca görünür.</value>
+  </data>
+  <data xml:space="preserve" name="T_b9d10f005a4c">
+    <value>Bütün etiketler tek iş olarak gönderilir; sipariş sisteminin etiketleri araya giremez. "Baskıyı durdur" yalnızca iş kuyruğa yazılmayı bitirene kadar etkilidir; sonrasında durdurmak için işi Windows yazdırma kuyruğundan iptal etmeniz gerekir ve yazıcıya ulaşmış etiketler yine de basılır.</value>
+  </data>
+  <data xml:space="preserve" name="T_ba13e0e04f8f">
+    <value>Tüketici birimi</value>
+  </data>
+  <data xml:space="preserve" name="T_ba3f1d68f96b">
+    <value>İPUÇLARI</value>
+  </data>
+  <data xml:space="preserve" name="T_ba6188fd6a2c">
+    <value>Kaldığı yerden devam…</value>
+  </data>
+  <data xml:space="preserve" name="T_bab1af3efa7e">
+    <value>Uygula, içeriği seçili barkoda yazar; Geri Al ile geri alınabilir.</value>
+  </data>
+  <data xml:space="preserve" name="T_bb17b0a77160">
+    <value>Okunabilirlik kontrolü</value>
+  </data>
+  <data xml:space="preserve" name="T_bb32eee2c44c">
+    <value>Firma adı</value>
+  </data>
+  <data xml:space="preserve" name="T_bb8a3be974f8">
+    <value>ETİKET / MEDYA</value>
+  </data>
+  <data xml:space="preserve" name="T_bbb1132f30f1">
+    <value>Açık</value>
+  </data>
+  <data xml:space="preserve" name="T_bbb47728532e">
+    <value>Her etikette farklı görsel için dosya adını içeren veri sütununu seçin. Görseller veri dosyasının klasöründe veya onun Görseller alt klasöründe aranır; bulunamayan satır basılmaz ve raporlanır.</value>
+  </data>
+  <data xml:space="preserve" name="T_bbd0f8a8ba78">
+    <value>belgesinin kaydedilmemiş bir kopyası bulundu. Kurtarılsın mı?</value>
+  </data>
+  <data xml:space="preserve" name="T_bbee649c1deb">
+    <value>mm (0,125 mm = 1 nokta)</value>
+  </data>
+  <data xml:space="preserve" name="T_bc2daf2e9754">
+    <value>Baskıyı durdur</value>
+  </data>
+  <data xml:space="preserve" name="T_bc69c0d4108b">
+    <value>barkod türü</value>
+  </data>
+  <data xml:space="preserve" name="T_bc74add79f8b">
+    <value>Yeniden kontrol et</value>
+  </data>
+  <data xml:space="preserve" name="T_bc91fce11d6f">
+    <value>Etiket</value>
+  </data>
+  <data xml:space="preserve" name="T_bce3c039c4d7">
+    <value>Satır</value>
+  </data>
+  <data xml:space="preserve" name="T_bd2952226be1">
+    <value>Yakalama kapalı</value>
+  </data>
+  <data xml:space="preserve" name="T_be0219164529">
+    <value> • değişkenli</value>
+  </data>
+  <data xml:space="preserve" name="T_be16847168d9">
+    <value>Alttan %</value>
+  </data>
+  <data xml:space="preserve" name="T_be2977ad7b39">
+    <value>SİYAH-BEYAZ DÖNÜŞÜM</value>
+  </data>
+  <data xml:space="preserve" name="T_be80215102ed">
+    <value>Yeni ofset (sağ / aşağı):</value>
+  </data>
+  <data xml:space="preserve" name="T_bf6531d30a81">
+    <value>Güncelle</value>
+  </data>
+  <data xml:space="preserve" name="T_c0322b28a759">
+    <value>Grupla / Grubu çöz</value>
+  </data>
+  <data xml:space="preserve" name="T_c045826ef1a5">
+    <value>Ofsetler uygulandı ({0}); hazır profilin adı kullanılamaz, profile kaydedilmedi.</value>
+  </data>
+  <data xml:space="preserve" name="T_c08599b46e21">
+    <value>Ürünlerinizi Excel/CSV'den bir kez aktarın; Hızlı Baskı'da ad, kod ya da barkodla bulunur. Liste bu bilgisayarda saklanır (Belgeler\Etiket Tasarım\Ürünler).</value>
+  </data>
+  <data xml:space="preserve" name="T_c09760085faf">
+    <value>biçim için {SAYAC:000000}. Önizleme sıradaki değeri gösterir ama sayacı ilerletmez; sayaç yalnızca </value>
+  </data>
+  <data xml:space="preserve" name="T_c0a9528c964b">
+    <value>{0} kilitli öğe silinmedi (önce kilidi açın).</value>
+  </data>
+  <data xml:space="preserve" name="T_c1091528d5fc">
+    <value>satırlar eklendi ya da silindiyse farklı kayıtlar seçilebilir.
+
+Baskı penceresinden önce Veri panelinden seçimi kontrol edin. Devam edilsin mi?</value>
+  </data>
+  <data xml:space="preserve" name="T_c1108f42b43e">
+    <value>Geri al (Ctrl+Z)</value>
+  </data>
+  <data xml:space="preserve" name="T_c11eb96e73c5">
+    <value>Yakınlaştırınca yazıcı noktaları tek tek görünür</value>
+  </data>
+  <data xml:space="preserve" name="T_c1440e99371b">
+    <value>Etiket arası boşluk</value>
+  </data>
+  <data xml:space="preserve" name="T_c1752600f293">
+    <value> mm</value>
+  </data>
+  <data xml:space="preserve" name="T_c1b60550cb69">
+    <value>Q – yüksek (%25)</value>
+  </data>
+  <data xml:space="preserve" name="T_c1bdff6cf033">
+    <value>Veri kaynağındaki seçili satırlar mı ({0} etiket, her etiket ayrı sayfa) yoksa yalnızca ekrandaki etiket mi kaydedilsin?</value>
+  </data>
+  <data xml:space="preserve" name="T_c1fa9a9cd70d">
+    <value>Parlaklık</value>
+  </data>
+  <data xml:space="preserve" name="T_c1fe2ecdff02">
+    <value>Kaydet</value>
+  </data>
+  <data xml:space="preserve" name="T_c20882dfd11e">
+    <value>Göster / gizle</value>
+  </data>
+  <data xml:space="preserve" name="T_c21acc176eb8">
+    <value>Kopyala / Kes / Yapıştır</value>
+  </data>
+  <data xml:space="preserve" name="T_c238092f9f80">
+    <value>Ofsetleri uygula ve profile kaydet</value>
+  </data>
+  <data xml:space="preserve" name="T_c23ae4a11d0d">
+    <value>Şu anki ofset (sağ / aşağı):</value>
+  </data>
+  <data xml:space="preserve" name="T_c253808ace71">
+    <value>Alt (sürüklerken)</value>
+  </data>
+  <data xml:space="preserve" name="T_c26c0c918d0c">
+    <value>Barkod içeriğinde AI'lar parantezle yazılır, ör. (00){SSCC} veya (02){GTIN}(37){KoliIciAdet}(10){Parti}. Değişken uzunluklu AI'lardan sonra gereken FNC1 ayırıcısını uygulama ekler.</value>
+  </data>
+  <data xml:space="preserve" name="T_c2c723ef8181">
+    <value>Devam baskısı</value>
+  </data>
+  <data xml:space="preserve" name="T_c32718554a60">
+    <value>Üste hizala</value>
+  </data>
+  <data xml:space="preserve" name="T_c332ec882f67">
+    <value>Ortala</value>
+  </data>
+  <data xml:space="preserve" name="T_c338f588c4e1">
+    <value>Oluşturulamadı: </value>
+  </data>
+  <data xml:space="preserve" name="T_c339e4ee5037">
+    <value>Veri sütunlarını eşleştir…</value>
+  </data>
+  <data xml:space="preserve" name="T_c35e09c17ed6">
+    <value> · yoğunluk {0} · hız {1} · {2} · ofset {3:0.###} / {4:0.###} mm</value>
+  </data>
+  <data xml:space="preserve" name="T_c389bc18ce42">
+    <value>Bu değişikliği geri al</value>
+  </data>
+  <data xml:space="preserve" name="T_c3d94cf25c76">
+    <value>BELGE</value>
+  </data>
+  <data xml:space="preserve" name="T_c3e9aca82dd3">
+    <value>Ürün listesi boş. "Excel/CSV'den aktar" ile ürünlerinizi bir kez aktarın.</value>
+  </data>
+  <data xml:space="preserve" name="T_c413413f5693">
+    <value>Firma öneki {0} olarak kaydedilecek ve SSCC üretimi açılacak.
+
+</value>
+  </data>
+  <data xml:space="preserve" name="T_c434f836af56">
+    <value>{0} / {1} şablon</value>
+  </data>
+  <data xml:space="preserve" name="T_c45e14c36e61">
+    <value>AI ekle</value>
+  </data>
+  <data xml:space="preserve" name="T_c47c939160e2">
+    <value>Sağlayıcı</value>
+  </data>
+  <data xml:space="preserve" name="T_c4966a03bee5">
+    <value>Sütunları eşleştir</value>
+  </data>
+  <data xml:space="preserve" name="T_c499a29709ad">
+    <value>Onay sorulur; yazıcı birkaç etiket ilerletir</value>
+  </data>
+  <data xml:space="preserve" name="T_c4c39bef7f1c">
+    <value>Geçerli ({0})</value>
+  </data>
+  <data xml:space="preserve" name="T_c4ec768d3dc0">
+    <value>Değişiklikler tek adımda uygulanır; Ctrl+Z ile geri alınabilir.</value>
+  </data>
+  <data xml:space="preserve" name="T_c4f2e2db7ba3">
+    <value>Açık tasarım ({0}) da pakete eklensin mi?</value>
+  </data>
+  <data xml:space="preserve" name="T_c5561812d0d2">
+    <value>Ör. GS1 Türkiye üyelik belgesi, 2026</value>
+  </data>
+  <data xml:space="preserve" name="T_c55fdca0098f">
+    <value>GS1 belgenizdeki firma önekini girin.</value>
+  </data>
+  <data xml:space="preserve" name="T_c5a9e8ce4553">
+    <value>Firma bilgilerinizi ve etiket ölçünüzü bir kez ayarlayın. Hepsini daha sonra değiştirebilirsiniz.</value>
+  </data>
+  <data xml:space="preserve" name="T_c5ddbc334a81">
+    <value>ÜRÜN</value>
+  </data>
+  <data xml:space="preserve" name="T_c613bcb4d758">
+    <value>Sonuç önce öneri olarak gelir; siz onaylamadan tasarım değişmez.</value>
+  </data>
+  <data xml:space="preserve" name="T_c62054ee7907">
+    <value>(37) adet, (02) içerik GTIN'i ile birlikte kullanılır.</value>
+  </data>
+  <data xml:space="preserve" name="T_c64198056bee">
+    <value>Kopya sayısı</value>
+  </data>
+  <data xml:space="preserve" name="T_c641dfba8dd1">
+    <value>Şablon</value>
+  </data>
+  <data xml:space="preserve" name="T_c67837bfbc7a">
+    <value>Excel (XLSX, eski XLS) veya CSV dosyasındaki her satır ayrı bir etiket olur. Barkod sütunları metin olarak okunur; baştaki sıfırlar korunur.</value>
+  </data>
+  <data xml:space="preserve" name="T_c68ce72af18f">
+    <value>  Fiziksel baskı bu kayıtla doğrulanamaz; etiketleri yazıcıdan kontrol edin.</value>
+  </data>
+  <data xml:space="preserve" name="T_c808264d1e07">
+    <value>Bu yazıcı TSPL desteklemiyor olabilir; TSPL yalnızca etiket yazıcılarında çalışır. Normal yazıcılar için "Windows sürücüsü" yöntemini seçin.</value>
+  </data>
+  <data xml:space="preserve" name="T_c86db6d6cbea">
+    <value>Uyarı: Etikette değişken alan var ancak veri kaynağı kullanılmıyor; alanlar boş/yer tutucu basılabilir.</value>
+  </data>
+  <data xml:space="preserve" name="T_c8888c6b5128">
+    <value>Kalibrasyon yardımcısı…</value>
+  </data>
+  <data xml:space="preserve" name="T_c8a2802b9e76">
+    <value>Her iki modda da: tasarım dosyaları silinmez, var olan dosyanın üzerine izinsiz yazılmaz, kilitli öğeler değiştirilmez.</value>
+  </data>
+  <data xml:space="preserve" name="T_c8b3461f3891">
+    <value>Sol kenar → çerçeve</value>
+  </data>
+  <data xml:space="preserve" name="T_c9185af4e402">
+    <value>Bu baskının şablonu bulunamadı</value>
+  </data>
+  <data xml:space="preserve" name="T_c91da2e0203b">
+    <value>Alt</value>
+  </data>
+  <data xml:space="preserve" name="T_c9809cb12580">
+    <value>Önce</value>
+  </data>
+  <data xml:space="preserve" name="T_c9a878720fa5">
+    <value>Zaman</value>
+  </data>
+  <data xml:space="preserve" name="T_c9e1193baef8">
+    <value>{0} satır veri dosyasında bulunamadı (dosya kısalmış olabilir).</value>
+  </data>
+  <data xml:space="preserve" name="T_c9f07e53996f">
+    <value>yazıcı kuyruğuna gönderilen etiket sayısı kadar ilerler.</value>
+  </data>
+  <data xml:space="preserve" name="T_ca16d8c6bcfd">
+    <value>0 = otomatik</value>
+  </data>
+  <data xml:space="preserve" name="T_ca3dbfdf6cb1">
+    <value>Başlık ekle</value>
+  </data>
+  <data xml:space="preserve" name="T_ca6500f8231e">
+    <value>Her satırda bir Uygulama Tanımlayıcısı (AI) seçip değerini yazın. Değer yerine {Parti} gibi bir veri alanı da yazabilirsiniz. Baştaki FNC1'i ve değişken uzunluklu AI'lardan sonra gereken ayırıcıları uygulama ekler.</value>
+  </data>
+  <data xml:space="preserve" name="T_ca72389cc739">
+    <value>sağ/aşağı ofset {0:0.###} / {1:0.###} mm</value>
+  </data>
+  <data xml:space="preserve" name="T_ca82d4215e56">
+    <value>Veri dosyası değişmiş</value>
+  </data>
+  <data xml:space="preserve" name="T_caae189681f5">
+    <value>Kutuya sığdır (yazıyı otomatik küçült)</value>
+  </data>
+  <data xml:space="preserve" name="T_caae59a7093f">
+    <value>Yazıcı ayarını değiştirme</value>
+  </data>
+  <data xml:space="preserve" name="T_cac400c7ec07">
+    <value>Hayır</value>
+  </data>
+  <data xml:space="preserve" name="T_cae7438bc98c">
+    <value>Seçim yok</value>
+  </data>
+  <data xml:space="preserve" name="T_cb0a798888aa">
+    <value>hatalı</value>
+  </data>
+  <data xml:space="preserve" name="T_cbb0dd201b6c">
+    <value>Izgarayı göster</value>
+  </data>
+  <data xml:space="preserve" name="T_cc037ebae073">
+    <value>HİZALA</value>
+  </data>
+  <data xml:space="preserve" name="T_cc47fbb49d97">
+    <value>Üretilen barkod: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_cd7af79cbd62">
+    <value>Son kullanım</value>
+  </data>
+  <data xml:space="preserve" name="T_cd7dcde22e36">
+    <value>Kalın</value>
+  </data>
+  <data xml:space="preserve" name="T_cd814c1c035f">
+    <value>Siyah şerit</value>
+  </data>
+  <data xml:space="preserve" name="T_cde8fa365cbb">
+    <value>İtalik</value>
+  </data>
+  <data xml:space="preserve" name="T_ce5e974c3cfc">
+    <value>Toplu baskı 25'erli işler yerine tek Windows işi olarak gönderilir</value>
+  </data>
+  <data xml:space="preserve" name="T_ce6f6852badc">
+    <value>Boş bırakılırsa tüm aralık kullanılır. Birden fazla bilgisayar SSCC basacaksa her birine çakışmayan bir aralık verin.</value>
+  </data>
+  <data xml:space="preserve" name="T_ce913e6493a3">
+    <value>Profil olarak kaydet…</value>
+  </data>
+  <data xml:space="preserve" name="T_cea314270606">
+    <value>). Her etiket ayrı numara alır; yalnızca kuyruğa gönderilen etiketler sayacı ilerletir.</value>
+  </data>
+  <data xml:space="preserve" name="T_cf097eb22ef9">
+    <value>Firma bilgilerimle örnek şablonlar ekle</value>
+  </data>
+  <data xml:space="preserve" name="T_cf4ea62fe5a5">
+    <value>Firma, şablon ve ürün yedeğini aç</value>
+  </data>
+  <data xml:space="preserve" name="T_cf63b554903c">
+    <value>Dikey eşit dağıt (3+ öğe)</value>
+  </data>
+  <data xml:space="preserve" name="T_cf773c25eee2">
+    <value>Metin güncellendi (Ctrl+Z ile geri alınır).</value>
+  </data>
+  <data xml:space="preserve" name="T_cf90c84f344c">
+    <value>SSCC (SERİ NAKLİYE KONTEYNER KODU)</value>
+  </data>
+  <data xml:space="preserve" name="T_cfdc37d2c336">
+    <value> · tek parça</value>
+  </data>
+  <data xml:space="preserve" name="T_cfe32e96c7ab">
+    <value>Okunamadı: </value>
+  </data>
+  <data xml:space="preserve" name="T_cfe86030ce79">
+    <value>{0} öğe çoğaltıldı</value>
+  </data>
+  <data xml:space="preserve" name="T_cff275b74696">
+    <value>Geçersiz</value>
+  </data>
+  <data xml:space="preserve" name="T_d0576deda66c">
+    <value>Çoğalt (Ctrl+D)</value>
+  </data>
+  <data xml:space="preserve" name="T_d0902bcd5b94">
+    <value>Bir öne / bir arkaya (Shift ile en öne / en arkaya)</value>
+  </data>
+  <data xml:space="preserve" name="T_d0a7782b0e67">
+    <value>Dikdörtgen</value>
+  </data>
+  <data xml:space="preserve" name="T_d0b4f0efea0f">
+    <value>Bir öğe seçin veya soldan yeni öğe ekleyin.</value>
+  </data>
+  <data xml:space="preserve" name="T_d0ed81c3a86e">
+    <value>Yapay zekâ ayarları ve bağlantı bilgileri</value>
+  </data>
+  <data xml:space="preserve" name="T_d14915af32f2">
+    <value>Bu öneki GS1 Türkiye üyelik belgenizden kontrol ettiniz mi? Yanlış önekle basılan SSCC'ler geri alınamaz.</value>
+  </data>
+  <data xml:space="preserve" name="T_d151bbfeca12">
+    <value>Kurulum sırasında baskı gönderilmez. Mevcut şablonlarınız korunur; GS1 numarası üretilmez.</value>
+  </data>
+  <data xml:space="preserve" name="T_d1a6db80dbf7">
+    <value>Barkodun iki yanındaki zorunlu beyaz boşluk. EAN/UPC'de her zaman eklenir.</value>
+  </data>
+  <data xml:space="preserve" name="T_d1e4c1b59b48">
+    <value>Firma ve görünüm ayarları uygulanacak. Şablonlar yeni bir klasöre alınacak; mevcut şablonlar korunacak. </value>
+  </data>
+  <data xml:space="preserve" name="T_d22c45175947">
+    <value>"{0}": aralığın başı sonundan büyük olamaz.</value>
+  </data>
+  <data xml:space="preserve" name="T_d2341dfe9dc3">
+    <value>{0}–{1} arasında; seçim değiştirilmedi.</value>
+  </data>
+  <data xml:space="preserve" name="T_d257bbfe5fc0">
+    <value>Tekrar bas…</value>
+  </data>
+  <data xml:space="preserve" name="T_d2cbe5a8b1a5">
+    <value>inç/sn (kılavuz 2–5; sipariş sistemi 6)</value>
+  </data>
+  <data xml:space="preserve" name="T_d2d7da090d67">
+    <value>{0} (başlık satırı)</value>
+  </data>
+  <data xml:space="preserve" name="T_d2e7dbfbf899">
+    <value>Yazdır…</value>
+  </data>
+  <data xml:space="preserve" name="T_d30938608bbb">
+    <value>Görünür (basılır)</value>
+  </data>
+  <data xml:space="preserve" name="T_d317cff69e0e">
+    <value>Yapay Zekâ Ayarları</value>
+  </data>
+  <data xml:space="preserve" name="T_d34e30c384b1">
+    <value>"{0}" belgesindeki değişiklikler kaydedilsin mi?</value>
+  </data>
+  <data xml:space="preserve" name="T_d356fca62a99">
+    <value>Sayacı sıfırla</value>
+  </data>
+  <data xml:space="preserve" name="T_d3c7db600d0f">
+    <value>Onay bekleyen yapay zekâ önerisi</value>
+  </data>
+  <data xml:space="preserve" name="T_d4bb4c834dbb">
+    <value>Baskı</value>
+  </data>
+  <data xml:space="preserve" name="T_d4bbf454a151">
+    <value>İleri alındı.</value>
+  </data>
+  <data xml:space="preserve" name="T_d4fd4d442722">
+    <value>Uzantı basamağı</value>
+  </data>
+  <data xml:space="preserve" name="T_d51c8cbd8118">
+    <value>Yazıcıyı daha sonra da seçebilirsiniz.</value>
+  </data>
+  <data xml:space="preserve" name="T_d5334e8992dc">
+    <value> — dosyaya kaydedilmemiş tasarım</value>
+  </data>
+  <data xml:space="preserve" name="T_d56604ae4417">
+    <value>Öğe adı (katmanlar panelinde görünür)</value>
+  </data>
+  <data xml:space="preserve" name="T_d58c348d315e">
+    <value>90° döndür</value>
+  </data>
+  <data xml:space="preserve" name="T_d5dd6a5c70b8">
+    <value>Siyah / beyazı ters çevir</value>
+  </data>
+  <data xml:space="preserve" name="T_d5df3708bc68">
+    <value>Tema</value>
+  </data>
+  <data xml:space="preserve" name="T_d6307dfccf27">
+    <value>BASKI ÖNCESİ KONTROL</value>
+  </data>
+  <data xml:space="preserve" name="T_d6489470fb60">
+    <value>Baskı sürüyor</value>
+  </data>
+  <data xml:space="preserve" name="T_d6633f961d51">
+    <value>GS1 içeriği</value>
+  </data>
+  <data xml:space="preserve" name="T_d67100ca5521">
+    <value>ŞEKİL</value>
+  </data>
+  <data xml:space="preserve" name="T_d71c8a449c94">
+    <value>Kaydet ve başla</value>
+  </data>
+  <data xml:space="preserve" name="T_d79a5103e5ff">
+    <value> (iş no {0})</value>
+  </data>
+  <data xml:space="preserve" name="T_d7e68641832c">
+    <value>API anahtarı</value>
+  </data>
+  <data xml:space="preserve" name="T_d84e4cec0cf5">
+    <value>Ayırıcı</value>
+  </data>
+  <data xml:space="preserve" name="T_d8867fd83778">
+    <value>Biçim {0} öğeye uygulandı.</value>
+  </data>
+  <data xml:space="preserve" name="T_d8b98ff9395f">
+    <value>Numaralar etiket üretilirken kalıcı olarak kaydedilir. Basılamayan veya iptal edilen numaralar da tekrar kullanılmaz.
+
+Devam edilsin mi?</value>
+  </data>
+  <data xml:space="preserve" name="T_d9226673154c">
+    <value>Değerde parantez kullanılamaz: parantez AI'ları ayırır.</value>
+  </data>
+  <data xml:space="preserve" name="T_d978e624ad21">
+    <value>Veri kaynağı kullanılmadı · başlangıç no {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_d9a42407871d">
+    <value>İçerikte veri alanı var: alanların değerleri önizlemede ve baskıda, gerçek verilerle GS1 kurallarına göre yeniden denetlenir.</value>
+  </data>
+  <data xml:space="preserve" name="T_d9b70ef648f1">
+    <value>Sayaçlar…</value>
+  </data>
+  <data xml:space="preserve" name="T_da1be36b3b62">
+    <value>Veri kaynağında {0} sütunu yok.</value>
+  </data>
+  <data xml:space="preserve" name="T_da5d9dfdf483">
+    <value>GS1 içerik oluşturucu…</value>
+  </data>
+  <data xml:space="preserve" name="T_db5270d75483">
+    <value>Etiket ölçüsünü değiştir…</value>
+  </data>
+  <data xml:space="preserve" name="T_db7e665610c3">
+    <value>Yedeği geri yükle</value>
+  </data>
+  <data xml:space="preserve" name="T_dbcfc6eb2fd9">
+    <value>Bütün yapay zekâ özellikleri isteğe bağlıdır; kapalıyken uygulamanın diğer özellikleri aynen çalışır. Yapay zekânın yazıcıya baskı gönderen bir aracı yoktur.</value>
+  </data>
+  <data xml:space="preserve" name="T_dbd27c491e85">
+    <value>Üstten uzaklık (mm)</value>
+  </data>
+  <data xml:space="preserve" name="T_dbd417da03e1">
+    <value>İptal edildi</value>
+  </data>
+  <data xml:space="preserve" name="T_dbde6c22e631">
+    <value>Ayarlar kaydedildi; firma bilgileriyle {0} yeni şablon eklendi. Mevcut şablonlar korundu.</value>
+  </data>
+  <data xml:space="preserve" name="T_dc35c5454c2e">
+    <value>Ofsetler uygulandı ({0}) ama profil kaydedilemedi: {1}</value>
+  </data>
+  <data xml:space="preserve" name="T_dc4bcacfc470">
+    <value>Gerçek boyut (%100 = fiziksel ölçü) (Ctrl+1)</value>
+  </data>
+  <data xml:space="preserve" name="T_dcc084f9a2e1">
+    <value>Aç</value>
+  </data>
+  <data xml:space="preserve" name="T_dce20ccd9d17">
+    <value>Kenarları keskinleştirir (0 = kapalı)</value>
+  </data>
+  <data xml:space="preserve" name="T_dd4720fa6412">
+    <value>Sonraki etiket</value>
+  </data>
+  <data xml:space="preserve" name="T_dd90bca6dd07">
+    <value>" tasarımını açmanızı öneriyor.</value>
+  </data>
+  <data xml:space="preserve" name="T_ddbd4ae5b72e">
+    <value>Kalibrasyon yardımcısı</value>
+  </data>
+  <data xml:space="preserve" name="T_de1d45e90dd3">
+    <value>Koşul için bir alan seçin.</value>
+  </data>
+  <data xml:space="preserve" name="T_de2a4073b7dd">
+    <value>DENETİM</value>
+  </data>
+  <data xml:space="preserve" name="T_dec40f0e8887">
+    <value>Etiketler doğrulanıyor…</value>
+  </data>
+  <data xml:space="preserve" name="T_dee341c42720">
+    <value>Penceredeki ayarları yeni bir profil olarak kaydet</value>
+  </data>
+  <data xml:space="preserve" name="T_deed1b6acf10">
+    <value>Bağlantı anahtarı</value>
+  </data>
+  <data xml:space="preserve" name="T_df22199766d8">
+    <value>Grup çözüldü.</value>
+  </data>
+  <data xml:space="preserve" name="T_df52462be4b5">
+    <value>{0} şablon, {1} ürün.
+
+</value>
+  </data>
+  <data xml:space="preserve" name="T_df65956b53e8">
+    <value>Kaydedilmedi; önce şu hataları düzeltin:
+
+</value>
+  </data>
+  <data xml:space="preserve" name="T_dfbb76f06e9a">
+    <value>Kilitle / aç</value>
+  </data>
+  <data xml:space="preserve" name="T_dfd12ee38484">
+    <value>Seç…</value>
+  </data>
+  <data xml:space="preserve" name="T_e0588b63724b">
+    <value>• Fareyle sürükleyin; köşelerden boyutlandırın, üstteki daireden döndürün.
+• Shift: oran/eksen kilidi • Alt: yakalamasız taşıma
+• Ctrl+tekerlek: yakınlaştır • Orta tuş: kaydır
+• Ok tuşları: 0,5 mm • Shift+ok: 5 mm • Ctrl+ok: 1 nokta
+• Cetvelden sürükleyerek kılavuz çizgisi ekleyin.</value>
+  </data>
+  <data xml:space="preserve" name="T_e08b347cee37">
+    <value>Baskı yoğunluğu</value>
+  </data>
+  <data xml:space="preserve" name="T_e1015be0ae74">
+    <value>Çerçeve beklenen yerde: ofset değişmez.</value>
+  </data>
+  <data xml:space="preserve" name="T_e147fb538df3">
+    <value>Siyah işaretli (black mark)</value>
+  </data>
+  <data xml:space="preserve" name="T_e17ccb1e9466">
+    <value>Yeni</value>
+  </data>
+  <data xml:space="preserve" name="T_e1d1400ea547">
+    <value>Ad, kod veya barkod</value>
+  </data>
+  <data xml:space="preserve" name="T_e1d4f7f94769">
+    <value>Etiket genişliği × yüksekliği (mm)</value>
+  </data>
+  <data xml:space="preserve" name="T_e20480a50c24">
+    <value>Süzgeçleri temizle</value>
+  </data>
+  <data xml:space="preserve" name="T_e2101624fb1d">
+    <value>Görselleri tuvale sürükleyip bırakın veya panodan yapıştırın (Ctrl+V)</value>
+  </data>
+  <data xml:space="preserve" name="T_e2370d7aeba4">
+    <value>Bu etikette sayaç alanı yok. </value>
+  </data>
+  <data xml:space="preserve" name="T_e240142b3860">
+    <value>{0} taşındı</value>
+  </data>
+  <data xml:space="preserve" name="T_e28c398cf4f1">
+    <value>Önce bir veri dosyası yükleyin.</value>
+  </data>
+  <data xml:space="preserve" name="T_e2a618199620">
+    <value>Bu önizleme satırında koşul sağlanmıyor: öğe basılmaz (yalnızca {0} basılır).</value>
+  </data>
+  <data xml:space="preserve" name="T_e319872c29fd">
+    <value>Bilgi: Sayaç kullanılıyor (</value>
+  </data>
+  <data xml:space="preserve" name="T_e368e444e1b5">
+    <value>Oluşturuldu:
+{0}
+
+Paket yalnızca bu bilgisayara kaydedildi; hiçbir yere gönderilmedi. Bağlantı anahtarları pakete eklenmez.</value>
+  </data>
+  <data xml:space="preserve" name="T_e37a48588318">
+    <value>Kaldığı yerden devam: {0} tarihli işten gönderilmemiş {1} etiket.</value>
+  </data>
+  <data xml:space="preserve" name="T_e3cd2a3e7de1">
+    <value>Uygulama beklenmedik şekilde kapanmış görünüyor.
+
+"{0}" ({1:dd.MM.yyyy HH:mm}) </value>
+  </data>
+  <data xml:space="preserve" name="T_e3d915886d27">
+    <value>Tüm barkodlar yazıcı noktasına hizalı, tam sayı modül genişliğiyle üretilir ve okunarak doğrulanabilir.</value>
+  </data>
+  <data xml:space="preserve" name="T_e3f53b8bb3fe">
+    <value>Onaylı (önerilen): yapay zekâ taslakta çalışır; değişiklikler önce/sonra önizlemesiyle bana sunulur, kabul edersem uygulanır.</value>
+  </data>
+  <data xml:space="preserve" name="T_e4244245a2ca">
+    <value>Şimdiki içerik "{0}" AI satırlarına ayrılamadı. Uygula'ya basarsanız yerine buradaki içerik yazılır.</value>
+  </data>
+  <data xml:space="preserve" name="T_e45403e61cae">
+    <value>Etiketin soluna</value>
+  </data>
+  <data xml:space="preserve" name="T_e46a08b4c986">
+    <value>KOŞULLU GÖSTERME</value>
+  </data>
+  <data xml:space="preserve" name="T_e47448e184c3">
+    <value>SSCC'nin ilk hanesi (0–9); firma içinde serileri ayırmak için kullanılabilir.</value>
+  </data>
+  <data xml:space="preserve" name="T_e4ac8fe3dc54">
+    <value>KISAYOLLAR</value>
+  </data>
+  <data xml:space="preserve" name="T_e4db2a5a5454">
+    <value>Açıklama (isteğe bağlı)</value>
+  </data>
+  <data xml:space="preserve" name="T_e4f5f97196ba">
+    <value>Excel/CSV sütunları eşleştirildi</value>
+  </data>
+  <data xml:space="preserve" name="T_e511509b5c89">
+    <value>Veri tablosu</value>
+  </data>
+  <data xml:space="preserve" name="T_e53ca81d608c">
+    <value>içerik {0:0.##} mm {1}</value>
+  </data>
+  <data xml:space="preserve" name="T_e5417667ec53">
+    <value>METİN</value>
+  </data>
+  <data xml:space="preserve" name="T_e555bbfbafc3">
+    <value>Önceki etiket</value>
+  </data>
+  <data xml:space="preserve" name="T_e5a8f1d52eb8">
+    <value>En fazla baskı genişliği</value>
+  </data>
+  <data xml:space="preserve" name="T_e5bfc8a17d0e">
+    <value>Baskı devam ediyor. Durdurup pencereyi kapatmak ister misiniz? (Kuyruğa gönderilmiş etiketler basılmaya devam edebilir.)</value>
+  </data>
+  <data xml:space="preserve" name="T_e5e7870cb7e9">
+    <value>Ayrılma</value>
+  </data>
+  <data xml:space="preserve" name="T_e61cd476e2f4">
+    <value>Şablon olarak kaydet…</value>
+  </data>
+  <data xml:space="preserve" name="T_e632b7095b0b">
+    <value>T</value>
+  </data>
+  <data xml:space="preserve" name="T_e63f2ceb740f">
+    <value>Veri kaynağı yüklenmedi.</value>
+  </data>
+  <data xml:space="preserve" name="T_e65f37b28667">
+    <value>Yapay Zekâ</value>
+  </data>
+  <data xml:space="preserve" name="T_e6794f6a7ca4">
+    <value>Medya türü</value>
+  </data>
+  <data xml:space="preserve" name="T_e6b38eaba6f9">
+    <value>Tasarımda veri alanı yok. Önce bir metne {UrunAdi} gibi bir alan ekleyin.</value>
+  </data>
+  <data xml:space="preserve" name="T_e70fd6428696">
+    <value>Boş: en büyük seri</value>
+  </data>
+  <data xml:space="preserve" name="T_e75b11da693d">
+    <value>pt</value>
+  </data>
+  <data xml:space="preserve" name="T_e75d281d8407">
+    <value>Yalnızca seçili nesneler</value>
+  </data>
+  <data xml:space="preserve" name="T_e7aad2dafba8">
+    <value>{0} çoğaltıldı</value>
+  </data>
+  <data xml:space="preserve" name="T_e7ae0d9a164c">
+    <value>Açıklama</value>
+  </data>
+  <data xml:space="preserve" name="T_e8872de8dde1">
+    <value>Ticari ürünün GTIN'i (14 hane; EAN-13'ün başına 0 eklenir)</value>
+  </data>
+  <data xml:space="preserve" name="T_e8c6aa4e51e9">
+    <value>"{0}" sayacı 1'den yeniden başlayacak. Daha önce basılmış numaralar tekrar basılabilir. Devam edilsin mi?</value>
+  </data>
+  <data xml:space="preserve" name="T_e8cd1d564f1f">
+    <value>Uzaklaştır (Ctrl −)</value>
+  </data>
+  <data xml:space="preserve" name="T_e8d77d452a3b">
+    <value>Orta</value>
+  </data>
+  <data xml:space="preserve" name="T_e9025a1ed686">
+    <value>Saat (ss:dd)</value>
+  </data>
+  <data xml:space="preserve" name="T_e9076b0d690d">
+    <value>{SSCC} yalnızca (00) AI'sıyla kullanılır.</value>
+  </data>
+  <data xml:space="preserve" name="T_e90c47c6f8dd">
+    <value>olabilir; bunları Baskı geçmişinden ayrıca basabilirsiniz.
+
+Devam edilsin mi?</value>
+  </data>
+  <data xml:space="preserve" name="T_e924b2fe041b">
+    <value>Ürün kullanım ve koli işaretleri. Tıklayınca etiketin ortasına keskin siyah-beyaz (Logo yöntemi) eklenir; boyutu tutamaçlardan değiştirilir. Tescilli işaretler (Yeşil Nokta, CE vb.) bulunmaz.</value>
+  </data>
+  <data xml:space="preserve" name="T_e94e2cde4e4d">
+    <value>Öğe adı:</value>
+  </data>
+  <data xml:space="preserve" name="T_e9f00d4e7490">
+    <value>Altı çizili</value>
+  </data>
+  <data xml:space="preserve" name="T_ea33b58c1d8e">
+    <value>Düzenle</value>
+  </data>
+  <data xml:space="preserve" name="T_ea7f441e1e93">
+    <value>GÖRSEL</value>
+  </data>
+  <data xml:space="preserve" name="T_eac1097bfdb0">
+    <value>Uygulamada açık tasarımı yapay zekâ ile paylaş (ajan açık belgeyi görebilir ve öneri sunabilir)</value>
+  </data>
+  <data xml:space="preserve" name="T_ead412c040ad">
+    <value>Satırları kaydır</value>
+  </data>
+  <data xml:space="preserve" name="T_eb3fc3c299e5">
+    <value>ÖNİZLEME (BASKI ÇÖZÜNÜRLÜĞÜ)</value>
+  </data>
+  <data xml:space="preserve" name="T_eb80a0cb5755">
+    <value>Şablon ara</value>
+  </data>
+  <data xml:space="preserve" name="T_ebb23b5769f6">
+    <value>1 etiket basılacak.</value>
+  </data>
+  <data xml:space="preserve" name="T_ebc464d8d55b">
+    <value>Daha sonra</value>
+  </data>
+  <data xml:space="preserve" name="T_ebe90565b1f1">
+    <value>Kalibrasyon etiketini bas…</value>
+  </data>
+  <data xml:space="preserve" name="T_ec17d4ec93e5">
+    <value>Geçersiz GLN</value>
+  </data>
+  <data xml:space="preserve" name="T_ec1a50faf3e6">
+    <value>{0}: yazıcı kuyruğuna iletildi. Etiketi yazıcıdan kontrol edin.</value>
+  </data>
+  <data xml:space="preserve" name="T_ec32ddfdf26a">
+    <value>Sağa hizala</value>
+  </data>
+  <data xml:space="preserve" name="T_ec45dddff1dd">
+    <value>; {0} tanesi hatalı olduğu için basılmaz</value>
+  </data>
+  <data xml:space="preserve" name="T_ec61779edece">
+    <value>Alt başlık ekle</value>
+  </data>
+  <data xml:space="preserve" name="T_ece53c2ae5c9">
+    <value>Şablonu yeniden adlandır</value>
+  </data>
+  <data xml:space="preserve" name="T_ecf3488dbd71">
+    <value>({0}) birden fazla kez kullanılmış.</value>
+  </data>
+  <data xml:space="preserve" name="T_ed11198cb7ae">
+    <value>Excel / CSV dosyası seç</value>
+  </data>
+  <data xml:space="preserve" name="T_ed211474d7da">
+    <value>Kilitli: taşınamaz ve silinemez</value>
+  </data>
+  <data xml:space="preserve" name="T_ed2632ec78d3">
+    <value>Kurtarılan belge açıldı. Lütfen kaydedin.</value>
+  </data>
+  <data xml:space="preserve" name="T_ed28d3442ea0">
+    <value>QR ve 2B kodlar</value>
+  </data>
+  <data xml:space="preserve" name="T_ed9fcb24a554">
+    <value>döndürüldü</value>
+  </data>
+  <data xml:space="preserve" name="T_edc289eed3d7">
+    <value>normal yön</value>
+  </data>
+  <data xml:space="preserve" name="T_ee0b448acefc">
+    <value>Proje açılamadı</value>
+  </data>
+  <data xml:space="preserve" name="T_ee6538ea6322">
+    <value>Ambalaj</value>
+  </data>
+  <data xml:space="preserve" name="T_ee72683e9be5">
+    <value>Yükseklik (mm)</value>
+  </data>
+  <data xml:space="preserve" name="T_eeb792f719d3">
+    <value>Veri sütunu</value>
+  </data>
+  <data xml:space="preserve" name="T_eee0a6e60641">
+    <value>Örnek şablonlar oluşturulamadı: </value>
+  </data>
+  <data xml:space="preserve" name="T_ef0b6d89aaa3">
+    <value>Tümünü seç</value>
+  </data>
+  <data xml:space="preserve" name="T_ef2eb789f433">
+    <value>Sıradaki seri: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_ef891fba0870">
+    <value>Yuvarlak köşe</value>
+  </data>
+  <data xml:space="preserve" name="T_effd09b27440">
+    <value>yukarı</value>
+  </data>
+  <data xml:space="preserve" name="T_f026903626e5">
+    <value>Lojistik birim içindeki ürünlerin GTIN'i; (37) adet ile kullanılır</value>
+  </data>
+  <data xml:space="preserve" name="T_f0424607a268">
+    <value>Okunabilir metni göster</value>
+  </data>
+  <data xml:space="preserve" name="T_f06ef4e5a1b8">
+    <value>Kalibrasyon</value>
+  </data>
+  <data xml:space="preserve" name="T_f07841f80fd1">
+    <value>Görsel değiştirilemedi</value>
+  </data>
+  <data xml:space="preserve" name="T_f086340bacc0">
+    <value>{0} / {1} satır gösteriliyor</value>
+  </data>
+  <data xml:space="preserve" name="T_f088e671c53c">
+    <value>Modülü büyüt (kutuyu genişlet)</value>
+  </data>
+  <data xml:space="preserve" name="T_f103fddfe221">
+    <value>Firma şablonları</value>
+  </data>
+  <data xml:space="preserve" name="T_f19ff59b68a4">
+    <value>Her etiket alanı için bir veri sütunu seçin.</value>
+  </data>
+  <data xml:space="preserve" name="T_f1ffa74cce75">
+    <value>Sayaç adında { } : karakterleri kullanılamaz.</value>
+  </data>
+  <data xml:space="preserve" name="T_f269b8b9af62">
+    <value>Gönder</value>
+  </data>
+  <data xml:space="preserve" name="T_f269e9504224">
+    <value>1) Şablonu seçin  2) Ürünü arayın ya da barkod okuyucuyla okutun  3) Adeti yazın  4) Yazdır — yazıcı ayarları ve onay baskı penceresinde.</value>
+  </data>
+  <data xml:space="preserve" name="T_f2719fea9076">
+    <value>Keskinlik</value>
+  </data>
+  <data xml:space="preserve" name="T_f2a8803138ad">
+    <value>Web sitesi (QR için https:// ile)</value>
+  </data>
+  <data xml:space="preserve" name="T_f2baa71d6954">
+    <value>GLN, firma öneki, SSCC ve kayıtlı GTIN'ler</value>
+  </data>
+  <data xml:space="preserve" name="T_f3392de9146a">
+    <value>En öne</value>
+  </data>
+  <data xml:space="preserve" name="T_f3d865545b87">
+    <value>SATIRA GÖRE GÖRSEL</value>
+  </data>
+  <data xml:space="preserve" name="T_f3fd59335c51">
+    <value>Kutu yüksekliğini görselin oranına göre ayarla</value>
+  </data>
+  <data xml:space="preserve" name="T_f44fad234051">
+    <value>GTIN</value>
+  </data>
+  <data xml:space="preserve" name="T_f488fad415d0">
+    <value>Gönderilmemiş {0} etiket basılacak. Daha önce yazıcı kuyruğuna gönderilen etiketler tekrar basılmaz. {1}
+
+</value>
+  </data>
+  <data xml:space="preserve" name="T_f4ac9214a63c">
+    <value>YENİ ETİKET</value>
+  </data>
+  <data xml:space="preserve" name="T_f4f55e7c2d55">
+    <value>Seçili profili penceredeki ayarlarla güncelle (hazır profil değiştirilemez)</value>
+  </data>
+  <data xml:space="preserve" name="T_f55981661328">
+    <value>HİZALA VE SIRALA</value>
+  </data>
+  <data xml:space="preserve" name="T_f560a85f28c0">
+    <value>Ekle</value>
+  </data>
+  <data xml:space="preserve" name="T_f5e5dc84fb63">
+    <value>Doğrulama: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_f6041baf47d7">
+    <value>"{0}" sayacı her etikette kaç artsın?</value>
+  </data>
+  <data xml:space="preserve" name="T_f698e9b40f9f">
+    <value>Sil</value>
+  </data>
+  <data xml:space="preserve" name="T_f6aba48e74f7">
+    <value>Kaydet (Ctrl+S)</value>
+  </data>
+  <data xml:space="preserve" name="T_f6af2d22b3bd">
+    <value>İzin olmadan asistan hiçbir veri göndermez. Sağlayıcıyı veya adresi değiştirirseniz izin yeniden istenir. Ücretli API kullanımı sağlayıcının kendi koşullarına tabidir; uygulama için zorunlu değildir.</value>
+  </data>
+  <data xml:space="preserve" name="T_f702a66ef205">
+    <value>  ✓ Windows kuyruğuna gönderildi: {0} etiket</value>
+  </data>
+  <data xml:space="preserve" name="T_f720fa36c9e3">
+    <value>"{0}": satır numaraları 1'den başlar.</value>
+  </data>
+  <data xml:space="preserve" name="T_f74f36218ab6">
+    <value>Öğeyi yeniden adlandır</value>
+  </data>
+  <data xml:space="preserve" name="T_f79ad7be1269">
+    <value>Barkod ekle</value>
+  </data>
+  <data xml:space="preserve" name="T_f7a04dcb181e">
+    <value>İptal ediliyor (gönderimi süren etiket tamamlanınca durur)…</value>
+  </data>
+  <data xml:space="preserve" name="T_f7b444ba4c5f">
+    <value>Barkod numarası üret</value>
+  </data>
+  <data xml:space="preserve" name="T_f849ba79bcbe">
+    <value>mm (etiketler arası)</value>
+  </data>
+  <data xml:space="preserve" name="T_f857e3bb4870">
+    <value>Kontrast</value>
+  </data>
+  <data xml:space="preserve" name="T_f92e6c267591">
+    <value>{0} ürün · anahtar sütun: {1} · kaynak: {2} </value>
+  </data>
+  <data xml:space="preserve" name="T_f930e23b87bf">
+    <value>Sayaç aralıkları: </value>
+  </data>
+  <data xml:space="preserve" name="T_f9e15a6876d6">
+    <value>Veri kaynağı kaldırıldı.</value>
+  </data>
+  <data xml:space="preserve" name="T_fa2b4ad7a130">
+    <value>İpucu: sabit uzunluklu AI'ları ((01), (17) gibi) başa, değişken uzunlukluları ((10), (21) gibi) sona almak ayırıcı sayısını azaltır ve sembolü küçültür.</value>
+  </data>
+  <data xml:space="preserve" name="T_fb04eca08ef4">
+    <value>Sayaç dosyası:</value>
+  </data>
+  <data xml:space="preserve" name="T_fb2a010eeea2">
+    <value>Adet</value>
+  </data>
+  <data xml:space="preserve" name="T_fb345473a47a">
+    <value>Tuvalde görünen siyah-beyaz noktalar baskıyla birebir aynıdır.</value>
+  </data>
+  <data xml:space="preserve" name="T_fb6d868a9dca">
+    <value> (sıradaki seri: {0:N0})</value>
+  </data>
+  <data xml:space="preserve" name="T_fb984a1a845d">
+    <value>Boşluklu etiket (gap)</value>
+  </data>
+  <data xml:space="preserve" name="T_fba825c0369c">
+    <value>Özgün oran</value>
+  </data>
+  <data xml:space="preserve" name="T_fbdefa6a0a31">
+    <value>Proje aç</value>
+  </data>
+  <data xml:space="preserve" name="T_fc35ab7ce796">
+    <value>Tek etiket önizlemesi</value>
+  </data>
+  <data xml:space="preserve" name="T_fc4249e320fc">
+    <value>Windows kuyruğuna gönderilmedi.</value>
+  </data>
+  <data xml:space="preserve" name="T_fce8396ddb89">
+    <value>GS1 firma bilgileri</value>
+  </data>
+  <data xml:space="preserve" name="T_fd78c713b1a0">
+    <value>Reddet</value>
+  </data>
+  <data xml:space="preserve" name="T_fda98d21f6d0">
+    <value>Bu tarihten (dahil)</value>
+  </data>
+  <data xml:space="preserve" name="T_fdb07493c366">
+    <value>AKEL Etiket (v1) şablonlarından {0} tanesi kopyalandı (v1'deki asıllar değişmedi).</value>
+  </data>
+  <data xml:space="preserve" name="T_fdbe71038441">
+    <value>Metin eklendi: yazmaya başlayın (Enter: bitir, Shift+Enter: yeni satır, Esc: vazgeç).</value>
+  </data>
+  <data xml:space="preserve" name="T_fdebd90d9e2b">
+    <value>Baskıyı 180° döndür (yazılar ters çıkıyorsa)</value>
+  </data>
+  <data xml:space="preserve" name="T_fe205c7a5f9e">
+    <value>ADET SÜTUNU</value>
+  </data>
+  <data xml:space="preserve" name="T_fe34faedc97d">
+    <value>Firma adı daha sonra girilebilir</value>
+  </data>
+  <data xml:space="preserve" name="T_fe52071efa3f">
+    <value>Üstteki öğe en önde basılır.</value>
+  </data>
+  <data xml:space="preserve" name="T_fe8152c12728">
+    <value>Veri kaynakları (Excel / CSV)</value>
+  </data>
+  <data xml:space="preserve" name="T_feb8c3feae5a">
+    <value>ONAY BEKLEYEN ÖNERİLER</value>
+  </data>
+  <data xml:space="preserve" name="T_ff2963767b09">
+    <value>Sayaç adı (etikette {SAYAC.Ad} olarak kullanılır):</value>
+  </data>
+  <data xml:space="preserve" name="T_ff4b2eb54997">
+    <value>Güncel şablon</value>
+  </data>
+  <data xml:space="preserve" name="T_852d8d78470c">
+    <value>Yedekler</value>
+  </data>
+  <data xml:space="preserve" name="T_4fd8a4f65f4b">
+    <value>Destek paketi</value>
+  </data>
+  <data xml:space="preserve" name="T_b2f8d3295d44">
+    <value>Ekleme</value>
+  </data>
+  <data xml:space="preserve" name="T_2ee9d3b72fd1">
+    <value>HATA: </value>
+  </data>
+  <data xml:space="preserve" name="T_1b30e55e53a7">
+    <value>Atlanacak – </value>
+  </data>
+  <data xml:space="preserve" name="T_c83a8b1dbc2c">
+    <value>Tekrar bas</value>
+  </data>
+  <data xml:space="preserve" name="T_9db2a2f6d771">
+    <value>PDF olarak kaydet</value>
+  </data>
+  <data xml:space="preserve" name="T_ed2f20d56f8a">
+    <value>PDF olarak kaydet…</value>
+  </data>
+  <data xml:space="preserve" name="T_cb7550f1c434">
+    <value>PDF kaydedildi (atlananlar var)</value>
+  </data>
+  <data xml:space="preserve" name="T_8c7d3d1f8099">
+    <value>PDF kaydedilemedi</value>
+  </data>
+  <data xml:space="preserve" name="T_c11b163c5dcd">
+    <value>Bu etikette</value>
+  </data>
+  <data xml:space="preserve" name="T_6b65f1920bb2">
+    <value>Geri al</value>
+  </data>
+  <data xml:space="preserve" name="T_f8352375c43a">
+    <value>Yeni ad:</value>
+  </data>
+  <data xml:space="preserve" name="T_5327c26ef6f1">
+    <value>Silinemedi</value>
+  </data>
+  <data xml:space="preserve" name="T_6478124a86c2">
+    <value>Yeni etiket</value>
+  </data>
+  <data xml:space="preserve" name="T_4066bc1f732a">
+    <value>Kaydedilemedi</value>
+  </data>
+  <data xml:space="preserve" name="T_7decc8ab04d1">
+    <value>Desteklenmeyen dosya</value>
+  </data>
+  <data xml:space="preserve" name="T_6203e2c0bbe8">
+    <value>yatayda kayma yok</value>
+  </data>
+  <data xml:space="preserve" name="T_3342414b1d85">
+    <value>dikeyde kayma yok</value>
+  </data>
+  <data xml:space="preserve" name="T_7a40ec88bab0">
+    <value>sola</value>
+  </data>
+  <data xml:space="preserve" name="T_ae74da460d94">
+    <value>Kalibrasyon etiketi</value>
+  </data>
+  <data xml:space="preserve" name="T_b24a36089466">
+    <value>Koyu</value>
+  </data>
+  <data xml:space="preserve" name="T_458f89267c74">
+    <value>58 × 40 mm (raf)</value>
+  </data>
+  <data xml:space="preserve" name="T_f01719e98096">
+    <value>XP-470B profilim</value>
+  </data>
+  <data xml:space="preserve" name="T_f4c1442b52ac">
+    <value>Profil olarak kaydet</value>
+  </data>
+  <data xml:space="preserve" name="T_e267d343821f">
+    <value>Profil</value>
+  </data>
+  <data xml:space="preserve" name="T_c2e88b8d0190">
+    <value> – kalibre</value>
+  </data>
+  <data xml:space="preserve" name="T_fc5391fa0adc">
+    <value>Kalibrasyonu profile kaydet</value>
+  </data>
+  <data xml:space="preserve" name="T_cd21206582f6">
+    <value>Profil kaydedilemedi</value>
+  </data>
+  <data xml:space="preserve" name="T_d6a7bb65e5d2">
+    <value>Veri: </value>
+  </data>
+  <data xml:space="preserve" name="T_8e67df07450c">
+    <value>Kuyruk durumu: </value>
+  </data>
+  <data xml:space="preserve" name="T_1955f05a2c68">
+    <value> raporu</value>
+  </data>
+  <data xml:space="preserve" name="T_d0ef6cd9c1ba">
+    <value>Sorun var</value>
+  </data>
+  <data xml:space="preserve" name="T_7b47e5bf5b95">
+    <value>Etiket ilerletme</value>
+  </data>
+  <data xml:space="preserve" name="T_cc61f8472fdb">
+    <value>Durum: </value>
+  </data>
+  <data xml:space="preserve" name="T_bd6a70a72c9b">
+    <value>(bilinmiyor)</value>
+  </data>
+  <data xml:space="preserve" name="T_9b6e6bdbbf90">
+    <value>Profil: </value>
+  </data>
+  <data xml:space="preserve" name="T_7f479db6ea9d">
+    <value>  Kuyruk durumu: </value>
+  </data>
+  <data xml:space="preserve" name="T_6392cff832d7">
+    <value>Hatalar:</value>
+  </data>
+  <data xml:space="preserve" name="T_242d002832f9">
+    <value>Palet</value>
+  </data>
+  <data xml:space="preserve" name="T_65fa3451e475">
+    <value>GTIN aktarma</value>
+  </data>
+  <data xml:space="preserve" name="T_b9c909383ec7">
+    <value>Evet, kontrol ettim</value>
+  </data>
+  <data xml:space="preserve" name="T_0d3e86bb27de">
+    <value>Firma bilgileri</value>
+  </data>
+  <data xml:space="preserve" name="T_9ab90018b9f5">
+    <value>Kurulum kaydedilemedi</value>
+  </data>
+  <data xml:space="preserve" name="T_39130ddbb606">
+    <value>Veride olmayan alan: </value>
+  </data>
+  <data xml:space="preserve" name="T_65d314ba55d2">
+    <value>yalnızca hatalı</value>
+  </data>
+  <data xml:space="preserve" name="T_84ea8e7d1532">
+    <value>Otomatik kurtarma</value>
+  </data>
+  <data xml:space="preserve" name="T_1ca94a1c9c7b">
+    <value>Kurtar</value>
+  </data>
+  <data xml:space="preserve" name="T_d5d6a3b68ac1">
+    <value>Kurtarma</value>
+  </data>
+  <data xml:space="preserve" name="T_444ee458e607">
+    <value>Ayarlar kaydedilemedi: </value>
+  </data>
+  <data xml:space="preserve" name="T_f5532fc7842a">
+    <value>kilit</value>
+  </data>
+  <data xml:space="preserve" name="T_70ba33708cbf">
+    <value>ad</value>
+  </data>
+  <data xml:space="preserve" name="T_2b687f9b0a24">
+    <value>grup</value>
+  </data>
+  <data xml:space="preserve" name="T_2cda111b28e2">
+    <value>metin</value>
+  </data>
+  <data xml:space="preserve" name="T_d90eea36a19c">
+    <value>hizalama</value>
+  </data>
+  <data xml:space="preserve" name="T_4fc1e908bb8a">
+    <value>ayar</value>
+  </data>
+  <data xml:space="preserve" name="T_5bd34386f06c">
+    <value>Bas</value>
+  </data>
+  <data xml:space="preserve" name="T_9e9121ff9388">
+    <value>Sorun</value>
+  </data>
+  <data xml:space="preserve" name="T_860674e4fd10">
+    <value>dolu ise</value>
+  </data>
+  <data xml:space="preserve" name="T_c060a61c1ae5">
+    <value>Uzat (oran bozulur)</value>
+  </data>
+  <data xml:space="preserve" name="T_159844990f03">
+    <value>Siyah</value>
+  </data>
+  <data xml:space="preserve" name="T_47ea7a179b1e">
+    <value>Beyaz</value>
+  </data>
+  <data xml:space="preserve" name="T_3bf7b1c9a548">
+    <value>Yok (saydam)</value>
+  </data>
+  <data xml:space="preserve" name="T_33fdc5daf06f">
+    <value>Yatay</value>
+  </data>
+  <data xml:space="preserve" name="T_bffc23ff0b5a">
+    <value>M – orta (%15)</value>
+  </data>
+  <data xml:space="preserve" name="T_ea678b0d26e8">
+    <value>Kare</value>
+  </data>
+  <data xml:space="preserve" name="T_ee1cd50e9422">
+    <value>Otomatik</value>
+  </data>
+  <data xml:space="preserve" name="T_716cdedb9607">
+    <value>Kaydetme</value>
+  </data>
+  <data xml:space="preserve" name="T_d04edc246eed">
+    <value>Durdur ve kapat</value>
+  </data>
+  <data xml:space="preserve" name="T_53725907488f">
+    <value>Bekle</value>
+  </data>
+  <data xml:space="preserve" name="T_8bf61e69911d">
+    <value>Kilitlendi</value>
+  </data>
+  <data xml:space="preserve" name="T_43e180443932">
+    <value>{0} eklendi</value>
+  </data>
+  <data xml:space="preserve" name="T_4a6117d7d0fa">
+    <value>{0} silindi</value>
+  </data>
+  <data xml:space="preserve" name="T_f34d2cb7fbf5">
+    <value>{0} metne eklendi.</value>
+  </data>
+  <data xml:space="preserve" name="T_607abb0d8464">
+    <value>{0} GTIN eklendi.</value>
+  </data>
+  <data xml:space="preserve" name="T_7f90dc76a329">
+    <value>Sonucu bekleyen: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_19d1215492a7">
+    <value>{0}: sorun var, raporu inceleyin.</value>
+  </data>
+  <data xml:space="preserve" name="T_38b149cc104c">
+    <value>{0} nokta = {1} mm</value>
+  </data>
+  <data xml:space="preserve" name="T_0731244e655a">
+    <value>Beklenmeyen hata</value>
+  </data>
+  <data xml:space="preserve" name="T_1304f1383970">
+    <value>Bir hata oluştu, ancak uygulama çalışmaya devam ediyor. Çalışmanızı kaydetmeniz önerilir.
+
+</value>
+  </data>
+  <data xml:space="preserve" name="T_0e8f575f45f0">
+    <value>
+
+Ayrıntılar: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_ee1bed37c58b">
+    <value>(günlük yazılamadı)</value>
+  </data>
+  <data xml:space="preserve" name="T_f43a65ad8268">
+    <value>Tümü</value>
+  </data>
+  <data xml:space="preserve" name="T_32b732522863">
+    <value>Ürün</value>
+  </data>
+  <data xml:space="preserve" name="T_d467fa05da96">
+    <value>Raf</value>
+  </data>
+  <data xml:space="preserve" name="T_d949980d3c64">
+    <value>Kargo</value>
+  </data>
+  <data xml:space="preserve" name="T_f0426fcd41f5">
+    <value>Demirbaş</value>
+  </data>
+  <data xml:space="preserve" name="T_1caabbad1baf">
+    <value>İlk etiketim</value>
+  </data>
+  <data xml:space="preserve" name="T_1a635325e57a">
+    <value>{{{0}}} alanına bağlı metin eklendi.</value>
+  </data>
+  <data xml:space="preserve" name="T_38f7e078b5f8">
+    <value>Veri dosyaları (*.xlsx; *.xls; *.csv; *.txt)|*.xlsx;*.xlsm;*.xls;*.csv;*.txt;*.tsv|Excel dosyaları (*.xlsx; *.xlsm; *.xls)|*.xlsx;*.xlsm;*.xls|CSV dosyaları (*.csv; *.txt)|*.csv;*.txt;*.tsv|Tüm dosyalar (*.*)|*.*</value>
+  </data>
+  <data xml:space="preserve" name="T_1bfae5cc9357">
+    <value>Görseller (*.png;*.jpg;*.jpeg;*.bmp;*.gif;*.webp;*.svg)|*.png;*.jpg;*.jpeg;*.bmp;*.gif;*.webp;*.svg|PNG (*.png)|*.png|JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|BMP (*.bmp)|*.bmp|GIF (*.gif)|*.gif|WEBP (*.webp)|*.webp|SVG (*.svg)|*.svg|Tüm dosyalar (*.*)|*.*</value>
+  </data>
+  <data xml:space="preserve" name="T_126d2d35ed39">
+    <value>Ayarlar kaydedildi.</value>
+  </data>
+  <data xml:space="preserve" name="T_e810f1e6c56d">
+    <value>Kaydedildi: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_6b2da220ccda">
+    <value>PNG kaydedildi ({0} × {1} nokta): {2}</value>
+  </data>
+  <data xml:space="preserve" name="T_90604d35c2a6">
+    <value>Veri okunuyor: {0}…</value>
+  </data>
+  <data xml:space="preserve" name="T_50ee9f96fe95">
+    <value>{0} eklendi.</value>
+  </data>
+  <data xml:space="preserve" name="T_039d4f238a0b">
+    <value>Panodaki metin eklendi.</value>
+  </data>
+  <data xml:space="preserve" name="T_6707ea61d78e">
+    <value>PDF kaydedildi ({0} sayfa, {1:0.##} × {2:0.##} mm): {3}</value>
+  </data>
+  <data xml:space="preserve" name="T_40d4cad4605a">
+    <value>PDF kaydedilemedi.</value>
+  </data>
+</root>

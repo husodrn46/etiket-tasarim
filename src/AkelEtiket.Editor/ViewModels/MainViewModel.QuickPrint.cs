@@ -3,6 +3,7 @@ using AkelEtiket.Design.Data;
 using AkelEtiket.Editor.Services;
 using AkelEtiket.ProjectManager;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -37,7 +38,7 @@ public sealed partial class MainViewModel
         }
         catch (ProjectFileException ex)
         {
-            Dialogs.ShowMessage("Hızlı Baskı", "Şablon açılamadı: " + ex.Message, MessageKind.Error);
+            Dialogs.ShowMessage(L10n.T("Hızlı Baskı"), L10n.T("Şablon açılamadı: ") + ex.Message, MessageKind.Error);
             return false;
         }
         project.FilePath = null;
@@ -45,7 +46,7 @@ public sealed partial class MainViewModel
         if (product is not null)
         {
             var values = columns.Select(c => product.Fields.TryGetValue(c, out var v) ? v : "").ToList();
-            var table = new DataSourceTable("Hızlı Baskı (ürün listesi)", "Ürün listesi", null, 1, columns.ToList(),
+            var table = new DataSourceTable(L10n.T("Hızlı Baskı (ürün listesi)"), L10n.T("Ürün listesi"), null, 1, columns.ToList(),
                 [new DataRecord(1, values, columns.ToList())], []);
             Data.ApplyTable(table);
             if (Data.Rows.Count == 1)
@@ -61,7 +62,7 @@ public sealed partial class MainViewModel
         }
         _quickPrintCopies = product is null ? copies : null;
         RequestFit();
-        SetStatus($"Hızlı Baskı: \"{Path.GetFileNameWithoutExtension(templatePath)}\"" + (product is null ? "" : $" · {product.Key}") + $" · {copies} adet");
+        SetStatus(L10n.T($"Hızlı Baskı: \"{Path.GetFileNameWithoutExtension(templatePath)}\"") + (product is null ? "" : $" · {product.Key}") + $" · {copies} adet");
         return true;
     }
 

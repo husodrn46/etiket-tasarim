@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using AkelEtiket.ImageProcessor;
 using SkiaSharp;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -16,6 +17,7 @@ public sealed partial class SettingsViewModel : ObservableObject
     public SettingsViewModel(AppSettings settings)
     {
         _settings = settings;
+        UiLanguage = settings.UiLanguage ?? (settings.FirstRunCompleted ? "tr" : "auto");
         CompanyName = settings.Company.Name;
         CompanyAddress = settings.Company.Address;
         CompanyWebsite = settings.Company.Website;
@@ -38,9 +40,13 @@ public sealed partial class SettingsViewModel : ObservableObject
 
     public IReadOnlyList<KeyValuePair<AppTheme, string>> ThemeChoices { get; } =
     [
-        new(AppTheme.Dark, "Koyu"),
-        new(AppTheme.Light, "Açık"),
+        new(AppTheme.Dark, L10n.T("Koyu")),
+        new(AppTheme.Light, L10n.T("Açık")),
     ];
+
+    public IReadOnlyList<KeyValuePair<string, string>> LanguageChoices { get; } =
+        [new("auto", "System / Otomatik"), new("en", "English"), new("tr", L10n.T("Türkçe"))];
+    [ObservableProperty] public partial string UiLanguage { get; set; } = "auto";
 
     public IReadOnlyList<PrintResolution> Resolutions { get; } = PrintResolution.Standard;
 
@@ -65,12 +71,12 @@ public sealed partial class SettingsViewModel : ObservableObject
     [ObservableProperty] public partial string CompanyWebsite { get; set; }
     [ObservableProperty] public partial bool CreateCompanyTemplates { get; set; }
     private byte[]? _logoPng;
-    public string LogoStatus => _logoPng is { Length: > 0 } ? "Logo ayarlarda saklanıyor." : "Logo seçilmedi; firma adı kullanılır.";
+    public string LogoStatus => _logoPng is { Length: > 0 } ? L10n.T("Logo ayarlarda saklanıyor.") : L10n.T("Logo seçilmedi; firma adı kullanılır.");
 
     [RelayCommand]
     private void ChooseLogo()
     {
-        string? path = Dialogs?.ShowOpenFileDialog("Firma logosunu seçin", ImageLoader.OpenFileFilter);
+        string? path = Dialogs?.ShowOpenFileDialog(L10n.T("Firma logosunu seçin"), ImageLoader.OpenFileFilter);
         if (path is null) return;
         try
         {
@@ -90,7 +96,7 @@ public sealed partial class SettingsViewModel : ObservableObject
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ImageLoadException)
         {
-            Dialogs?.ShowMessage("Logo alınamadı", ex.Message, MessageKind.Warning);
+            Dialogs?.ShowMessage(L10n.T("Logo alınamadı"), ex.Message, MessageKind.Warning);
         }
     }
 
@@ -120,6 +126,7 @@ public sealed partial class SettingsViewModel : ObservableObject
         bool themeChanged = target.Theme != Theme;
         bool resolutionChanged = Math.Abs(target.Printer.DotsPerMm - Resolution.DotsPerMm) > 1e-9;
         bool folderChanged = !string.Equals(target.EffectiveTemplatesFolder, TemplatesFolder, StringComparison.OrdinalIgnoreCase);
+        target.UiLanguage = UiLanguage;
         target.Theme = Theme;
         target.Company = new CompanyProfile
         {

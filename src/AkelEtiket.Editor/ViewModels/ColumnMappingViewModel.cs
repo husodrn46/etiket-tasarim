@@ -6,6 +6,7 @@ using AkelEtiket.DataImport;
 using AkelEtiket.Editor.Printing;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -22,7 +23,7 @@ public sealed partial class ColumnMappingRow : ObservableObject
     public IReadOnlyList<string> Columns { get; }
     [ObservableProperty] [NotifyPropertyChangedFor(nameof(Example))]
     public partial string? SelectedColumn { get; set; }
-    public string Example => SelectedColumn is null ? "Sütun seçin" : _sample?.GetValue(SelectedColumn) ?? "";
+    public string Example => SelectedColumn is null ? L10n.T("Sütun seçin") : _sample?.GetValue(SelectedColumn) ?? "";
 }
 
 /// <summary>Kaynak Excel/CSV'ye yazmaz; tasarımın alan adlarını bir geri alma adımında değiştirir.</summary>
@@ -45,7 +46,7 @@ public sealed partial class ColumnMappingViewModel : ObservableObject
     public bool IsValid => Rows.Count > 0 && Rows.All(r => r.SelectedColumn is not null && r.Columns.Contains(r.SelectedColumn));
     public LabelDocument CreateMappedDocument()
     {
-        if (!IsValid) throw new InvalidOperationException("Her etiket alanı için bir veri sütunu seçin.");
+        if (!IsValid) throw new InvalidOperationException(L10n.T("Her etiket alanı için bir veri sütunu seçin."));
         var names = Rows.Select(r => r.Field).ToList();
         var map = Rows.ToDictionary(r => r.Field, r => r.SelectedColumn!, StringComparer.Ordinal);
         string Name(string field)
@@ -88,13 +89,13 @@ public sealed partial class MainViewModel
         var mapping = new ColumnMappingViewModel(Session.Document, table, Data.PreviewRow?.Record);
         if (mapping.Rows.Count == 0)
         {
-            Dialogs.ShowMessage("Sütunları eşleştir", "Tasarımda veri alanı yok. Önce bir metne {UrunAdi} gibi bir alan ekleyin.");
+            Dialogs.ShowMessage(L10n.T("Sütunları eşleştir"), L10n.T("Tasarımda veri alanı yok. Önce bir metne {UrunAdi} gibi bir alan ekleyin."));
             return;
         }
         if (!Dialogs.ShowDialog(mapping) || !mapping.IsValid) return;
-        Session.ReplaceContent(mapping.CreateMappedDocument(), null, "Excel/CSV sütunları eşleştirildi");
+        Session.ReplaceContent(mapping.CreateMappedDocument(), null, L10n.T("Excel/CSV sütunları eşleştirildi"));
         Data.ValidateAgainst(Session.Document);
         ApplyPreviewFields();
-        StatusMessage = "Sütunlar eşleştirildi. Kaynak dosya değişmedi; eşleştirmeyi tasarımla birlikte kaydedebilirsiniz.";
+        StatusMessage = L10n.T("Sütunlar eşleştirildi. Kaynak dosya değişmedi; eşleştirmeyi tasarımla birlikte kaydedebilirsiniz.");
     }
 }

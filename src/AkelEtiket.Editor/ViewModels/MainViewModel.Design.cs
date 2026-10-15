@@ -4,6 +4,7 @@ using AkelEtiket.Editor.Services;
 using AkelEtiket.Rendering.Symbols;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -44,7 +45,7 @@ public sealed partial class MainViewModel
     {
         if (vm.Model is not TextElement element) return false;
         bool changed = InlineTextEditing.Commit(Session, element, text);
-        if (changed) SetStatus("Metin güncellendi (Ctrl+Z ile geri alınır).");
+        if (changed) SetStatus(L10n.T("Metin güncellendi (Ctrl+Z ile geri alınır)."));
         return changed;
     }
 
@@ -89,7 +90,7 @@ public sealed partial class MainViewModel
         var label = Session.Document.Label;
         double size = Math.Round(Math.Clamp(Math.Min(label.WidthMm, label.HeightMm) * 0.2, 8, 25), 1);
         Session.AddCentered(SymbolLibrary.CreateElement(info, asset, size));
-        SetStatus($"\"{info.Name}\" simgesi eklendi ({size:0.#} mm). Boyutunu tutamaçlardan değiştirebilirsiniz.");
+        SetStatus(L10n.T($"\"{info.Name}\" simgesi eklendi ({size:0.#} mm). Boyutunu tutamaçlardan değiştirebilirsiniz."));
     }
 
     // ───────────────────────── Biçim boyacısı ─────────────────────────
@@ -103,7 +104,7 @@ public sealed partial class MainViewModel
         if (Session.SelectedElements.Count != 1) return;
         _copiedStyle = ElementStyle.Capture(Session.SelectedElements[0].Model);
         PasteStyleCommand.NotifyCanExecuteChanged();
-        SetStatus($"{_copiedStyle.KindName} biçimi kopyalandı. Aynı türdeki öğeleri seçip Ctrl+Shift+V ile uygulayın.");
+        SetStatus(L10n.T($"{_copiedStyle.KindName} biçimi kopyalandı. Aynı türdeki öğeleri seçip Ctrl+Shift+V ile uygulayın."));
     }
 
     private bool CanPasteStyle() => _copiedStyle is not null && Session.SelectedElements.Count > 0;
@@ -116,15 +117,15 @@ public sealed partial class MainViewModel
         var targets = Session.SelectedModels.Where(style.CanApplyTo).ToList();
         if (targets.Count == 0)
         {
-            SetStatus($"Biçim yalnızca {style.KindName.ToLowerInvariant()} öğelerine uygulanabilir (kilitli öğeler hariç).");
+            SetStatus(L10n.T($"Biçim yalnızca {style.KindName.ToLowerInvariant()} öğelerine uygulanabilir (kilitli öğeler hariç)."));
             return;
         }
         int count;
-        using (Session.BeginTransaction("Biçim yapıştırıldı"))
+        using (Session.BeginTransaction(L10n.T("Biçim yapıştırıldı")))
         {
             count = style.ApplyTo(targets);
         }
-        SetStatus($"Biçim {count} öğeye uygulandı.");
+        SetStatus(L10n.T($"Biçim {count} öğeye uygulandı."));
     }
 
     // ───────────────────────── Geri alma geçmişi ─────────────────────────
@@ -138,6 +139,6 @@ public sealed partial class MainViewModel
     {
         if (item is null) return;
         int done = Session.UndoSteps(item.Steps);
-        if (done > 0) SetStatus(done == 1 ? "Geri alındı." : $"{done} adım geri alındı (Ctrl+Y ile ileri alınır).");
+        if (done > 0) SetStatus(done == 1 ? L10n.T("Geri alındı.") : L10n.T($"{done} adım geri alındı (Ctrl+Y ile ileri alınır)."));
     }
 }

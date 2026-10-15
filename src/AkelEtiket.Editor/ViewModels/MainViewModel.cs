@@ -12,6 +12,7 @@ using AkelEtiket.ProjectManager;
 using AkelEtiket.Rendering;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -36,6 +37,7 @@ public sealed class AppServices
     public required IUiDispatcher Dispatcher { get; init; }
     public required ILayerImageFactory ImageFactory { get; init; }
     public required JsonSettingsStore<AppSettings> SettingsStore { get; init; }
+    public AppSettings? InitialSettings { get; init; }
     public required string RecoveryFolder { get; init; }
 
     /// <summary>Örnek şablonlar için logo (PNG baytları).</summary>
@@ -68,7 +70,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
     public MainViewModel(AppServices services)
     {
         _services = services ?? throw new ArgumentNullException(nameof(services));
-        Settings = services.SettingsStore.Load();
+        Settings = services.InitialSettings ?? services.SettingsStore.Load();
         Settings.Normalize();
         _recovery = new AutoRecoveryService(services.RecoveryFolder);
         Data = new DataSourceViewModel();
@@ -78,7 +80,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
             UpdateImageResolver();
             ValidateData();
         };
-        Data.ReloadFailed += (_, message) => Dialogs.ShowMessage("Veri kaynağı", message, MessageKind.Error);
+        Data.ReloadFailed += (_, message) => Dialogs.ShowMessage(L10n.T("Veri kaynağı"), message, MessageKind.Error);
         Templates = new TemplatesViewModel(this);
         Data.MappingRequested += (_, _) => OpenColumnMappingCommand.Execute(null);
         foreach (var path in Settings.Recent.Items) RecentFiles.Add(path);
@@ -163,14 +165,14 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
     public partial double Zoom { get; set; } = 2.0;
 
     [ObservableProperty]
-    public partial string StatusMessage { get; set; } = "Hazır";
+    public partial string StatusMessage { get; set; } = L10n.T("Hazır");
 
     [ObservableProperty]
     public partial string CursorText { get; set; } = "";
 
-    public string ZoomText => $"%{Zoom * 100:0}";
+    public string ZoomText => Zoom.ToString("P0", System.Globalization.CultureInfo.CurrentCulture);
 
-    public string WindowTitle => $"{Session.Title} – {AkelEtiket.Core.AppIdentity.ProductName}";
+    public string WindowTitle => $"{Session.Title} – {AkelEtiket.Core.Localization.UiText.T(AkelEtiket.Core.AppIdentity.ProductName)}";
 
     public string LabelSizeText =>
         $"{Session.Document.Label.WidthMm:0.##} × {Session.Document.Label.HeightMm:0.##} mm • {Settings.Printer.DotsPerMm * 25.4:0.#} DPI";
@@ -266,9 +268,9 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
 
     public string SelectionText => Session.SelectedElements.Count switch
     {
-        0 => "Seçim yok",
-        1 => Session.PrimarySelection!.Model.DisplayName,
-        int n => $"{n} öğe seçili",
+        0 => L10n.T("Seçim yok"),
+        1 => Session.PrimarySelection!.DisplayName,
+        int n => L10n.T($"{n} öğe seçili"),
     };
 
     private void NotifyCommands()
@@ -303,7 +305,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
     {
         _recovery.Start();
         if (_services.SettingsStore.LastLoadProblem is { } problem)
-            Dialogs.ShowMessage("Ayarlar", problem, MessageKind.Warning);
+            Dialogs.ShowMessage(L10n.T("Ayarlar"), problem, MessageKind.Warning);
 
         bool recovered = TryOfferRecovery();
         if (!Settings.FirstRunCompleted)
@@ -319,15 +321,15 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
             }
             if (!recovered)
             {
-                var sample = SampleTemplates.CreateForSize(Settings.DefaultLabelWidthMm, Settings.DefaultLabelHeightMm, Settings.Company);
+                var sample = InternationalSamples.CreateForSize(Settings.DefaultLabelWidthMm, Settings.DefaultLabelHeightMm, Settings.Company, L10n.Language);
                 Session = CreateSession(sample);
-                SetStatus("Hoş geldiniz! Etiketiniz hazır. Tasarımınızı oluşturabilir veya Şablonlar panelinden bir örnek seçebilirsiniz.");
+                SetStatus(L10n.T("Hoş geldiniz! Etiketiniz hazır. Tasarımınızı oluşturabilir veya Şablonlar panelinden bir örnek seçebilirsiniz."));
             }
             if (_services.ImportedLegacySettings)
-                SetStatus("AKEL Etiket (v1) ayarlarınız devralındı: yazıcı ayarları, son kullanılan dosyalar ve klasörler" +
-                          (Templates.ImportedLegacyCount > 0 ? $"; {Templates.ImportedLegacyCount} şablon kopyalandı" : "") + " (v1'deki asıllar değişmedi).");
+                SetStatus(L10n.T("AKEL Etiket (v1) ayarlarınız devralındı: yazıcı ayarları, son kullanılan dosyalar ve klasörler") +
+                          (Templates.ImportedLegacyCount > 0 ? L10n.T($"; {Templates.ImportedLegacyCount} şablon kopyalandı") : "") + L10n.T(" (v1'deki asıllar değişmedi)."));
             else if (Templates.ImportedLegacyCount > 0)
-                SetStatus($"AKEL Etiket (v1) şablonlarından {Templates.ImportedLegacyCount} tanesi kopyalandı (v1'deki asıllar değişmedi).");
+                SetStatus(L10n.T($"AKEL Etiket (v1) şablonlarından {Templates.ImportedLegacyCount} tanesi kopyalandı (v1'deki asıllar değişmedi)."));
         }
 
         var fileArgs = args.Where(File.Exists).ToList();
@@ -347,7 +349,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         if (Ai.PendingCount > 0)
         {
             IsAiPanelOpen = true;
-            SetStatus($"Onayınızı bekleyen {Ai.PendingCount} yapay zekâ önerisi var (sağdaki Yapay Zekâ paneli).");
+            SetStatus(L10n.T($"Onayınızı bekleyen {Ai.PendingCount} yapay zekâ önerisi var (sağdaki Yapay Zekâ paneli)."));
         }
         _ = Ai.Connection.ApplySettingsAsync();
     }
@@ -365,10 +367,10 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         }
         if (orphans.Count == 0) return false;
         var latest = orphans[0];
-        bool restore = Dialogs.Confirm("Otomatik kurtarma",
-            $"Uygulama beklenmedik şekilde kapanmış görünüyor.\n\n\"{latest.DocumentName}\" ({latest.SavedAt:dd.MM.yyyy HH:mm}) " +
-            "belgesinin kaydedilmemiş bir kopyası bulundu. Kurtarılsın mı?",
-            "Kurtar", "Sil");
+        bool restore = Dialogs.Confirm(L10n.T("Otomatik kurtarma"),
+            L10n.T($"Uygulama beklenmedik şekilde kapanmış görünüyor.\n\n\"{latest.DocumentName}\" ({latest.SavedAt:dd.MM.yyyy HH:mm}) ") +
+            L10n.T("belgesinin kaydedilmemiş bir kopyası bulundu. Kurtarılsın mı?"),
+            L10n.T("Kurtar"), L10n.T("Sil"));
         bool opened = false;
         if (restore)
         {
@@ -379,11 +381,11 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
                 Session.History.Clear();
                 _recoveryDirty = true;
                 opened = true;
-                SetStatus("Kurtarılan belge açıldı. Lütfen kaydedin.");
+                SetStatus(L10n.T("Kurtarılan belge açıldı. Lütfen kaydedin."));
             }
             catch (ProjectFileException ex)
             {
-                Dialogs.ShowMessage("Kurtarma", ex.Message, MessageKind.Error);
+                Dialogs.ShowMessage(L10n.T("Kurtarma"), ex.Message, MessageKind.Error);
             }
         }
         foreach (var entry in orphans) _recovery.Discard(entry);
@@ -402,7 +404,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            SetStatus("Otomatik kurtarma kopyası yazılamadı: " + ex.Message);
+            SetStatus(L10n.T("Otomatik kurtarma kopyası yazılamadı: ") + ex.Message);
         }
     }
 
@@ -431,7 +433,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         catch (Exception ex) when (ex is not OutOfMemoryException)
         {
             // Ayar kaydı başarısız olsa bile uygulama çalışmaya devam etmeli.
-            SetStatus("Ayarlar kaydedilemedi: " + ex.Message);
+            SetStatus(L10n.T("Ayarlar kaydedilemedi: ") + ex.Message);
         }
     }
 
@@ -501,7 +503,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         Settings.SnapToGrid = !Settings.SnapToGrid;
         Settings.SnapToObjects = Settings.SnapToGrid;
         OnPropertyChanged(nameof(Settings));
-        SetStatus(Settings.SnapToGrid ? "Yakalama açık" : "Yakalama kapalı");
+        SetStatus(Settings.SnapToGrid ? L10n.T("Yakalama açık") : L10n.T("Yakalama kapalı"));
     }
 
     public void RequestFocusContentEditor() => FocusContentEditorRequested?.Invoke(this, EventArgs.Empty);

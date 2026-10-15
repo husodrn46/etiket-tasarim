@@ -5,6 +5,7 @@ using AkelEtiket.ImageProcessor;
 using AkelEtiket.ProjectManager;
 using AkelEtiket.Rendering;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -16,7 +17,7 @@ public sealed partial class MainViewModel
     private void New()
     {
         if (!ConfirmCloseDocument()) return;
-        var setup = new LabelSetupViewModel("Yeni etiket", new LabelSetup
+        var setup = new LabelSetupViewModel(L10n.T("Yeni etiket"), new LabelSetup
         {
             WidthMm = Settings.DefaultLabelWidthMm,
             HeightMm = Settings.DefaultLabelHeightMm,
@@ -27,14 +28,14 @@ public sealed partial class MainViewModel
         Session = CreateSession(project);
         _recoveryDirty = true;
         RequestFit();
-        SetStatus($"Yeni {setup.WidthMm:0.#} × {setup.HeightMm:0.#} mm etiket oluşturuldu.");
+        SetStatus(L10n.T($"Yeni {setup.WidthMm:0.#} × {setup.HeightMm:0.#} mm etiket oluşturuldu."));
     }
 
     /// <summary>Etiket ölçüsünü/medya ayarını değiştirir (geri alınabilir).</summary>
     [RelayCommand]
     private void LabelSetup()
     {
-        var setup = new LabelSetupViewModel("Etiket ölçüsü", Session.Document.Label, Settings.Printer.MaxPrintWidthMm);
+        var setup = new LabelSetupViewModel(L10n.T("Etiket ölçüsü"), Session.Document.Label, Settings.Printer.MaxPrintWidthMm);
         if (!Dialogs.ShowDialog(setup)) return;
         using (Session.BeginTransaction()) setup.ApplyTo(Session.Document.Label);
         RequestFit();
@@ -44,7 +45,7 @@ public sealed partial class MainViewModel
     private void Open()
     {
         if (!ConfirmCloseDocument()) return;
-        string? path = Dialogs.ShowOpenFileDialog("Proje aç", ProjectFile.FileFilter, Settings.LastProjectFolder);
+        string? path = Dialogs.ShowOpenFileDialog(L10n.T("Proje aç"), ProjectFile.FileFilter, Settings.LastProjectFolder);
         if (path is not null) OpenProject(path, askToSave: false);
     }
 
@@ -54,7 +55,7 @@ public sealed partial class MainViewModel
         if (string.IsNullOrEmpty(path)) return;
         if (!File.Exists(path))
         {
-            Dialogs.ShowMessage("Son kullanılanlar", $"Dosya bulunamadı:\n{path}", MessageKind.Warning);
+            Dialogs.ShowMessage(L10n.T("Son kullanılanlar"), L10n.T($"Dosya bulunamadı:\n{path}"), MessageKind.Warning);
             RecentFiles.Remove(path);
             SaveSettings();
             return;
@@ -74,14 +75,14 @@ public sealed partial class MainViewModel
             Settings.LastProjectFolder = Path.GetDirectoryName(path);
             RequestFit();
             if (result.Warnings.Count > 0)
-                Dialogs.ShowMessage("Proje açıldı (uyarılar)", string.Join("\n", result.Warnings), MessageKind.Warning);
-            SetStatus($"Açıldı: {Path.GetFileName(path)}");
+                Dialogs.ShowMessage(L10n.T("Proje açıldı (uyarılar)"), string.Join("\n", result.Warnings), MessageKind.Warning);
+            SetStatus(L10n.T($"Açıldı: {Path.GetFileName(path)}"));
             OfferLinkedDataSource(result.Project.Document);
             return true;
         }
         catch (ProjectFileException ex)
         {
-            Dialogs.ShowMessage("Proje açılamadı", ex.Message, MessageKind.Error);
+            Dialogs.ShowMessage(L10n.T("Proje açılamadı"), ex.Message, MessageKind.Error);
             return false;
         }
     }
@@ -102,7 +103,7 @@ public sealed partial class MainViewModel
         var link = document.DataSource;
         if (link is null || string.IsNullOrWhiteSpace(link.FilePath) || !File.Exists(link.FilePath)) return;
         if (Data.Table is not null && string.Equals(Data.Table.SourcePath, link.FilePath, StringComparison.OrdinalIgnoreCase)) return;
-        if (Dialogs.Confirm("Veri kaynağı", $"Bu şablon en son şu veri dosyasıyla kullanıldı:\n{link.FilePath}\n\nYüklensin mi?", "Yükle", "Hayır"))
+        if (Dialogs.Confirm(L10n.T("Veri kaynağı"), L10n.T($"Bu şablon en son şu veri dosyasıyla kullanıldı:\n{link.FilePath}\n\nYüklensin mi?"), L10n.T("Yükle"), L10n.T("Hayır")))
             _ = LoadDataFileAsync(link.FilePath, new ImportOptions { SheetName = link.SheetName });
     }
 
@@ -122,7 +123,7 @@ public sealed partial class MainViewModel
     public bool SaveAs()
     {
         string defaultName = TemplateLibrary.SanitizeName(Session.Document.Name) + ProjectFile.Extension;
-        string? path = Dialogs.ShowSaveFileDialog("Farklı kaydet", ProjectFile.FileFilter, defaultName, Settings.LastProjectFolder);
+        string? path = Dialogs.ShowSaveFileDialog(L10n.T("Farklı kaydet"), ProjectFile.FileFilter, defaultName, Settings.LastProjectFolder);
         if (path is null) return false;
         if (!path.EndsWith(ProjectFile.Extension, StringComparison.OrdinalIgnoreCase)) path += ProjectFile.Extension;
         return SaveTo(path);
@@ -138,7 +139,7 @@ public sealed partial class MainViewModel
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             // Yedek alınamaması kaydı engellemez.
-            SetStatus("Uyarı: önceki sürümün yedeği alınamadı (" + ex.Message + ").");
+            SetStatus(L10n.T("Uyarı: önceki sürümün yedeği alınamadı (") + ex.Message + ").");
         }
     }
 
@@ -155,12 +156,12 @@ public sealed partial class MainViewModel
             _recovery.ClearSession();
             _recoveryDirty = false;
             OnPropertyChanged(nameof(WindowTitle));
-            SetStatus($"Kaydedildi: {path}");
+            SetStatus(L10n.T($"Kaydedildi: {path}"));
             return true;
         }
         catch (ProjectFileException ex)
         {
-            Dialogs.ShowMessage("Kaydedilemedi", ex.Message, MessageKind.Error);
+            Dialogs.ShowMessage(L10n.T("Kaydedilemedi"), ex.Message, MessageKind.Error);
             return false;
         }
     }
@@ -201,21 +202,21 @@ public sealed partial class MainViewModel
     [RelayCommand]
     private void SaveAsTemplate()
     {
-        string? name = Dialogs.Prompt("Şablon olarak kaydet", "Şablon adı:", Session.Document.Name);
+        string? name = Dialogs.Prompt(L10n.T("Şablon olarak kaydet"), L10n.T("Şablon adı:"), Session.Document.Name);
         if (string.IsNullOrWhiteSpace(name)) return;
         var library = Templates.Library;
         bool exists = File.Exists(library.GetPathForName(name));
-        if (exists && !Dialogs.Confirm("Şablon", $"\"{name}\" adında bir şablon var. Üzerine yazılsın mı?", "Üzerine yaz", "Vazgeç")) return;
+        if (exists && !Dialogs.Confirm(L10n.T("Şablon"), L10n.T($"\"{name}\" adında bir şablon var. Üzerine yazılsın mı?"), L10n.T("Üzerine yaz"), L10n.T("Vazgeç"))) return;
         try
         {
             UpdateDataSourceLink();
             library.SaveAsTemplate(Session.Project, name, CreateThumbnailPng(), overwrite: true);
             Templates.Refresh();
-            SetStatus($"Şablon kaydedildi: {name}");
+            SetStatus(L10n.T($"Şablon kaydedildi: {name}"));
         }
         catch (Exception ex) when (ex is ProjectFileException or IOException or UnauthorizedAccessException)
         {
-            Dialogs.ShowMessage("Şablon kaydedilemedi", ex.Message, MessageKind.Error);
+            Dialogs.ShowMessage(L10n.T("Şablon kaydedilemedi"), ex.Message, MessageKind.Error);
         }
     }
 
@@ -223,18 +224,18 @@ public sealed partial class MainViewModel
     [RelayCommand]
     private void ExportPng()
     {
-        string? path = Dialogs.ShowSaveFileDialog("PNG olarak dışa aktar", "PNG resmi (*.png)|*.png",
+        string? path = Dialogs.ShowSaveFileDialog(L10n.T("PNG olarak dışa aktar"), "PNG resmi (*.png)|*.png",
             TemplateLibrary.SanitizeName(Session.Document.Name) + ".png", Settings.LastProjectFolder);
         if (path is null) return;
         try
         {
             var result = Session.RenderLabel(RenderMode.Design, Data.GetPreviewFields(DateTime.Now));
             File.WriteAllBytes(path, MonoImageExport.EncodePng(result.Bitmap, Settings.Printer.DotsPerMm * 25.4));
-            SetStatus($"PNG kaydedildi ({result.Bitmap.Width} × {result.Bitmap.Height} nokta): {path}");
+            SetStatus(L10n.T($"PNG kaydedildi ({result.Bitmap.Width} × {result.Bitmap.Height} nokta): {path}"));
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            Dialogs.ShowMessage("Dışa aktarılamadı", ex.Message, MessageKind.Error);
+            Dialogs.ShowMessage(L10n.T("Dışa aktarılamadı"), ex.Message, MessageKind.Error);
         }
     }
 
@@ -243,7 +244,7 @@ public sealed partial class MainViewModel
     [RelayCommand]
     private async Task LoadData()
     {
-        string? path = Dialogs.ShowOpenFileDialog("Veri kaynağı seç (Excel/CSV)", DataImporter.OpenFileFilter, Settings.LastDataFolder);
+        string? path = Dialogs.ShowOpenFileDialog(L10n.T("Veri kaynağı seç (Excel/CSV)"), DataImporter.OpenFileFilter, Settings.LastDataFolder);
         if (path is not null) await LoadDataFileAsync(path, null);
     }
 
@@ -251,21 +252,21 @@ public sealed partial class MainViewModel
     {
         try
         {
-            SetStatus($"Veri okunuyor: {Path.GetFileName(path)}…");
+            SetStatus(L10n.T($"Veri okunuyor: {Path.GetFileName(path)}…"));
             await Data.LoadAsync(path, options);
             Settings.LastDataFolder = Path.GetDirectoryName(path);
             ActivePanel = LeftPanel.Data;
             IsPanelOpen = true;
             SetStatus(Data.Summary);
             if (Data.Table is { ErrorCount: > 0 } table)
-                Dialogs.ShowMessage("Veri kaynağında sorunlar var",
-                    $"{table.ErrorCount} satırda hata bulundu. Hatalı satırlar yazdırılmaz; diğer satırlar etkilenmez.\n" +
-                    "Ayrıntılar Veri panelindeki listede satır numarasıyla gösterilir.", MessageKind.Warning);
+                Dialogs.ShowMessage(L10n.T("Veri kaynağında sorunlar var"),
+                    L10n.T($"{table.ErrorCount} satırda hata bulundu. Hatalı satırlar yazdırılmaz; diğer satırlar etkilenmez.\n") +
+                    L10n.T("Ayrıntılar Veri panelindeki listede satır numarasıyla gösterilir."), MessageKind.Warning);
         }
         catch (DataImportException ex)
         {
-            SetStatus("Veri okunamadı.");
-            Dialogs.ShowMessage("Veri kaynağı okunamadı", ex.Message, MessageKind.Error);
+            SetStatus(L10n.T("Veri okunamadı."));
+            Dialogs.ShowMessage(L10n.T("Veri kaynağı okunamadı"), ex.Message, MessageKind.Error);
         }
     }
 
@@ -273,7 +274,7 @@ public sealed partial class MainViewModel
     private void ClearData()
     {
         Data.Clear();
-        SetStatus("Veri kaynağı kaldırıldı.");
+        SetStatus(L10n.T("Veri kaynağı kaldırıldı."));
     }
 
     // ───────────────────────── Sürükle-bırak ─────────────────────────
@@ -306,7 +307,7 @@ public sealed partial class MainViewModel
                 AddImageFromFile(path, xMm + offset, yMm + offset);
                 continue;
             }
-            Dialogs.ShowMessage("Desteklenmeyen dosya", $"Bu dosya türü eklenemez: {Path.GetFileName(path)}", MessageKind.Warning);
+            Dialogs.ShowMessage(L10n.T("Desteklenmeyen dosya"), L10n.T($"Bu dosya türü eklenemez: {Path.GetFileName(path)}"), MessageKind.Warning);
         }
     }
 }

@@ -1,73 +1,70 @@
-# Etiket Tasarım
+# Etiket Tasarım · Label Designer
 
-Windows için çevrimdışı etiket ve barkod tasarım uygulaması. **Etiket Tasarım geçici ürün adıdır.**
-Firma adı, adres, web sitesi, logo ve şablon klasörü ayarlanabilir. Hesap veya abonelik gerekmez.
+[English](README.md) · [Türkçe](README.tr.md)
 
-## İndir ve kur
+An offline Windows desktop app for designing labels and barcodes. Bring your own company name, logo,
+address, templates and Excel/CSV data. No account or subscription is required. **The product name is provisional.**
 
-[Windows x64 kurulum dosyasını indir](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.0.0-preview.1/Etiket-Tasarim-Kurulum-2.0.0-aday.exe)
-· [Taşınabilir ZIP](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.0.0-preview.1/Etiket-Tasarim-2.0.0-win-x64-aday.zip)
-· [Ön sürüm ve doğrulama bilgileri](https://github.com/husodrn46/etiket-tasarim/releases/tag/v2.0.0-preview.1)
+## Download
 
-Windows 10/11 64-bit içindir; .NET çalışma zamanı pakete dahildir. Kurulum dosyasını çalıştırın veya ZIP'i
-bir klasöre çıkarıp `Etiket Tasarim.exe` dosyasını açın. Ardından aşağıdaki başlangıç adımlarını izleyin.
+[Windows x64 installer](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.0.0-preview.1/Etiket-Tasarim-Kurulum-2.0.0-aday.exe)
+· [Portable ZIP](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.0.0-preview.1/Etiket-Tasarim-2.0.0-win-x64-aday.zip)
+· [Preview release and checksums](https://github.com/husodrn46/etiket-tasarim/releases/tag/v2.0.0-preview.1)
 
-Bu ilk genel **ön sürümdür**. Mac üzerinde seçilmiş 885 otomatik test geçti; paketin dosya bütünlüğü ve
-bilinen özel veri/sır kalıpları kontrol edildi. Gerçek Windows kurulum/arayüz ve fiziksel yazıcı kabul testleri
-henüz yapılmadı. İlk baskıda kendi yazıcınızda ölçü, yön ve barkod okunabilirliğini kontrol edin.
-Kaynak kod için henüz bir açık kaynak lisansı seçilmedi; bağımlılık lisansları pakete dahildir.
+For Windows 10/11 x64; the .NET runtime is included. Install or extract the ZIP and open `Etiket Tasarim.exe`.
 
-## Başlangıç
+**Version notice:** `v2.0.0-preview.1` is an earlier, Turkish-language preview. The English interface and
+newer setup, mapping and backup improvements described below are in the source branch containing this
+README; they require a new build. No new binary release has been published for these changes.
+Windows installation, WPF interaction and physical printer acceptance are still pending.
 
-1. Windows uygulamasını açın. **Ayarlar → Firma Bilgileri** bölümüne kendi bilgilerinizi girin ve logonuzu seçin.
-2. **Firma bilgileriyle yeni örnek şablonlar oluştur** seçeneğini işaretleyip kaydedin. Mevcut şablonlar korunur;
-   aynı ad varsa numaralı yeni kopya eklenir. Firma bilgileri bu kopyalara kaydedilir; eski tasarımlar kendiliğinden değişmez.
-3. **Şablonlar** panelinden etiketi seçin. Ürün adı, fiyat, barkod ve tasarımı düzenleyin.
-4. Toplu baskı için **Veri → Excel/CSV** ile kendi dosyanızı bağlayın; Hızlı Baskı için ürün listenizi içeri alın.
-5. Yazıcıyı seçip rulo ölçülerini ve kalibrasyonu doğrulayın. Hazır XP-470B profili yalnız başlangıç değerleridir.
+## Get started
 
-Örnek dosyalar sentetiktir. Örnek barkodların kontrol basamaklarının geçerli olması GS1 tarafından tahsis
-edildikleri anlamına gelmez; bunları gerçek ürün numarası olarak kullanmayın. Örnek ürün dosyasının ikinci
-satırında hata raporlamasını göstermek için bilerek hatalı kontrol basamağı vardır.
+1. Open the app and complete the setup wizard. Choose **English**, **Türkçe**, or **System / Otomatik**.
+   Restart after changing language. New installations use English unless the system UI language is Turkish;
+   existing completed installations keep Turkish until you choose another language.
+2. Enter your company details and optionally a logo. Generate new company templates; existing designs stay intact.
+3. Choose a template or create a label in millimeters. Edit text, images, shapes, barcodes and QR codes.
+4. For batch labels, load Excel/XLS/CSV in **Data** and use **Map columns**. For repeated product printing,
+   import a product list once, then use **Quick Print** to search or scan a product and enter quantity.
+5. Select your printer, check media size and preview, then calibrate and print a small test before a batch.
 
-## Özellikler
+[Read the English user guide](docs/USER-GUIDE.md) · [Internationalization and compatibility](docs/INTERNATIONALIZATION.md)
 
-- mm cinsinden sürükle-bırak tasarım; metin, barkod, QR, görsel, şekil, simgeler, gruplama ve geri alma.
-- 13 barkod türü; ortak 1-bit render motoru, barkod okunabilirlik kontrolü, PNG/PDF çıktı.
-- Excel/XLS/CSV, değişken alanlar, kalıcı sayaç, ürün listesi, baskı geçmişi ve yeniden baskı.
-- TSPL RAW ve Windows sürücüsüyle baskı, kalibrasyon ve yazıcı/rulo profilleri.
-- İsteğe bağlı, varsayılan kapalı AI/MCP altyapısı. Yeni servis, hesap veya API anahtarı kurulmaz.
-  Tasarım araçları fiziksel baskı başlatamaz; bulut sağlayıcısına veri göndermek ayrıca kullanıcı izni gerektirir.
+## Features
 
-## GS1 ve veri güvenliği
+- English and Turkish interface resources for setup, editor tools, data mapping, print dialogs, help and common messages.
+- Drag-and-drop layout in mm; text, images, shapes, symbols, layers, grouping and undo/redo.
+- 13 barcode types, dot-aligned 1-bit rendering, barcode decoding checks, PNG/PDF export.
+- Excel/XLS/CSV fields, row quantities, product catalog, persistent counters, print history and reprint.
+- Direct TSPL RAW and Windows driver printing; media/printer profiles and calibration tools.
+- Portable `.etiketyedek` backups of company settings, templates and products.
+- Optional AI/MCP integration, disabled by default. No new service, account or API key is provisioned.
 
-Yeni kurulumda firma adı, GLN, GCP ve GTIN listesi boştur. GLN bir şirket/lokasyon kimliğidir; ürün GTIN'i
-veya firma öneki olarak kullanılmaz. Uygulama GLN'den ya da şirket adından kod türetmez. SSCC için
-kullanıcının kendi GS1 belgesindeki GCP'yi girip doğrulaması gerekir. Normal etiket tasarımı için GS1 üyeliği gerekmez.
+English sample files: [products](samples/sample-products.csv), [shipping](samples/sample-shipping.csv).
+They contain fictional demonstration data. Sample barcode check digits do **not** establish GS1 ownership;
+replace all demonstration identifiers with your own assigned values before production. The Turkish samples
+also include deliberately invalid data for testing error reporting.
 
-Veriler `Belgeler\Etiket Tasarım`, `%APPDATA%\Etiket Tasarım` ve `%LOCALAPPDATA%\Etiket Tasarım` altında saklanır.
-Deneme/taşınabilir çalışma için `ETIKET_VERI` tüm klasörleri ayrı bir köke yönlendirir. Diğer kurulumlardan
-ayar, logo, ürün, şablon, GS1 veya SSCC kayıtları otomatik alınmaz. `.akelabel` dosya biçimi uyumluluk için korunur.
+## Your data and GS1
 
-## Geliştirme dalındaki kullanım iyileştirmeleri
+The interface language does not translate product names, company information, imported cells, saved designs,
+or barcode contents. Prices in English examples use raw text with no assumed currency. Measurements follow
+your operating system's regional decimal convention; labels remain in mm.
 
-Bu bölümdeki yenilikler mevcut `v2.0.0-preview.1` indirme paketine henüz dahil değildir.
+Company identity, GLN, GCP and registered GTINs start empty. **A GLN identifies a location or party; it is not
+a product GTIN or a GS1 Company Prefix.** The app never derives identifiers from a company name or GLN.
+SSCC generation requires your own GCP verified against your GS1 membership document.
 
-- İlk açılışta firma, logo, yazıcı ve etiket ölçüsü için üç adımlı kurulum; **? → İlk kurulum** ile yeniden açılır.
-- Şablon galerisinde arama, kategori ve firma şablonlarında görsel önizleme; kargo ve demirbaş tasarımları.
-- **Veri tablosu → Sütunları eşleştir**: Excel/CSV sütunlarını tasarım alanlarına bağlama. Kaynak dosya değişmez;
-  eşleştirme tasarımla kaydedilir ve Ctrl+Z ile geri alınır.
-- Hızlı baskıda bulunamayan/belirsiz okutma önceki ürünü seçili bırakmaz; son şablon hatırlanır.
-- **? → Firma, şablon ve ürün yedeği oluştur / geri yükle**: tek `.etiketyedek` dosyasıyla taşıma.
-  Geri yüklenen şablonlar yeni klasöre alınır, eski ürün listesi ayrıca saklanır. Harici Excel/CSV ve görseller,
-  GS1/SSCC tahsisleri, sayaçlar, baskı geçmişi ve bağlantı anahtarları pakete dahil değildir.
+Files are stored locally under `Documents\Etiket Tasarım`, `%APPDATA%\Etiket Tasarım` and
+`%LOCALAPPDATA%\Etiket Tasarım`. Set `ETIKET_VERI` to isolate all application data under a separate root.
+Stable folder names and the `.akelabel` format are preserved across languages. Other installations are not
+imported automatically. Review a support package or backup before sharing it: it may contain your company or product data.
 
-[Değişiklik ve doğrulama kapsamı](docs/KULLANIM-GELISTIRMELERI.md)
+## Build and validation
 
-## Geliştirme
-
-C# / .NET 10, WPF, CommunityToolkit.Mvvm, SkiaSharp, ZXing.Net, ClosedXML, ExcelDataReader ve CsvHelper.
-Masaüstü uygulaması Windows içindir; ortak kütüphanelerin çoğu arayüz olmadan test edilebilir.
+C# / .NET 10, WPF, CommunityToolkit.Mvvm, SkiaSharp, ZXing.Net, ClosedXML, ExcelDataReader and CsvHelper.
+The desktop app requires Windows. Many shared libraries and headless tests can run on macOS/Linux.
 
 ```powershell
 dotnet restore AkelEtiket.sln
@@ -76,30 +73,18 @@ dotnet test AkelEtiket.sln
 powershell -ExecutionPolicy Bypass -File build.ps1
 ```
 
-Derleme/paket komutları yerel çıktı üretir; GitHub'a gönderim veya dağıtım yapmaz. Bu genel sürüm için Windows
-kurulum/kaldırma, WPF ekranları ve gerçek yazıcı kabulü ayrıca tamamlanmalıdır.
-
-[Geçiş ve yayın kapsamı](docs/GENEL-URUN.md) · [Mimari](docs/MIMARI.md) · [Bağımlılık lisansları](docs/LISANSLAR.md)
-
-## Yerel Windows kurulum adayı
-
-Genel sürümün NSIS tabanlı, kullanıcı hesabına kurulan adayı Mac/Linux/Windows üzerinde üretilebilir:
+A local self-contained Windows x64 installer and ZIP can also be cross-built with NSIS:
 
 ```text
-python tools/distribution/build_candidate.py --dotnet <dotnet-yolu> --makensis <makensis-yolu> --cache <NuGet-paket-klasörü> --output <yeni-boş-çıktı-klasörü>
+python tools/distribution/build_candidate.py --dotnet <dotnet-path> --makensis <makensis-path> --cache <NuGet-cache> --output <new-output-folder>
 ```
 
-Çıktı: .NET/WPF/ASP.NET içeren Windows x64 uygulaması, kurulum EXE'si, taşınabilir ZIP, lisans metinleri ve
-SHA-256 dosya manifesti. Bu komut yayın yapmaz. Çıktı klasörü varsa üzerine yazmaz. Bu aday için SDK 10.0.402
-ve .NET 10.0.13 kullanılır; `PublishReadyToRun` platformlar arası derlemede kapalıdır.
+Build commands produce local files; they do not publish or upload. The candidate builder verifies the
+English resource satellite is included. For Windows acceptance, see `tools/distribution/windows_acceptance.ps1`.
+Preparing that script or cross-building a package does not mean it has been executed on Windows.
 
-Gerçek Windows kabulü, temiz kullanıcı profilinin **etkileşimli masaüstünde** şu betikle çalıştırılır:
+The project source does not yet have a chosen open-source license. Dependency licenses and notices are included
+in distribution packages. The final product name and source license remain maintainer decisions.
 
-```powershell
-powershell -ExecutionPolicy Bypass -File tools/distribution/windows_acceptance.ps1 -Installer <kurulum-adayı.exe>
-```
-
-Betik ayrık geçici klasöre kurar, uygulamayı açar, firma adı/adresi/siteyi gerçek WPF ayar ekranından girer,
-şablon üretip yeniden açar, kaldırmayı ve kullanıcı dosyalarının korunmasını kontrol eder. Sonucu
-`%TEMP%\Etiket-Kabul-<kimlik>\windows-kabul.json` içine yazar. Gerçek yazıcıya baskı göndermez.
-Bu betiğin burada hazırlanmış olması Windows'ta çalıştırıldığı anlamına gelmez.
+[Architecture (Turkish)](docs/MIMARI.md) · [Generalization scope (Turkish)](docs/GENEL-URUN.md)
+· [Dependency licenses (Turkish)](docs/LISANSLAR.md)

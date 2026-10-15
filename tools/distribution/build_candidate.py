@@ -41,8 +41,8 @@ def main():
         if file.is_file() and digest(file) != digest(payload/file.relative_to(stages/'AkelEtiket.App')):
             raise RuntimeError('Dependency merge mismatch: '+str(file))
     docs = payload/'Belgeler'; docs.mkdir(exist_ok=True)
-    for name in ['README.md', 'NOTICE']: shutil.copy2(ROOT/name, docs/name)
-    for name in ['GENEL-URUN.md','LISANSLAR.md']: shutil.copy2(ROOT/'docs'/name, docs/name)
+    for name in ['README.md', 'README.tr.md', 'NOTICE']: shutil.copy2(ROOT/name, docs/name)
+    for name in ['GENEL-URUN.md','LISANSLAR.md','USER-GUIDE.md','INTERNATIONALIZATION.md']: shutil.copy2(ROOT/'docs'/name, docs/name)
     samples = payload/'Örnekler'; samples.mkdir(exist_ok=True)
     for file in (ROOT/'samples').iterdir():
         if file.is_file() and file.suffix in ['.csv','.xlsx','.akelabel','.png']: shutil.copy2(file, samples/file.name)
@@ -55,7 +55,7 @@ def main():
         pe = struct.unpack_from('<I',data,0x3c)[0]
         if data[:2] != b'MZ' or data[pe:pe+4] != b'PE\0\0' or struct.unpack_from('<H',data,pe+4)[0] != 0x8664:
             raise RuntimeError('Not a Windows x64 apphost: '+name)
-    for required in ['coreclr.dll','hostfxr.dll','hostpolicy.dll','PresentationFramework.dll','libSkiaSharp.dll']:
+    for required in ['coreclr.dll','hostfxr.dll','hostpolicy.dll','PresentationFramework.dll','libSkiaSharp.dll','en/AkelEtiket.Core.resources.dll']:
         if not (payload/required).exists(): raise RuntimeError('Missing runtime file: '+required)
     files = {str(p.relative_to(payload)).replace(os.sep,'/'): digest(p) for p in payload.rglob('*') if p.is_file()}
     (output/'PAYLOAD-MANIFEST.json').write_text(json.dumps(files,ensure_ascii=False,indent=2)+'\n')

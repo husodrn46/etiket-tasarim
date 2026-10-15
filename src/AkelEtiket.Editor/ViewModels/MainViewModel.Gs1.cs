@@ -1,6 +1,7 @@
 using AkelEtiket.Core.Model;
 using AkelEtiket.Editor.Printing;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -21,14 +22,14 @@ public sealed partial class MainViewModel
         // Pencere açıkken belge değişmiş olabilir (geri al, yapay zekâ): öğe kimliğiyle yeniden bulunur.
         if (Session.Document.FindElement(id) is not BarcodeElement target || target.Symbology != builder.Symbology)
         {
-            SetStatus("GS1 içeriği yazılmadı: barkod bu arada değişti ya da silindi.");
+            SetStatus(L10n.T("GS1 içeriği yazılmadı: barkod bu arada değişti ya da silindi."));
             return;
         }
         if (target.Content == builder.Content) return;
-        using (Session.BeginTransaction("GS1 içeriği"))
+        using (Session.BeginTransaction(L10n.T("GS1 içeriği")))
         {
             target.Content = builder.Content;
         }
-        SetStatus($"GS1 içeriği yazıldı: {builder.Content}");
+        SetStatus(L10n.T($"GS1 içeriği yazıldı: {builder.Content}"));
     }
 }

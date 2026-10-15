@@ -1,9 +1,9 @@
-<views:ThemedWindow x:Class="AkelEtiket.App.Views.AiSettingsWindow"
+<views:ThemedWindow xmlns:loc="clr-namespace:AkelEtiket.App.Localization" x:Class="AkelEtiket.App.Views.AiSettingsWindow"
                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:views="clr-namespace:AkelEtiket.App.Views"
                     xmlns:controls="clr-namespace:AkelEtiket.App.Controls"
-                    Title="Yapay Zekâ Ayarları" Width="760" Height="820" MinWidth="640" MinHeight="560" ResizeMode="CanResizeWithGrip">
+                    Title="{loc:Text T_d317cff69e0e}" Width="760" Height="820" MinWidth="640" MinHeight="560" ResizeMode="CanResizeWithGrip">
     <Window.Resources>
         <Style x:Key="FieldLabel" TargetType="TextBlock" BasedOn="{StaticResource Text.Label}" />
         <Style x:Key="Mono" TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
@@ -15,15 +15,15 @@
     </Window.Resources>
     <DockPanel Margin="22,16,22,14">
         <StackPanel DockPanel.Dock="Top" Margin="0,0,0,8">
-            <TextBlock Text="Yapay Zekâ Ayarları" Style="{StaticResource Text.Title}" FontSize="18" />
+            <TextBlock Text="{loc:Text T_d317cff69e0e}" Style="{StaticResource Text.Title}" FontSize="18" />
             <TextBlock Style="{StaticResource Text.Hint}" Margin="0,4,0,0" TextWrapping="Wrap"
-                       Text="Bütün yapay zekâ özellikleri isteğe bağlıdır; kapalıyken uygulamanın diğer özellikleri aynen çalışır. Yapay zekânın yazıcıya baskı gönderen bir aracı yoktur." />
+                       Text="{loc:Text T_dbcfc6eb2fd9}" />
         </StackPanel>
 
         <DockPanel DockPanel.Dock="Bottom" Margin="0,12,0,0">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                <Button Content="Vazgeç" MinWidth="96" IsCancel="True" Margin="0,0,8,0" />
-                <Button Content="Kaydet" MinWidth="96" Style="{StaticResource Button.Accent}" IsDefault="True" Click="OnSave" />
+                <Button Content="{loc:Text T_39a8d28c1c6b}" MinWidth="96" IsCancel="True" Margin="0,0,8,0" />
+                <Button Content="{loc:Text T_c1fe2ecdff02}" MinWidth="96" Style="{StaticResource Button.Accent}" IsDefault="True" Click="OnSave" />
             </StackPanel>
             <TextBlock x:Name="ErrorText" Foreground="{DynamicResource Brush.Error}" VerticalAlignment="Center" TextWrapping="Wrap" />
         </DockPanel>
@@ -32,20 +32,20 @@
             <StackPanel Margin="0,0,10,0">
 
                 <!-- DIŞ AJAN BAĞLANTISI -->
-                <TextBlock Text="DIŞ AJAN BAĞLANTISI (MCP / YEREL API)" Style="{StaticResource Text.Section}" />
+                <TextBlock Text="{loc:Text T_4528ef4bf893}" Style="{StaticResource Text.Section}" />
                 <CheckBox IsChecked="{Binding Enabled}" FontWeight="SemiBold" Margin="0,0,0,4"
-                          Content="Yapay zekâ bağlantısına izin ver (Claude Desktop, Claude Code ve diğer MCP istemcileri)" />
+                          Content="{loc:Text T_4478ccfbc5d5}" />
                 <TextBlock Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="24,0,0,10"
-                           Text="Açıkken Etiket Tasarım yalnızca bu bilgisayardan (127.0.0.1) ve anahtarla erişilebilen bir yerel API açar. Uygulama kapalıyken istek gelirse penceresiz Worker başlar ve boşta kalınca kapanır. Bağlanan ajan, tasarım içeriğini kendi yapay zekâ servisine gönderebilir." />
+                           Text="{loc:Text T_14add07ada4a}" />
                 <Grid Margin="0,0,0,8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="190" />
                         <ColumnDefinition Width="120" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Port" Style="{StaticResource FieldLabel}" />
+                    <TextBlock Text="{loc:Text T_72e9a59f5a1d}" Style="{StaticResource FieldLabel}" />
                     <controls:NumberBox Grid.Column="1" Value="{Binding Port}" Minimum="1024" Maximum="65535" Step="1" Decimals="0" />
-                    <TextBlock Grid.Column="2" Text="yalnızca 127.0.0.1 (uzak erişim yok)" Style="{StaticResource Text.Label}" Margin="8,0,0,0" />
+                    <TextBlock Grid.Column="2" Text="{loc:Text T_3b94d5d1f5ac}" Style="{StaticResource Text.Label}" Margin="8,0,0,0" />
                 </Grid>
                 <Grid Margin="0,0,0,8">
                     <Grid.ColumnDefinitions>
@@ -53,42 +53,42 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Bağlantı anahtarı" Style="{StaticResource FieldLabel}" />
+                    <TextBlock Text="{loc:Text T_deed1b6acf10}" Style="{StaticResource FieldLabel}" />
                     <TextBox Grid.Column="1" Text="{Binding TokenDisplay, Mode=OneWay}" Style="{StaticResource Mono}" />
                     <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="8,0,0,0">
-                        <CheckBox Content="Göster" IsChecked="{Binding ShowToken}" VerticalAlignment="Center" Margin="0,0,8,0" />
-                        <Button Content="Kopyala" Click="OnCopyToken" Margin="0,0,6,0" />
-                        <Button Content="Yenile" Command="{Binding RegenerateTokenCommand}" />
+                        <CheckBox Content="{loc:Text T_9d119cdc2fad}" IsChecked="{Binding ShowToken}" VerticalAlignment="Center" Margin="0,0,8,0" />
+                        <Button Content="{loc:Text T_a8bcca42d9ce}" Click="OnCopyToken" Margin="0,0,6,0" />
+                        <Button Content="{loc:Text T_63cd725787a8}" Command="{Binding RegenerateTokenCommand}" />
                     </StackPanel>
                 </Grid>
                 <CheckBox IsChecked="{Binding ShareOpenDocument}" Margin="0,0,0,6"
-                          Content="Uygulamada açık tasarımı yapay zekâ ile paylaş (ajan açık belgeyi görebilir ve öneri sunabilir)" />
+                          Content="{loc:Text T_eac1097bfdb0}" />
                 <CheckBox IsChecked="{Binding EnableHttpMcp}" Margin="0,0,0,6"
-                          Content="HTTP üzerinden MCP uç noktası (/mcp) — stdio desteklemeyen yerel istemciler için" />
+                          Content="{loc:Text T_31ec96e448ca}" />
                 <Grid Margin="0,0,0,4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="190" />
                         <ColumnDefinition Width="120" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Worker boşta kapanma" Style="{StaticResource FieldLabel}" />
+                    <TextBlock Text="{loc:Text T_59ab35ebe9b4}" Style="{StaticResource FieldLabel}" />
                     <controls:NumberBox Grid.Column="1" Value="{Binding WorkerIdleMinutes}" Minimum="1" Maximum="1440" Step="1" Decimals="0" />
-                    <TextBlock Grid.Column="2" Text="dakika" Style="{StaticResource Text.Label}" Margin="8,0,0,0" />
+                    <TextBlock Grid.Column="2" Text="{loc:Text T_9494ff896e95}" Style="{StaticResource Text.Label}" Margin="8,0,0,0" />
                 </Grid>
 
                 <!-- DEĞİŞİKLİK MODU -->
-                <TextBlock Text="DEĞİŞİKLİK MODU" Style="{StaticResource Text.Section}" />
+                <TextBlock Text="{loc:Text T_99de9ce1e0f7}" Style="{StaticResource Text.Section}" />
                 <RadioButton GroupName="Mode" Margin="0,0,0,4" IsChecked="{Binding DirectMode, Converter={StaticResource InverseBool}}"
-                             Content="Onaylı (önerilen): yapay zekâ taslakta çalışır; değişiklikler önce/sonra önizlemesiyle bana sunulur, kabul edersem uygulanır." />
+                             Content="{loc:Text T_e3f53b8bb3fe}" />
                 <RadioButton GroupName="Mode" IsChecked="{Binding DirectMode}"
-                             Content="Doğrudan: değişiklikler hemen uygulanır (her adım Ctrl+Z ile geri alınabilir; dosyalardan önce yedek alınır)." />
+                             Content="{loc:Text T_2ac0b6855963}" />
                 <TextBlock Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="24,4,0,0"
-                           Text="Her iki modda da: tasarım dosyaları silinmez, var olan dosyanın üzerine izinsiz yazılmaz, kilitli öğeler değiştirilmez." />
+                           Text="{loc:Text T_c8a2802b9e76}" />
 
                 <!-- İZİNLİ KLASÖRLER -->
-                <TextBlock Text="İZİNLİ KLASÖRLER" Style="{StaticResource Text.Section}" />
+                <TextBlock Text="{loc:Text T_1be26e1dfd26}" Style="{StaticResource Text.Section}" />
                 <TextBlock Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="0,0,0,6"
-                           Text="Yapay zekâ görselleri ve Excel/CSV dosyalarını yalnızca bu klasörlerden okuyabilir (Şablonlar klasörü her zaman izinlidir). Örn. ürün görselleri ve logo klasörü." />
+                           Text="{loc:Text T_8dc19058a96f}" />
                 <Grid Margin="0,0,0,4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -96,19 +96,19 @@
                     </Grid.ColumnDefinitions>
                     <ListBox ItemsSource="{Binding AllowedFolders}" SelectedItem="{Binding SelectedFolder}" MinHeight="70" MaxHeight="140" />
                     <StackPanel Grid.Column="1" Margin="8,0,0,0">
-                        <Button Content="Klasör ekle…" Click="OnAddFolder" Margin="0,0,0,6" />
-                        <Button Content="Kaldır" Command="{Binding RemoveFolderCommand}" />
+                        <Button Content="{loc:Text T_920fb19d923a}" Click="OnAddFolder" Margin="0,0,0,6" />
+                        <Button Content="{loc:Text T_b88019aa289e}" Command="{Binding RemoveFolderCommand}" />
                     </StackPanel>
                 </Grid>
 
                 <!-- UYGULAMA İÇİ ASİSTAN -->
-                <TextBlock Text="UYGULAMA İÇİ ASİSTAN" Style="{StaticResource Text.Section}" />
+                <TextBlock Text="{loc:Text T_54edb8ea5194}" Style="{StaticResource Text.Section}" />
                 <Grid Margin="0,0,0,8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="190" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Sağlayıcı" Style="{StaticResource FieldLabel}" />
+                    <TextBlock Text="{loc:Text T_c47c939160e2}" Style="{StaticResource FieldLabel}" />
                     <ComboBox Grid.Column="1" ItemsSource="{Binding ProviderChoices}" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding ProviderKind}" />
                 </Grid>
                 <StackPanel Visibility="{Binding IsProviderSelected, Converter={StaticResource BoolToVisibility}}">
@@ -117,7 +117,7 @@
                             <ColumnDefinition Width="190" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Model" Style="{StaticResource FieldLabel}" />
+                        <TextBlock Text="{loc:Text T_5e2c614c23f0}" Style="{StaticResource FieldLabel}" />
                         <ComboBox Grid.Column="1" IsEditable="True" ItemsSource="{Binding ModelSuggestions}" Text="{Binding Model, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
                     <Grid Margin="0,0,0,8" Visibility="{Binding NeedsBaseUrl, Converter={StaticResource BoolToVisibility}}">
@@ -125,8 +125,8 @@
                             <ColumnDefinition Width="190" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Uç nokta adresi" Style="{StaticResource FieldLabel}" />
-                        <TextBox Grid.Column="1" Text="{Binding BaseUrl, UpdateSourceTrigger=PropertyChanged}" ToolTip="Örn. http://127.0.0.1:11434/v1 (Ollama) veya http://127.0.0.1:1234/v1 (LM Studio)" />
+                        <TextBlock Text="{loc:Text T_a4d1a301b437}" Style="{StaticResource FieldLabel}" />
+                        <TextBox Grid.Column="1" Text="{Binding BaseUrl, UpdateSourceTrigger=PropertyChanged}" ToolTip="{loc:Text T_abc0eead78bd}" />
                     </Grid>
                     <Grid Margin="0,0,0,2">
                         <Grid.ColumnDefinitions>
@@ -134,9 +134,9 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="API anahtarı" Style="{StaticResource FieldLabel}" />
+                        <TextBlock Text="{loc:Text T_d7e68641832c}" Style="{StaticResource FieldLabel}" />
                         <PasswordBox x:Name="KeyBox" Grid.Column="1" PasswordChanged="OnKeyChanged" />
-                        <Button Grid.Column="2" Content="Sil" Margin="8,0,0,0" Command="{Binding ClearKeyCommand}" Click="OnClearKey" />
+                        <Button Grid.Column="2" Content="{loc:Text T_f698e9b40f9f}" Margin="8,0,0,0" Command="{Binding ClearKeyCommand}" Click="OnClearKey" />
                     </Grid>
                     <TextBlock Text="{Binding KeyStatus}" Style="{StaticResource Text.Hint}" Margin="190,0,0,10" />
                     <Border Style="{StaticResource Border.Card}" Padding="12,9" Margin="0,0,0,8">
@@ -145,34 +145,34 @@
                                 <TextBlock Text="{Binding ConsentText}" TextWrapping="Wrap" />
                             </CheckBox>
                             <TextBlock Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="24,6,0,0"
-                                       Text="İzin olmadan asistan hiçbir veri göndermez. Sağlayıcıyı veya adresi değiştirirseniz izin yeniden istenir. Ücretli API kullanımı sağlayıcının kendi koşullarına tabidir; uygulama için zorunlu değildir." />
+                                       Text="{loc:Text T_f6af2d22b3bd}" />
                         </StackPanel>
                     </Border>
-                    <CheckBox IsChecked="{Binding SendPreviewImages}" Content="Önizleme görüntüsünü de gönder (görsel anlayan modeller için)" />
+                    <CheckBox IsChecked="{Binding SendPreviewImages}" Content="{loc:Text T_a30d1d5791a1}" />
                 </StackPanel>
 
                 <!-- BAĞLANTI BİLGİLERİ -->
-                <TextBlock Text="BAĞLANTI BİLGİLERİ" Style="{StaticResource Text.Section}" />
+                <TextBlock Text="{loc:Text T_74be5e6b5fe8}" Style="{StaticResource Text.Section}" />
                 <TextBlock Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="0,0,0,6"
-                           Text="Claude Code (stdio, önerilen): komut satırında çalıştırın." />
+                           Text="{loc:Text T_3c51fed99bcb}" />
                 <DockPanel Margin="0,0,0,8">
-                    <Button DockPanel.Dock="Right" Content="Kopyala" Margin="8,0,0,0" Click="OnCopy" Tag="{Binding ClaudeCodeCommand}" />
+                    <Button DockPanel.Dock="Right" Content="{loc:Text T_a8bcca42d9ce}" Margin="8,0,0,0" Click="OnCopy" Tag="{Binding ClaudeCodeCommand}" />
                     <TextBox Text="{Binding ClaudeCodeCommand, Mode=OneWay}" Style="{StaticResource Mono}" />
                 </DockPanel>
                 <TextBlock Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="0,0,0,6"
-                           Text="Claude Desktop: %APPDATA%\Claude\claude_desktop_config.json dosyasına ekleyin, sonra Claude Desktop'ı yeniden başlatın." />
+                           Text="{loc:Text T_2bcf6be9b3e7}" />
                 <DockPanel Margin="0,0,0,8">
-                    <Button DockPanel.Dock="Right" Content="Kopyala" Margin="8,0,0,0" Click="OnCopy" Tag="{Binding ClaudeDesktopJson}" />
+                    <Button DockPanel.Dock="Right" Content="{loc:Text T_a8bcca42d9ce}" Margin="8,0,0,0" Click="OnCopy" Tag="{Binding ClaudeDesktopJson}" />
                     <TextBox Text="{Binding ClaudeDesktopJson, Mode=OneWay}" Style="{StaticResource Mono}" />
                 </DockPanel>
                 <TextBlock Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="0,0,0,6"
-                           Text="HTTP MCP (uygulama açıkken; anahtarı içerir, paylaşmayın):" />
+                           Text="{loc:Text T_8df3e5bf101a}" />
                 <DockPanel Margin="0,0,0,8">
-                    <Button DockPanel.Dock="Right" Content="Kopyala" Margin="8,0,0,0" Click="OnCopy" Tag="{Binding ClaudeCodeHttpCommand}" />
+                    <Button DockPanel.Dock="Right" Content="{loc:Text T_a8bcca42d9ce}" Margin="8,0,0,0" Click="OnCopy" Tag="{Binding ClaudeCodeHttpCommand}" />
                     <TextBox Text="{Binding ClaudeCodeHttpCommand, Mode=OneWay}" Style="{StaticResource Mono}" />
                 </DockPanel>
                 <TextBlock Style="{StaticResource Text.Hint}" TextWrapping="Wrap"
-                           Text="Ayrıntılı rehber: Belgeler klasöründeki YAPAY-ZEKA-BAGLANTI.md (Claude, Atlas, Hermes ve diğer ajanlar)." />
+                           Text="{loc:Text T_b944868efd23}" />
             </StackPanel>
         </ScrollViewer>
     </DockPanel>

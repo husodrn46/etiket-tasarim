@@ -34,6 +34,7 @@ public static class LegacySettingsImport
         if (string.IsNullOrWhiteSpace(settings.TemplatesFolder) || SameFolder(settings.TemplatesFolder, legacyTemplatesFolder))
             settings.TemplatesFolder = null;
         settings.FirstRunCompleted = false;
+        settings.UiLanguage = "tr"; // Preserve the language of the v1 installation.
         try
         {
             target.Save(settings);

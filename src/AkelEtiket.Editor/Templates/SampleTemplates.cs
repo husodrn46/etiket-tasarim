@@ -339,15 +339,15 @@ public static class SampleTemplates
         return project;
     }
 
-    private static LabelProject ApplyCompany(LabelProject project, CompanyProfile? company)
+    internal static LabelProject ApplyCompany(LabelProject project, CompanyProfile? company, bool english = false)
     {
         if (company is null) return project;
         foreach (var text in project.Document.Elements.OfType<TextElement>())
         {
-            if (text.Name == "Firma") text.Text = company.DisplayName;
-            if (text.Name == "Alt bilgi")
+            if (text.Name is "Firma" or "Company") text.Text = english && string.IsNullOrWhiteSpace(company.Name) ? "Your Company" : company.DisplayName;
+            if (text.Name is "Alt bilgi" or "Footer")
             {
-                text.Text = company.Footer.Length > 0 ? company.Footer : company.DisplayName;
+                text.Text = company.Footer.Length > 0 ? company.Footer : (english && string.IsNullOrWhiteSpace(company.Name) ? "Your Company" : company.DisplayName);
                 text.AutoShrink = true;
                 text.WordWrap = false;
             }
@@ -358,7 +358,7 @@ public static class SampleTemplates
                 qr.Content = site.AbsoluteUri;
         }
         // Ürün etiketi altındaki boşluk firma adresine ayrılır; ürün barkodu değişmez.
-        if (company.Footer.Length > 0 && (project.Document.Name is ProductLabelName or BatchLabelName))
+        if (company.Footer.Length > 0 && (project.Document.Name is ProductLabelName or BatchLabelName or "Product Label 100x100" or "Excel Batch Product Label 100x100"))
         {
             foreach (var barcode in project.Document.Elements.OfType<BarcodeElement>().Where(b => b.Symbology == BarcodeType.Ean13))
                 barcode.Height = 24;

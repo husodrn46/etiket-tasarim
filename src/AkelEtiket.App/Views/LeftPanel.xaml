@@ -1,4 +1,4 @@
-<UserControl x:Class="AkelEtiket.App.Views.LeftPanel"
+<UserControl xmlns:loc="clr-namespace:AkelEtiket.App.Localization" x:Class="AkelEtiket.App.Views.LeftPanel"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:AkelEtiket.Editor.ViewModels;assembly=AkelEtiket.Editor"
@@ -8,7 +8,7 @@
         <!-- Barkod türü kartı -->
         <DataTemplate x:Key="BarcodeTypeCard">
             <Button Style="{StaticResource Button.Card}" Command="{Binding DataContext.AddBarcodeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                    CommandParameter="{Binding Type}" ToolTip="Tuvale ekle">
+                    CommandParameter="{Binding Type}" ToolTip="{loc:Text T_4615c1fde964}">
                 <StackPanel>
                     <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold" FontSize="13" />
                     <TextBlock Text="{Binding Description}" Style="{StaticResource Text.Hint}" Margin="0,3,0,0" />
@@ -33,33 +33,33 @@
             <!-- ───────── METİN ───────── -->
             <ScrollViewer Visibility="{Binding ActivePanel, Converter={StaticResource EqualsToVisibility}, ConverterParameter=Text}" VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="16,14,16,16">
-                    <TextBlock Text="Metin" Style="{StaticResource Text.Title}" />
-                    <TextBlock Text="Tıklayınca etiketin ortasına eklenir ve hemen yazabilirsiniz (Enter: bitir, Shift+Enter: yeni satır). Tuvaldeki metni çift tıklayarak ya da seçip Enter'a basarak düzenleyin." Style="{StaticResource Text.Hint}" Margin="0,4,0,12" />
+                    <TextBlock Text="{loc:Text T_80422e38652c}" Style="{StaticResource Text.Title}" />
+                    <TextBlock Text="{loc:Text T_459749e7125d}" Style="{StaticResource Text.Hint}" Margin="0,4,0,12" />
                     <Button Style="{StaticResource Button.Card}" Command="{Binding AddTextStyleCommand}" CommandParameter="Baslik">
-                        <TextBlock Text="Başlık ekle" FontSize="20" FontWeight="Bold" />
+                        <TextBlock Text="{loc:Text T_ca3dbfdf6cb1}" FontSize="20" FontWeight="Bold" />
                     </Button>
                     <Button Style="{StaticResource Button.Card}" Command="{Binding AddTextStyleCommand}" CommandParameter="AltBaslik">
-                        <TextBlock Text="Alt başlık ekle" FontSize="15" FontWeight="SemiBold" />
+                        <TextBlock Text="{loc:Text T_ec61779edece}" FontSize="15" FontWeight="SemiBold" />
                     </Button>
                     <Button Style="{StaticResource Button.Card}" Command="{Binding AddTextStyleCommand}" CommandParameter="Govde">
-                        <TextBlock Text="Metin ekle" FontSize="13" />
+                        <TextBlock Text="{loc:Text T_06455df7d342}" FontSize="13" />
                     </Button>
                     <Button Style="{StaticResource Button.Card}" Command="{Binding AddTextStyleCommand}" CommandParameter="Kucuk">
-                        <TextBlock Text="Küçük metin ekle" FontSize="11" />
+                        <TextBlock Text="{loc:Text T_34658ade9050}" FontSize="11" />
                     </Button>
 
-                    <TextBlock Text="DEĞİŞKEN ALANLAR" Style="{StaticResource Text.Section}" />
+                    <TextBlock Text="{loc:Text T_b0cfe2154b74}" Style="{StaticResource Text.Section}" />
                     <TextBlock Style="{StaticResource Text.Hint}" Margin="0,0,0,8"
-                               Text="Metne {SütunAdı} yazarak Excel/CSV verisine bağlayın. Seçili metne eklemek veya yeni metin oluşturmak için tıklayın." />
+                               Text="{loc:Text T_9f8dd932de3b}" />
                     <WrapPanel>
-                        <Button Content="{}{TARIH}" Margin="0,0,6,6" Command="{Binding InsertFieldCommand}" CommandParameter="TARIH" ToolTip="Bugünün tarihi (gg.aa.yyyy)" />
-                        <Button Content="{}{SAAT}" Margin="0,0,6,6" Command="{Binding InsertFieldCommand}" CommandParameter="SAAT" ToolTip="Saat (ss:dd)" />
-                        <Button Content="{}{SIRA:0000}" Margin="0,0,6,6" Command="{Binding InsertFieldCommand}" CommandParameter="SIRA:0000" ToolTip="Toplu baskıda sıra numarası (0001, 0002…)" />
-                        <Button Content="{}{TARIH+30}" Margin="0,0,6,6" Command="{Binding InsertFieldCommand}" CommandParameter="TARIH+30" ToolTip="30 gün sonraki tarih (son kullanma vb.). Örnekler: {TARIH-7}, {TARIH+2 hafta}, {TARIH+6ay}, {TARIH+1yıl:dd.MM.yyyy}" />
-                        <Button Content="{}{SAYAC:000000}" Margin="0,0,6,6" Command="{Binding InsertFieldCommand}" CommandParameter="SAYAC:000000" ToolTip="Kalıcı seri numarası: her basılan etikette bir artar, program kapansa da kaldığı yerden devam eder. Adlı sayaç için {SAYAC.Koli}. Sayaçları Kaydet düğmesinin yanındaki oktan (Sayaçlar…) ya da Yazdır penceresinden yönetin." />
+                        <Button Content="{}{TARIH}" Margin="0,0,6,6" Command="{Binding InsertFieldCommand}" CommandParameter="TARIH" ToolTip="{loc:Text T_300e04bff0de}" />
+                        <Button Content="{}{SAAT}" Margin="0,0,6,6" Command="{Binding InsertFieldCommand}" CommandParameter="SAAT" ToolTip="{loc:Text T_e9025a1ed686}" />
+                        <Button Content="{}{SIRA:0000}" Margin="0,0,6,6" Command="{Binding InsertFieldCommand}" CommandParameter="SIRA:0000" ToolTip="{loc:Text T_b0c8114dcd65}" />
+                        <Button Content="{}{TARIH+30}" Margin="0,0,6,6" Command="{Binding InsertFieldCommand}" CommandParameter="TARIH+30" ToolTip="{loc:Text T_5d83ebf4f387}" />
+                        <Button Content="{}{SAYAC:000000}" Margin="0,0,6,6" Command="{Binding InsertFieldCommand}" CommandParameter="SAYAC:000000" ToolTip="{loc:Text T_66aab99a1f9c}" />
                     </WrapPanel>
                     <TextBlock Style="{StaticResource Text.Hint}" Margin="0,0,0,6" TextWrapping="Wrap"
-                               Text="Harf dönüşümü: {Alan:BUYUK}, {Alan:KUCUK}, {Alan:BASHARF} (Türkçe i/İ, ı/I doğru). Biçimle birlikte: {TARIH:dd MMMM yyyy|BUYUK}." />
+                               Text="{loc:Text T_3ac40db3ff20}" />
                     <ItemsControl ItemsSource="{Binding Data.Columns}" Margin="0,4,0,0">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -69,7 +69,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Button Margin="0,0,6,6" Command="{Binding DataContext.InsertFieldCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                        CommandParameter="{Binding}" ToolTip="Veri sütununu ekle">
+                                        CommandParameter="{Binding}" ToolTip="{loc:Text T_8be82d7983e0}">
                                     <TextBlock>
                                         <Run Text="{}{" /><Run Text="{Binding Mode=OneWay}" /><Run Text="}" />
                                     </TextBlock>
@@ -79,15 +79,15 @@
                     </ItemsControl>
                     <TextBlock Style="{StaticResource Text.Hint}" Margin="0,4,0,0"
                                Visibility="{Binding Data.HasData, Converter={StaticResource BoolToVisibility}, ConverterParameter=Invert}"
-                               Text="Excel/CSV yüklenince sütunlar burada listelenir (Veri sekmesi)." />
+                               Text="{loc:Text T_a722139f39be}" />
                 </StackPanel>
             </ScrollViewer>
 
             <!-- ───────── BARKOD ───────── -->
             <ScrollViewer Visibility="{Binding ActivePanel, Converter={StaticResource EqualsToVisibility}, ConverterParameter=Barcode}" VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="16,14,16,16">
-                    <TextBlock Text="Barkod" Style="{StaticResource Text.Title}" />
-                    <TextBlock Text="Tüm barkodlar yazıcı noktasına hizalı, tam sayı modül genişliğiyle üretilir ve okunarak doğrulanabilir." Style="{StaticResource Text.Hint}" Margin="0,4,0,12" />
+                    <TextBlock Text="{loc:Text T_13be6cbab43a}" Style="{StaticResource Text.Title}" />
+                    <TextBlock Text="{loc:Text T_e3d915886d27}" Style="{StaticResource Text.Hint}" Margin="0,4,0,12" />
                     <ItemsControl ItemsSource="{Binding LinearBarcodeTypes}" ItemTemplate="{StaticResource BarcodeTypeCard}" />
                 </StackPanel>
             </ScrollViewer>
@@ -95,8 +95,8 @@
             <!-- ───────── QR / 2B ───────── -->
             <ScrollViewer Visibility="{Binding ActivePanel, Converter={StaticResource EqualsToVisibility}, ConverterParameter=QrCode}" VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="16,14,16,16">
-                    <TextBlock Text="QR ve 2B kodlar" Style="{StaticResource Text.Title}" />
-                    <TextBlock Text="Türkçe karakterler (ğüşıöç) desteklenir. Telefonla okuma için modül en az 3 nokta (0,375 mm) önerilir." Style="{StaticResource Text.Hint}" Margin="0,4,0,12" />
+                    <TextBlock Text="{loc:Text T_ed28d3442ea0}" Style="{StaticResource Text.Title}" />
+                    <TextBlock Text="{loc:Text T_0907f493150a}" Style="{StaticResource Text.Hint}" Margin="0,4,0,12" />
                     <ItemsControl ItemsSource="{Binding MatrixBarcodeTypes}" ItemTemplate="{StaticResource BarcodeTypeCard}" />
                 </StackPanel>
             </ScrollViewer>
@@ -104,23 +104,23 @@
             <!-- ───────── GÖRSEL ───────── -->
             <ScrollViewer Visibility="{Binding ActivePanel, Converter={StaticResource EqualsToVisibility}, ConverterParameter=Image}" VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="16,14,16,16">
-                    <TextBlock Text="Görsel" Style="{StaticResource Text.Title}" />
+                    <TextBlock Text="{loc:Text T_5694c05b1a70}" Style="{StaticResource Text.Title}" />
                     <Button Style="{StaticResource Button.Accent}" Command="{Binding AddImageCommand}" Margin="0,12,0,10" Padding="12,9">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Image}" />
-                            <TextBlock Text="Dosyadan görsel ekle" Margin="8,0,0,0" />
+                            <TextBlock Text="{loc:Text T_122a47549d70}" Margin="8,0,0,0" />
                         </StackPanel>
                     </Button>
                     <Border BorderBrush="{DynamicResource Brush.BorderStrong}" BorderThickness="1.5" CornerRadius="10" Padding="14,18" Background="{DynamicResource Brush.Panel2}">
                         <StackPanel>
                             <TextBlock Text="{StaticResource Glyph.Image}" Style="{StaticResource Text.Glyph}" FontSize="26" Foreground="{DynamicResource Brush.TextSecondary}" />
-                            <TextBlock Text="Görselleri tuvale sürükleyip bırakın veya panodan yapıştırın (Ctrl+V)" TextAlignment="Center"
+                            <TextBlock Text="{loc:Text T_e2101624fb1d}" TextAlignment="Center"
                                        Style="{StaticResource Text.Hint}" Margin="0,8,0,0" />
                         </StackPanel>
                     </Border>
-                    <TextBlock Text="HAZIR SİMGELER" Style="{StaticResource Text.Section}" />
+                    <TextBlock Text="{loc:Text T_b5bb050ab092}" Style="{StaticResource Text.Section}" />
                     <TextBlock Style="{StaticResource Text.Hint}" Margin="0,0,0,8"
-                               Text="Ürün kullanım ve koli işaretleri. Tıklayınca etiketin ortasına keskin siyah-beyaz (Logo yöntemi) eklenir; boyutu tutamaçlardan değiştirilir. Tescilli işaretler (Yeşil Nokta, CE vb.) bulunmaz." />
+                               Text="{loc:Text T_e924b2fe041b}" />
                     <ItemsControl ItemsSource="{Binding Symbols}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -144,71 +144,71 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                    <TextBlock Text="BİÇİMLER" Style="{StaticResource Text.Section}" />
-                    <TextBlock Style="{StaticResource Text.Hint}" Text="PNG, JPG, JPEG, BMP, GIF, WEBP ve SVG. Orijinal dosya projeye gömülür; ayarlar her seferinde orijinalden uygulanır, kalite kaybı birikmez." />
-                    <TextBlock Text="SİYAH-BEYAZ DÖNÜŞÜM" Style="{StaticResource Text.Section}" />
-                    <TextBlock Style="{StaticResource Text.Hint}" Text="Eklenen her görsel termal baskıya uygun 1-bit siyah-beyaza dönüştürülür. Logo/çizim için keskin eşikleme, fotoğraf için detay koruyan dithering otomatik seçilir; sağ panelden yöntem, eşik, parlaklık, kontrast, ters çevirme, sığdırma ve kırpma ayarlanabilir. Şeffaf alanlar beyaz basılır." />
+                    <TextBlock Text="{loc:Text T_9cf4f251fc80}" Style="{StaticResource Text.Section}" />
+                    <TextBlock Style="{StaticResource Text.Hint}" Text="{loc:Text T_567bac84e5ff}" />
+                    <TextBlock Text="{loc:Text T_be2977ad7b39}" Style="{StaticResource Text.Section}" />
+                    <TextBlock Style="{StaticResource Text.Hint}" Text="{loc:Text T_307a221c7ed5}" />
                 </StackPanel>
             </ScrollViewer>
 
             <!-- ───────── ŞEKİL ───────── -->
             <ScrollViewer Visibility="{Binding ActivePanel, Converter={StaticResource EqualsToVisibility}, ConverterParameter=Shapes}" VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="16,14,10,16">
-                    <TextBlock Text="Şekiller" Style="{StaticResource Text.Title}" />
-                    <TextBlock Text="Kenar kalınlıkları baskıda tam yazıcı noktasına yuvarlanır." Style="{StaticResource Text.Hint}" Margin="0,4,0,12" />
+                    <TextBlock Text="{loc:Text T_36a6fb9dac11}" Style="{StaticResource Text.Title}" />
+                    <TextBlock Text="{loc:Text T_a0bc30f18b9d}" Style="{StaticResource Text.Hint}" Margin="0,4,0,12" />
                     <WrapPanel>
                         <Button Style="{StaticResource ShapeButton}" Command="{Binding AddShapeCommand}" CommandParameter="Rectangle">
                             <StackPanel>
                                 <Path Style="{StaticResource Path.Icon}" Width="26" Height="26" Data="{StaticResource Icon.Rectangle}" />
-                                <TextBlock Text="Dikdörtgen" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
+                                <TextBlock Text="{loc:Text T_d0a7782b0e67}" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
                             </StackPanel>
                         </Button>
                         <Button Style="{StaticResource ShapeButton}" Command="{Binding AddShapeCommand}" CommandParameter="RoundRect">
                             <StackPanel>
                                 <Path Style="{StaticResource Path.Icon}" Width="26" Height="26" Data="{StaticResource Icon.RoundRect}" />
-                                <TextBlock Text="Yuvarlak köşe" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
+                                <TextBlock Text="{loc:Text T_ef891fba0870}" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
                             </StackPanel>
                         </Button>
                         <Button Style="{StaticResource ShapeButton}" Command="{Binding AddShapeCommand}" CommandParameter="Circle">
                             <StackPanel>
                                 <Path Style="{StaticResource Path.Icon}" Width="26" Height="26" Data="{StaticResource Icon.Circle}" />
-                                <TextBlock Text="Daire" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
+                                <TextBlock Text="{loc:Text T_436afd8b2eb9}" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
                             </StackPanel>
                         </Button>
                         <Button Style="{StaticResource ShapeButton}" Command="{Binding AddShapeCommand}" CommandParameter="Ellipse">
                             <StackPanel>
                                 <Path Style="{StaticResource Path.Icon}" Width="26" Height="26" Data="{StaticResource Icon.Ellipse}" />
-                                <TextBlock Text="Elips" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
+                                <TextBlock Text="{loc:Text T_220b8926fd40}" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
                             </StackPanel>
                         </Button>
                         <Button Style="{StaticResource ShapeButton}" Command="{Binding AddShapeCommand}" CommandParameter="HLine">
                             <StackPanel>
                                 <Path Style="{StaticResource Path.Icon}" Width="26" Height="26" Data="{StaticResource Icon.HLine}" />
-                                <TextBlock Text="Yatay çizgi" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
+                                <TextBlock Text="{loc:Text T_3bdc43dad304}" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
                             </StackPanel>
                         </Button>
                         <Button Style="{StaticResource ShapeButton}" Command="{Binding AddShapeCommand}" CommandParameter="VLine">
                             <StackPanel>
                                 <Path Style="{StaticResource Path.Icon}" Width="26" Height="26" Data="{StaticResource Icon.VLine}" />
-                                <TextBlock Text="Dikey çizgi" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
+                                <TextBlock Text="{loc:Text T_082a2d588e00}" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
                             </StackPanel>
                         </Button>
                         <Button Style="{StaticResource ShapeButton}" Command="{Binding AddShapeCommand}" CommandParameter="DLine">
                             <StackPanel>
                                 <Path Style="{StaticResource Path.Icon}" Width="26" Height="26" Data="{StaticResource Icon.DLine}" />
-                                <TextBlock Text="Çapraz çizgi" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
+                                <TextBlock Text="{loc:Text T_749ef784c3d2}" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
                             </StackPanel>
                         </Button>
                         <Button Style="{StaticResource ShapeButton}" Command="{Binding AddShapeCommand}" CommandParameter="FilledRect">
                             <StackPanel>
                                 <Path Style="{StaticResource Path.Icon}" Width="26" Height="26" Data="{StaticResource Icon.FilledRect}" />
-                                <TextBlock Text="Siyah şerit" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
+                                <TextBlock Text="{loc:Text T_cd814c1c035f}" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
                             </StackPanel>
                         </Button>
                         <Button Style="{StaticResource ShapeButton}" Command="{Binding AddShapeCommand}" CommandParameter="Frame">
                             <StackPanel>
                                 <Path Style="{StaticResource Path.Icon}" Width="26" Height="26" Data="{StaticResource Icon.Frame}" />
-                                <TextBlock Text="Etiket çerçevesi" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
+                                <TextBlock Text="{loc:Text T_afdffe699908}" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
                             </StackPanel>
                         </Button>
                     </WrapPanel>
@@ -219,28 +219,28 @@
             <DockPanel Visibility="{Binding ActivePanel, Converter={StaticResource EqualsToVisibility}, ConverterParameter=Templates}" Margin="16,14,16,12">
                 <StackPanel DockPanel.Dock="Top">
                     <DockPanel>
-                        <Button DockPanel.Dock="Right" Style="{StaticResource Button.Icon}" Command="{Binding Templates.RefreshCommand}" ToolTip="Yenile">
+                        <Button DockPanel.Dock="Right" Style="{StaticResource Button.Icon}" Command="{Binding Templates.RefreshCommand}" ToolTip="{loc:Text T_63cd725787a8}">
                             <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Refresh}" FontSize="14" />
                         </Button>
-                        <Button DockPanel.Dock="Right" Style="{StaticResource Button.Icon}" Command="{Binding Templates.OpenFolderCommand}" ToolTip="Şablon klasörünü aç">
+                        <Button DockPanel.Dock="Right" Style="{StaticResource Button.Icon}" Command="{Binding Templates.OpenFolderCommand}" ToolTip="{loc:Text T_2a7c046a4bbf}">
                             <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Folder}" FontSize="14" />
                         </Button>
-                        <TextBlock Text="Şablonlar" Style="{StaticResource Text.Title}" VerticalAlignment="Center" />
+                        <TextBlock Text="{loc:Text T_7856aa3c2171}" Style="{StaticResource Text.Title}" VerticalAlignment="Center" />
                     </DockPanel>
-                    <TextBox Text="{Binding Templates.Query, UpdateSourceTrigger=PropertyChanged, Delay=150}" AutomationProperties.Name="Şablon ara" ToolTip="Şablon adı veya ölçü ara" Margin="0,10,0,6"/>
-                    <ComboBox ItemsSource="{Binding Templates.Categories}" SelectedItem="{Binding Templates.Category}"/>
+                    <TextBox Text="{Binding Templates.Query, UpdateSourceTrigger=PropertyChanged, Delay=150}" AutomationProperties.Name="{loc:Text T_eb80a0cb5755}" ToolTip="{loc:Text T_24e4107ec1a2}" Margin="0,10,0,6"/>
+                    <ComboBox ItemsSource="{Binding Templates.LocalizedCategories}" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding Templates.Category}"/>
                     <TextBlock Text="{Binding Templates.ResultSummary}" Style="{StaticResource Text.Hint}" Margin="0,6,0,0"/>
-                    <Button Content="Mevcut tasarımı şablon olarak kaydet…" Command="{Binding SaveAsTemplateCommand}" Margin="0,10,0,10" HorizontalAlignment="Stretch" />
+                    <Button Content="{loc:Text T_6f5697f24c96}" Command="{Binding SaveAsTemplateCommand}" Margin="0,10,0,10" HorizontalAlignment="Stretch" />
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Bottom" Margin="0,8,0,0">
-                    <Button Style="{StaticResource Button.Accent}" Content="Bu şablonla yeni etiket" Command="{Binding Templates.UseCommand}" CommandParameter="{Binding Templates.SelectedItem}" Margin="0,0,0,6" />
+                    <Button Style="{StaticResource Button.Accent}" Content="{loc:Text T_49af6e145635}" Command="{Binding Templates.UseCommand}" CommandParameter="{Binding Templates.SelectedItem}" Margin="0,0,0,6" />
                     <UniformGrid Columns="4">
-                        <Button Content="Düzenle" Command="{Binding Templates.EditCommand}" CommandParameter="{Binding Templates.SelectedItem}" Margin="0,0,4,0" Padding="4,6" ToolTip="Şablon dosyasının kendisini düzenle" />
-                        <Button Content="Çoğalt" Command="{Binding Templates.DuplicateCommand}" CommandParameter="{Binding Templates.SelectedItem}" Margin="0,0,4,0" Padding="4,6" />
-                        <Button Content="Ad" Command="{Binding Templates.RenameCommand}" CommandParameter="{Binding Templates.SelectedItem}" Margin="0,0,4,0" Padding="4,6" ToolTip="Yeniden adlandır" />
-                        <Button Content="Sil" Command="{Binding Templates.DeleteCommand}" CommandParameter="{Binding Templates.SelectedItem}" Padding="4,6" />
+                        <Button Content="{loc:Text T_ea33b58c1d8e}" Command="{Binding Templates.EditCommand}" CommandParameter="{Binding Templates.SelectedItem}" Margin="0,0,4,0" Padding="4,6" ToolTip="{loc:Text T_91075b416380}" />
+                        <Button Content="{loc:Text T_47ba418cd3f5}" Command="{Binding Templates.DuplicateCommand}" CommandParameter="{Binding Templates.SelectedItem}" Margin="0,0,4,0" Padding="4,6" />
+                        <Button Content="{loc:Text T_1d97c9fec35a}" Command="{Binding Templates.RenameCommand}" CommandParameter="{Binding Templates.SelectedItem}" Margin="0,0,4,0" Padding="4,6" ToolTip="{loc:Text T_2de7525d280c}" />
+                        <Button Content="{loc:Text T_f698e9b40f9f}" Command="{Binding Templates.DeleteCommand}" CommandParameter="{Binding Templates.SelectedItem}" Padding="4,6" />
                     </UniformGrid>
-                    <Button Content="Örnek şablonları geri yükle" Command="{Binding Templates.RestoreSamplesCommand}" Margin="0,6,0,0" />
+                    <Button Content="{loc:Text T_373bf4e53b57}" Command="{Binding Templates.RestoreSamplesCommand}" Margin="0,6,0,0" />
                 </StackPanel>
                 <ListBox ItemsSource="{Binding Templates.Items}" SelectedItem="{Binding Templates.SelectedItem}" MouseDoubleClick="OnTemplateDoubleClick">
                     <ListBox.ItemTemplate>
@@ -267,12 +267,12 @@
             <!-- ───────── VERİ ───────── -->
             <ScrollViewer Visibility="{Binding ActivePanel, Converter={StaticResource EqualsToVisibility}, ConverterParameter=Data}" VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="16,14,16,16">
-                    <TextBlock Text="Veri kaynakları" Style="{StaticResource Text.Title}" />
-                    <TextBlock Text="Excel (XLSX, eski XLS) veya CSV dosyasındaki her satır ayrı bir etiket olur. Barkod sütunları metin olarak okunur; baştaki sıfırlar korunur." Style="{StaticResource Text.Hint}" Margin="0,4,0,12" />
+                    <TextBlock Text="{loc:Text T_1f6eaed5ee84}" Style="{StaticResource Text.Title}" />
+                    <TextBlock Text="{loc:Text T_c67837bfbc7a}" Style="{StaticResource Text.Hint}" Margin="0,4,0,12" />
                     <Button Style="{StaticResource Button.Accent}" Command="{Binding LoadDataCommand}" Padding="12,9">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Data}" />
-                            <TextBlock Text="Excel / CSV dosyası seç" Margin="8,0,0,0" />
+                            <TextBlock Text="{loc:Text T_ed11198cb7ae}" Margin="8,0,0,0" />
                         </StackPanel>
                     </Button>
 
@@ -286,7 +286,7 @@
                         </Border>
 
                         <StackPanel Visibility="{Binding Data.IsExcel, Converter={StaticResource BoolToVisibility}}" Margin="0,10,0,0">
-                            <TextBlock Text="Sayfa" Style="{StaticResource Text.Label}" Margin="0,0,0,4" />
+                            <TextBlock Text="{loc:Text T_6b2c64c33c7d}" Style="{StaticResource Text.Label}" Margin="0,0,0,4" />
                             <ComboBox ItemsSource="{Binding Data.SheetNames}" SelectedItem="{Binding Data.SelectedSheet}" />
                         </StackPanel>
                         <Grid Visibility="{Binding Data.IsCsv, Converter={StaticResource BoolToVisibility}}" Margin="0,10,0,0">
@@ -296,42 +296,42 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <StackPanel>
-                                <TextBlock Text="Karakter kodlaması" Style="{StaticResource Text.Label}" Margin="0,0,0,4" />
+                                <TextBlock Text="{loc:Text T_533f1b8bdf28}" Style="{StaticResource Text.Label}" Margin="0,0,0,4" />
                                 <ComboBox ItemsSource="{Binding Data.EncodingChoices}" SelectedItem="{Binding Data.SelectedEncoding}" DisplayMemberPath="DisplayName" />
                             </StackPanel>
                             <StackPanel Grid.Column="2">
-                                <TextBlock Text="Ayırıcı" Style="{StaticResource Text.Label}" Margin="0,0,0,4" />
+                                <TextBlock Text="{loc:Text T_d84e4cec0cf5}" Style="{StaticResource Text.Label}" Margin="0,0,0,4" />
                                 <ComboBox ItemsSource="{Binding Data.DelimiterChoices}" SelectedItem="{Binding Data.SelectedDelimiter}" DisplayMemberPath="DisplayName" />
                             </StackPanel>
                         </Grid>
 
-                        <TextBlock Text="ÖNİZLEME SATIRI" Style="{StaticResource Text.Section}" />
+                        <TextBlock Text="{loc:Text T_82b8884018aa}" Style="{StaticResource Text.Section}" />
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Button Style="{StaticResource Button.Icon}" Command="{Binding Data.PreviousPreviewCommand}" ToolTip="Önceki satır">
+                            <Button Style="{StaticResource Button.Icon}" Command="{Binding Data.PreviousPreviewCommand}" ToolTip="{loc:Text T_5a59a76009d6}">
                                 <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.ChevronLeft}" FontSize="12" />
                             </Button>
                             <TextBlock Grid.Column="1" Text="{Binding Data.PreviewText}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            <Button Grid.Column="2" Style="{StaticResource Button.Icon}" Command="{Binding Data.NextPreviewCommand}" ToolTip="Sonraki satır">
+                            <Button Grid.Column="2" Style="{StaticResource Button.Icon}" Command="{Binding Data.NextPreviewCommand}" ToolTip="{loc:Text T_5b693271b7a2}">
                                 <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.ChevronRight}" FontSize="12" />
                             </Button>
                         </Grid>
-                        <Button Content="Tabloyu aç: satır seçimi ve adetler…" Margin="0,10,0,0" Click="OnOpenDataTable" />
+                        <Button Content="{loc:Text T_47d7b12105b7}" Margin="0,10,0,0" Click="OnOpenDataTable" />
 
-                        <TextBlock Text="ADET SÜTUNU" Style="{StaticResource Text.Section}" />
-                        <ComboBox ItemsSource="{Binding Data.Columns}" SelectedItem="{Binding Data.CopiesColumn}" ToolTip="Her satırın kaç adet basılacağı bu sütundan okunur" />
+                        <TextBlock Text="{loc:Text T_fe205c7a5f9e}" Style="{StaticResource Text.Section}" />
+                        <ComboBox ItemsSource="{Binding Data.Columns}" SelectedItem="{Binding Data.CopiesColumn}" ToolTip="{loc:Text T_04ecfee5c483}" />
 
-                        <TextBlock Text="SÜTUNLAR (tıklayınca etikete bağlanır)" Style="{StaticResource Text.Section}" />
+                        <TextBlock Text="{loc:Text T_1c39c043b395}" Style="{StaticResource Text.Section}" />
                         <ItemsControl ItemsSource="{Binding Data.Columns}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Button Style="{StaticResource Button.Card}" Margin="0,0,0,4" Padding="10,6"
                                             Command="{Binding DataContext.InsertFieldCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"
-                                            ToolTip="Seçili metne/barkoda bağla; seçim yoksa yeni metin oluştur">
+                                            ToolTip="{loc:Text T_a6d58bc760b7}">
                                         <DockPanel>
                                             <TextBlock DockPanel.Dock="Right" Text="{StaticResource Glyph.Add}" Style="{StaticResource Text.Glyph}" FontSize="11" />
                                             <TextBlock Text="{Binding}" FontWeight="SemiBold" />
@@ -341,7 +341,7 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
 
-                        <TextBlock Text="VERİ UYARILARI" Style="{StaticResource Text.Section}"
+                        <TextBlock Text="{loc:Text T_b5a038364a82}" Style="{StaticResource Text.Section}"
                                    Visibility="{Binding Data.Issues, Converter={StaticResource NullToVisibility}}" />
                         <ItemsControl ItemsSource="{Binding Data.Issues}" MaxHeight="260">
                             <ItemsControl.Template>
@@ -359,26 +359,26 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
 
-                        <Button Content="Veri kaynağını kaldır" Command="{Binding ClearDataCommand}" Margin="0,12,0,0" />
+                        <Button Content="{loc:Text T_7c45b4a6739b}" Command="{Binding ClearDataCommand}" Margin="0,12,0,0" />
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>
 
             <!-- ───────── KATMANLAR ───────── -->
             <DockPanel Visibility="{Binding ActivePanel, Converter={StaticResource EqualsToVisibility}, ConverterParameter=Layers}" Margin="12,14,12,12">
-                <TextBlock DockPanel.Dock="Top" Text="Katmanlar" Style="{StaticResource Text.Title}" Margin="4,0,0,4" />
-                <TextBlock DockPanel.Dock="Top" Text="Üstteki öğe en önde basılır." Style="{StaticResource Text.Hint}" Margin="4,0,0,10" />
+                <TextBlock DockPanel.Dock="Top" Text="{loc:Text T_20e905dc87dc}" Style="{StaticResource Text.Title}" Margin="4,0,0,4" />
+                <TextBlock DockPanel.Dock="Top" Text="{loc:Text T_fe52071efa3f}" Style="{StaticResource Text.Hint}" Margin="4,0,0,10" />
                 <UniformGrid DockPanel.Dock="Bottom" Columns="4" Margin="0,8,0,0">
-                    <Button Command="{Binding BringForwardCommand}" ToolTip="Öne getir" Margin="0,0,4,0">
+                    <Button Command="{Binding BringForwardCommand}" ToolTip="{loc:Text T_0e155665a54b}" Margin="0,0,4,0">
                         <Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.BringForward}" />
                     </Button>
-                    <Button Command="{Binding SendBackwardCommand}" ToolTip="Arkaya gönder" Margin="0,0,4,0">
+                    <Button Command="{Binding SendBackwardCommand}" ToolTip="{loc:Text T_ac12fe881291}" Margin="0,0,4,0">
                         <Path Style="{StaticResource Path.Icon}" Data="{StaticResource Icon.SendBackward}" />
                     </Button>
-                    <Button Command="{Binding DuplicateCommand}" ToolTip="Çoğalt" Margin="0,0,4,0">
+                    <Button Command="{Binding DuplicateCommand}" ToolTip="{loc:Text T_47ba418cd3f5}" Margin="0,0,4,0">
                         <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Duplicate}" FontSize="14" />
                     </Button>
-                    <Button Command="{Binding DeleteCommand}" ToolTip="Sil">
+                    <Button Command="{Binding DeleteCommand}" ToolTip="{loc:Text T_f698e9b40f9f}">
                         <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Delete}" FontSize="14" />
                     </Button>
                 </UniformGrid>
@@ -409,12 +409,12 @@
                                            Visibility="{Binding HasErrors, Converter={StaticResource BoolToVisibility}}" />
                                 <Button Grid.Column="3" Style="{StaticResource Button.Icon}" Width="26" Height="24"
                                         Command="{Binding DataContext.ToggleVisibilityCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"
-                                        ToolTip="Göster / gizle">
+                                        ToolTip="{loc:Text T_c20882dfd11e}">
                                     <TextBlock x:Name="Eye" Style="{StaticResource Text.Glyph}" FontSize="13" Text="{StaticResource Glyph.Visible}" />
                                 </Button>
                                 <Button Grid.Column="4" Style="{StaticResource Button.Icon}" Width="26" Height="24"
                                         Command="{Binding DataContext.ToggleElementLockCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"
-                                        ToolTip="Kilitle / kilidi aç">
+                                        ToolTip="{loc:Text T_399de06e1d61}">
                                     <TextBlock x:Name="Lock" Style="{StaticResource Text.Glyph}" FontSize="13" Text="{StaticResource Glyph.Unlock}" Opacity="0.45" />
                                 </Button>
                             </Grid>

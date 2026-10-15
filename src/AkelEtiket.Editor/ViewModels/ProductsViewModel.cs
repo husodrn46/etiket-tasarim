@@ -5,6 +5,7 @@ using AkelEtiket.Design.Data;
 using AkelEtiket.Editor.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -74,10 +75,10 @@ public sealed partial class ProductsViewModel : ObservableObject
         foreach (var product in found) Results.Add(new ProductRowViewModel(product, _catalog.DisplayName(product), extras));
         SelectedProduct = Results.FirstOrDefault(p => p.Key == selectedKey);
         Summary = data.Products.Count == 0
-            ? "Ürün listesi boş. \"Excel/CSV'den aktar\" ile ürünlerinizi bir kez aktarın."
-            : $"{data.Products.Count} ürün · anahtar sütun: {data.KeyColumn} · kaynak: {Path.GetFileName(data.SourceFile)} " +
+            ? L10n.T("Ürün listesi boş. \"Excel/CSV'den aktar\" ile ürünlerinizi bir kez aktarın.")
+            : L10n.T($"{data.Products.Count} ürün · anahtar sütun: {data.KeyColumn} · kaynak: {Path.GetFileName(data.SourceFile)} ") +
               $"({data.ImportedAt.LocalDateTime:dd.MM.yyyy HH:mm})" +
-              (string.IsNullOrWhiteSpace(Query) ? "" : $" · {Results.Count} sonuç{(Results.Count >= MaxShown ? "+" : "")}");
+              (string.IsNullOrWhiteSpace(Query) ? "" : L10n.T($" · {Results.Count} sonuç{(Results.Count >= MaxShown ? "+" : "")}"));
         OnPropertyChanged(nameof(Count));
     }
 
@@ -85,7 +86,7 @@ public sealed partial class ProductsViewModel : ObservableObject
     [RelayCommand]
     private async Task ImportAsync()
     {
-        string? path = _dialogs.ShowOpenFileDialog("Ürün listesi (Excel/CSV)", DataImporter.OpenFileFilter);
+        string? path = _dialogs.ShowOpenFileDialog(L10n.T("Ürün listesi (Excel/CSV)"), DataImporter.OpenFileFilter);
         if (path is null) return;
         await ImportFileAsync(path, keyColumn: null);
     }
@@ -94,27 +95,27 @@ public sealed partial class ProductsViewModel : ObservableObject
     public async Task<bool> ImportFileAsync(string path, string? keyColumn)
     {
         if (_catalog.Data.Products.Count > 0 &&
-            !_dialogs.Confirm("Ürün listesi", $"Mevcut {_catalog.Data.Products.Count} ürünlük liste, seçilen dosyadakilerle değiştirilsin mi?", "Değiştir", "Vazgeç"))
+            !_dialogs.Confirm(L10n.T("Ürün listesi"), L10n.T($"Mevcut {_catalog.Data.Products.Count} ürünlük liste, seçilen dosyadakilerle değiştirilsin mi?"), L10n.T("Değiştir"), L10n.T("Vazgeç")))
             return false;
         try
         {
             var table = await DataImporter.ImportAsync(path);
             if (table.Rows.Count == 0)
             {
-                _dialogs.ShowMessage("Ürün listesi", "Dosyada ürün satırı bulunamadı.", MessageKind.Warning);
+                _dialogs.ShowMessage(L10n.T("Ürün listesi"), L10n.T("Dosyada ürün satırı bulunamadı."), MessageKind.Warning);
                 return false;
             }
             var data = _catalog.Import(table, keyColumn);
             Query = "";
             Refresh();
             int errors = table.Issues.Count(i => i.Severity == ImportIssueSeverity.Error);
-            _dialogs.ShowMessage("Ürün listesi", $"{data.Products.Count} ürün aktarıldı (anahtar sütun: {data.KeyColumn})." +
-                (errors > 0 ? $"\n{errors} satırda veri uyarısı var; ayrıntılar Veri panelinde dosya açılınca görünür." : ""));
+            _dialogs.ShowMessage(L10n.T("Ürün listesi"), L10n.T($"{data.Products.Count} ürün aktarıldı (anahtar sütun: {data.KeyColumn}).") +
+                (errors > 0 ? L10n.T($"\n{errors} satırda veri uyarısı var; ayrıntılar Veri panelinde dosya açılınca görünür.") : ""));
             return true;
         }
         catch (Exception ex) when (ex is DataImportException or IOException or Design.Tools.ToolException)
         {
-            _dialogs.ShowMessage("Ürün listesi", "Aktarılamadı: " + ex.Message, MessageKind.Error);
+            _dialogs.ShowMessage(L10n.T("Ürün listesi"), L10n.T("Aktarılamadı: ") + ex.Message, MessageKind.Error);
             return false;
         }
     }

@@ -53,12 +53,13 @@ CloseApplications=yes
 RestartApplications=no
 
 [Languages]
+Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "turkish"; MessagesFile: "compiler:Languages\Turkish.isl"
 
 [Tasks]
-Name: "desktopicon"; Description: "Masaüstü kısayolu oluştur"; GroupDescription: "Ek simgeler:"
+Name: "desktopicon"; Description: "{cm:DesktopShortcut}"; GroupDescription: "{cm:ExtraIcons}"
 ; Varsayılan olarak işaretsiz: .akelabel dosyaları v1'de açılmaya devam eder.
-Name: "association"; Description: ".akelabel proje dosyalarını Etiket Tasarım ile aç"; GroupDescription: "Dosya ilişkilendirme:"; Flags: unchecked
+Name: "association"; Description: "{cm:FileAssociation}"; GroupDescription: "{cm:AssociationGroup}"; Flags: unchecked
 
 [Files]
 Source: "{#PublishDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -68,16 +69,20 @@ Source: "..\samples\ornek-urunler-1254.csv"; DestDir: "{app}\Örnekler"; Flags: 
 Source: "..\samples\ornek-hatali-veri.csv"; DestDir: "{app}\Örnekler"; Flags: ignoreversion
 Source: "..\samples\*.akelabel"; DestDir: "{app}\Örnekler"; Flags: ignoreversion
 Source: "..\samples\mcp\*"; DestDir: "{app}\Örnekler\mcp"; Flags: ignoreversion
-Source: "..\README.md"; DestDir: "{app}\Belgeler"; DestName: "BENİOKU.md"; Flags: ignoreversion
+Source: "..\README.md"; DestDir: "{app}\Belgeler"; Flags: ignoreversion
+Source: "..\README.tr.md"; DestDir: "{app}\Belgeler"; DestName: "BENİOKU.md"; Flags: ignoreversion
+Source: "..\docs\USER-GUIDE.md"; DestDir: "{app}\Belgeler"; Flags: ignoreversion
+Source: "..\docs\INTERNATIONALIZATION.md"; DestDir: "{app}\Belgeler"; Flags: ignoreversion
+Source: "..\samples\sample-*.csv"; DestDir: "{app}\Örnekler"; Flags: ignoreversion
 Source: "..\docs\GENEL-URUN.md"; DestDir: "{app}\Belgeler"; Flags: ignoreversion
 Source: "..\docs\MIMARI.md"; DestDir: "{app}\Belgeler"; Flags: ignoreversion
 Source: "..\docs\LISANSLAR.md"; DestDir: "{app}\Belgeler"; Flags: ignoreversion
 
 [Icons]
-Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExe}"; Comment: "Etiket ve barkod tasarımı"
-Name: "{group}\Örnek dosyalar"; Filename: "{app}\Örnekler"
-Name: "{group}\Belgeler"; Filename: "{app}\Belgeler"
-Name: "{group}\{#AppName} kaldır"; Filename: "{uninstallexe}"
+Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExe}"; Comment: "{cm:AppDescription}"
+Name: "{group}\{cm:SampleFiles}"; Filename: "{app}\Örnekler"
+Name: "{group}\{cm:Documentation}"; Filename: "{app}\Belgeler"
+Name: "{group}\{cm:UninstallApp}"; Filename: "{uninstallexe}"
 Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExe}"; Tasks: desktopicon
 
 [Registry]
@@ -87,8 +92,28 @@ Root: HKA; Subkey: "Software\Classes\EtiketTasarim.Proje\DefaultIcon"; ValueType
 Root: HKA; Subkey: "Software\Classes\EtiketTasarim.Proje\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#AppExe}"" ""%1"""; Tasks: association
 
 [Run]
-Filename: "{app}\{#AppExe}"; Description: "Etiket Tasarım'yi başlat"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\{#AppExe}"; Description: "{cm:LaunchApp}"; Flags: nowait postinstall skipifsilent
 
 [UninstallDelete]
 ; Kullanıcının şablonları (Belgeler\Etiket Tasarım) ve ayarları bilerek SİLİNMEZ.
 Type: filesandordirs; Name: "{app}\Örnekler"
+
+[CustomMessages]
+english.DesktopShortcut=Create a desktop shortcut
+turkish.DesktopShortcut=Masaüstü kısayolu oluştur
+english.ExtraIcons=Additional icons:
+turkish.ExtraIcons=Ek simgeler:
+english.FileAssociation=Open .akelabel project files with Etiket Tasarım
+turkish.FileAssociation=.akelabel proje dosyalarını Etiket Tasarım ile aç
+english.AssociationGroup=File association:
+turkish.AssociationGroup=Dosya ilişkilendirme:
+english.AppDescription=Label and barcode designer
+turkish.AppDescription=Etiket ve barkod tasarımı
+english.SampleFiles=Sample files
+turkish.SampleFiles=Örnek dosyalar
+english.Documentation=Documentation
+turkish.Documentation=Belgeler
+english.UninstallApp=Uninstall Etiket Tasarım
+turkish.UninstallApp=Etiket Tasarım kaldır
+english.LaunchApp=Launch Etiket Tasarım
+turkish.LaunchApp=Etiket Tasarım uygulamasını başlat

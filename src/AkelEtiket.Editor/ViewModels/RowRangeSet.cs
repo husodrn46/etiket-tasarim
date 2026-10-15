@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -55,7 +56,7 @@ public sealed partial class RowRangeSet
         error = null;
         if (string.IsNullOrWhiteSpace(text))
         {
-            error = $"Satır numaralarını yazın (ör. {Example}).";
+            error = L10n.T($"Satır numaralarını yazın (ör. {Example}).");
             return false;
         }
         string normalized = DashWithSpaces().Replace(text.Trim(), "-");
@@ -65,7 +66,7 @@ public sealed partial class RowRangeSet
             var match = Token().Match(token);
             if (!match.Success)
             {
-                error = $"\"{token}\" anlaşılamadı. Örnek: {Example} (40- yazılırsa 40'tan sona kadar).";
+                error = L10n.T($"\"{token}\" anlaşılamadı. Örnek: {Example} (40- yazılırsa 40'tan sona kadar).");
                 return false;
             }
             int start = int.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture);
@@ -74,12 +75,12 @@ public sealed partial class RowRangeSet
                 : int.MaxValue;
             if (start < 1 || end < 1)
             {
-                error = $"\"{token}\": satır numaraları 1'den başlar.";
+                error = L10n.T($"\"{token}\": satır numaraları 1'den başlar.");
                 return false;
             }
             if (end < start)
             {
-                error = $"\"{token}\": aralığın başı sonundan büyük olamaz.";
+                error = L10n.T($"\"{token}\": aralığın başı sonundan büyük olamaz.");
                 return false;
             }
             ranges.Add(new RowRange(start, end));

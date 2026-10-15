@@ -6,6 +6,7 @@ using AkelEtiket.Core.Model;
 using AkelEtiket.DataImport;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -55,9 +56,9 @@ public sealed partial class DataRowViewModel : ObservableObject
 
     public string StatusText => Status switch
     {
-        RowStatus.Error => "Hatalı",
-        RowStatus.Warning => "Uyarı",
-        _ => "Hazır",
+        RowStatus.Error => L10n.T("Hatalı"),
+        RowStatus.Warning => L10n.T("Uyarı"),
+        _ => L10n.T("Hazır"),
     };
 
     partial void OnStatusChanged(RowStatus value) => OnPropertyChanged(nameof(StatusText));
@@ -113,14 +114,14 @@ public sealed partial class DataSourceViewModel : ObservableObject
     public IReadOnlyList<string> Columns => Table?.Columns ?? [];
 
     public string Summary => Table is null
-        ? "Veri kaynağı yüklenmedi."
-        : $"{Table.FileName} • {Table.Rows.Count} satır • {Table.Columns.Count} sütun" +
+        ? L10n.T("Veri kaynağı yüklenmedi.")
+        : L10n.T($"{Table.FileName} • {Table.Rows.Count} satır • {Table.Columns.Count} sütun") +
           (Table.ErrorCount > 0 ? $" • {Table.ErrorCount} hata" : "") +
-          (Table.WarningCount > 0 ? $" • {Table.WarningCount} uyarı" : "");
+          (Table.WarningCount > 0 ? L10n.T($" • {Table.WarningCount} uyarı") : "");
 
     public DataRowViewModel? PreviewRow => PreviewIndex >= 0 && PreviewIndex < Rows.Count ? Rows[PreviewIndex] : null;
 
-    public string PreviewText => PreviewRow is null ? "—" : $"{PreviewIndex + 1} / {Rows.Count} (satır {PreviewRow.RowNumber})";
+    public string PreviewText => PreviewRow is null ? "—" : L10n.T($"{PreviewIndex + 1} / {Rows.Count} (satır {PreviewRow.RowNumber})");
 
     public int SelectedLabelCount => Rows.Where(r => r.IsSelected && r.Status != RowStatus.Error).Sum(r => r.Copies);
 
@@ -169,7 +170,7 @@ public sealed partial class DataSourceViewModel : ObservableObject
             foreach (var row in Rows) row.PropertyChanged += OnRowPropertyChanged;
             Issues.Clear();
             foreach (var issue in table.Issues) Issues.Add(issue);
-            CopiesColumn = table.Columns.FirstOrDefault(c => FieldNames.Normalize(c) is "adet" or "miktar" or "kopya" or "etiketadedi" or "etiketsayisi");
+            CopiesColumn = table.Columns.FirstOrDefault(c => FieldNames.Normalize(c) is "adet" or "miktar" or "kopya" or "etiketadedi" or "etiketsayisi" or "quantity" or "qty" or "copies" or "count");
             PreviewIndex = Rows.Count > 0 ? 0 : -1;
         }
         finally
@@ -355,7 +356,7 @@ public sealed partial class DataSourceViewModel : ObservableObject
             if (missingColumns.Count > 0)
             {
                 status = RowStatus.Error;
-                problems.Add("Veride olmayan alan: " + string.Join(", ", missingColumns.Select(FieldTemplate.MakePlaceholder)));
+                problems.Add(L10n.T("Veride olmayan alan: ") + string.Join(", ", missingColumns.Select(FieldTemplate.MakePlaceholder)));
             }
             if (barcodes.Count > 0 || dateTexts.Count > 0)
             {
@@ -394,8 +395,8 @@ public sealed partial class DataSourceViewModel : ObservableObject
             else if (status == RowStatus.Warning) warnings++;
         }
         ValidationSummary = errors == 0 && warnings == 0
-            ? $"{Rows.Count} satırın tamamı yazdırmaya hazır."
-            : $"{Rows.Count - errors} satır yazdırılabilir, {errors} satır hatalı" + (warnings > 0 ? $", {warnings} satırda uyarı var." : ".");
+            ? L10n.T($"{Rows.Count} satırın tamamı yazdırmaya hazır.")
+            : L10n.T($"{Rows.Count - errors} satır yazdırılabilir, {errors} satır hatalı") + (warnings > 0 ? L10n.T($", {warnings} satırda uyarı var.") : ".");
         OnPropertyChanged(nameof(SelectedLabelCount));
         RefreshVisibleRows(); // durum ve sorun metni değişti: "yalnızca hatalı" ve arama sonucu güncellenir
     }

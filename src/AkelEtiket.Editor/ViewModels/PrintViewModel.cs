@@ -12,6 +12,7 @@ using AkelEtiket.ProjectManager;
 using AkelEtiket.Rendering;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -76,7 +77,7 @@ public sealed partial class PrintViewModel : ObservableObject
         SingleJob = s.SingleJob;
         VerifyBarcodes = main.Settings.VerifyBarcodesBeforePrint;
         UseData = main.Data.HasData && main.Session.Document.HasFieldPlaceholders;
-        _title = preset?.Title ?? "Baskı";
+        _title = preset?.Title ?? L10n.T("Baskı");
         if (preset is not null)
         {
             if (preset.UseData is { } useData) UseData = useData && main.Data.HasData;
@@ -196,35 +197,35 @@ public sealed partial class PrintViewModel : ObservableObject
 
     public IReadOnlyList<KeyValuePair<PrintMethod, string>> MethodChoices { get; } =
     [
-        new(PrintMethod.TsplRaw, "TSPL doğrudan (RAW) — önerilen"),
-        new(PrintMethod.WindowsDriver, "Windows sürücüsü üzerinden"),
+        new(PrintMethod.TsplRaw, L10n.T("TSPL doğrudan (RAW) — önerilen")),
+        new(PrintMethod.WindowsDriver, L10n.T("Windows sürücüsü üzerinden")),
     ];
 
     public IReadOnlyList<KeyValuePair<TearMode, string>> TearChoices { get; } =
     [
-        new(TearMode.Unchanged, "Yazıcı ayarını değiştirme"),
-        new(TearMode.On, "Yırtma konumu açık"),
-        new(TearMode.Off, "Yırtma konumu kapalı"),
+        new(TearMode.Unchanged, L10n.T("Yazıcı ayarını değiştirme")),
+        new(TearMode.On, L10n.T("Yırtma konumu açık")),
+        new(TearMode.Off, L10n.T("Yırtma konumu kapalı")),
     ];
 
     public IReadOnlyList<KeyValuePair<MediaType, string>> MediaChoices { get; } =
     [
-        new(MediaType.Gap, "Boşluklu etiket (gap)"),
-        new(MediaType.BlackMark, "Siyah işaretli"),
-        new(MediaType.Continuous, "Sürekli rulo"),
+        new(MediaType.Gap, L10n.T("Boşluklu etiket (gap)")),
+        new(MediaType.BlackMark, L10n.T("Siyah işaretli")),
+        new(MediaType.Continuous, L10n.T("Sürekli rulo")),
     ];
 
     public string MethodHint => IsTspl
-        ? "Etiket yazıcı çözünürlüğünde 1-bit görüntü olarak üretilir ve TSPL BITMAP komutuyla doğrudan yazıcıya gönderilir. Ölçekleme yapılmaz."
-        : "Görüntü sürücünün bildirdiği gerçek çözünürlükte üretilip ölçeklemeden basılır. Sürücünün kağıt ayarları ve kenar boşlukları geçerlidir.";
+        ? L10n.T("Etiket yazıcı çözünürlüğünde 1-bit görüntü olarak üretilir ve TSPL BITMAP komutuyla doğrudan yazıcıya gönderilir. Ölçekleme yapılmaz.")
+        : L10n.T("Görüntü sürücünün bildirdiği gerçek çözünürlükte üretilip ölçeklemeden basılır. Sürücünün kağıt ayarları ve kenar boşlukları geçerlidir.");
 
-    public string PrinterStatusText => SelectedPrinter is null ? "Yazıcı seçilmedi" : SelectedPrinter.StatusText;
+    public string PrinterStatusText => SelectedPrinter is null ? L10n.T("Yazıcı seçilmedi") : SelectedPrinter.StatusText;
 
     public string? PrinterHint => SelectedPrinter switch
     {
         null => null,
-        { IsXp470B: true } => "Xprinter XP-470B algılandı (203 DPI, en fazla 108 mm baskı genişliği).",
-        { IsLikelyTsplPrinter: false } when IsTspl => "Bu yazıcı TSPL desteklemiyor olabilir; TSPL yalnızca etiket yazıcılarında çalışır. Normal yazıcılar için \"Windows sürücüsü\" yöntemini seçin.",
+        { IsXp470B: true } => L10n.T("Xprinter XP-470B algılandı (203 DPI, en fazla 108 mm baskı genişliği)."),
+        { IsLikelyTsplPrinter: false } when IsTspl => L10n.T("Bu yazıcı TSPL desteklemiyor olabilir; TSPL yalnızca etiket yazıcılarında çalışır. Normal yazıcılar için \"Windows sürücüsü\" yöntemini seçin."),
         _ => null,
     };
 
@@ -236,9 +237,9 @@ public sealed partial class PrintViewModel : ObservableObject
             {
                 int rows = _main.Data.Rows.Count(r => r.IsSelected && r.Copies > 0 && r.Status != RowStatus.Error);
                 int errors = _main.Data.Rows.Count(r => r.IsSelected && r.Status == RowStatus.Error);
-                return $"{rows} satırdan toplam {_main.Data.SelectedLabelCount} etiket basılacak" + (errors > 0 ? $" ({errors} hatalı satır atlanacak)." : ".");
+                return L10n.T($"{rows} satırdan toplam {_main.Data.SelectedLabelCount} etiket basılacak") + (errors > 0 ? L10n.T($" ({errors} hatalı satır atlanacak).") : ".");
             }
-            return Copies == 1 ? "1 etiket basılacak." : $"{Copies} etiket basılacak.";
+            return Copies == 1 ? L10n.T("1 etiket basılacak.") : L10n.T($"{Copies} etiket basılacak.");
         }
     }
 
@@ -295,7 +296,7 @@ public sealed partial class PrintViewModel : ObservableObject
         {
             var printer = Printers.FirstOrDefault(p => string.Equals(p.Name, profile.PrinterName, StringComparison.OrdinalIgnoreCase));
             if (printer is not null) SelectedPrinter = printer;
-            else warnings.Add($"Profildeki \"{profile.PrinterName}\" yazıcısı bu bilgisayarda bulunamadı; mevcut yazıcı seçimi korundu.");
+            else warnings.Add(L10n.T($"Profildeki \"{profile.PrinterName}\" yazıcısı bu bilgisayarda bulunamadı; mevcut yazıcı seçimi korundu."));
         }
         Method = profile.Method;
         Density = Math.Clamp(profile.Density, LabelPrinterSettings.MinDensity, LabelPrinterSettings.MaxDensity);
@@ -309,7 +310,7 @@ public sealed partial class PrintViewModel : ObservableObject
         var label = Label;
         if (label.Media != profile.Media || Math.Abs(label.GapMm - profile.GapMm) > 1e-9 || Math.Abs(label.GapOffsetMm - profile.GapOffsetMm) > 1e-9)
         {
-            using (_main.Session.BeginTransaction("Yazıcı profili: medya ayarı"))
+            using (_main.Session.BeginTransaction(L10n.T("Yazıcı profili: medya ayarı")))
             {
                 label.Media = profile.Media;
                 label.GapMm = profile.GapMm;
@@ -327,7 +328,7 @@ public sealed partial class PrintViewModel : ObservableObject
                 _main.SaveSettings();
             }
             if (Math.Abs(w - label.WidthMm) > 0.05 || Math.Abs(h - label.HeightMm) > 0.05)
-                warnings.Add($"Profilin rulo ölçüsü {w:0.##} × {h:0.##} mm, tasarım {label.WidthMm:0.##} × {label.HeightMm:0.##} mm. Rulo ile tasarımın aynı ölçüde olduğundan emin olun.");
+                warnings.Add(L10n.T($"Profilin rulo ölçüsü {w:0.##} × {h:0.##} mm, tasarım {label.WidthMm:0.##} × {label.HeightMm:0.##} mm. Rulo ile tasarımın aynı ölçüde olduğundan emin olun."));
         }
         ProfileWarning = warnings.Count == 0 ? null : string.Join("\n", warnings);
         PrintingServices.Profiles.LastUsed = profile.Name;
@@ -364,16 +365,16 @@ public sealed partial class PrintViewModel : ObservableObject
     [RelayCommand]
     private void SaveProfileAs()
     {
-        string suggestion = SelectedProfile is { IsBuiltIn: false } p ? p.Name : "XP-470B profilim";
-        string? name = _main.Dialogs.Prompt("Profil olarak kaydet", "Profil adı (yazıcı, yöntem, yoğunluk, hız, yön, ofset ve rulo bilgisi kaydedilir):", suggestion);
+        string suggestion = SelectedProfile is { IsBuiltIn: false } p ? p.Name : L10n.T("XP-470B profilim");
+        string? name = _main.Dialogs.Prompt(L10n.T("Profil olarak kaydet"), L10n.T("Profil adı (yazıcı, yöntem, yoğunluk, hız, yön, ofset ve rulo bilgisi kaydedilir):"), suggestion);
         if (string.IsNullOrWhiteSpace(name)) return;
         if (PrinterProfileStore.IsBuiltInName(name))
         {
-            _main.Dialogs.ShowMessage("Profil", "Bu ad hazır bir profile ait; farklı bir ad seçin.", MessageKind.Warning);
+            _main.Dialogs.ShowMessage(L10n.T("Profil"), L10n.T("Bu ad hazır bir profile ait; farklı bir ad seçin."), MessageKind.Warning);
             return;
         }
         if (PrintingServices.Profiles.Find(name) is { IsBuiltIn: false } &&
-            !_main.Dialogs.Confirm("Profil", $"\"{name.Trim()}\" profili zaten var. Üzerine yazılsın mı?", "Üzerine yaz", "Vazgeç"))
+            !_main.Dialogs.Confirm(L10n.T("Profil"), L10n.T($"\"{name.Trim()}\" profili zaten var. Üzerine yazılsın mı?"), L10n.T("Üzerine yaz"), L10n.T("Vazgeç")))
             return;
         SaveProfile(CaptureProfile(name));
     }
@@ -386,7 +387,7 @@ public sealed partial class PrintViewModel : ObservableObject
             SaveProfileAs();
             return;
         }
-        if (!_main.Dialogs.Confirm("Profil", $"\"{selected.Name}\" profili penceredeki ayarlarla güncellensin mi?", "Güncelle", "Vazgeç")) return;
+        if (!_main.Dialogs.Confirm(L10n.T("Profil"), L10n.T($"\"{selected.Name}\" profili penceredeki ayarlarla güncellensin mi?"), L10n.T("Güncelle"), L10n.T("Vazgeç"))) return;
         var profile = CaptureProfile(selected.Name);
         profile.Notes = selected.Notes;
         SaveProfile(profile);
@@ -402,7 +403,7 @@ public sealed partial class PrintViewModel : ObservableObject
         OffsetXMm = Math.Round(Math.Clamp(offsetXMm, -LabelPrinterSettings.MaxOffsetMm, LabelPrinterSettings.MaxOffsetMm), 3);
         OffsetYMm = Math.Round(Math.Clamp(offsetYMm, -LabelPrinterSettings.MaxOffsetMm, LabelPrinterSettings.MaxOffsetMm), 3);
         SaveCurrentSettings();
-        string offsets = string.Create(Turkish, $"sağ/aşağı ofset {OffsetXMm:0.###} / {OffsetYMm:0.###} mm");
+        string offsets = L10n.T($"sağ/aşağı ofset {OffsetXMm:0.###} / {OffsetYMm:0.###} mm");
         if (SelectedProfile is { IsBuiltIn: false } selected)
         {
             try
@@ -413,25 +414,25 @@ public sealed partial class PrintViewModel : ObservableObject
                 profile.Rotate180 = Rotate180;
                 PrintingServices.Profiles.Save(profile);
                 LoadProfiles(profile.Name);
-                return $"Uygulandı ve \"{profile.Name}\" profiline kaydedildi ({offsets}).";
+                return L10n.T($"Uygulandı ve \"{profile.Name}\" profiline kaydedildi ({offsets}).");
             }
             catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidOperationException or ArgumentException)
             {
-                return $"Ofsetler uygulandı ({offsets}) ama profil kaydedilemedi: {ex.Message}";
+                return L10n.T($"Ofsetler uygulandı ({offsets}) ama profil kaydedilemedi: {ex.Message}");
             }
         }
-        string suggestion = (SelectedProfile is not null ? "XP-470B" : SelectedPrinter?.Name ?? "Yazıcı") + " – kalibre";
-        string? name = _main.Dialogs.Prompt("Kalibrasyonu profile kaydet",
-            "Ofsetler uygulandı. Hazır profil değiştirilemediği (ya da profil seçilmediği) için ayarlar yeni bir profile kaydedilecek. Profil adı:",
+        string suggestion = (SelectedProfile is not null ? "XP-470B" : SelectedPrinter?.Name ?? L10n.T("Yazıcı")) + L10n.T(" – kalibre");
+        string? name = _main.Dialogs.Prompt(L10n.T("Kalibrasyonu profile kaydet"),
+            L10n.T("Ofsetler uygulandı. Hazır profil değiştirilemediği (ya da profil seçilmediği) için ayarlar yeni bir profile kaydedilecek. Profil adı:"),
             suggestion);
-        if (string.IsNullOrWhiteSpace(name)) return $"Ofsetler uygulandı ({offsets}); profile kaydedilmedi.";
-        if (PrinterProfileStore.IsBuiltInName(name)) return $"Ofsetler uygulandı ({offsets}); hazır profilin adı kullanılamaz, profile kaydedilmedi.";
+        if (string.IsNullOrWhiteSpace(name)) return L10n.T($"Ofsetler uygulandı ({offsets}); profile kaydedilmedi.");
+        if (PrinterProfileStore.IsBuiltInName(name)) return L10n.T($"Ofsetler uygulandı ({offsets}); hazır profilin adı kullanılamaz, profile kaydedilmedi.");
         if (PrintingServices.Profiles.Find(name) is { IsBuiltIn: false } &&
-            !_main.Dialogs.Confirm("Profil", $"\"{name.Trim()}\" profili zaten var. Üzerine yazılsın mı?", "Üzerine yaz", "Vazgeç"))
-            return $"Ofsetler uygulandı ({offsets}); profile kaydedilmedi.";
+            !_main.Dialogs.Confirm(L10n.T("Profil"), L10n.T($"\"{name.Trim()}\" profili zaten var. Üzerine yazılsın mı?"), L10n.T("Üzerine yaz"), L10n.T("Vazgeç")))
+            return L10n.T($"Ofsetler uygulandı ({offsets}); profile kaydedilmedi.");
         return SaveProfile(CaptureProfile(name))
-            ? $"Uygulandı ve \"{name.Trim()}\" profiline kaydedildi ({offsets})."
-            : $"Ofsetler uygulandı ({offsets}) ama profil kaydedilemedi.";
+            ? L10n.T($"Uygulandı ve \"{name.Trim()}\" profiline kaydedildi ({offsets}).")
+            : L10n.T($"Ofsetler uygulandı ({offsets}) ama profil kaydedilemedi.");
     }
 
     /// <summary>Penceredeki ayarları kalıcı yazıcı ayarlarına yazar.</summary>
@@ -444,12 +445,12 @@ public sealed partial class PrintViewModel : ObservableObject
             PrintingServices.Profiles.Save(profile);
             PrintingServices.Profiles.LastUsed = profile.Name;
             LoadProfiles(profile.Name);
-            _main.StatusMessage = $"Yazıcı profili kaydedildi: {profile.Name}";
+            _main.StatusMessage = L10n.T($"Yazıcı profili kaydedildi: {profile.Name}");
             return true;
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidOperationException or ArgumentException)
         {
-            _main.Dialogs.ShowMessage("Profil kaydedilemedi", ex.Message, MessageKind.Error);
+            _main.Dialogs.ShowMessage(L10n.T("Profil kaydedilemedi"), ex.Message, MessageKind.Error);
             return false;
         }
     }
@@ -458,7 +459,7 @@ public sealed partial class PrintViewModel : ObservableObject
     private void RenameProfile()
     {
         if (SelectedProfile is not { IsBuiltIn: false } selected) return;
-        string? name = _main.Dialogs.Prompt("Profili yeniden adlandır", "Yeni ad:", selected.Name);
+        string? name = _main.Dialogs.Prompt(L10n.T("Profili yeniden adlandır"), L10n.T("Yeni ad:"), selected.Name);
         if (string.IsNullOrWhiteSpace(name) || name.Trim() == selected.Name) return;
         try
         {
@@ -467,7 +468,7 @@ public sealed partial class PrintViewModel : ObservableObject
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidOperationException or ArgumentException)
         {
-            _main.Dialogs.ShowMessage("Profil", ex.Message, MessageKind.Warning);
+            _main.Dialogs.ShowMessage(L10n.T("Profil"), ex.Message, MessageKind.Warning);
         }
     }
 
@@ -475,7 +476,7 @@ public sealed partial class PrintViewModel : ObservableObject
     private void DeleteProfile()
     {
         if (SelectedProfile is not { IsBuiltIn: false } selected) return;
-        if (!_main.Dialogs.Confirm("Profil", $"\"{selected.Name}\" profili silinsin mi?", "Sil", "Vazgeç")) return;
+        if (!_main.Dialogs.Confirm(L10n.T("Profil"), $"\"{selected.Name}\" profili silinsin mi?", L10n.T("Sil"), L10n.T("Vazgeç"))) return;
         try
         {
             PrintingServices.Profiles.Delete(selected.Name);
@@ -483,7 +484,7 @@ public sealed partial class PrintViewModel : ObservableObject
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidOperationException)
         {
-            _main.Dialogs.ShowMessage("Profil", ex.Message, MessageKind.Warning);
+            _main.Dialogs.ShowMessage(L10n.T("Profil"), ex.Message, MessageKind.Warning);
         }
     }
 
@@ -500,7 +501,7 @@ public sealed partial class PrintViewModel : ObservableObject
         }
         else
         {
-            ReportText = error ?? "Yazıcılar listelenemedi.";
+            ReportText = error ?? L10n.T("Yazıcılar listelenemedi.");
         }
         SelectedPrinter = Printers.FirstOrDefault(p => string.Equals(p.Name, current, StringComparison.OrdinalIgnoreCase))
                           ?? Printers.FirstOrDefault(p => p.IsXp470B)
@@ -517,13 +518,13 @@ public sealed partial class PrintViewModel : ObservableObject
         var fields = _main.Data.GetPreviewFields(DateTime.Now);
         var result = _main.Session.RenderLabel(UseData ? RenderMode.Print : RenderMode.Design, fields, _main.Settings.Printer.DotsPerMm);
         foreach (var issue in result.Issues.Where(i => i.Severity >= RenderIssueSeverity.Warning).DistinctBy(i => i.ToString()))
-            PreflightIssues.Add((issue.Severity == RenderIssueSeverity.Error ? "HATA: " : "Uyarı: ") + issue);
+            PreflightIssues.Add((issue.Severity == RenderIssueSeverity.Error ? L10n.T("HATA: ") : L10n.T("Uyarı: ")) + issue);
         if (!UseData && _main.Session.Document.HasFieldPlaceholders)
-            PreflightIssues.Add("Uyarı: Etikette değişken alan var ancak veri kaynağı kullanılmıyor; alanlar boş/yer tutucu basılabilir.");
+            PreflightIssues.Add(L10n.T("Uyarı: Etikette değişken alan var ancak veri kaynağı kullanılmıyor; alanlar boş/yer tutucu basılabilir."));
         if (UseData && _main.Data.ValidationSummary.Length > 0)
-            PreflightIssues.Add("Veri: " + _main.Data.ValidationSummary);
-        foreach (var problem in BuildSettings().Validate()) PreflightIssues.Add("Uyarı: " + problem);
-        foreach (var problem in LabelMedia.FromSetup(Label).Validate()) PreflightIssues.Add("HATA: " + problem);
+            PreflightIssues.Add(L10n.T("Veri: ") + _main.Data.ValidationSummary);
+        foreach (var problem in BuildSettings().Validate()) PreflightIssues.Add(L10n.T("Uyarı: ") + problem);
+        foreach (var problem in LabelMedia.FromSetup(Label).Validate()) PreflightIssues.Add(L10n.T("HATA: ") + problem);
         var counters = CounterFields.CountersUsedBy(_main.Session.Document);
         if (counters.Count > 0)
         {
@@ -531,17 +532,17 @@ public sealed partial class PrintViewModel : ObservableObject
             {
                 try
                 {
-                    return $"\"{c}\" sıradaki {CounterIntegration.Store.Peek(c)}";
+                    return L10n.T($"\"{c}\" sıradaki {CounterIntegration.Store.Peek(c)}");
                 }
                 catch (CounterException ex)
                 {
                     return $"\"{c}\": {ex.Message}";
                 }
             });
-            PreflightIssues.Add("Bilgi: Sayaç kullanılıyor (" + string.Join(", ", parts) + "). Her etiket ayrı numara alır; yalnızca kuyruğa gönderilen etiketler sayacı ilerletir.");
+            PreflightIssues.Add(L10n.T("Bilgi: Sayaç kullanılıyor (") + string.Join(", ", parts) + L10n.T("). Her etiket ayrı numara alır; yalnızca kuyruğa gönderilen etiketler sayacı ilerletir."));
         }
         PreflightHasErrors = PreflightIssues.Any(i => i.StartsWith("HATA", StringComparison.Ordinal));
-        if (PreflightIssues.Count == 0) PreflightIssues.Add("Sorun bulunmadı.");
+        if (PreflightIssues.Count == 0) PreflightIssues.Add(L10n.T("Sorun bulunmadı."));
     }
 
     partial void OnUseDataChanged(bool value) => RunPreflight();
@@ -578,24 +579,24 @@ public sealed partial class PrintViewModel : ObservableObject
     {
         if (SelectedPrinter is null)
         {
-            _main.Dialogs.ShowMessage("Yazdır", "Lütfen bir yazıcı seçin.", MessageKind.Warning);
+            _main.Dialogs.ShowMessage(L10n.T("Yazdır"), L10n.T("Lütfen bir yazıcı seçin."), MessageKind.Warning);
             return;
         }
         RunPreflight();
         var plan = PrintPlanner.Plan(_main.Session.Document, _main.Data, UseData, Copies, StartNumber, DateTime.Now);
         if (plan.Items.Count == 0)
         {
-            _main.Dialogs.ShowMessage("Yazdır", plan.Skipped.Count > 0
-                ? "Basılabilecek geçerli satır yok. Hatalı satırlar:\n" + string.Join("\n", plan.Skipped.Take(15))
-                : "Basılacak etiket seçilmedi.", MessageKind.Warning);
+            _main.Dialogs.ShowMessage(L10n.T("Yazdır"), plan.Skipped.Count > 0
+                ? L10n.T("Basılabilecek geçerli satır yok. Hatalı satırlar:\n") + string.Join("\n", plan.Skipped.Take(15))
+                : L10n.T("Basılacak etiket seçilmedi."), MessageKind.Warning);
             return;
         }
-        if (plan.Skipped.Count > 0 && !_main.Dialogs.Confirm("Hatalı satırlar",
-                $"{plan.Skipped.Count} hatalı satır atlanacak, {plan.TotalLabels} etiket basılacak.\n\n" +
+        if (plan.Skipped.Count > 0 && !_main.Dialogs.Confirm(L10n.T("Hatalı satırlar"),
+                L10n.T($"{plan.Skipped.Count} hatalı satır atlanacak, {plan.TotalLabels} etiket basılacak.\n\n") +
                 string.Join("\n", plan.Skipped.Take(10)) + (plan.Skipped.Count > 10 ? "\n…" : "") + "\n\nDevam edilsin mi?",
-                "Yazdır", "Vazgeç"))
+                L10n.T("Yazdır"), L10n.T("Vazgeç")))
             return;
-        if (plan.TotalLabels > 200 && !_main.Dialogs.Confirm("Toplu baskı", $"{plan.TotalLabels} etiket basılacak. Devam edilsin mi?", "Yazdır", "Vazgeç"))
+        if (plan.TotalLabels > 200 && !_main.Dialogs.Confirm(L10n.T("Toplu baskı"), L10n.T($"{plan.TotalLabels} etiket basılacak. Devam edilsin mi?"), L10n.T("Yazdır"), L10n.T("Vazgeç")))
             return;
         if (plan.UsesSscc && !ConfirmSscc(plan.TotalLabels))
             return;
@@ -612,15 +613,15 @@ public sealed partial class PrintViewModel : ObservableObject
     {
         if (SelectedPrinter is null)
         {
-            _main.Dialogs.ShowMessage("Test baskısı", "Lütfen bir yazıcı seçin.", MessageKind.Warning);
+            _main.Dialogs.ShowMessage(L10n.T("Test baskısı"), L10n.T("Lütfen bir yazıcı seçin."), MessageKind.Warning);
             return;
         }
         var settings = BuildSettings();
         PersistSettings(settings);
-        string method = IsTspl ? "TSPL" : "Sürücü";
+        string method = IsTspl ? "TSPL" : L10n.T("Sürücü");
         var document = TestLabelFactory.Create(Label, SelectedPrinter.Name, method, settings.DotsPerMm * 25.4, DateTime.Now);
         var plan = PrintPlanner.Plan(document, _main.Data, useData: false, copies: 1, startNumber: 1, DateTime.Now);
-        await RunPrintAsync(document, plan, settings, "Test baskısı", PrintKind.Test);
+        await RunPrintAsync(document, plan, settings, L10n.T("Test baskısı"), PrintKind.Test);
     }
 
     /// <summary>
@@ -634,7 +635,7 @@ public sealed partial class PrintViewModel : ObservableObject
         PersistSettings(settings);
         var document = CalibrationLabelFactory.Create(Label, SelectedPrinter.Name, OffsetXMm, OffsetYMm, Rotate180, DateTime.Now);
         var plan = PrintPlanner.Plan(document, _main.Data, useData: false, copies: 1, startNumber: 1, DateTime.Now);
-        await RunPrintAsync(document, plan, settings, "Kalibrasyon etiketi", PrintKind.Test);
+        await RunPrintAsync(document, plan, settings, L10n.T("Kalibrasyon etiketi"), PrintKind.Test);
         return LastSuccess == true;
     }
 
@@ -646,18 +647,18 @@ public sealed partial class PrintViewModel : ObservableObject
     {
         if (_lastRun is null || SelectedPrinter is null) return;
         int labels = _lastRun.Remaining.Sum(i => i.Copies);
-        string numbering = (_lastRun.Plan.UsesSscc ? "Bu etiketlere yeni SSCC numaraları verilir (gönderilmeyenlerin numaraları kullanılmadı olarak kaldı). " : "") +
-                           (CounterFields.DocumentUsesCounters(_lastRun.Document) ? "Sayaçlar kaldığı değerden sürer. " : "");
-        if (!_main.Dialogs.Confirm("Kaldığı yerden devam",
-                $"Gönderilmemiş {labels} etiket basılacak. Daha önce yazıcı kuyruğuna gönderilen etiketler tekrar basılmaz. {numbering}\n\n" +
-                "Yazıcıdan çıkan son etiketi kontrol edin: kağıt bitmesi gibi bir sorunda kuyruğa gitmiş ama basılamamış etiketler " +
-                "olabilir; bunları Baskı geçmişinden ayrıca basabilirsiniz.\n\nDevam edilsin mi?", "Yazdır", "Vazgeç"))
+        string numbering = (_lastRun.Plan.UsesSscc ? L10n.T("Bu etiketlere yeni SSCC numaraları verilir (gönderilmeyenlerin numaraları kullanılmadı olarak kaldı). ") : "") +
+                           (CounterFields.DocumentUsesCounters(_lastRun.Document) ? L10n.T("Sayaçlar kaldığı değerden sürer. ") : "");
+        if (!_main.Dialogs.Confirm(L10n.T("Kaldığı yerden devam"),
+                L10n.T($"Gönderilmemiş {labels} etiket basılacak. Daha önce yazıcı kuyruğuna gönderilen etiketler tekrar basılmaz. {numbering}\n\n") +
+                L10n.T("Yazıcıdan çıkan son etiketi kontrol edin: kağıt bitmesi gibi bir sorunda kuyruğa gitmiş ama basılamamış etiketler ") +
+                L10n.T("olabilir; bunları Baskı geçmişinden ayrıca basabilirsiniz.\n\nDevam edilsin mi?"), L10n.T("Yazdır"), L10n.T("Vazgeç")))
             return;
         var plan = new PrintPlan { UsesData = _lastRun.Plan.UsesData, UsesSscc = _lastRun.Plan.UsesSscc };
         plan.Items.AddRange(_lastRun.Remaining);
         var settings = BuildSettings();
         PersistSettings(settings);
-        await RunPrintAsync(_lastRun.Document, plan, settings, "Devam baskısı", PrintKind.Production);
+        await RunPrintAsync(_lastRun.Document, plan, settings, L10n.T("Devam baskısı"), PrintKind.Production);
     }
 
     /// <summary>
@@ -671,8 +672,8 @@ public sealed partial class PrintViewModel : ObservableObject
         if (blockers.Count > 0)
         {
             _main.Dialogs.ShowMessage("SSCC",
-                "Bu etikette {SSCC} alanı var: her etikete baskı anında yeni bir SSCC numarası verilir.\n\n" +
-                string.Join("\n", blockers) + "\n\nAyarlar → GS1 Firma Profili bölümünden firma önekini girip üyelik belgenizle doğrulayın.",
+                L10n.T("Bu etikette {SSCC} alanı var: her etikete baskı anında yeni bir SSCC numarası verilir.\n\n") +
+                string.Join("\n", blockers) + L10n.T("\n\nAyarlar → GS1 Firma Profili bölümünden firma önekini girip üyelik belgenizle doğrulayın."),
                 MessageKind.Warning);
             return false;
         }
@@ -686,9 +687,9 @@ public sealed partial class PrintViewModel : ObservableObject
             // Bilgi amaçlı; ayırma sırasında hata ayrıca raporlanır.
         }
         return _main.Dialogs.Confirm("SSCC",
-            $"{labelCount} etikete yeni SSCC numarası verilecek" + (next is { } n ? $" (sıradaki seri: {n:N0})" : "") + ".\n\n" +
-            "Numaralar etiket üretilirken kalıcı olarak kaydedilir. Basılamayan veya iptal edilen numaralar da tekrar kullanılmaz.\n\nDevam edilsin mi?",
-            "Yazdır", "Vazgeç");
+            L10n.T($"{labelCount} etikete yeni SSCC numarası verilecek") + (next is { } n ? L10n.T($" (sıradaki seri: {n:N0})") : "") + ".\n\n" +
+            L10n.T("Numaralar etiket üretilirken kalıcı olarak kaydedilir. Basılamayan veya iptal edilen numaralar da tekrar kullanılmaz.\n\nDevam edilsin mi?"),
+            L10n.T("Yazdır"), L10n.T("Vazgeç"));
     }
 
     private enum PrintKind
@@ -730,7 +731,7 @@ public sealed partial class PrintViewModel : ObservableObject
         ReportLines.Clear();
         ReportText = "";
         ProgressValue = 0;
-        ProgressText = "Hazırlanıyor…";
+        ProgressText = L10n.T("Hazırlanıyor…");
         _cts = new CancellationTokenSource();
         var media = LabelMedia.FromSetup(document.Label);
         var skipped = new List<string>(plan.Skipped);
@@ -772,7 +773,7 @@ public sealed partial class PrintViewModel : ObservableObject
                         yield return new LabelPage(bitmap, labelItem.Copies);
                     }
                 }
-                var service = PrintingServices.CreateTsplService($"Etiket Tasarım – {document.Name}", settings.SingleJob);
+                var service = PrintingServices.CreateTsplService(L10n.T($"Etiket Tasarım – {document.Name}"), settings.SingleJob);
                 report = await service.PrintAsync(media, settings, Pages(), plan.TotalLabels, progress, _cts.Token);
                 spooledPages = report.LabelsSpooled;
                 ssccSpooled = report.LabelsSpooled;
@@ -783,7 +784,7 @@ public sealed partial class PrintViewModel : ObservableObject
                 string? probeError = null;
                 var info = await Task.Run(() => DriverPrintService.Probe(settings.PrinterName, media, out probeError));
                 double dpmm = info is { RenderDotsPerMmX: > 0 } page ? page.RenderDotsPerMmX : settings.DotsPerMm;
-                ProgressText = "Etiketler doğrulanıyor…";
+                ProgressText = L10n.T("Etiketler doğrulanıyor…");
                 var valid = await Task.Run(() =>
                 {
                     var list = new List<int>();
@@ -807,7 +808,7 @@ public sealed partial class PrintViewModel : ObservableObject
                     return list;
                 });
                 foreach (int index in valid) recorder.Produced(index);
-                var service = new DriverPrintService { DocumentName = $"Etiket Tasarım – {document.Name}", AllowPrintWhenOffline = settings.AllowPrintWhenOffline };
+                var service = new DriverPrintService { DocumentName = L10n.T($"Etiket Tasarım – {document.Name}"), AllowPrintWhenOffline = settings.AllowPrintWhenOffline };
                 // {SSCC} ve sayaç: doğrulama önizleme değerleriyle yapıldı; gerçek değerler sayfa sürücüye çizilirken (bir kez) verilir.
                 var prepared = new Dictionary<int, PrintItem>();
                 PrintItem ItemFor(int pageIndex)
@@ -827,7 +828,7 @@ public sealed partial class PrintViewModel : ObservableObject
                 bool numbered = tracker.IsActive || counters.IsActive;
                 report = await service.PrintAsync(settings.PrinterName, media, valid.Count,
                     (pageIndex, dx, dy) => producer.Produce(ItemFor(pageIndex), dx).Bitmap
-                                           ?? (numbered ? throw new InvalidOperationException("Etiket görüntüsü üretilemedi.") : new Core.Imaging.MonoBitmap(1, 1)),
+                                           ?? (numbered ? throw new InvalidOperationException(L10n.T("Etiket görüntüsü üretilemedi.")) : new Core.Imaging.MonoBitmap(1, 1)),
                     pageIndex => plan.Items[valid[pageIndex]].Copies, progress, _cts.Token);
                 // Sürücü işi bütündür: ya tüm sayfalar kuyruğa girer ya hiçbiri.
                 spooledPages = report.Spooled ? valid.Count : 0;
@@ -842,7 +843,7 @@ public sealed partial class PrintViewModel : ObservableObject
         catch (Exception ex) when (ex is not OutOfMemoryException)
         {
             report = new PrintReport { Method = settings.Method, PrinterName = settings.PrinterName };
-            report.Errors.Add("Beklenmeyen baskı hatası: " + ex.Message);
+            report.Errors.Add(L10n.T("Beklenmeyen baskı hatası: ") + ex.Message);
         }
         finally
         {
@@ -860,17 +861,17 @@ public sealed partial class PrintViewModel : ObservableObject
         var remaining = recorder.Remaining(spooledPages);
         _lastRun = kind == PrintKind.Production && remaining.Count > 0 ? new LastRun(document, plan, remaining) : null;
         CanResume = _lastRun is not null;
-        ResumeText = _lastRun is null ? "" : $"Kaldığı yerden devam ({remaining.Sum(i => i.Copies)} etiket)";
+        ResumeText = _lastRun is null ? "" : L10n.T($"Kaldığı yerden devam ({remaining.Sum(i => i.Copies)} etiket)");
 
         ShowReport(title, report, skipped, sscc, counterResult);
         if (_lastRun is not null)
-            ReportLines.Add(new ReportLine("warning", $"{remaining.Sum(i => i.Copies)} etiket gönderilmedi. \"{ResumeText}\" ile yalnızca bunları basabilirsiniz."));
+            ReportLines.Add(new ReportLine("warning", L10n.T($"{remaining.Sum(i => i.Copies)} etiket gönderilmedi. \"{ResumeText}\" ile yalnızca bunları basabilirsiniz.")));
 
         string? historyProblem = RecordHistory(title, kind, document, plan, settings, report, recorder.ToHistory(spooledPages), skipped, sscc, counterResult,
             tracker.SentNumbers, counters.UsedRanges);
         if (historyProblem is not null) ReportLines.Add(new ReportLine("warning", historyProblem));
         if (counters.IsActive) _main.RefreshPreviewFields();
-        _main.StatusMessage = report.Success ? $"{title}: yazıcı kuyruğuna iletildi. Etiketi yazıcıdan kontrol edin." : $"{title}: sorun var, raporu inceleyin.";
+        _main.StatusMessage = report.Success ? L10n.T($"{title}: yazıcı kuyruğuna iletildi. Etiketi yazıcıdan kontrol edin.") : L10n.T($"{title}: sorun var, raporu inceleyin.");
     }
 
     /// <summary>İşi baskı geçmişine yazar; yazılamazsa uyarı metni döndürür (baskı sonucu etkilenmez).</summary>
@@ -949,7 +950,7 @@ public sealed partial class PrintViewModel : ObservableObject
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            return "Baskı geçmişine yazılamadı: " + ex.Message;
+            return L10n.T("Baskı geçmişine yazılamadı: ") + ex.Message;
         }
     }
 
@@ -959,33 +960,33 @@ public sealed partial class PrintViewModel : ObservableObject
         ReportLines.Clear();
         ReportLines.Add(new ReportLine(report.DataGenerated ? "ok" : "error",
             report.DataGenerated
-                ? $"Baskı verisi üretildi: {report.LabelsGenerated} etiket görüntüsü, toplam {report.CopiesTotal} adet ({FormatBytes(report.BytesGenerated)})."
-                : "Baskı verisi üretilemedi."));
+                ? L10n.T($"Baskı verisi üretildi: {report.LabelsGenerated} etiket görüntüsü, toplam {report.CopiesTotal} adet ({FormatBytes(report.BytesGenerated)}).")
+                : L10n.T("Baskı verisi üretilemedi.")));
         ReportLines.Add(new ReportLine(report.Spooled ? "ok" : "error",
             report.Spooled
-                ? $"Windows yazdırma kuyruğuna gönderildi (iş no: {string.Join(", ", report.JobIds)})."
-                : "Windows kuyruğuna gönderilmedi."));
+                ? L10n.T($"Windows yazdırma kuyruğuna gönderildi (iş no: {string.Join(", ", report.JobIds)}).")
+                : L10n.T("Windows kuyruğuna gönderilmedi.")));
         if (report.QueueOutcome is { } outcome)
         {
             bool ok = outcome is SpoolOutcome.LeftQueue or SpoolOutcome.Printed;
-            ReportLines.Add(new ReportLine(ok ? "ok" : outcome == SpoolOutcome.TimedOut ? "warning" : "error", "Kuyruk durumu: " + report.QueueMessage));
+            ReportLines.Add(new ReportLine(ok ? "ok" : outcome == SpoolOutcome.TimedOut ? "warning" : "error", L10n.T("Kuyruk durumu: ") + report.QueueMessage));
         }
         ReportLines.Add(new ReportLine("info", PrintReport.PhysicalVerificationText));
         if (sscc is { } ssccResult) ReportLines.Add(new ReportLine(ssccResult.Failed ? "error" : "info", ssccResult.Text));
         if (counters is { } counterResult) ReportLines.Add(new ReportLine(counterResult.Failed ? "error" : "info", counterResult.Text));
-        if (report.Canceled) ReportLines.Add(new ReportLine("warning", "Baskı kullanıcı tarafından iptal edildi; gönderilmiş etiketler basılmaya devam edebilir."));
+        if (report.Canceled) ReportLines.Add(new ReportLine("warning", L10n.T("Baskı kullanıcı tarafından iptal edildi; gönderilmiş etiketler basılmaya devam edebilir.")));
         foreach (var e in report.Errors) ReportLines.Add(new ReportLine("error", e));
         foreach (var w in report.Warnings) ReportLines.Add(new ReportLine("warning", w));
-        foreach (var s in skipped.Take(50)) ReportLines.Add(new ReportLine("error", "Atlandı – " + s));
-        if (skipped.Count > 50) ReportLines.Add(new ReportLine("error", $"… ve {skipped.Count - 50} satır daha atlandı."));
+        foreach (var s in skipped.Take(50)) ReportLines.Add(new ReportLine("error", L10n.T("Atlandı – ") + s));
+        if (skipped.Count > 50) ReportLines.Add(new ReportLine("error", L10n.T($"… ve {skipped.Count - 50} satır daha atlandı.")));
 
         var sb = new StringBuilder();
-        sb.AppendLine(title + " raporu");
+        sb.AppendLine(title + L10n.T(" raporu"));
         foreach (var line in ReportLines) sb.AppendLine("• " + line.Text);
         ReportText = sb.ToString();
         LastSuccess = report.Success && skipped.Count == 0;
         ProgressValue = report.Success ? 100 : ProgressValue;
-        ProgressText = report.Success ? "Tamamlandı" : report.Canceled ? "İptal edildi" : "Sorun var";
+        ProgressText = report.Success ? L10n.T("Tamamlandı") : report.Canceled ? L10n.T("İptal edildi") : L10n.T("Sorun var");
     }
 
     [RelayCommand]
@@ -993,8 +994,8 @@ public sealed partial class PrintViewModel : ObservableObject
     {
         _cts?.Cancel();
         ProgressText = SingleJob
-            ? "İptal ediliyor (tek parça: o ana kadar yazılan etiketler tek iş olarak kuyruğa verilir)…"
-            : "İptal ediliyor (gönderimi süren etiket tamamlanınca durur)…";
+            ? L10n.T("İptal ediliyor (tek parça: o ana kadar yazılan etiketler tek iş olarak kuyruğa verilir)…")
+            : L10n.T("İptal ediliyor (gönderimi süren etiket tamamlanınca durur)…");
     }
 
     /// <summary>Medya sensörü kalibrasyonu: TSPL GAPDETECT/BLINEDETECT gönderir (yazıcı birkaç etiket ilerletir).</summary>
@@ -1008,12 +1009,12 @@ public sealed partial class PrintViewModel : ObservableObject
     {
         if (SelectedPrinter is null || IsBusy) return null;
         string command = Label.Media == MediaType.BlackMark ? "BLINEDETECT" : "GAPDETECT";
-        if (!_main.Dialogs.Confirm("Sensör kalibrasyonu",
-                $"Yazıcıya otomatik etiket/boşluk algılama komutu ({command}) gönderilecek. Yazıcı birkaç etiket ilerletebilir.\n\n" +
-                "Alternatif (düğmeyle): yazıcıyı kapatın, FEED düğmesini basılı tutarak açın; ışık kırmızı yanıp sönerken bırakın.\n\nKomut gönderilsin mi?",
-                "Gönder", "Vazgeç"))
+        if (!_main.Dialogs.Confirm(L10n.T("Sensör kalibrasyonu"),
+                L10n.T($"Yazıcıya otomatik etiket/boşluk algılama komutu ({command}) gönderilecek. Yazıcı birkaç etiket ilerletebilir.\n\n") +
+                L10n.T("Alternatif (düğmeyle): yazıcıyı kapatın, FEED düğmesini basılı tutarak açın; ışık kırmızı yanıp sönerken bırakın.\n\nKomut gönderilsin mi?"),
+                L10n.T("Gönder"), L10n.T("Vazgeç")))
             return null;
-        await SendRawAsync(TsplCommandBuilder.BuildGapDetect(LabelMedia.FromSetup(Label)), "Sensör kalibrasyonu");
+        await SendRawAsync(TsplCommandBuilder.BuildGapDetect(LabelMedia.FromSetup(Label)), L10n.T("Sensör kalibrasyonu"));
         return LastSuccess == true;
     }
 
@@ -1021,7 +1022,7 @@ public sealed partial class PrintViewModel : ObservableObject
     private async Task Feed()
     {
         if (SelectedPrinter is null) return;
-        await SendRawAsync(TsplCommandBuilder.BuildFormFeed(), "Etiket ilerletme");
+        await SendRawAsync(TsplCommandBuilder.BuildFormFeed(), L10n.T("Etiket ilerletme"));
     }
 
     private async Task SendRawAsync(byte[] data, string title)
@@ -1029,8 +1030,8 @@ public sealed partial class PrintViewModel : ObservableObject
         IsBusy = true;
         try
         {
-            var report = await PrintingServices.CreateTsplService("Etiket Tasarım – " + title, false)
-                .SendRawAsync(SelectedPrinter!.Name, data, "Etiket Tasarım – " + title, default, AllowWhenOffline);
+            var report = await PrintingServices.CreateTsplService(L10n.T("Etiket Tasarım – ") + title, false)
+                .SendRawAsync(SelectedPrinter!.Name, data, L10n.T("Etiket Tasarım – ") + title, default, AllowWhenOffline);
             ShowReport(title, report, []);
         }
         finally
@@ -1071,7 +1072,7 @@ public sealed partial class PrintViewModel : ObservableObject
         var media = LabelMedia.FromSetup(Label);
         var result = _main.Session.RenderLabel(RenderMode.Design, _main.Data.GetPreviewFields(DateTime.Now), settings.DotsPerMm);
         var data = TsplCommandBuilder.BuildJob(media, settings, [new LabelPage(result.Bitmap, 1)]);
-        _main.Dialogs.ShowMessage("TSPL komutları", TsplInspector.Describe(data), MessageKind.Info);
+        _main.Dialogs.ShowMessage(L10n.T("TSPL komutları"), TsplInspector.Describe(data), MessageKind.Info);
     }
 
     private static string FormatBytes(long bytes) =>

@@ -18,17 +18,24 @@ Unicode true
 !endif
 !define APP_NAME "Etiket Tasarım"
 !define APP_EXE "Etiket Tasarim.exe"
-Name "${APP_NAME} (yayın adayı)"
+Name "${APP_NAME} (preview)"
 OutFile "${OUTPUT}"
 InstallDir "$LOCALAPPDATA\Programs\Etiket Tasarim"
 InstallDirRegKey HKCU "Software\EtiketTasarim" "InstallDir"
 RequestExecutionLevel user
 SetCompressor /SOLID lzma
 VIProductVersion "${APP_VERSION}.0"
+VIAddVersionKey /LANG=1033 "ProductName" "${APP_NAME}"
+VIAddVersionKey /LANG=1033 "FileDescription" "Label design application installer preview"
+VIAddVersionKey /LANG=1033 "FileVersion" "${APP_VERSION}"
+VIAddVersionKey /LANG=1033 "LegalCopyright" "Source and dependency notices are included."
 VIAddVersionKey /LANG=1055 "ProductName" "${APP_NAME}"
 VIAddVersionKey /LANG=1055 "FileDescription" "${APP_NAME} kurulum adayı"
 VIAddVersionKey /LANG=1055 "FileVersion" "${APP_VERSION}"
 VIAddVersionKey /LANG=1055 "LegalCopyright" "Kaynak ve bağımlılık atıfları paket içinde yer alır."
+!define MUI_LANGDLL_REGISTRY_ROOT "HKCU"
+!define MUI_LANGDLL_REGISTRY_KEY "Software\EtiketTasarim"
+!define MUI_LANGDLL_REGISTRY_VALUENAME "InstallerLanguage"
 !define MUI_ABORTWARNING
 !define MUI_FINISHPAGE_RUN "$INSTDIR\${APP_EXE}"
 !define MUI_FINISHPAGE_RUN_NOTCHECKED
@@ -38,30 +45,41 @@ VIAddVersionKey /LANG=1055 "LegalCopyright" "Kaynak ve bağımlılık atıfları
 !insertmacro MUI_PAGE_FINISH
 !insertmacro MUI_UNPAGE_CONFIRM
 !insertmacro MUI_UNPAGE_INSTFILES
+!insertmacro MUI_LANGUAGE "English"
 !insertmacro MUI_LANGUAGE "Turkish"
 
+LangString RequiresX64 ${LANG_ENGLISH} "This package requires Windows x64."
+LangString RequiresX64 ${LANG_TURKISH} "Bu paket Windows x64 içindir."
+LangString RequiresWindows ${LANG_ENGLISH} "Windows 10 or later is required."
+LangString RequiresWindows ${LANG_TURKISH} "Windows 10 veya sonrası gerekir."
+LangString CopyFailed ${LANG_ENGLISH} "Files could not be copied. Installation is incomplete."
+LangString CopyFailed ${LANG_TURKISH} "Dosyalar kopyalanamadı. Kurulum tamamlanmadı."
+LangString ApplicationSection ${LANG_ENGLISH} "Application"
+LangString ApplicationSection ${LANG_TURKISH} "Uygulama"
+
 Function .onInit
+  !insertmacro MUI_LANGDLL_DISPLAY
   ${IfNot} ${RunningX64}
-    MessageBox MB_ICONSTOP "Bu paket Windows x64 içindir."
+    MessageBox MB_ICONSTOP "$(RequiresX64)"
     Abort
   ${EndIf}
   ${IfNot} ${AtLeastWin10}
-    MessageBox MB_ICONSTOP "Windows 10 veya sonrası gerekir."
+    MessageBox MB_ICONSTOP "$(RequiresWindows)"
     Abort
   ${EndIf}
   SetShellVarContext current
 FunctionEnd
 
-Section "Uygulama"
+Section "$(ApplicationSection)"
   SetOutPath "$INSTDIR"
   File /r "${PAYLOAD}/*"
   IfErrors 0 +3
-    MessageBox MB_ICONSTOP "Dosyalar kopyalanamadı. Kurulum tamamlanmadı."
+    MessageBox MB_ICONSTOP "$(CopyFailed)"
     Abort
   WriteUninstaller "$INSTDIR\Uninstall.exe"
   CreateDirectory "$SMPROGRAMS\${APP_NAME}"
   CreateShortcut "$SMPROGRAMS\${APP_NAME}\${APP_NAME}.lnk" "$INSTDIR\${APP_EXE}"
-  CreateShortcut "$SMPROGRAMS\${APP_NAME}\Kaldır.lnk" "$INSTDIR\Uninstall.exe"
+  CreateShortcut "$SMPROGRAMS\${APP_NAME}\Uninstall.lnk" "$INSTDIR\Uninstall.exe"
   WriteRegStr HKCU "Software\EtiketTasarim" "InstallDir" "$INSTDIR"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\EtiketTasarim" "DisplayName" "${APP_NAME}"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\EtiketTasarim" "DisplayVersion" "${APP_VERSION}"
@@ -71,6 +89,10 @@ Section "Uygulama"
   WriteRegDWORD HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\EtiketTasarim" "NoRepair" 1
 SectionEnd
 
+Function un.onInit
+  !insertmacro MUI_UNGETLANGUAGE
+FunctionEnd
+
 Section "Uninstall"
   SetShellVarContext current
   ; Only package-owned files are removed. User data and unknown files are preserved.
@@ -78,6 +100,7 @@ Section "Uninstall"
   Delete "$INSTDIR\Uninstall.exe"
   Delete "$SMPROGRAMS\${APP_NAME}\${APP_NAME}.lnk"
   Delete "$SMPROGRAMS\${APP_NAME}\Kaldır.lnk"
+  Delete "$SMPROGRAMS\${APP_NAME}\Uninstall.lnk"
   RMDir "$SMPROGRAMS\${APP_NAME}"
   RMDir "$INSTDIR"
   DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\EtiketTasarim"

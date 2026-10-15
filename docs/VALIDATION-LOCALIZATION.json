@@ -1,0 +1,133 @@
+{
+  "date": "2026-10-15",
+  "platform": "macOS arm64",
+  "runtimeModelId": null,
+  "runtimeModelNote": "No concrete runtime model identifier was exposed; no inference made.",
+  "branch": "codex/english-and-global-readiness",
+  "baseCommit": "30f6748909b55ec2de24316be8ed039e0a4fbcaa",
+  "solutionBuild": {
+    "success": true,
+    "warnings": 0,
+    "errors": 0
+  },
+  "tests": {
+    "passed": 944,
+    "failed": 0,
+    "projects": [
+      {
+        "name": "AkelEtiket.Tests",
+        "passed": 242,
+        "filter": "FullyQualifiedName!~InAppAssistant_WithoutConsent_SendsNothing&FullyQualifiedName!~InAppAssistant_WorksInDraft_AndProducesProposal&FullyQualifiedName!~SecretProtector_RoundTripsAndRejectsGarbage"
+      },
+      {
+        "name": "AkelEtiket.Core.Tests",
+        "passed": 203,
+        "filter": ""
+      },
+      {
+        "name": "AkelEtiket.DataImport.Tests",
+        "passed": 83,
+        "filter": "FullyQualifiedName!~ExclusivelyLockedFile_GivesTurkishLockMessage"
+      },
+      {
+        "name": "AkelEtiket.Rendering.Tests",
+        "passed": 49,
+        "filter": ""
+      },
+      {
+        "name": "AkelEtiket.Design.Tests",
+        "passed": 35,
+        "filter": ""
+      },
+      {
+        "name": "AkelEtiket.Gs1.Tests",
+        "passed": 78,
+        "filter": ""
+      },
+      {
+        "name": "AkelEtiket.PrintEngine.Tests",
+        "passed": 58,
+        "filter": "FullyQualifiedName!~WindowsPrintingTests"
+      },
+      {
+        "name": "AkelEtiket.ImageProcessor.Tests",
+        "passed": 107,
+        "filter": ""
+      },
+      {
+        "name": "AkelEtiket.Assistant.Tests",
+        "passed": 81,
+        "filter": ""
+      },
+      {
+        "name": "AkelEtiket.LocalApi.Tests",
+        "passed": 8,
+        "filter": "FullyQualifiedName!~HostHandoverTests&FullyQualifiedName!~McpEndToEndTests"
+      }
+    ]
+  },
+  "uiResourceEntriesPerLanguage": 1222,
+  "multiProcessHistory": {
+    "processes": 4,
+    "writesPerProcess": 80,
+    "expectedRecords": 320,
+    "validRecords": 320,
+    "uniqueRecords": 320,
+    "exitCodes": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "localCandidate": {
+    "version": "2.0.0",
+    "provisionalProductName": true,
+    "sourceLicenseChosen": false,
+    "files": 539,
+    "payloadBytes": 202038377,
+    "installer": {
+      "file": "Etiket-Tasarim-Kurulum-2.0.0-aday.exe",
+      "sha256": "d7c235ff377a748667814c55f7db65d6835cf0a7c9aece4a71a662d31cbdb1c4",
+      "bytes": 60866569
+    },
+    "portable": {
+      "file": "Etiket-Tasarim-2.0.0-win-x64-aday.zip",
+      "sha256": "aa86e1b7dbd3d362a97ef2729d35fbe2f67ad543869ef1c1bd65bae3b2384be6",
+      "bytes": 84707620
+    },
+    "windowsInstallationTested": false,
+    "physicalPrinterTested": false,
+    "published": false
+  },
+  "packageVerification": {
+    "payloadHashesVerified": 539,
+    "zipHashesVerified": 539,
+    "installerLanguages": [
+      "English",
+      "Turkish"
+    ],
+    "upstreamLicensePackages": 68,
+    "requiredLocalizedFiles": [
+      "en/AkelEtiket.Core.resources.dll",
+      "Belgeler/README.md",
+      "Belgeler/README.tr.md",
+      "Belgeler/USER-GUIDE.md",
+      "Belgeler/INTERNATIONALIZATION.md",
+      "\u00d6rnekler/sample-products.csv",
+      "\u00d6rnekler/sample-shipping.csv"
+    ],
+    "windowsExecutionTested": false
+  },
+  "deferred": [
+    "Windows install/uninstall and WPF interaction/layout/accessibility",
+    "Windows-only DPAPI, print spooler and Worker/MCP executable tests",
+    "Physical printer/scanner acceptance",
+    "Inno Setup compiler execution (NSIS candidate was compiled)"
+  ],
+  "limits": [
+    "Some low-level import/render/printer and optional AI diagnostics remain Turkish.",
+    "No new binary release published.",
+    "Source license and permanent product name remain undecided."
+  ]
+}

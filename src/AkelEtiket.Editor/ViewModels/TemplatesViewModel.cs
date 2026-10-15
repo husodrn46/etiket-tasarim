@@ -4,6 +4,7 @@ using AkelEtiket.Editor.Templates;
 using AkelEtiket.ProjectManager;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -15,8 +16,8 @@ public sealed class TemplateItemViewModel
     public TemplateInfo Info { get; }
     public string Name => Info.Name;
     public string Details => Info.Problem is null
-        ? $"{Info.SizeText} • {Info.ElementCount} öğe{(Info.HasFieldPlaceholders ? " • değişkenli" : "")}"
-        : "Okunamadı: " + Info.Problem;
+        ? L10n.T($"{Info.SizeText} • {Info.ElementCount} öğe{(Info.HasFieldPlaceholders ? L10n.T(" • değişkenli") : "")}")
+        : L10n.T("Okunamadı: ") + Info.Problem;
     public byte[]? PreviewPng => Info.PreviewPng;
     public bool HasProblem => Info.Problem is not null;
     public string Category
@@ -24,11 +25,11 @@ public sealed class TemplateItemViewModel
         get
         {
             string name = Design.Data.ProductCatalog.Fold(Name);
-            if (name.Contains("demirbas")) return "Demirbaş";
-            if (name.Contains("kargo")) return "Kargo";
-            if (name.Contains("koli")) return "Koli";
-            if (name.Contains("raf")) return "Raf";
-            return name.Contains("urun") ? "Ürün" : "Diğer";
+            if (name.Contains("demirbas") || name.Contains("asset")) return "Demirbaş";
+            if (name.Contains("kargo") || name.Contains("shipping")) return "Kargo";
+            if (name.Contains("koli") || name.Contains("carton")) return "Koli";
+            if (name.Contains("raf") || name.Contains("shelf")) return "Raf";
+            return name.Contains("urun") || name.Contains("product") ? "Ürün" : "Diğer";
         }
     }
 }
@@ -49,9 +50,10 @@ public sealed partial class TemplatesViewModel : ObservableObject
     private readonly List<TemplateItemViewModel> _allItems = [];
     public ObservableCollection<TemplateItemViewModel> Items { get; } = [];
     public IReadOnlyList<string> Categories { get; } = ["Tümü", "Ürün", "Raf", "Koli", "Kargo", "Demirbaş", "Diğer"];
+    public IReadOnlyList<KeyValuePair<string,string>> LocalizedCategories => Categories.Select(c => new KeyValuePair<string,string>(c, L10n.T(c))).ToArray();
     [ObservableProperty] public partial string Query { get; set; } = "";
     [ObservableProperty] public partial string Category { get; set; } = "Tümü";
-    public string ResultSummary => $"{Items.Count} / {_allItems.Count} şablon";
+    public string ResultSummary => L10n.T($"{Items.Count} / {_allItems.Count} şablon");
     partial void OnQueryChanged(string value) => FilterItems();
     partial void OnCategoryChanged(string value) => FilterItems();
     private void FilterItems()
@@ -91,7 +93,7 @@ public sealed partial class TemplatesViewModel : ObservableObject
             Items.Clear();
             SelectedItem = null;
             OnPropertyChanged(nameof(ResultSummary));
-            _main.Dialogs.ShowMessage("Şablonlar", "Şablon klasörü okunamadı: " + ex.Message, MessageKind.Warning);
+            _main.Dialogs.ShowMessage(L10n.T("Şablonlar"), L10n.T("Şablon klasörü okunamadı: ") + ex.Message, MessageKind.Warning);
         }
     }
 
@@ -116,7 +118,7 @@ public sealed partial class TemplatesViewModel : ObservableObject
             Library.EnsureFolder();
             if (Library.List().Count > 0) return;
             if (legacyFolder is not null) ImportedLegacyCount = Library.ImportMissingFrom(legacyFolder);
-            foreach (var (name, project) in SampleTemplates.CreateAll(logoPng, _main.Settings.Company))
+            foreach (var (name, project) in InternationalSamples.CreateAll(logoPng, _main.Settings.Company, L10n.Language))
             {
                 if (File.Exists(Library.GetPathForName(name))) continue;
                 byte[]? preview = null;
@@ -135,7 +137,7 @@ public sealed partial class TemplatesViewModel : ObservableObject
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ProjectFileException)
         {
-            _main.Dialogs.ShowMessage("Örnek şablonlar", "Örnek şablonlar oluşturulamadı: " + ex.Message, MessageKind.Warning);
+            _main.Dialogs.ShowMessage(L10n.T("Örnek şablonlar"), L10n.T("Örnek şablonlar oluşturulamadı: ") + ex.Message, MessageKind.Warning);
         }
     }
 
@@ -149,13 +151,13 @@ public sealed partial class TemplatesViewModel : ObservableObject
         try
         {
             var result = ProjectFile.Load(item.Info.FilePath);
-            _main.OpenProjectAsNew(result.Project, $"\"{item.Name}\" şablonundan yeni etiket oluşturuldu.");
+            _main.OpenProjectAsNew(result.Project, L10n.T($"\"{item.Name}\" şablonundan yeni etiket oluşturuldu."));
             if (result.Warnings.Count > 0)
-                _main.Dialogs.ShowMessage("Şablon (uyarılar)", string.Join("\n", result.Warnings), MessageKind.Warning);
+                _main.Dialogs.ShowMessage(L10n.T("Şablon (uyarılar)"), string.Join("\n", result.Warnings), MessageKind.Warning);
         }
         catch (ProjectFileException ex)
         {
-            _main.Dialogs.ShowMessage("Şablon açılamadı", ex.Message, MessageKind.Error);
+            _main.Dialogs.ShowMessage(L10n.T("Şablon açılamadı"), ex.Message, MessageKind.Error);
         }
     }
 
@@ -180,7 +182,7 @@ public sealed partial class TemplatesViewModel : ObservableObject
         }
         catch (Exception ex) when (ex is ProjectFileException or IOException or UnauthorizedAccessException)
         {
-            _main.Dialogs.ShowMessage("Şablon çoğaltılamadı", ex.Message, MessageKind.Error);
+            _main.Dialogs.ShowMessage(L10n.T("Şablon çoğaltılamadı"), ex.Message, MessageKind.Error);
         }
     }
 
@@ -189,7 +191,7 @@ public sealed partial class TemplatesViewModel : ObservableObject
     {
         item ??= SelectedItem;
         if (item is null) return;
-        string? name = _main.Dialogs.Prompt("Şablonu yeniden adlandır", "Yeni ad:", item.Name);
+        string? name = _main.Dialogs.Prompt(L10n.T("Şablonu yeniden adlandır"), L10n.T("Yeni ad:"), item.Name);
         if (string.IsNullOrWhiteSpace(name) || name == item.Name) return;
         try
         {
@@ -198,7 +200,7 @@ public sealed partial class TemplatesViewModel : ObservableObject
         }
         catch (Exception ex) when (ex is ProjectFileException or IOException or UnauthorizedAccessException)
         {
-            _main.Dialogs.ShowMessage("Yeniden adlandırılamadı", ex.Message, MessageKind.Error);
+            _main.Dialogs.ShowMessage(L10n.T("Yeniden adlandırılamadı"), ex.Message, MessageKind.Error);
         }
     }
 
@@ -207,7 +209,7 @@ public sealed partial class TemplatesViewModel : ObservableObject
     {
         item ??= SelectedItem;
         if (item is null) return;
-        if (!_main.Dialogs.Confirm("Şablonu sil", $"\"{item.Name}\" şablonu silinsin mi?\n(Geri Dönüşüm Kutusu'na gönderilir.)", "Sil", "Vazgeç")) return;
+        if (!_main.Dialogs.Confirm(L10n.T("Şablonu sil"), L10n.T($"\"{item.Name}\" şablonu silinsin mi?\n(Geri Dönüşüm Kutusu'na gönderilir.)"), L10n.T("Sil"), L10n.T("Vazgeç"))) return;
         try
         {
             Library.Delete(item.Info, _main.Services.RecycleFile);
@@ -215,7 +217,7 @@ public sealed partial class TemplatesViewModel : ObservableObject
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            _main.Dialogs.ShowMessage("Silinemedi", ex.Message, MessageKind.Error);
+            _main.Dialogs.ShowMessage(L10n.T("Silinemedi"), ex.Message, MessageKind.Error);
         }
     }
 
@@ -229,7 +231,7 @@ public sealed partial class TemplatesViewModel : ObservableObject
     [RelayCommand]
     private void RestoreSamples()
     {
-        var samples = SampleTemplates.CreateAll(_main.Settings.Company.LogoPng ?? _main.Services.LogoProvider(), _main.Settings.Company);
+        var samples = InternationalSamples.CreateAll(_main.Settings.Company.LogoPng ?? _main.Services.LogoProvider(), _main.Settings.Company, L10n.Language);
         int created = 0;
         foreach (var (name, project) in samples)
         {
@@ -243,12 +245,12 @@ public sealed partial class TemplatesViewModel : ObservableObject
             }
             catch (Exception ex) when (ex is ProjectFileException or IOException or UnauthorizedAccessException)
             {
-                _main.Dialogs.ShowMessage("Örnek şablonlar", ex.Message, MessageKind.Warning);
+                _main.Dialogs.ShowMessage(L10n.T("Örnek şablonlar"), ex.Message, MessageKind.Warning);
                 break;
             }
         }
         Refresh();
-        _main.StatusMessage = created > 0 ? $"{created} örnek şablon geri yüklendi." : "Örnek şablonlar zaten mevcut.";
+        _main.StatusMessage = created > 0 ? L10n.T($"{created} örnek şablon geri yüklendi.") : L10n.T("Örnek şablonlar zaten mevcut.");
     }
 
     /// <summary>Firma bilgileriyle yeni kopyalar ekler; mevcut şablonları asla değiştirmez.</summary>
@@ -256,7 +258,7 @@ public sealed partial class TemplatesViewModel : ObservableObject
     {
         var company = _main.Settings.Company;
         int created = 0;
-        foreach (var (name, project) in SampleTemplates.CreateAll(company.LogoPng, company))
+        foreach (var (name, project) in InternationalSamples.CreateAll(company.LogoPng, company, L10n.Language))
         {
             string prefix = TemplateLibrary.SanitizeName(company.DisplayName);
             if (prefix.Length > 30) prefix = prefix[..30];

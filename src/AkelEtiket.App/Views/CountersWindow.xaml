@@ -1,42 +1,42 @@
-<views:ThemedWindow x:Class="AkelEtiket.App.Views.CountersWindow"
+<views:ThemedWindow xmlns:loc="clr-namespace:AkelEtiket.App.Localization" x:Class="AkelEtiket.App.Views.CountersWindow"
                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:views="clr-namespace:AkelEtiket.App.Views"
-                    Title="Sayaçlar" Width="860" Height="560" MinWidth="680" MinHeight="420" ResizeMode="CanResizeWithGrip">
+                    Title="{loc:Text T_91d5c425d18f}" Width="860" Height="560" MinWidth="680" MinHeight="420" ResizeMode="CanResizeWithGrip">
     <DockPanel Margin="20,14,20,14">
         <StackPanel DockPanel.Dock="Top" Margin="0,0,0,10">
-            <TextBlock Text="Kalıcı sayaçlar ve seri numaraları" Style="{StaticResource Text.Title}" FontSize="18" />
+            <TextBlock Text="{loc:Text T_0e8cf2505599}" Style="{StaticResource Text.Title}" FontSize="18" />
             <TextBlock Text="{Binding UsageText}" Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="0,4,0,0" />
             <TextBlock Text="{Binding Problem}" Style="{StaticResource Text.Hint}" Foreground="{DynamicResource Brush.Error}" TextWrapping="Wrap" Margin="0,6,0,0"
                        Visibility="{Binding Problem, Converter={StaticResource NullToVisibility}}" />
         </StackPanel>
 
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,10">
-            <Button Content="Yeni sayaç…" Command="{Binding AddCommand}" Margin="0,0,6,0" Padding="10,4" />
-            <Button Content="Sıradaki değer…" Command="{Binding SetNextCommand}" Margin="0,0,6,0" Padding="10,4" />
-            <Button Content="Artış…" Command="{Binding SetStepCommand}" Margin="0,0,6,0" Padding="10,4" />
-            <Button Content="Sıfırla" Command="{Binding ResetCommand}" Margin="0,0,6,0" Padding="10,4" />
-            <Button Content="Sil" Command="{Binding DeleteCommand}" Margin="0,0,6,0" Padding="10,4" />
-            <Button Content="Yenile" Command="{Binding RefreshCommand}" Padding="10,4" />
+            <Button Content="{loc:Text T_3768026a47db}" Command="{Binding AddCommand}" Margin="0,0,6,0" Padding="10,4" />
+            <Button Content="{loc:Text T_43bca619d160}" Command="{Binding SetNextCommand}" Margin="0,0,6,0" Padding="10,4" />
+            <Button Content="{loc:Text T_8fb67ed57952}" Command="{Binding SetStepCommand}" Margin="0,0,6,0" Padding="10,4" />
+            <Button Content="{loc:Text T_82c50a2e9fd7}" Command="{Binding ResetCommand}" Margin="0,0,6,0" Padding="10,4" />
+            <Button Content="{loc:Text T_f698e9b40f9f}" Command="{Binding DeleteCommand}" Margin="0,0,6,0" Padding="10,4" />
+            <Button Content="{loc:Text T_63cd725787a8}" Command="{Binding RefreshCommand}" Padding="10,4" />
         </StackPanel>
 
         <DockPanel DockPanel.Dock="Bottom" Margin="0,12,0,0">
-            <Button DockPanel.Dock="Right" Content="Kapat" MinWidth="96" Style="{StaticResource Button.Accent}" IsCancel="True" Click="OnClose" />
+            <Button DockPanel.Dock="Right" Content="{loc:Text T_7b31a9fc4816}" MinWidth="96" Style="{StaticResource Button.Accent}" IsCancel="True" Click="OnClose" />
             <TextBlock Style="{StaticResource Text.Hint}" VerticalAlignment="Center" TextWrapping="Wrap" Margin="0,0,16,0">
-                <Run Text="Sayaç dosyası:" />
+                <Run Text="{loc:Text T_fb04eca08ef4}" />
                 <Run Text="{Binding FilePath, Mode=OneWay}" />
-                <Run Text="— yedekleyin; silinirse sayaçlar 1'den başlar." />
+                <Run Text="{loc:Text T_572b394ff19f}" />
             </TextBlock>
         </DockPanel>
 
         <DataGrid ItemsSource="{Binding Counters}" SelectedItem="{Binding SelectedCounter}" AutoGenerateColumns="False" IsReadOnly="True"
                   SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" HeadersVisibility="Column">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Sayaç" Binding="{Binding Name}" Width="*" />
-                <DataGridTextColumn Header="Sıradaki" Binding="{Binding Next}" Width="100" />
-                <DataGridTextColumn Header="Artış" Binding="{Binding Step}" Width="60" />
-                <DataGridTextColumn Header="Son kullanım" Binding="{Binding LastUsedText}" Width="130" />
-                <DataGridTextColumn Header="Son aralık" Binding="{Binding LastRange}" Width="130" />
+                <DataGridTextColumn Header="{loc:Text T_7df4133fa976}" Binding="{Binding Name}" Width="*" />
+                <DataGridTextColumn Header="{loc:Text T_53a1a38c4b64}" Binding="{Binding Next}" Width="100" />
+                <DataGridTextColumn Header="{loc:Text T_5bc7eefff5d4}" Binding="{Binding Step}" Width="60" />
+                <DataGridTextColumn Header="{loc:Text T_cd7af79cbd62}" Binding="{Binding LastUsedText}" Width="130" />
+                <DataGridTextColumn Header="{loc:Text T_554a4cd614ff}" Binding="{Binding LastRange}" Width="130" />
                 <DataGridTextColumn Header="" Binding="{Binding UsageText}" Width="90" />
             </DataGrid.Columns>
         </DataGrid>

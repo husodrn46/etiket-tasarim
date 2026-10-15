@@ -5,6 +5,7 @@ using AkelEtiket.Editor.Services;
 using AkelEtiket.Gs1;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -27,7 +28,7 @@ public sealed partial class RegisteredGtinRow : ObservableObject
         get
         {
             var result = Gs1Identifiers.ValidateGtin(Gtin);
-            return result.IsValid ? $"Geçerli ({TypeName(result.Type)})" : result.Error ?? "Geçersiz";
+            return result.IsValid ? L10n.T($"Geçerli ({TypeName(result.Type)})") : result.Error ?? L10n.T("Geçersiz");
         }
     }
 
@@ -104,10 +105,10 @@ public sealed partial class Gs1ProfileViewModel : ObservableObject
 
     public IReadOnlyList<KeyValuePair<PackagingLevel, string>> PackagingChoices { get; } =
     [
-        new(PackagingLevel.ConsumerUnit, "Tüketici birimi"),
-        new(PackagingLevel.Carton, "Koli"),
-        new(PackagingLevel.Pallet, "Palet"),
-        new(PackagingLevel.Other, "Diğer"),
+        new(PackagingLevel.ConsumerUnit, L10n.T("Tüketici birimi")),
+        new(PackagingLevel.Carton, L10n.T("Koli")),
+        new(PackagingLevel.Pallet, L10n.T("Palet")),
+        new(PackagingLevel.Other, L10n.T("Diğer")),
     ];
 
     public ObservableCollection<RegisteredGtinRow> Gtins { get; } = [];
@@ -163,8 +164,8 @@ public sealed partial class Gs1ProfileViewModel : ObservableObject
         {
             var result = Gs1Identifiers.ValidateGln(Gln);
             return result.IsValid
-                ? "Geçerli GLN (kontrol basamağı doğru). GLN bir yer/firma numarasıdır; ürün barkodu ve firma öneki değildir."
-                : result.Error ?? "Geçersiz GLN";
+                ? L10n.T("Geçerli GLN (kontrol basamağı doğru). GLN bir yer/firma numarasıdır; ürün barkodu ve firma öneki değildir.")
+                : result.Error ?? L10n.T("Geçersiz GLN");
         }
     }
 
@@ -174,11 +175,11 @@ public sealed partial class Gs1ProfileViewModel : ObservableObject
         {
             string gcp = Gs1Identifiers.Normalize(GcpPrefix);
             if (gcp.Length == 0)
-                return "Firma öneki girilmedi. GS1 Türkiye üyelik belgenizdeki öneki yazın; GLN'den tahmin edilmez.";
+                return L10n.T("Firma öneki girilmedi. GS1 Türkiye üyelik belgenizdeki öneki yazın; GLN'den tahmin edilmez.");
             if (!Gs1Identifiers.IsValidGcpFormat(gcp, out string? error)) return error!;
             return GcpVerified
-                ? $"{gcp.Length} haneli önek, üyelik belgesinden doğrulandı. SSCC üretilebilir."
-                : $"{gcp.Length} haneli önek. SSCC üretimi için \"Üyelik belgesinden doğrulandı\" kutusunu işaretleyin.";
+                ? L10n.T($"{gcp.Length} haneli önek, üyelik belgesinden doğrulandı. SSCC üretilebilir.")
+                : L10n.T($"{gcp.Length} haneli önek. SSCC üretimi için \"Üyelik belgesinden doğrulandı\" kutusunu işaretleyin.");
         }
     }
 
@@ -189,12 +190,12 @@ public sealed partial class Gs1ProfileViewModel : ObservableObject
             string gcp = Gs1Identifiers.Normalize(GcpPrefix);
             if (!Gs1Identifiers.IsValidGcpFormat(gcp, out _)) return "";
             int length = Gs1Identifiers.SsccSerialLength(gcp.Length);
-            return $"Seri referansı {length} hane: 1 – {Gs1Identifiers.MaxSerial(length).ToString("N0", Turkish)}";
+            return L10n.T($"Seri referansı {length} hane: 1 – {Gs1Identifiers.MaxSerial(length).ToString("N0", Turkish)}");
         }
     }
 
     public string VerifiedText => GcpVerified && GcpVerifiedAt is { } at
-        ? $"Doğrulama: {at.ToLocalTime().ToString("dd.MM.yyyy HH:mm", Turkish)}"
+        ? L10n.T($"Doğrulama: {at.ToLocalTime().ToString("dd.MM.yyyy HH:mm", Turkish)}")
         : "";
 
     partial void OnGcpPrefixChanged(string value)
@@ -204,7 +205,7 @@ public sealed partial class Gs1ProfileViewModel : ObservableObject
         if (GcpVerified && Gs1Identifiers.Normalize(value) != _initialGcp)
         {
             GcpVerified = false;
-            VerificationResetNote = "Firma öneki değiştiği için \"doğrulandı\" işareti kaldırıldı. Yeni öneki üyelik belgenizle kontrol edip yeniden işaretleyin.";
+            VerificationResetNote = L10n.T("Firma öneki değiştiği için \"doğrulandı\" işareti kaldırıldı. Yeni öneki üyelik belgenizle kontrol edip yeniden işaretleyin.");
         }
         RefreshIssues();
     }
@@ -281,7 +282,7 @@ public sealed partial class Gs1ProfileViewModel : ObservableObject
     [RelayCommand]
     private void ImportGtins()
     {
-        string? path = _dialogs.ShowOpenFileDialog("GTIN listesi seç (Excel/CSV)", DataImporter.OpenFileFilter);
+        string? path = _dialogs.ShowOpenFileDialog(L10n.T("GTIN listesi seç (Excel/CSV)"), DataImporter.OpenFileFilter);
         if (path is null) return;
         DataSourceTable table;
         try
@@ -290,17 +291,17 @@ public sealed partial class Gs1ProfileViewModel : ObservableObject
         }
         catch (DataImportException ex)
         {
-            _dialogs.ShowMessage("GTIN aktarma", ex.Message, MessageKind.Error);
+            _dialogs.ShowMessage(L10n.T("GTIN aktarma"), ex.Message, MessageKind.Error);
             return;
         }
         var result = GtinImport.FromRows(table.Columns, table.Rows.Select(r => (r.RowNumber, r.Values)), Gtins.Select(g => g.ToModel()));
         foreach (var gtin in result.Added) AddRow(RegisteredGtinRow.From(gtin));
         RefreshIssues();
-        string message = $"{result.Added.Count} GTIN eklendi." + (result.ColumnSummary.Length > 0 ? $"\n({result.ColumnSummary})" : "");
+        string message = L10n.T($"{result.Added.Count} GTIN eklendi.") + (result.ColumnSummary.Length > 0 ? $"\n({result.ColumnSummary})" : "");
         if (result.Skipped.Count > 0)
-            message += $"\n\n{result.Skipped.Count} satır eklenmedi:\n" + string.Join("\n", result.Skipped.Take(15)) +
+            message += L10n.T($"\n\n{result.Skipped.Count} satır eklenmedi:\n") + string.Join("\n", result.Skipped.Take(15)) +
                        (result.Skipped.Count > 15 ? "\n…" : "");
-        _dialogs.ShowMessage("GTIN aktarma", message, result.Added.Count > 0 ? MessageKind.Info : MessageKind.Warning);
+        _dialogs.ShowMessage(L10n.T("GTIN aktarma"), message, result.Added.Count > 0 ? MessageKind.Info : MessageKind.Warning);
     }
 
     [RelayCommand]
@@ -313,11 +314,11 @@ public sealed partial class Gs1ProfileViewModel : ObservableObject
             var summary = _context.Registry.GetSummary(BuildProfile());
             var parts = new List<string>
             {
-                $"Gönderilen: {summary.Sent.ToString("N0", Turkish)}",
-                $"Kullanılmayan: {summary.Voided.ToString("N0", Turkish)}",
+                L10n.T($"Gönderilen: {summary.Sent.ToString("N0", Turkish)}"),
+                L10n.T($"Kullanılmayan: {summary.Voided.ToString("N0", Turkish)}"),
             };
-            if (summary.Allocated > 0) parts.Add($"Sonucu bekleyen: {summary.Allocated.ToString("N0", Turkish)}");
-            if (summary.NextSerial is { } next) parts.Add($"Sıradaki seri: {next.ToString("N0", Turkish)}");
+            if (summary.Allocated > 0) parts.Add(L10n.T($"Sonucu bekleyen: {summary.Allocated.ToString("N0", Turkish)}"));
+            if (summary.NextSerial is { } next) parts.Add(L10n.T($"Sıradaki seri: {next.ToString("N0", Turkish)}"));
             if (summary.Remaining is { } remaining) parts.Add($"Kalan: {remaining.ToString("N0", Turkish)}");
             RegistrySummary = string.Join(" • ", parts);
         }
@@ -358,7 +359,7 @@ public sealed partial class Gs1ProfileViewModel : ObservableObject
     {
         Issues.Clear();
         foreach (var issue in BuildProfile().Validate()) Issues.Add(issue.ToString());
-        if (Issues.Count == 0) Issues.Add("Sorun bulunmadı.");
+        if (Issues.Count == 0) Issues.Add(L10n.T("Sorun bulunmadı."));
     }
 
     /// <summary>Profili doğrular ve kaydeder. Hata varsa kaydetmez, nedenini gösterir; başarılıysa true.</summary>
@@ -368,15 +369,15 @@ public sealed partial class Gs1ProfileViewModel : ObservableObject
         var errors = profile.Validate().Where(i => i.Severity == Gs1IssueSeverity.Error).ToList();
         if (errors.Count > 0)
         {
-            _dialogs.ShowMessage("GS1 Firma Profili", "Kaydedilmedi; önce şu hataları düzeltin:\n\n" + string.Join("\n", errors.Select(e => "• " + e.Message)),
+            _dialogs.ShowMessage(L10n.T("GS1 Firma Profili"), L10n.T("Kaydedilmedi; önce şu hataları düzeltin:\n\n") + string.Join("\n", errors.Select(e => "• " + e.Message)),
                 MessageKind.Warning);
             return false;
         }
         if (profile.GcpVerified && !_initialVerified &&
-            !_dialogs.Confirm("Firma öneki doğrulaması",
-                $"Firma öneki {profile.NormalizedGcp} olarak kaydedilecek ve SSCC üretimi açılacak.\n\n" +
-                "Bu öneki GS1 Türkiye üyelik belgenizden kontrol ettiniz mi? Yanlış önekle basılan SSCC'ler geri alınamaz.",
-                "Evet, kontrol ettim", "Vazgeç"))
+            !_dialogs.Confirm(L10n.T("Firma öneki doğrulaması"),
+                L10n.T($"Firma öneki {profile.NormalizedGcp} olarak kaydedilecek ve SSCC üretimi açılacak.\n\n") +
+                L10n.T("Bu öneki GS1 Türkiye üyelik belgenizden kontrol ettiniz mi? Yanlış önekle basılan SSCC'ler geri alınamaz."),
+                L10n.T("Evet, kontrol ettim"), L10n.T("Vazgeç")))
             return false;
         try
         {
@@ -384,7 +385,7 @@ public sealed partial class Gs1ProfileViewModel : ObservableObject
         }
         catch (Gs1Exception ex)
         {
-            _dialogs.ShowMessage("GS1 Firma Profili", ex.Message, MessageKind.Error);
+            _dialogs.ShowMessage(L10n.T("GS1 Firma Profili"), ex.Message, MessageKind.Error);
             return false;
         }
         return true;
