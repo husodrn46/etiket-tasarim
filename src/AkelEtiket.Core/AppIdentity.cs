@@ -5,7 +5,7 @@ namespace AkelEtiket.Core;
 /// </summary>
 public static class AppIdentity
 {
-    public const string ProductName = "Etiket Tasarım";
+    public const string ProductName = "LabelHarbor";
 
     /// <summary>Veri klasörlerinin adı (Belgeler, %APPDATA%, %LOCALAPPDATA% altında).</summary>
     public const string DataFolderName = "Etiket Tasarım";

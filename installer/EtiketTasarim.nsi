@@ -1,5 +1,5 @@
 ; -*- coding: utf-8 -*-
-; Local cross-platform installer candidate. Product name remains provisional.
+; Local cross-platform installer candidate. LabelHarbor MIT preview distribution.
 Unicode true
 !include "MUI2.nsh"
 !include "x64.nsh"
@@ -16,7 +16,10 @@ Unicode true
 !ifndef APP_VERSION
   !define APP_VERSION "2.0.0"
 !endif
-!define APP_NAME "Etiket Tasarım"
+!define APP_NAME "LabelHarbor"
+!ifndef APP_DISPLAY_VERSION
+  !define APP_DISPLAY_VERSION "${APP_VERSION}"
+!endif
 !define APP_EXE "Etiket Tasarim.exe"
 Name "${APP_NAME} (preview)"
 OutFile "${OUTPUT}"
@@ -27,11 +30,11 @@ SetCompressor /SOLID lzma
 VIProductVersion "${APP_VERSION}.0"
 VIAddVersionKey /LANG=1033 "ProductName" "${APP_NAME}"
 VIAddVersionKey /LANG=1033 "FileDescription" "Label design application installer preview"
-VIAddVersionKey /LANG=1033 "FileVersion" "${APP_VERSION}"
+VIAddVersionKey /LANG=1033 "FileVersion" "${APP_DISPLAY_VERSION}"
 VIAddVersionKey /LANG=1033 "LegalCopyright" "Source and dependency notices are included."
 VIAddVersionKey /LANG=1055 "ProductName" "${APP_NAME}"
 VIAddVersionKey /LANG=1055 "FileDescription" "${APP_NAME} kurulum adayı"
-VIAddVersionKey /LANG=1055 "FileVersion" "${APP_VERSION}"
+VIAddVersionKey /LANG=1055 "FileVersion" "${APP_DISPLAY_VERSION}"
 VIAddVersionKey /LANG=1055 "LegalCopyright" "Kaynak ve bağımlılık atıfları paket içinde yer alır."
 !define MUI_LANGDLL_REGISTRY_ROOT "HKCU"
 !define MUI_LANGDLL_REGISTRY_KEY "Software\EtiketTasarim"
@@ -82,7 +85,7 @@ Section "$(ApplicationSection)"
   CreateShortcut "$SMPROGRAMS\${APP_NAME}\Uninstall.lnk" "$INSTDIR\Uninstall.exe"
   WriteRegStr HKCU "Software\EtiketTasarim" "InstallDir" "$INSTDIR"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\EtiketTasarim" "DisplayName" "${APP_NAME}"
-  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\EtiketTasarim" "DisplayVersion" "${APP_VERSION}"
+  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\EtiketTasarim" "DisplayVersion" "${APP_DISPLAY_VERSION}"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\EtiketTasarim" "Publisher" "husodrn46"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\EtiketTasarim" "UninstallString" '$\"$INSTDIR\Uninstall.exe$\"'
   WriteRegDWORD HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\EtiketTasarim" "NoModify" 1

@@ -141,7 +141,7 @@ public sealed partial class DesignService
     {
         if (LiveHost is null)
             throw new ToolException(ToolErrorCodes.Unavailable,
-                "Etiket Tasarım uygulaması açık değil; açık belgelere erişilemez. Dosya tasarımlarıyla (dosya:…) çalışabilirsiniz.");
+                "LabelHarbor uygulaması açık değil; açık belgelere erişilemez. Dosya tasarımlarıyla (dosya:…) çalışabilirsiniz.");
         if (!trusted && !Settings.ShareOpenDocument)
             throw new ToolException(ToolErrorCodes.PermissionDenied,
                 "Kullanıcı açık tasarımı yapay zekâ ile paylaşmayı kapattı (Ayarlar → Yapay Zekâ).");
@@ -163,7 +163,7 @@ public sealed partial class DesignService
         ReadCoreAsync(designId, new ToolCallContext { ClientName = HostClientName }, trusted: true, cancellationToken);
 
     /// <summary>Masaüstünün kendi adına yaptığı işlemlerde kullanılan istemci adı.</summary>
-    public const string HostClientName = "Etiket Tasarım";
+    public const string HostClientName = "LabelHarbor";
 
     private async Task<DesignState> ReadCoreAsync(string designId, ToolCallContext context, bool trusted, CancellationToken cancellationToken)
     {

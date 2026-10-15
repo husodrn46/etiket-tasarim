@@ -1,6 +1,7 @@
 # Üçüncü taraf bileşenler ve lisanslar
 
-Bu genel sürümün kaynak kodu lisansı public yayın öncesinde kesinleştirilmelidir. Aşağıdaki liste yalnız bağımlılıkların lisanslarını açıklar; kaynak kod için kendiliğinden lisans vermez.
+LabelHarbor projesinin kendi kaynak kodu **MIT** lisanslıdır; tam metin depo ve dağıtım kökündeki `LICENSE` dosyasındadır.
+Aşağıdaki bağımlılıklar kendi lisanslarını korur; MIT seçimi bunların lisanslarını değiştirmez.
 Hepsi **ticari kullanıma izin veren** lisanslardır; ücretli lisans, abonelik veya çevrimiçi aktivasyon gerektirmez.
 Sürümler ve lisans ifadeleri 13.10.2026'da nuget.org üzerinden, uygulamanın gerçekte paketlenen bağımlılıklarından
 (`project.assets.json`) doğrulanmıştır.

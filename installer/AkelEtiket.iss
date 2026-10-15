@@ -1,18 +1,21 @@
 ; ─────────────────────────────────────────────────────────────────────────────
-;  Etiket Tasarım — Windows kurulum sihirbazı (Inno Setup 6)
+;  LabelHarbor — Windows kurulum sihirbazı (Inno Setup 6)
 ;  v1 ("AKEL Etiket") ile yan yana kurulur: ayrı AppId, klasör, kısayol ve veri klasörleri.
 ;  Derleme: depo kökünde  powershell -ExecutionPolicy Bypass -File build.ps1
 ;  veya elle:  ISCC.exe installer\AkelEtiket.iss  (önce yayın klasörü oluşturulmalı)
 ; ─────────────────────────────────────────────────────────────────────────────
 
 #ifndef AppVersion
-  #define AppVersion "2.0.0"
+  #define AppVersion "2.0.0-preview.2"
 #endif
 #ifndef PublishDir
   #define PublishDir "..\artifacts\publish\Etiket-Tasarim-win-x64"
 #endif
 
-#define AppName "Etiket Tasarım"
+#ifndef AppNumericVersion
+  #define AppNumericVersion "2.0.0"
+#endif
+#define AppName "LabelHarbor"
 #define AppExe "Etiket Tasarim.exe"
 #define AppPublisher "husodrn46"
 #define AppUrl "https://github.com/husodrn46"
@@ -27,10 +30,10 @@ AppPublisher={#AppPublisher}
 AppPublisherURL={#AppUrl}
 AppSupportURL={#AppUrl}
 AppCopyright=© 2026 {#AppPublisher}
-VersionInfoVersion={#AppVersion}
+VersionInfoVersion={#AppNumericVersion}
 VersionInfoProductName={#AppName}
 VersionInfoCompany={#AppPublisher}
-DefaultDirName={autopf}\{#AppName}
+DefaultDirName={autopf}\Etiket Tasarım
 DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
 ; Yönetici yetkisi olmadan "yalnızca benim için" kurulabilir; isteğe bağlı tüm kullanıcılar için.
@@ -45,7 +48,7 @@ SetupIconFile=..\src\AkelEtiket.App\Assets\AkelEtiket.ico
 UninstallDisplayIcon={app}\{#AppExe}
 UninstallDisplayName={#AppName}
 OutputDir=..\artifacts\installer
-OutputBaseFilename=Etiket-Tasarim-Kurulum-{#AppVersion}
+OutputBaseFilename=LabelHarbor-Setup-{#AppVersion}
 Compression=lzma2/ultra64
 SolidCompression=yes
 ChangesAssociations=yes
@@ -62,6 +65,8 @@ Name: "desktopicon"; Description: "{cm:DesktopShortcut}"; GroupDescription: "{cm
 Name: "association"; Description: "{cm:FileAssociation}"; GroupDescription: "{cm:AssociationGroup}"; Flags: unchecked
 
 [Files]
+Source: "..\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\NOTICE"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#PublishDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\samples\Ornek-Urunler.xlsx"; DestDir: "{app}\Örnekler"; Flags: ignoreversion
 Source: "..\samples\ornek-urunler-utf8.csv"; DestDir: "{app}\Örnekler"; Flags: ignoreversion
@@ -92,7 +97,7 @@ Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExe}"; Tasks: desktopico
 
 [Registry]
 Root: HKA; Subkey: "Software\Classes\.akelabel"; ValueType: string; ValueName: ""; ValueData: "EtiketTasarim.Proje"; Flags: uninsdeletevalue; Tasks: association
-Root: HKA; Subkey: "Software\Classes\EtiketTasarim.Proje"; ValueType: string; ValueName: ""; ValueData: "Etiket Tasarım projesi"; Flags: uninsdeletekey; Tasks: association
+Root: HKA; Subkey: "Software\Classes\EtiketTasarim.Proje"; ValueType: string; ValueName: ""; ValueData: "LabelHarbor projesi"; Flags: uninsdeletekey; Tasks: association
 Root: HKA; Subkey: "Software\Classes\EtiketTasarim.Proje\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\{#AppExe},0"; Tasks: association
 Root: HKA; Subkey: "Software\Classes\EtiketTasarim.Proje\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#AppExe}"" ""%1"""; Tasks: association
 
@@ -108,8 +113,8 @@ english.DesktopShortcut=Create a desktop shortcut
 turkish.DesktopShortcut=Masaüstü kısayolu oluştur
 english.ExtraIcons=Additional icons:
 turkish.ExtraIcons=Ek simgeler:
-english.FileAssociation=Open .akelabel project files with Etiket Tasarım
-turkish.FileAssociation=.akelabel proje dosyalarını Etiket Tasarım ile aç
+english.FileAssociation=Open .akelabel project files with LabelHarbor
+turkish.FileAssociation=.akelabel proje dosyalarını LabelHarbor ile aç
 english.AssociationGroup=File association:
 turkish.AssociationGroup=Dosya ilişkilendirme:
 english.AppDescription=Label and barcode designer
@@ -118,7 +123,7 @@ english.SampleFiles=Sample files
 turkish.SampleFiles=Örnek dosyalar
 english.Documentation=Documentation
 turkish.Documentation=Belgeler
-english.UninstallApp=Uninstall Etiket Tasarım
-turkish.UninstallApp=Etiket Tasarım kaldır
-english.LaunchApp=Launch Etiket Tasarım
-turkish.LaunchApp=Etiket Tasarım uygulamasını başlat
+english.UninstallApp=Uninstall LabelHarbor
+turkish.UninstallApp=LabelHarbor kaldır
+english.LaunchApp=Launch LabelHarbor
+turkish.LaunchApp=LabelHarbor uygulamasını başlat

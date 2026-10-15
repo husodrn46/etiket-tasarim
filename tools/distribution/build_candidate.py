@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Build a local Windows x64 candidate. Never uploads or publishes."""
-import argparse, hashlib, json, os, shutil, struct, subprocess, zipfile
+import argparse, hashlib, json, os, re, shutil, struct, subprocess, zipfile
 from pathlib import Path
 from collect_notices import collect
 
@@ -17,9 +17,14 @@ def main():
     parser.add_argument('--makensis', type=Path, required=True)
     parser.add_argument('--cache', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--version', default='2.0.0')
+    parser.add_argument('--version', default='2.0.0-preview.2')
     parser.add_argument('--reuse-stage', type=Path, help='Explicitly reuse already published stages for local checks.')
     args = parser.parse_args()
+    if not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?", args.version): raise SystemExit('Invalid version.')
+    numeric_version = args.version.split('-')[0]
+    license_text = (ROOT/'LICENSE').read_text()
+    if not license_text.startswith('MIT License') or 'Permission is hereby granted' not in license_text:
+        raise SystemExit('The selected source license is missing or invalid.')
     output = args.output.resolve()
     if output.exists(): raise SystemExit('Output already exists; refusing to overwrite it.')
     output.mkdir(parents=True)
@@ -40,9 +45,10 @@ def main():
     for file in (stages/'AkelEtiket.App').rglob('*'):
         if file.is_file() and digest(file) != digest(payload/file.relative_to(stages/'AkelEtiket.App')):
             raise RuntimeError('Dependency merge mismatch: '+str(file))
+    shutil.copy2(ROOT/'LICENSE', payload/'LICENSE')
     docs = payload/'Belgeler'; docs.mkdir(exist_ok=True)
     for name in ['README.md', 'README.tr.md', 'NOTICE']: shutil.copy2(ROOT/name, docs/name)
-    for name in ['GENEL-URUN.md','LISANSLAR.md','USER-GUIDE.md','INTERNATIONALIZATION.md','WORKFLOWS.md','WORKFLOWS.tr.md']: shutil.copy2(ROOT/'docs'/name, docs/name)
+    for name in ['GENEL-URUN.md','LISANSLAR.md','USER-GUIDE.md','INTERNATIONALIZATION.md','WORKFLOWS.md','WORKFLOWS.tr.md','RELEASE-READINESS.md']: shutil.copy2(ROOT/'docs'/name, docs/name)
     samples = payload/'Örnekler'; samples.mkdir(exist_ok=True)
     for file in (ROOT/'samples').iterdir():
         if file.is_file() and file.suffix in ['.csv','.xlsx','.akelabel','.png']: shutil.copy2(file, samples/file.name)
@@ -65,16 +71,16 @@ def main():
     dirs = sorted({str(p.relative_to(payload)).replace(os.sep,'\\') for p in payload.rglob('*') if p.is_dir()},key=len,reverse=True)
     lines += ['RMDir "$INSTDIR\\'+name+'"' for name in dirs]
     uninstall.write_text('\n'.join(lines)+'\n')
-    installer = output/('Etiket-Tasarim-Kurulum-'+args.version+'-aday.exe')
+    installer = output/('LabelHarbor-Setup-'+args.version+'.exe')
     command = [str(args.makensis.resolve()), '-DPAYLOAD='+str(payload), '-DOUTPUT='+str(installer),
-               '-DAPP_VERSION='+args.version, '-DUNINSTALL_LIST='+str(uninstall), str(ROOT/'installer/EtiketTasarim.nsi')]
+               '-DAPP_VERSION='+numeric_version, '-DAPP_DISPLAY_VERSION='+args.version, '-DUNINSTALL_LIST='+str(uninstall), str(ROOT/'installer/EtiketTasarim.nsi')]
     with (output/'installer-build.log').open('w') as log:
         subprocess.run(command,cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,check=True)
-    portable = output/('Etiket-Tasarim-'+args.version+'-win-x64-aday.zip')
+    portable = output/('LabelHarbor-'+args.version+'-win-x64.zip')
     with zipfile.ZipFile(portable,'w',zipfile.ZIP_DEFLATED) as archive:
-        for name in files: archive.write(payload/name,'Etiket-Tasarim/'+name)
-    result={'version':args.version,'provisionalProductName':True,'sourceLicenseChosen':False,
-            'files':len(files),'payloadBytes':sum((payload/f).stat().st_size for f in files),
+        for name in files: archive.write(payload/name,'LabelHarbor/'+name)
+    result={'version':args.version,'productName':'LabelHarbor','provisionalProductName':False,'sourceLicenseChosen':True,'sourceLicense':'MIT',
+            'portableRoot':'LabelHarbor/','sourceLicenseSha256':digest(ROOT/'LICENSE'),'files':len(files),'payloadBytes':sum((payload/f).stat().st_size for f in files),
             'installer':{'file':installer.name,'sha256':digest(installer),'bytes':installer.stat().st_size},
             'portable':{'file':portable.name,'sha256':digest(portable),'bytes':portable.stat().st_size},
             'windowsInstallationTested':False,'physicalPrinterTested':False,'published':False}

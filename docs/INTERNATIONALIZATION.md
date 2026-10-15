@@ -29,8 +29,8 @@ Generated empty headers and Excel Boolean text remain stable identifiers/data ac
 resolution accepts old display names and stable web names independently of the interface language. No currency, country, company prefix or GS1 ownership is inferred.
 
 Namespaces, assembly/executable identities, installer registry keys/AppId, folder names and `.akelabel` remain
-stable. The visible English title is "Label Designer"; this is a translation of a provisional name, not a new
-brand decision. Catalog category keys remain stable and are displayed through localized key/value choices.
+stable. The product name is "LabelHarbor" in both languages. The prior executable/data-folder identities remain
+stable for compatibility; the source license is MIT. Catalog category keys remain stable and are displayed through localized key/value choices.
 English template names are recognized in the same category filter.
 
 English examples are created from fresh bundled projects before user company details are applied. Existing

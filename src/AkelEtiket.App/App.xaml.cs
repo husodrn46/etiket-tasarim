@@ -19,7 +19,8 @@ public partial class App : Application
     private MainViewModel? _main;
 
     public static string Version =>
-        Assembly.GetExecutingAssembly().GetName().Version is { } v ? $"{v.Major}.{v.Minor}.{v.Build}" : "2.0.0";
+        Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0]
+        ?? "2.0.0-preview.2";
 
     protected override void OnStartup(StartupEventArgs e)
     {

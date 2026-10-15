@@ -91,7 +91,7 @@ public sealed partial class DesignToolset
             });
 
         Registry.Add<DesignRefArgs>("show_in_app", "Uygulamada göster",
-            "Tasarımın (kaydedilmiş dosya ya da yeni tasarım) Etiket Tasarım'de açılmasını kullanıcıya önerir: Yapay Zekâ panelinde " +
+            "Tasarımın (kaydedilmiş dosya ya da yeni tasarım) LabelHarbor'de açılmasını kullanıcıya önerir: Yapay Zekâ panelinde " +
             "\"Aç\" düğmesi çıkar, kullanıcı açınca tasarım tuvalde normal şekilde düzenlenebilir. Kendiliğinden açılmaz; uygulama " +
             "kapalıysa UNAVAILABLE döner.",
             (args, ctx, _) =>

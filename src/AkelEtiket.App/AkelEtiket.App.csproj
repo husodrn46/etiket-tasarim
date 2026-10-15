@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <!-- Etiket Tasarım — WPF masaüstü uygulaması (görünümler, tuval kontrolü, platform servisleri) -->
+  <!-- LabelHarbor — WPF masaüstü uygulaması (görünümler, tuval kontrolü, platform servisleri) -->
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0-windows</TargetFramework>
@@ -8,7 +8,7 @@
     <RootNamespace>AkelEtiket.App</RootNamespace>
     <ApplicationIcon>Assets\AkelEtiket.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <AssemblyTitle>Etiket Tasarım</AssemblyTitle>
+    <AssemblyTitle>LabelHarbor</AssemblyTitle>
     <Description>Çevrimdışı etiket ve barkod tasarım uygulaması</Description>
     <InvariantGlobalization>false</InvariantGlobalization>
   </PropertyGroup>

@@ -1,22 +1,21 @@
-# Etiket Tasarım · Label Designer
+# LabelHarbor
 
 [English](README.md) · [Türkçe](README.tr.md)
 
 An offline Windows desktop app for designing labels and barcodes. Bring your own company name, logo,
-address, templates and Excel/CSV data. No account or subscription is required. **The product name is provisional.**
+address, templates and Excel/CSV data. No account or subscription is required. Licensed under the [MIT License](LICENSE).
 
 ## Download
 
-[Windows x64 installer](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.0.0-preview.1/Etiket-Tasarim-Kurulum-2.0.0-aday.exe)
-· [Portable ZIP](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.0.0-preview.1/Etiket-Tasarim-2.0.0-win-x64-aday.zip)
-· [Preview release and checksums](https://github.com/husodrn46/etiket-tasarim/releases/tag/v2.0.0-preview.1)
+[Windows x64 installer](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.0.0-preview.2/LabelHarbor-Setup-2.0.0-preview.2.exe)
+· [Portable ZIP](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.0.0-preview.2/LabelHarbor-2.0.0-preview.2-win-x64.zip)
+· [Preview release and checksums](https://github.com/husodrn46/etiket-tasarim/releases/tag/v2.0.0-preview.2)
 
 For Windows 10/11 x64; the .NET runtime is included. Install or extract the ZIP and open `Etiket Tasarim.exe`.
 
-**Version notice:** `v2.0.0-preview.1` is an earlier, Turkish-language preview. The English interface and
-newer setup, mapping and backup improvements described below are in the source branch containing this
-README; they require a new build. No new binary release has been published for these changes.
-Windows installation, WPF interaction and physical printer acceptance are still pending.
+**Preview status:** `v2.0.0-preview.2` includes the English/Turkish interface, personalization, favorites,
+regional label formats, starter packs and reusable import profiles. Windows installation, WPF interaction
+and physical printer acceptance are still pending. See [release readiness](docs/RELEASE-READINESS.md).
 
 ## Get started
 
@@ -90,8 +89,8 @@ Build commands produce local files; they do not publish or upload. The candidate
 English resource satellite is included. For Windows acceptance, see `tools/distribution/windows_acceptance.ps1`.
 Preparing that script or cross-building a package does not mean it has been executed on Windows.
 
-The project source does not yet have a chosen open-source license. Dependency licenses and notices are included
-in distribution packages. The final product name and source license remain maintainer decisions.
+Project-owned source code is licensed under the [MIT License](LICENSE). Dependency licenses and notices are included
+in distribution packages; they retain their own terms. The product name is LabelHarbor.
 
 [Architecture (Turkish)](docs/MIMARI.md) · [Generalization scope (Turkish)](docs/GENEL-URUN.md)
 · [Dependency licenses (Turkish)](docs/LISANSLAR.md)

@@ -10,8 +10,8 @@
     <NoWarn>$(NoWarn);CA1416</NoWarn>
 
     <Company>husodrn46</Company>
-    <Product>Etiket Tasarım</Product>
-    <Version>2.0.0</Version>
+    <Product>LabelHarbor</Product>
+    <Version>2.0.0-preview.2</Version>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
     <NeutralLanguage>tr-TR</NeutralLanguage>

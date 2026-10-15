@@ -288,7 +288,7 @@
     <value>Kayıtlı GTIN</value>
   </data>
   <data xml:space="preserve" name="T_14add07ada4a">
-    <value>Açıkken Etiket Tasarım yalnızca bu bilgisayardan (127.0.0.1) ve anahtarla erişilebilen bir yerel API açar. Uygulama kapalıyken istek gelirse penceresiz Worker başlar ve boşta kalınca kapanır. Bağlanan ajan, tasarım içeriğini kendi yapay zekâ servisine gönderebilir.</value>
+    <value>Açıkken LabelHarbor yalnızca bu bilgisayardan (127.0.0.1) ve anahtarla erişilebilen bir yerel API açar. Uygulama kapalıyken istek gelirse penceresiz Worker başlar ve boşta kalınca kapanır. Bağlanan ajan, tasarım içeriğini kendi yapay zekâ servisine gönderebilir.</value>
   </data>
   <data xml:space="preserve" name="T_14f06929e3ff">
     <value>Yazıcı profili kaydedildi: {0}</value>
@@ -685,7 +685,7 @@
     <value> • {0} hatalı satır atlanacak</value>
   </data>
   <data xml:space="preserve" name="T_31f64f835580">
-    <value>Etiket Tasarım – {0}</value>
+    <value>LabelHarbor – {0}</value>
   </data>
   <data xml:space="preserve" name="T_3217e2f49b34">
     <value>Lütfen baskı penceresinde bir yazıcı seçin.</value>
@@ -892,7 +892,7 @@ Yüklensin mi?</value>
     <value>boş ise</value>
   </data>
   <data xml:space="preserve" name="T_416c889215e0">
-    <value>Etiket Tasarım – </value>
+    <value>LabelHarbor – </value>
   </data>
   <data xml:space="preserve" name="T_41712eb27799">
     <value>Yükle</value>
@@ -2057,7 +2057,7 @@ Devam edilsin mi?</value>
     <value>Çizgi rengi</value>
   </data>
   <data xml:space="preserve" name="T_a03425caed30">
-    <value>Etiket Tasarım</value>
+    <value>LabelHarbor</value>
   </data>
   <data xml:space="preserve" name="T_a039831c42de">
     <value>Seri Nakliye Konteyner Kodu: numara her etiket için baskı anında GS1 Firma Profili'nden ayrılır</value>
@@ -5268,7 +5268,7 @@ Devam edilsin mi?</value>
     <value>Yapay zekâ bağlantısı kapalı (Ayarlar → Yapay Zekâ).</value>
   </data>
   <data name="T_936562d79a8f" xml:space="preserve">
-    <value>Yapay zekâ bağlantısı başka bir Etiket Tasarım penceresinde çalışıyor.</value>
+    <value>Yapay zekâ bağlantısı başka bir LabelHarbor penceresinde çalışıyor.</value>
   </data>
   <data name="T_20ec173e6a91" xml:space="preserve">
     <value>Bağlantı açık: {0}{1}</value>
@@ -5436,7 +5436,7 @@ Devam edilsin mi?</value>
     <value>Geçersiz yedek yolu.</value>
   </data>
   <data name="T_aaefbe88fafa" xml:space="preserve">
-    <value>Sen Etiket Tasarım uygulamasının yapay zekâ tasarım asistanısın. Kullanıcının firması için termal etiket yazıcısında </value>
+    <value>Sen LabelHarbor uygulamasının yapay zekâ tasarım asistanısın. Kullanıcının firması için termal etiket yazıcısında </value>
   </data>
   <data name="T_73c963256ea0" xml:space="preserve">
     <value>(Xprinter XP-470B, {0:0} dpi = {1:0.#} nokta/mm, yalnızca siyah-beyaz) </value>
@@ -5688,7 +5688,7 @@ Devam edilsin mi?</value>
     <value>Tarayıcı kaynaklı isteklere izin verilmez.</value>
   </data>
   <data name="T_0648b92794c5" xml:space="preserve">
-    <value>Yapay zekâ bağlantısı kapalı (Etiket Tasarım → Ayarlar → Yapay Zekâ).</value>
+    <value>Yapay zekâ bağlantısı kapalı (LabelHarbor → Ayarlar → Yapay Zekâ).</value>
   </data>
   <data name="T_0fef30bfc531" xml:space="preserve">
     <value>Bağlantı anahtarı eksik ya da hatalı.</value>
@@ -5712,7 +5712,7 @@ Devam edilsin mi?</value>
     <value>Dosya okunamadı: {0}</value>
   </data>
   <data name="T_8adca6a3f300" xml:space="preserve">
-    <value>Bu dosya daha yeni bir Etiket Tasarım sürümüyle kaydedilmiş (biçim {0}). </value>
+    <value>Bu dosya daha yeni bir LabelHarbor sürümüyle kaydedilmiş (biçim {0}). </value>
   </data>
   <data name="T_4189af82592a" xml:space="preserve">
     <value>Bazı özellikler eksik görünebilir.</value>

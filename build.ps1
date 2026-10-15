@@ -1,6 +1,6 @@
-﻿<#
+<#
 .SYNOPSIS
-    Etiket Tasarım: test, yayın (self-contained win-x64) ve Windows kurulum paketi oluşturma.
+    LabelHarbor: test, yayın (self-contained win-x64) ve Windows kurulum paketi oluşturma.
 
 .DESCRIPTION
     1) .NET 10 SDK'yı bulur (önce kullanıcı klasöründeki %USERPROFILE%\.dotnet, sonra PATH).
@@ -8,7 +8,7 @@
     3) Uygulamayı kendi .NET çalışma zamanıyla birlikte yayınlar:
          artifacts\publish\Etiket-Tasarim-win-x64\Etiket Tasarim.exe
     4) Inno Setup (ISCC.exe) bulunursa kurulum sihirbazını oluşturur:
-         artifacts\installer\Etiket-Tasarim-Kurulum-<sürüm>.exe
+         artifacts\installer\LabelHarbor-Setup-<sürüm>.exe
 
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File build.ps1
@@ -16,7 +16,7 @@
 #>
 param(
     [string]$Configuration = "Release",
-    [string]$Version = "2.0.0",
+    [string]$Version = "2.0.0-preview.2",
     [switch]$SkipTests,
     [switch]$SkipInstaller
 )
@@ -117,7 +117,7 @@ if (-not $iscc) {
     exit 0
 }
 Step "Kurulum sihirbazı derleniyor ($iscc)"
-& $iscc "/DAppVersion=$Version" "/DPublishDir=$publishDir" (Join-Path $root "installer\AkelEtiket.iss")
+& $iscc "/DAppVersion=$Version" "/DAppNumericVersion=$($Version.Split('-')[0])" "/DPublishDir=$publishDir" (Join-Path $root "installer\AkelEtiket.iss")
 if ($LASTEXITCODE -ne 0) { Write-Host "Kurulum paketi derlenemedi." -ForegroundColor Red; exit $LASTEXITCODE }
-$setup = Join-Path $root "artifacts\installer\Etiket-Tasarim-Kurulum-$Version.exe"
+$setup = Join-Path $root "artifacts\installer\LabelHarbor-Setup-$Version.exe"
 Write-Host "Kurulum dosyası: $setup" -ForegroundColor Green

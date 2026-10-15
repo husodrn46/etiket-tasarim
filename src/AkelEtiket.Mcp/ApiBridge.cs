@@ -100,7 +100,7 @@ public sealed class ApiBridge : IDisposable
                 if (!response.IsSuccessStatusCode)
                 {
                     string message = TryError(text) ?? $"HTTP {(int)response.StatusCode}";
-                    throw new McpException($"Etiket Tasarım yerel API isteği reddetti: {message}");
+                    throw new McpException($"LabelHarbor yerel API isteği reddetti: {message}");
                 }
                 return JsonNode.Parse(text) ?? throw new McpException("Yerel API boş yanıt verdi.");
             }
@@ -112,7 +112,7 @@ public sealed class ApiBridge : IDisposable
             }
             catch (HttpRequestException ex)
             {
-                throw new McpException("Etiket Tasarım yerel API'sine ulaşılamadı: " + ex.Message);
+                throw new McpException("LabelHarbor yerel API'sine ulaşılamadı: " + ex.Message);
             }
         }
     }
@@ -124,7 +124,7 @@ public sealed class ApiBridge : IDisposable
         {
             var settings = AiSettingsStore.Load();
             if (!settings.Enabled)
-                throw new McpException("Etiket Tasarım'de yapay zekâ bağlantısı kapalı. Uygulamada Ayarlar → Yapay Zekâ → " +
+                throw new McpException("LabelHarbor'de yapay zekâ bağlantısı kapalı. Uygulamada Ayarlar → Yapay Zekâ → " +
                                        "\"Yapay zekâ bağlantısına izin ver\" seçeneğini açın.");
             if (_endpoint is not null && ApiDiscovery.TryRead() is { } current && current.ProcessId == _endpoint.ProcessId) return _endpoint;
 
@@ -141,7 +141,7 @@ public sealed class ApiBridge : IDisposable
                 if (info is not null && await IsHealthyAsync(info, settings.Token, cancellationToken).ConfigureAwait(false))
                     return _endpoint = info;
             }
-            throw new McpException("Etiket Tasarım arka plan hizmeti (Worker) başlatılamadı. Uygulamayı açıp yeniden deneyin.");
+            throw new McpException("LabelHarbor arka plan hizmeti (Worker) başlatılamadı. Uygulamayı açıp yeniden deneyin.");
         }
         finally
         {

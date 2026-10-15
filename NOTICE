@@ -1,3 +1,10 @@
-Bu çalışma AKEL Etiket kod tabanından türetilmiştir. Kaynak atfı korunur; şirket logosu ve özel işletme verileri
-bu genel ürünün parçası değildir. Kaynak kod için henüz bir açık kaynak lisansı seçilmemiştir.
-Üçüncü taraf bileşenlerin lisansları docs/LISANSLAR.md içinde listelenir; dağıtım paketinde tam metinleri bulunur.
+LabelHarbor is derived from the AKEL Etiket codebase. Original source attribution is preserved.
+The company logo and private business data are not part of this general product.
+Project-owned source code is licensed under the MIT License; see LICENSE.
+Third-party components retain their own licenses and notices, listed in docs/LISANSLAR.md
+and included in full in the distribution's licenses directory.
+
+LabelHarbor, AKEL Etiket kod tabanından türetilmiştir; kaynak atfı korunur.
+Firma logosu ve özel işletme verileri genel ürünün parçası değildir.
+Projenin kendi kaynak kodu MIT lisanslıdır; LICENSE dosyasına bakın.
+Üçüncü taraf bileşenler kendi lisans ve atıf koşullarını korur.

@@ -288,7 +288,7 @@
     <value>Saved GTIN</value>
   </data>
   <data xml:space="preserve" name="T_14add07ada4a">
-    <value>When enabled, Label Designer opens a local API accessible only on this computer (127.0.0.1), protected by a key. If a request arrives while the app is closed, a headless Worker starts and exits when idle. A connected agent may send design content to its own AI service.</value>
+    <value>When enabled, LabelHarbor opens a local API accessible only on this computer (127.0.0.1), protected by a key. If a request arrives while the app is closed, a headless Worker starts and exits when idle. A connected agent may send design content to its own AI service.</value>
   </data>
   <data xml:space="preserve" name="T_14f06929e3ff">
     <value>Printer profile saved: {0}</value>
@@ -685,7 +685,7 @@ Templates: </value>
     <value> • {0} invalid rows will be skipped</value>
   </data>
   <data xml:space="preserve" name="T_31f64f835580">
-    <value>Label Designer – {0}</value>
+    <value>LabelHarbor – {0}</value>
   </data>
   <data xml:space="preserve" name="T_3217e2f49b34">
     <value>Select a printer in the print window.</value>
@@ -892,7 +892,7 @@ Load it?</value>
     <value>is empty</value>
   </data>
   <data xml:space="preserve" name="T_416c889215e0">
-    <value>Label Designer – </value>
+    <value>LabelHarbor – </value>
   </data>
   <data xml:space="preserve" name="T_41712eb27799">
     <value>Load</value>
@@ -2057,7 +2057,7 @@ Continue?</value>
     <value>Line color</value>
   </data>
   <data xml:space="preserve" name="T_a03425caed30">
-    <value>Label Designer</value>
+    <value>LabelHarbor</value>
   </data>
   <data xml:space="preserve" name="T_a039831c42de">
     <value>Serial Shipping Container Code: a number is reserved for each label at print time from the GS1 Company Profile</value>
@@ -3790,7 +3790,7 @@ Details: {0}</value>
     <value>Sample Company DEMO001 8691234567890</value>
   </data>
   <data name="T_0648b92794c5" xml:space="preserve">
-    <value>AI connections are disabled (Label Designer → Settings → AI).</value>
+    <value>AI connections are disabled (LabelHarbor → Settings → AI).</value>
   </data>
   <data name="T_065762c1fc64" xml:space="preserve">
     <value>SSCC: {0} numbers recorded as sent to the printer queue</value>
@@ -4813,7 +4813,7 @@ Continue?</value>
     <value>Operation cancelled by user.</value>
   </data>
   <data name="T_8adca6a3f300" xml:space="preserve">
-    <value>This file was saved with a newer Label Designer version (format {0}). </value>
+    <value>This file was saved with a newer LabelHarbor version (format {0}). </value>
   </data>
   <data name="T_8af7526029b2" xml:space="preserve">
     <value>Project is corrupt: design data (label.json) is missing.</value>
@@ -4897,7 +4897,7 @@ Continue?</value>
     <value>Image file not found in project.</value>
   </data>
   <data name="T_936562d79a8f" xml:space="preserve">
-    <value>AI connection is running in another Label Designer window.</value>
+    <value>AI connection is running in another LabelHarbor window.</value>
   </data>
   <data name="T_939ef5d8f91e" xml:space="preserve">
     <value>Cancelled: print job deleted; no pages sent.</value>
@@ -5043,7 +5043,7 @@ Continue?</value>
     <value>{0} check digit is incorrect: last digit must be {1} ({2}{3}).</value>
   </data>
   <data name="T_aaefbe88fafa" xml:space="preserve">
-    <value>You are the AI design assistant for Label Designer. For the user's company, you design and edit labels for a thermal label printer </value>
+    <value>You are the AI design assistant for LabelHarbor. For the user's company, you design and edit labels for a thermal label printer </value>
   </data>
   <data name="T_ab26adb04588" xml:space="preserve">
     <value>Cannot read printer state: </value>

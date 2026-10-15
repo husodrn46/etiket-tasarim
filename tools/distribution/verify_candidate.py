@@ -15,7 +15,7 @@ for kind in ['installer','portable']:
     assert hashlib.sha256(file.read_bytes()).hexdigest() == result[kind]['sha256'], kind+' hash mismatch'
 with zipfile.ZipFile(candidate/result['portable']['file']) as archive:
     assert archive.testzip() is None
-    names={n.removeprefix('Etiket-Tasarim/'):n for n in archive.namelist()}
+    names={n.removeprefix(result.get('portableRoot','Etiket-Tasarim/')):n for n in archive.namelist()}
     assert set(names)==set(manifest), 'Portable file set mismatch'
     for name, expected in manifest.items():
         data=archive.read(names[name])
@@ -27,6 +27,9 @@ with zipfile.ZipFile(candidate/result['portable']['file']) as archive:
         config=json.loads(archive.read(names[name+'.runtimeconfig.json']))['runtimeOptions']
         assert 'frameworks' not in config and 'framework' not in config, 'Framework-dependent app: '+name
         assert all(f['version']=='10.0.13' for f in config['includedFrameworks']), 'Runtime patch mismatch'
+    if result.get('sourceLicenseChosen'):
+        assert hashlib.sha256(archive.read(names['LICENSE'])).hexdigest()==result['sourceLicenseSha256']
+        assert archive.read(names['LICENSE']).startswith(b'MIT License')
     notices=json.loads(archive.read(names['licenses/THIRD-PARTY-PACKAGES.json']))
     assert not notices['missingLicenseFiles']
     assert all(record['files'] for record in notices['packages'])

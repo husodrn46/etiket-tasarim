@@ -1,4 +1,4 @@
-# Label Designer user guide
+# LabelHarbor user guide
 
 [Overview](../README.md) · [Türkçe genel rehber](../README.tr.md)
 
@@ -143,4 +143,4 @@ UI language, regional settings, printer model/method, label size and the relevan
 ## Personalization, favorites, regional formats and starter packs
 
 See the [workflow guide](WORKFLOWS.md) for appearance settings, favorite templates/jobs, format-3 labels,
-starter pack recipes and reusable import profiles. These source features require a new build.
+starter pack recipes and reusable import profiles. They are included in v2.0.0-preview.2 and later.

@@ -48,7 +48,7 @@ public static class TestLabelFactory
 
         e.Add(new TextElement
         {
-            Name = "Başlık", Text = "Etiket Tasarım • Test Baskısı", X = 5, Y = 3 + 7 * s, Width = w - 10, Height = 8 * s,
+            Name = "Başlık", Text = "LabelHarbor • Test Baskısı", X = 5, Y = 3 + 7 * s, Width = w - 10, Height = 8 * s,
             FontSize = Math.Max(6, 15 * s), Bold = true, HorizontalAlignment = TextHorizontalAlignment.Center, AutoShrink = true, WordWrap = false,
         });
         string info = string.Create(Turkish,

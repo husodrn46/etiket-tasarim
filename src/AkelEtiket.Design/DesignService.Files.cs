@@ -212,7 +212,7 @@ public sealed partial class DesignService
         var id = Resolve(designId, context);
         if (LiveHost is null)
             throw new ToolException(ToolErrorCodes.Unavailable,
-                "Etiket Tasarım uygulaması açık değil. Kaydedilen tasarımlar uygulama açılınca Şablonlar panelinde görünür.");
+                "LabelHarbor uygulaması açık değil. Kaydedilen tasarımlar uygulama açılınca Şablonlar panelinde görünür.");
         string name;
         string target;
         switch (id.Kind)

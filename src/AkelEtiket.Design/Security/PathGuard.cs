@@ -112,7 +112,7 @@ public sealed class PathGuard
             {
                 throw new ToolException(ToolErrorCodes.PermissionDenied,
                     $"\"{input}\" izin verilen bir klasörde değil. İzinli klasörler: {string.Join(", ", Roots.Select(r => r.Alias))}. " +
-                    "Kullanıcı Etiket Tasarım → Ayarlar → Yapay Zekâ bölümünden klasör ekleyebilir.");
+                    "Kullanıcı LabelHarbor → Ayarlar → Yapay Zekâ bölümünden klasör ekleyebilir.");
             }
             string relative = slash < 0 ? "" : normalized[(slash + 1)..];
             candidate = System.IO.Path.Combine(aliasRoot.Path, relative.Replace('/', System.IO.Path.DirectorySeparatorChar));

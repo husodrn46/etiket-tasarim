@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <!-- Etiket Tasarım Worker: masaüstü uygulaması kapalıyken yerel API'yi barındırır (penceresiz), boşta kapanır -->
+  <!-- LabelHarbor Worker: masaüstü uygulaması kapalıyken yerel API'yi barındırır (penceresiz), boşta kapanır -->
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
     <AssemblyName>AkelEtiket.Worker</AssemblyName>
     <RootNamespace>AkelEtiket.Worker</RootNamespace>
     <ApplicationIcon>..\AkelEtiket.App\Assets\AkelEtiket.ico</ApplicationIcon>
-    <AssemblyTitle>Etiket Tasarım Worker</AssemblyTitle>
+    <AssemblyTitle>LabelHarbor Worker</AssemblyTitle>
     <InvariantGlobalization>false</InvariantGlobalization>
   </PropertyGroup>
   <ItemGroup>

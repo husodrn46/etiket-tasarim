@@ -114,7 +114,7 @@ public sealed class LocalApiTests : IAsyncLifetime
         using var health = await _http.SendAsync(Request(HttpMethod.Get, "/api/health"));
         Assert.Equal(HttpStatusCode.OK, health.StatusCode);
         var h = JsonNode.Parse(await health.Content.ReadAsStringAsync())!;
-        Assert.Equal("Etiket Tasarım", h["product"]!.GetValue<string>());
+        Assert.Equal("LabelHarbor", h["product"]!.GetValue<string>());
 
         using var tools = await _http.SendAsync(Request(HttpMethod.Get, "/api/tools"));
         var list = JsonNode.Parse(await tools.Content.ReadAsStringAsync())!.AsArray();

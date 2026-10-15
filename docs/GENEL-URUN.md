@@ -1,6 +1,6 @@
 # Genel ürün: ilk uygulama dilimi
 
-Bu çalışma kaynak uygulamadan ayrı bir yerel kopyada geliştirilir. Geçici görünen ürün adı **Etiket Tasarım**;
+Bu çalışma kaynak uygulamadan ayrı bir yerel kopyada geliştirilir. Ürün adı **LabelHarbor**;
 C# namespace/proje adları ve `.akelabel` paket kimliği dosya/API uyumluluğu için korunur.
 
 ## Firma bilgileri
@@ -39,7 +39,7 @@ derleme çıktıları ve test günlükleri dışarıda kalır. Betik örnek ZIP/
 Tarama bilinen firma kimlikleri ve tipik sır kalıpları için denetimdir; insanın içerik incelemesinin yerine geçmez.
 
 Yeni public depo, push veya release bu betiğin işi değildir. Genel kaynak kopyası `husodrn46/etiket-tasarim`
-adresinde geçici ürün adıyla paylaşılır. Kaynak kodun açık kaynak lisansı henüz seçilmedi. Windows/yazıcı kabulü
+adresinde LabelHarbor adıyla paylaşılır. Projenin kendi kaynak kodu MIT lisanslıdır. Windows/yazıcı kabulü
 tamamlanana kadar indirmeler ön sürüm olarak sunulur. Eski teslim raporlarının başarılı Windows testleri
 bu genel sürümün kabulü olarak sunulmaz.
 
@@ -47,7 +47,7 @@ bu genel sürümün kabulü olarak sunulmaz.
 
 Yerelde NSIS kurulum EXE'si ve taşınabilir Windows x64 ZIP üretilebilir. Paket, sabitlenmiş upstream commitlerden
 ve NuGet paketlerinden toplanan tam lisans metinlerini içerir. Derleme aracı eksik lisans metniyle paketi tamamlanmış
-saymaz. Paket kaynak lisansının seçilmesi yerine geçmez; görünen ürün adı geçicidir.
+saymaz. Paket kaynak lisansının seçilmesi yerine geçmez; kaynak kod için MIT seçilmiştir.
 
 Baskı penceresindeki Windows yazıcı keşfi varsayılan olarak korunur; kabul testleri keşif ve spooler adaptörlerini
 sahte yazıcıyla değiştirir. Firma ayarı → şablon → barkod doğrulama → kullanıcı Yazdır komutu → iki kopyalık TSPL

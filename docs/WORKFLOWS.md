@@ -2,8 +2,8 @@
 
 [English](WORKFLOWS.md) · [Türkçe](WORKFLOWS.tr.md)
 
-These features require a build from the branch containing this guide. The published `v2.0.0-preview.1`
-binaries do not include them. Windows interaction and physical printing acceptance remain pending.
+These features are included in LabelHarbor `v2.0.0-preview.2`. Windows interaction and physical printing
+acceptance remain pending. The earlier `v2.0.0-preview.1` does not include them.
 
 ## Make the workspace yours
 

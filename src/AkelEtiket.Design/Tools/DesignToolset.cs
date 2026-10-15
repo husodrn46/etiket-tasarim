@@ -13,7 +13,7 @@ public sealed partial class DesignToolset
 {
     /// <summary>MCP sunucusu ve uygulama içi asistan için genel kullanım talimatı.</summary>
     public const string Instructions = """
-        Etiket Tasarım etiket tasarım araçları (Xprinter XP-470B, 203 dpi = 8 nokta/mm, 1-bit siyah-beyaz baskı).
+        LabelHarbor etiket tasarım araçları (Xprinter XP-470B, 203 dpi = 8 nokta/mm, 1-bit siyah-beyaz baskı).
         - Ölçüler milimetre (mm), yazı boyutu punto (pt). (0,0) etiketin sol üst köşesi; x/y öğe kutusunun sol üst köşesidir.
         - Tasarımlar gerçek, düzenlenebilir öğelerden (metin, barkod, görsel, şekil) oluşur; asla tek bir resim olarak oluşturmayın.
         - Yeni etiket: create_design → add_text/add_barcode/add_image/add_shape → render_preview (annotate=true) → inspect_layout →

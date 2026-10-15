@@ -2,8 +2,8 @@
 
 [English](WORKFLOWS.md) · [Türkçe](WORKFLOWS.tr.md)
 
-Bu özellikler bu belgenin bulunduğu daldan yeni derleme gerektirir. Yayımlanmış `v2.0.0-preview.1` paketinde
-yoktur. Windows arayüzü ve gerçek yazıcı kabul testleri ertelenmiştir.
+Bu özellikler LabelHarbor `v2.0.0-preview.2` sürümüne dahildir. Eski `v2.0.0-preview.1` paketinde yoktur.
+Windows arayüzü ve gerçek yazıcı kabul testleri ertelenmiştir.
 
 ## Kişiselleştirme
 

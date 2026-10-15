@@ -1,23 +1,22 @@
-# Etiket Tasarım
+# LabelHarbor
 
 [English](README.md) · [Türkçe](README.tr.md)
 
-Windows için çevrimdışı etiket ve barkod tasarım uygulaması. **Etiket Tasarım geçici ürün adıdır.**
+Windows için çevrimdışı etiket ve barkod tasarım uygulaması. Kaynak kod [MIT lisanslıdır](LICENSE).
 Firma adı, adres, web sitesi, logo ve şablon klasörü ayarlanabilir. Hesap veya abonelik gerekmez.
 
 ## İndir ve kur
 
-[Windows x64 kurulum dosyasını indir](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.0.0-preview.1/Etiket-Tasarim-Kurulum-2.0.0-aday.exe)
-· [Taşınabilir ZIP](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.0.0-preview.1/Etiket-Tasarim-2.0.0-win-x64-aday.zip)
-· [Ön sürüm ve doğrulama bilgileri](https://github.com/husodrn46/etiket-tasarim/releases/tag/v2.0.0-preview.1)
+[Windows x64 kurulum dosyasını indir](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.0.0-preview.2/LabelHarbor-Setup-2.0.0-preview.2.exe)
+· [Taşınabilir ZIP](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.0.0-preview.2/LabelHarbor-2.0.0-preview.2-win-x64.zip)
+· [Ön sürüm ve doğrulama bilgileri](https://github.com/husodrn46/etiket-tasarim/releases/tag/v2.0.0-preview.2)
 
 Windows 10/11 64-bit içindir; .NET çalışma zamanı pakete dahildir. Kurulum dosyasını çalıştırın veya ZIP'i
 bir klasöre çıkarıp `Etiket Tasarim.exe` dosyasını açın. Ardından aşağıdaki başlangıç adımlarını izleyin.
 
-Bu ilk genel **ön sürümdür**. Mac üzerinde seçilmiş 885 otomatik test geçti; paketin dosya bütünlüğü ve
-bilinen özel veri/sır kalıpları kontrol edildi. Gerçek Windows kurulum/arayüz ve fiziksel yazıcı kabul testleri
-henüz yapılmadı. İlk baskıda kendi yazıcınızda ölçü, yön ve barkod okunabilirliğini kontrol edin.
-Kaynak kod için henüz bir açık kaynak lisansı seçilmedi; bağımlılık lisansları pakete dahildir.
+Bu bir **ön sürümdür**. Kişiselleştirme, favoriler, bölgesel etiket biçimleri, hazır paketler,
+aktarım profilleri ve İngilizce/Türkçe arayüz içerir. Windows kurulum/arayüz ve gerçek yazıcı kabulü henüz
+tamamlanmadı. [Yayın doğrulama kapsamı](docs/RELEASE-READINESS.md).
 
 ## Başlangıç
 
@@ -51,9 +50,9 @@ Veriler `Belgeler\Etiket Tasarım`, `%APPDATA%\Etiket Tasarım` ve `%LOCALAPPDAT
 Deneme/taşınabilir çalışma için `ETIKET_VERI` tüm klasörleri ayrı bir köke yönlendirir. Diğer kurulumlardan
 ayar, logo, ürün, şablon, GS1 veya SSCC kayıtları otomatik alınmaz. `.akelabel` dosya biçimi uyumluluk için korunur.
 
-## Geliştirme dalındaki kullanım iyileştirmeleri
+## Günlük kullanım iyileştirmeleri
 
-Bu bölümdeki yenilikler mevcut `v2.0.0-preview.1` indirme paketine henüz dahil değildir.
+Bu bölümdeki yenilikler `v2.0.0-preview.2` indirme paketine dahildir.
 
 - İlk açılışta firma, logo, yazıcı ve etiket ölçüsü için üç adımlı kurulum; **? → İlk kurulum** ile yeniden açılır.
 - Şablon galerisinde arama, kategori ve firma şablonlarında görsel önizleme; kargo ve demirbaş tasarımları.
@@ -115,11 +114,11 @@ Dil seçimi ürün/firma bilgilerini, barkodları, kayıtlı tasarımları ve ve
 Ölçüler bölgesel ondalık ayarına göre gösterilir. Düşük seviyeli bazı tanı ve isteğe bağlı AI mesajları Türkçe kalabilir.
 
 [İngilizce kullanım rehberi](docs/USER-GUIDE.md) · [Dil altyapısı ve uyumluluk](docs/INTERNATIONALIZATION.md).
-Bu değişiklikler mevcut `v2.0.0-preview.1` indirme paketine dahil değildir; yeni derleme gerekir.
+Bu değişiklikler `v2.0.0-preview.2` indirme paketine dahildir.
 
 ## Kişiselleştirme ve hazır iş akışları
 
 Vurgu rengi, arayüz ölçeği, yeni metin yazı tipi, başlangıç şablonu ve panel düzeni seçilebilir. Şablon/baskı
 favorileri, etiket bazında tarih/sayı/para biçimleri, aktarım önerileri ve tekrar kullanılabilen profiller eklendi.
-Dört paket sekiz tasarım, kurgusal CSV ve iki dilli tarif sunar. Bu özellikler yeni derleme gerektirir.
+Dört paket sekiz tasarım, kurgusal CSV ve iki dilli tarif sunar. Bu özellikler `v2.0.0-preview.2` paketine dahildir.
 [Türkçe kullanım](docs/WORKFLOWS.tr.md) · [English guide](docs/WORKFLOWS.md).
