@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Text;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.PrintEngine;
 
@@ -14,7 +15,7 @@ public sealed record TsplCommand(string Name, string Arguments, int PayloadLengt
     public byte[]? Payload { get; init; }
 
     public override string ToString() =>
-        PayloadLength > 0 ? $"{Name} {Arguments},<{PayloadLength.ToString("N0", CultureInfo.GetCultureInfo("tr-TR"))} bayt görüntü verisi>"
+        PayloadLength > 0 ? L10n.T($"{Name} {Arguments},<{PayloadLength.ToString("N0", CultureInfo.GetCultureInfo("tr-TR"))} bayt görüntü verisi>")
         : Arguments.Length > 0 ? $"{Name} {Arguments}" : Name;
 }
 
@@ -75,10 +76,10 @@ public static class TsplInspector
             byte c = data[p];
             if (c == (byte)',') commas++;
             else if (c is (byte)'\r' or (byte)'\n')
-                throw new FormatException("BITMAP başlığı eksik: 5 parametre bekleniyordu.");
+                throw new FormatException(L10n.T("BITMAP başlığı eksik: 5 parametre bekleniyordu."));
             p++;
         }
-        if (commas < 5) throw new FormatException("BITMAP başlığı eksik: 5 parametre bekleniyordu.");
+        if (commas < 5) throw new FormatException(L10n.T("BITMAP başlığı eksik: 5 parametre bekleniyordu."));
 
         string header = Encoding.ASCII.GetString(data[headerStart..(p - 1)]);
         string[] parts = header.Split(',');
@@ -87,7 +88,7 @@ public static class TsplInspector
             !int.TryParse(parts[3].Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out int heightDots) ||
             widthBytes <= 0 || heightDots <= 0)
         {
-            throw new FormatException($"BITMAP başlığı geçersiz: \"{header}\".");
+            throw new FormatException(L10n.T($"BITMAP başlığı geçersiz: \"{header}\"."));
         }
 
         long length = (long)widthBytes * heightDots;

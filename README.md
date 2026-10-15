@@ -31,6 +31,13 @@ Windows installation, WPF interaction and physical printer acceptance are still 
 
 [Read the English user guide](docs/USER-GUIDE.md) · [Internationalization and compatibility](docs/INTERNATIONALIZATION.md)
 
+## Personalization and starter workflows
+
+Choose an accent, interface scale, new-text font, startup template and remembered panels. Favorite templates
+and print jobs, choose regional date/number/currency formats per label, and reuse Excel/CSV mapping profiles.
+Four starter packs provide eight templates with fictional data and bilingual recipes.
+[English workflow guide](docs/WORKFLOWS.md) · [Türkçe kullanım](docs/WORKFLOWS.tr.md).
+
 ## Features
 
 - English and Turkish interface resources for setup, editor tools, data mapping, print dialogs, help and common messages.

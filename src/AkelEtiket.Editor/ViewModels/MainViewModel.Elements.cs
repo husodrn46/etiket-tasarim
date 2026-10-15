@@ -29,6 +29,7 @@ public sealed partial class MainViewModel
             "Kucuk" => new TextElement { Text = L10n.T("Küçük metin"), FontSize = 8, Width = 40, Height = 5 },
             _ => new TextElement { Text = L10n.T("Metin"), FontSize = 12, Width = 50, Height = 7 },
         };
+        text.FontFamily = Settings.Personalization.DefaultFontFamily;
         var added = Session.AddCentered(text);
         SetStatus(L10n.T("Metin eklendi: yazmaya başlayın (Enter: bitir, Shift+Enter: yeni satır, Esc: vazgeç)."));
         RequestInlineTextEdit(added);
@@ -36,7 +37,7 @@ public sealed partial class MainViewModel
 
     private void AddTextWithContent(string content)
     {
-        var text = new TextElement { Text = content, FontSize = 12, Width = 50, Height = 7 };
+        var text = new TextElement { FontFamily = Settings.Personalization.DefaultFontFamily, Text = content, FontSize = 12, Width = 50, Height = 7 };
         RequestInlineTextEdit(Session.AddCentered(text));
     }
 
@@ -45,7 +46,7 @@ public sealed partial class MainViewModel
     private void AddFieldText(string? column)
     {
         if (string.IsNullOrWhiteSpace(column)) return;
-        var text = new TextElement { Text = FieldTemplate.MakePlaceholder(column), FontSize = 12, Width = 60, Height = 7, AutoShrink = true, WordWrap = false };
+        var text = new TextElement { FontFamily = Settings.Personalization.DefaultFontFamily, Text = FieldTemplate.MakePlaceholder(column), FontSize = 12, Width = 60, Height = 7, AutoShrink = true, WordWrap = false };
         Session.AddCentered(text);
         SetStatus(L10n.T($"{{{column}}} alanına bağlı metin eklendi."));
     }

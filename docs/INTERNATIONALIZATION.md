@@ -8,8 +8,9 @@ messages use `UiText.T`. Interpolated messages retain argument values and numeri
 These mechanisms are applied at authored UI strings, never to a visual tree, database, imported value or saved document.
 
 Setup, editor menus/tools, settings, common data and print dialogs, help text and new English sample templates
-are covered. Low-level library/driver/import diagnostics and parts of the optional AI integration can still
-return Turkish messages. An English interface is not a complete translation of every internal diagnostic.
+are covered. Application-authored barcode, import, rendering, printing, GS1 and optional AI diagnostics now also use the
+shared catalog. Third-party exceptions, operating system/driver messages and historical saved reports can
+still be in their original language. Stored reports are not rewritten.
 
 ## Selection and compatibility
 
@@ -21,8 +22,11 @@ The compatibility-only v1 importer preserves Turkish; automatic import from othe
 
 Only `CurrentUICulture` changes. `CurrentCulture` remains the operating system's regional culture. NumberBox
 measurements use a dedicated finite-number parser with no grouping support, accepting decimal dot/comma.
-Barcode strings, raw cells, record formatting, built-in date/sequence/counter fields, serial allocation and
-print coordinates keep their prior behavior. No currency, country, company prefix or GS1 ownership is inferred.
+Barcode strings, raw cells, serial allocation and print coordinates keep their prior behavior. Labels
+without an explicit regional profile also retain their prior text/date formatting. Opt-in format-3 labels
+use their own region for text rendering; see [regional formats](WORKFLOWS.md#regional-formats-belong-to-the-label).
+Generated empty headers and Excel Boolean text remain stable identifiers/data across UI languages. Encoding
+resolution accepts old display names and stable web names independently of the interface language. No currency, country, company prefix or GS1 ownership is inferred.
 
 Namespaces, assembly/executable identities, installer registry keys/AppId, folder names and `.akelabel` remain
 stable. The visible English title is "Label Designer"; this is a translation of a provisional name, not a new

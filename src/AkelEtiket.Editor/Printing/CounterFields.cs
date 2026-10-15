@@ -5,6 +5,7 @@ using AkelEtiket.Core;
 using AkelEtiket.Core.Data;
 using AkelEtiket.Core.Model;
 using AkelEtiket.Rendering;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.Printing;
 
@@ -131,9 +132,9 @@ public sealed class CounterStore
     /// <summary>Sayacın sıradaki değerini ve artışını ayarlar (yoksa oluşturur).</summary>
     public void Set(string name, long next, long step = 1)
     {
-        if (string.IsNullOrWhiteSpace(name)) throw new CounterException("Sayaç adı boş olamaz.");
-        if (next < 0) throw new CounterException("Sayacın değeri negatif olamaz.");
-        if (step < 1) throw new CounterException("Artış en az 1 olmalı.");
+        if (string.IsNullOrWhiteSpace(name)) throw new CounterException(L10n.T("Sayaç adı boş olamaz."));
+        if (next < 0) throw new CounterException(L10n.T("Sayacın değeri negatif olamaz."));
+        if (step < 1) throw new CounterException(L10n.T("Artış en az 1 olmalı."));
         using var lease = Acquire(TimeSpan.FromSeconds(5));
         var counter = lease.GetOrCreate(name);
         counter.Next = next;
@@ -173,11 +174,11 @@ public sealed class CounterStore
             }
             catch (IOException ex) when (handle is null)
             {
-                throw new CounterException("Sayaçlar şu anda başka bir baskıda kullanılıyor; o baskı bitince tekrar deneyin.", ex);
+                throw new CounterException(L10n.T("Sayaçlar şu anda başka bir baskıda kullanılıyor; o baskı bitince tekrar deneyin."), ex);
             }
             catch (UnauthorizedAccessException ex) when (handle is null)
             {
-                throw new CounterException("Sayaç klasörüne erişilemiyor: " + ex.Message, ex);
+                throw new CounterException(L10n.T("Sayaç klasörüne erişilemiyor: ") + ex.Message, ex);
             }
             finally
             {
@@ -222,11 +223,11 @@ public sealed class CounterStore
         }
         catch (JsonException ex)
         {
-            throw new CounterException($"Sayaç dosyası bozuk ({FilePath}): {ex.Message}. Dosyayı düzeltin ya da yedekten geri yükleyin.", ex);
+            throw new CounterException(L10n.T($"Sayaç dosyası bozuk ({FilePath}): {ex.Message}. Dosyayı düzeltin ya da yedekten geri yükleyin."), ex);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            throw new CounterException("Sayaç dosyası okunamadı: " + ex.Message, ex);
+            throw new CounterException(L10n.T("Sayaç dosyası okunamadı: ") + ex.Message, ex);
         }
     }
 
@@ -440,26 +441,26 @@ public sealed class CounterPrintTracker : IDisposable
                     counter.LastUsedAt = DateTimeOffset.Now;
                     counter.LastRange = $"{first}–{last}";
                     _ranges[name] = counter.LastRange;
-                    parts.Add($"\"{name}\" {first}–{last} kullanıldı, sıradaki {counter.Next}");
+                    parts.Add(L10n.T($"\"{name}\" {first}–{last} kullanıldı, sıradaki {counter.Next}"));
                 }
                 else
                 {
                     counter.Next = first;
-                    parts.Add($"\"{name}\" ilerlemedi (sıradaki {first})");
+                    parts.Add(L10n.T($"\"{name}\" ilerlemedi (sıradaki {first})"));
                 }
             }
             _lease.Save();
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            return ("Sayaçlar güncellenemedi: " + ex.Message + " Basılan etiketlerin numaralarını kontrol edin.", true);
+            return (L10n.T("Sayaçlar güncellenemedi: ") + ex.Message + L10n.T(" Basılan etiketlerin numaralarını kontrol edin."), true);
         }
         finally
         {
             _lease.Dispose();
         }
-        string unsent = _assigned > used ? $" Gönderilmeyen {_assigned - used} etiketin numaraları bir sonraki baskıda yeniden kullanılacak." : "";
-        return ("Sayaç: " + string.Join("; ", parts) + "." + unsent, false);
+        string unsent = _assigned > used ? L10n.T($" Gönderilmeyen {_assigned - used} etiketin numaraları bir sonraki baskıda yeniden kullanılacak.") : "";
+        return (L10n.T("Sayaç: ") + string.Join("; ", parts) + "." + unsent, false);
     }
 
     public void Dispose()

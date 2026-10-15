@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Gs1;
 
@@ -61,7 +62,7 @@ public sealed record Gs1ProfileIssue(Gs1IssueSeverity Severity, string Field, st
     public override string ToString() => Severity switch
     {
         Gs1IssueSeverity.Error => "HATA: " + Message,
-        Gs1IssueSeverity.Warning => "Uyarı: " + Message,
+        Gs1IssueSeverity.Warning => L10n.T("Uyarı: ") + Message,
         _ => "Bilgi: " + Message,
     };
 }
@@ -130,9 +131,9 @@ public sealed class Gs1CompanyProfile
         if (!Gs1Identifiers.IsValidGcpFormat(GcpPrefix, out string? gcpError))
             blockers.Add(gcpError!);
         else if (!GcpVerified)
-            blockers.Add("Firma öneki GS1 üyelik belgesinden doğrulanmadı. GS1 Firma Profili'nde \"Üyelik belgesinden doğrulandı\" işaretlenmeden SSCC üretilemez.");
+            blockers.Add(L10n.T("Firma öneki GS1 üyelik belgesinden doğrulanmadı. GS1 Firma Profili'nde \"Üyelik belgesinden doğrulandı\" işaretlenmeden SSCC üretilemez."));
         if (SsccExtensionDigit is < 0 or > 9)
-            blockers.Add("SSCC uzantı basamağı 0–9 olmalı.");
+            blockers.Add(L10n.T("SSCC uzantı basamağı 0–9 olmalı."));
         if (blockers.Count == 0 && GetRangeError() is { } rangeError)
             blockers.Add(rangeError);
         return blockers;
@@ -154,11 +155,11 @@ public sealed class Gs1CompanyProfile
         if (!Gs1Identifiers.IsValidGcpFormat(GcpPrefix, out _)) return null;
         long max = Gs1Identifiers.MaxSerial(Gs1Identifiers.SsccSerialLength(NormalizedGcp.Length));
         if (SerialStart is { } s && (s < 1 || s > max))
-            return $"Seri başlangıcı 1–{max:N0} aralığında olmalı.";
+            return L10n.T($"Seri başlangıcı 1–{max:N0} aralığında olmalı.");
         if (SerialEnd is { } e && (e < 1 || e > max))
-            return $"Seri sonu 1–{max:N0} aralığında olmalı.";
+            return L10n.T($"Seri sonu 1–{max:N0} aralığında olmalı.");
         if (SerialStart is { } a && SerialEnd is { } b && a > b)
-            return "Seri başlangıcı, seri sonundan büyük olamaz.";
+            return L10n.T("Seri başlangıcı, seri sonundan büyük olamaz.");
         return null;
     }
 
@@ -167,18 +168,18 @@ public sealed class Gs1CompanyProfile
     {
         var issues = new List<Gs1ProfileIssue>();
         if (string.IsNullOrWhiteSpace(CompanyName))
-            issues.Add(new(Gs1IssueSeverity.Warning, nameof(CompanyName), "Firma adı boş."));
+            issues.Add(new(Gs1IssueSeverity.Warning, nameof(CompanyName), L10n.T("Firma adı boş.")));
 
         var gln = Gs1Identifiers.ValidateGln(Gln);
         if (!gln.IsValid)
             issues.Add(new(string.IsNullOrWhiteSpace(Gln) ? Gs1IssueSeverity.Warning : Gs1IssueSeverity.Error,
-                nameof(Gln), string.IsNullOrWhiteSpace(Gln) ? "GLN girilmedi; lokasyon numarası atanmaz." : "GLN: " + gln.Error));
+                nameof(Gln), string.IsNullOrWhiteSpace(Gln) ? L10n.T("GLN girilmedi; lokasyon numarası atanmaz.") : "GLN: " + gln.Error));
 
         bool gcpOk = false;
         if (Gs1Identifiers.Normalize(GcpPrefix).Length == 0)
         {
             issues.Add(new(Gs1IssueSeverity.Warning, nameof(GcpPrefix),
-                "Firma öneki (GCP) girilmedi. SSCC üretmek için üyelik belgenizdeki öneki yazın; GLN'den tahmin edilmez."));
+                L10n.T("Firma öneki (GCP) girilmedi. SSCC üretmek için üyelik belgenizdeki öneki yazın; GLN'den tahmin edilmez.")));
         }
         else if (!Gs1Identifiers.IsValidGcpFormat(GcpPrefix, out string? gcpError))
         {
@@ -189,14 +190,14 @@ public sealed class Gs1CompanyProfile
             gcpOk = true;
             if (!GcpVerified)
                 issues.Add(new(Gs1IssueSeverity.Warning, nameof(GcpVerified),
-                    "Firma öneki henüz \"üyelik belgesinden doğrulandı\" olarak işaretlenmedi; SSCC üretimi kapalı."));
+                    L10n.T("Firma öneki henüz \"üyelik belgesinden doğrulandı\" olarak işaretlenmedi; SSCC üretimi kapalı.")));
             if (gln.IsValid && !Gs1Identifiers.StartsWithPrefix(gln.Normalized, NormalizedGcp))
                 issues.Add(new(Gs1IssueSeverity.Hint, nameof(Gln),
-                    "GLN bu firma önekiyle başlamıyor. GLN farklı bir önekten verilmiş olabilir; bu bir hata değildir, yalnızca kontrol edin."));
+                    L10n.T("GLN bu firma önekiyle başlamıyor. GLN farklı bir önekten verilmiş olabilir; bu bir hata değildir, yalnızca kontrol edin.")));
         }
 
         if (SsccExtensionDigit is < 0 or > 9)
-            issues.Add(new(Gs1IssueSeverity.Error, nameof(SsccExtensionDigit), "SSCC uzantı basamağı 0–9 olmalı."));
+            issues.Add(new(Gs1IssueSeverity.Error, nameof(SsccExtensionDigit), L10n.T("SSCC uzantı basamağı 0–9 olmalı.")));
         if (gcpOk && GetRangeError() is { } rangeError)
             issues.Add(new(Gs1IssueSeverity.Error, nameof(SerialStart), rangeError));
 
@@ -216,10 +217,10 @@ public sealed class Gs1CompanyProfile
                 issues.Add(new(Gs1IssueSeverity.Error, nameof(RegisteredGtins), $"{label}: {result.Normalized} listede birden fazla kez var."));
             if (gln.IsValid && key.EndsWith(gln.Normalized, StringComparison.Ordinal) && result.Normalized.Length >= 13)
                 issues.Add(new(Gs1IssueSeverity.Warning, nameof(RegisteredGtins),
-                    $"{label}: GLN ile aynı numara. GLN bir yer numarasıdır, ürün numarası (GTIN) olarak kullanılmamalı."));
+                    L10n.T($"{label}: GLN ile aynı numara. GLN bir yer numarasıdır, ürün numarası (GTIN) olarak kullanılmamalı.")));
             if (gcpOk && result.Type is Gs1KeyType.Gtin13 or Gs1KeyType.Gtin14 && !GtinUsesPrefix(result.Normalized, NormalizedGcp))
                 issues.Add(new(Gs1IssueSeverity.Hint, nameof(RegisteredGtins),
-                    $"{label}: firma önekinizle başlamıyor (başka bir firmanın numarası ya da farklı önek olabilir)."));
+                    L10n.T($"{label}: firma önekinizle başlamıyor (başka bir firmanın numarası ya da farklı önek olabilir).")));
         }
         return issues;
     }

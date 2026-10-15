@@ -1,3 +1,4 @@
+using L10n = AkelEtiket.Core.Localization.UiText;
 using System.Globalization;
 using System.Text;
 
@@ -284,7 +285,7 @@ public static class FieldTemplate
         var expression = token.Expression;
         if (source.TryGetValue(expression.RawName, expression.ValueFormat, out var raw))
         {
-            value = ApplyTransforms(raw, expression.Transforms);
+            value = ApplyTransforms(raw, expression.Transforms, (source as IFieldFormattingSource)?.FormattingCulture);
             return TokenOutcome.Resolved;
         }
         if (expression.Offset is not { } offset) return TokenOutcome.Missing;
@@ -292,34 +293,37 @@ public static class FieldTemplate
         if (FieldDates.TryGetDate(source, expression.BaseName, out var date, out bool exists))
         {
             var shifted = offset.Apply(date);
-            string format = expression.ValueFormat ?? "dd.MM.yyyy";
+            var region = source as IFieldFormattingSource;
+            var culture = region?.FormattingCulture ?? Turkish;
+            string format = expression.ValueFormat is null or "DATE" ? region?.DefaultDateFormat ?? "dd.MM.yyyy" : expression.ValueFormat;
             string formatted;
             try
             {
-                formatted = shifted.ToString(format, Turkish);
+                formatted = shifted.ToString(format, culture);
             }
             catch (FormatException)
             {
                 formatted = shifted.ToString("dd.MM.yyyy", Turkish);
             }
-            value = ApplyTransforms(formatted, expression.Transforms);
+            value = ApplyTransforms(formatted, expression.Transforms, culture);
             return TokenOutcome.Resolved;
         }
         if (!exists) return TokenOutcome.Missing;
-        problem = "{" + token.Name + "}: değer tarih değil; tarih hesabı yapılamadı.";
+        problem = L10n.T($"{{{token.Name}}}: değer tarih değil; tarih hesabı yapılamadı.");
         return TokenOutcome.Problem;
     }
 
     /// <summary>Türkçe yazı dönüşümlerini sırayla uygular.</summary>
-    public static string ApplyTransforms(string value, IReadOnlyList<TextTransform> transforms)
+    public static string ApplyTransforms(string value, IReadOnlyList<TextTransform> transforms, CultureInfo? culture = null)
     {
+        culture ??= Turkish;
         foreach (var transform in transforms)
         {
             value = transform switch
             {
-                TextTransform.Upper => value.ToUpper(Turkish),
-                TextTransform.Lower => value.ToLower(Turkish),
-                _ => Turkish.TextInfo.ToTitleCase(value.ToLower(Turkish)),
+                TextTransform.Upper => value.ToUpper(culture),
+                TextTransform.Lower => value.ToLower(culture),
+                _ => culture.TextInfo.ToTitleCase(value.ToLower(culture)),
             };
         }
         return value;

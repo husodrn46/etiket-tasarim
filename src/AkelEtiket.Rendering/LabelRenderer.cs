@@ -5,6 +5,7 @@ using AkelEtiket.Core.Geometry;
 using AkelEtiket.Core.Imaging;
 using AkelEtiket.Core.Model;
 using SkiaSharp;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Rendering;
 
@@ -35,6 +36,7 @@ public sealed class LabelRenderer : IDisposable
     public LabelRenderResult RenderLabel(LabelDocument document, RenderOptions options)
     {
         ArgumentNullException.ThrowIfNull(document);
+        options = options with { Formatting = document.Formatting };
         var (width, height) = GetLabelSizeDots(document.Label, options.DotsPerMm);
         var bitmap = new MonoBitmap(width, height);
         var issues = new List<RenderIssue>();
@@ -52,12 +54,12 @@ public sealed class LabelRenderer : IDisposable
 
             var bounds = ElementGeometry.GetRotatedBoundsMm(element);
             if (!labelBounds.IntersectsWith(bounds))
-                issues.Add(Issue(element, RenderIssueSeverity.Warning, "Öğe tamamen etiket dışında; basılmaz."));
+                issues.Add(Issue(element, RenderIssueSeverity.Warning, L10n.T("Öğe tamamen etiket dışında; basılmaz.")));
             else if (bounds.X < -0.05 || bounds.Y < -0.05 || bounds.Right > labelBounds.Right + 0.05 || bounds.Bottom > labelBounds.Bottom + 0.05)
                 issues.Add(Issue(element, element is BarcodeElement ? RenderIssueSeverity.Error : RenderIssueSeverity.Warning,
                     element is BarcodeElement
-                        ? "Barkod etiket kenarından taşıyor; kesilen barkod okunamaz."
-                        : "Öğe etiket kenarından taşıyor; taşan kısım basılmaz."));
+                        ? L10n.T("Barkod etiket kenarından taşıyor; kesilen barkod okunamaz.")
+                        : L10n.T("Öğe etiket kenarından taşıyor; taşan kısım basılmaz.")));
         }
         return new LabelRenderResult { Bitmap = bitmap, DotsPerMm = options.DotsPerMm, Issues = issues, Elements = results };
     }
@@ -77,20 +79,20 @@ public sealed class LabelRenderer : IDisposable
                     {
                         ElementId = element.Id,
                         HiddenByCondition = true,
-                        Issues = [Issue(element, RenderIssueSeverity.Info, $"Koşul sağlanmadı (yalnızca {condition.Describe()} basılır); bu etikette görünmez.")],
+                        Issues = [Issue(element, RenderIssueSeverity.Info, L10n.T($"Koşul sağlanmadı (yalnızca {condition.Describe()} basılır); bu etikette görünmez."))],
                     };
                 case ConditionResult.FieldMissing when options.Mode == RenderMode.Print:
                     return new ElementRenderResult
                     {
                         ElementId = element.Id,
                         HiddenByCondition = true,
-                        Issues = [Issue(element, RenderIssueSeverity.Error, $"Koşul alanı {field} veride yok; koşul değerlendirilemedi.")],
+                        Issues = [Issue(element, RenderIssueSeverity.Error, L10n.T($"Koşul alanı {field} veride yok; koşul değerlendirilemedi."))],
                     };
                 case ConditionResult.FieldMissing:
                     conditionNote = Issue(element, options.Fields is null ? RenderIssueSeverity.Info : RenderIssueSeverity.Warning,
                         options.Fields is null
-                            ? $"Koşul: yalnızca {condition.Describe()} basılır (veri yüklenince değerlendirilir)."
-                            : $"Koşul alanı {field} veride yok; tasarımda gösteriliyor.");
+                            ? L10n.T($"Koşul: yalnızca {condition.Describe()} basılır (veri yüklenince değerlendirilir).")
+                            : L10n.T($"Koşul alanı {field} veride yok; tasarımda gösteriliyor."));
                     break;
             }
         }
@@ -113,14 +115,15 @@ public sealed class LabelRenderer : IDisposable
             return new ElementRenderResult
             {
                 ElementId = element.Id,
-                Issues = [Issue(element, RenderIssueSeverity.Error, $"Çizim hatası: {ex.Message}")],
+                Issues = [Issue(element, RenderIssueSeverity.Error, L10n.T($"Çizim hatası: {ex.Message}"))],
             };
         }
     }
 
     private ElementRenderResult RenderText(TextElement element, DotRect box, RenderOptions options)
     {
-        var resolution = FieldTemplate.Resolve(element.Text, options.Fields);
+        var fields = options.Formatting is { } formatting && options.Fields is not null ? new RegionalFieldSource(options.Fields,formatting) : options.Fields;
+        var resolution = FieldTemplate.Resolve(element.Text, fields);
         var issues = new List<RenderIssue>();
         AddFieldIssues(element, resolution, options, issues);
         var (draw, info, problem, fontWarning) = TextElementRenderer.Prepare(element, resolution.Text, box.Width, box.Height, options.DotsPerMm, Fonts);
@@ -151,7 +154,7 @@ public sealed class LabelRenderer : IDisposable
             AddFieldIssues(element, resolution, options, issues);
             string label = resolution.MissingFields.Count > 0
                 ? string.Join(" ", resolution.MissingFields.Select(FieldTemplate.MakePlaceholder))
-                : "Hatalı alan";
+                : L10n.T("Hatalı alan");
             var placeholder = RenderVector(element, box, PlaceholderRenderer.Prepare(label, box.Width, box.Height, Fonts, cross: false), issues);
             return new ElementRenderResult
             {
@@ -169,7 +172,7 @@ public sealed class LabelRenderer : IDisposable
         if (output.Error is not null)
         {
             issues.Add(Issue(element, RenderIssueSeverity.Error, output.Error));
-            var errorBox = RenderVector(element, box, PlaceholderRenderer.Prepare("Barkod hatası", box.Width, box.Height, Fonts, cross: true), issues);
+            var errorBox = RenderVector(element, box, PlaceholderRenderer.Prepare(L10n.T("Barkod hatası"), box.Width, box.Height, Fonts, cross: true), issues);
             return new ElementRenderResult
             {
                 ElementId = element.Id,
@@ -211,18 +214,18 @@ public sealed class LabelRenderer : IDisposable
                 resolvedValue = resolution.Text.Trim();
                 if (options.ImageResolver is null)
                 {
-                    issues.Add(Issue(element, RenderIssueSeverity.Error, $"\"{resolvedValue}\" görseli için görsel klasörü tanımlı değil."));
+                    issues.Add(Issue(element, RenderIssueSeverity.Error, L10n.T($"\"{resolvedValue}\" görseli için görsel klasörü tanımlı değil.")));
                 }
                 else
                 {
                     rowAsset = options.ImageResolver.Resolve(resolvedValue, out string? resolveError);
                     if (rowAsset is null)
-                        issues.Add(Issue(element, RenderIssueSeverity.Error, resolveError ?? $"\"{resolvedValue}\" görseli bulunamadı."));
+                        issues.Add(Issue(element, RenderIssueSeverity.Error, resolveError ?? L10n.T($"\"{resolvedValue}\" görseli bulunamadı.")));
                 }
             }
             else if (options.Mode == RenderMode.Print)
             {
-                issues.Add(Issue(element, RenderIssueSeverity.Error, $"{FieldTemplate.MakePlaceholder(field)} görsel alanı boş."));
+                issues.Add(Issue(element, RenderIssueSeverity.Error, L10n.T($"{FieldTemplate.MakePlaceholder(field)} görsel alanı boş.")));
             }
             if (issues.Count > 0)
             {
@@ -243,8 +246,8 @@ public sealed class LabelRenderer : IDisposable
         var output = ImageElementRenderer.Render(element, box.Width, box.Height, element.Rotation, quarterTurns, Images, rowAsset);
         if (output.Error is not null || output.Layer is null)
         {
-            issues.Add(Issue(element, RenderIssueSeverity.Error, output.Error ?? "Görsel çizilemedi."));
-            var placeholder = RenderVector(element, box, PlaceholderRenderer.Prepare("Görsel yok", box.Width, box.Height, Fonts, cross: true), issues);
+            issues.Add(Issue(element, RenderIssueSeverity.Error, output.Error ?? L10n.T("Görsel çizilemedi.")));
+            var placeholder = RenderVector(element, box, PlaceholderRenderer.Prepare(L10n.T("Görsel yok"), box.Width, box.Height, Fonts, cross: true), issues);
             return new ElementRenderResult
             {
                 ElementId = element.Id,
@@ -311,11 +314,11 @@ public sealed class LabelRenderer : IDisposable
         {
             string fields = string.Join(", ", resolution.MissingFields.Select(FieldTemplate.MakePlaceholder));
             if (options.Mode == RenderMode.Print)
-                issues.Add(Issue(element, RenderIssueSeverity.Error, $"Değişken alan doldurulamadı: {fields}. Veri kaynağında bu sütun yok."));
+                issues.Add(Issue(element, RenderIssueSeverity.Error, L10n.T($"Değişken alan doldurulamadı: {fields}. Veri kaynağında bu sütun yok.")));
             else if (options.Fields is null)
-                issues.Add(Issue(element, RenderIssueSeverity.Info, $"Değişken alan: {fields} (veri kaynağı yüklenince doldurulur)."));
+                issues.Add(Issue(element, RenderIssueSeverity.Info, L10n.T($"Değişken alan: {fields} (veri kaynağı yüklenince doldurulur).")));
             else
-                issues.Add(Issue(element, RenderIssueSeverity.Warning, $"Veri kaynağında olmayan alan: {fields}."));
+                issues.Add(Issue(element, RenderIssueSeverity.Warning, L10n.T($"Veri kaynağında olmayan alan: {fields}.")));
         }
         if (resolution.Problems.Count > 0)
         {

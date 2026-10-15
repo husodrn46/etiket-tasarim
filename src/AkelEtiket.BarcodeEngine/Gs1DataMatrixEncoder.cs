@@ -1,6 +1,7 @@
 using System.Text;
 using AkelEtiket.Core.Model;
 using ZXing.Datamatrix.Encoder;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.BarcodeEngine;
 
@@ -37,7 +38,7 @@ internal static class Gs1DataMatrixEncoder
             _ => SymbolShapeHint.FORCE_SQUARE,
         };
         var info = SymbolInfo.lookup(codewords.Length, hint, null, null, true)
-                   ?? throw new ArgumentException("GS1 DataMatrix: içerik en büyük sembolün kapasitesini aşıyor.");
+                   ?? throw new ArgumentException(L10n.T("GS1 DataMatrix: içerik en büyük sembolün kapasitesini aşıyor."));
         string data = AddPadding(codewords, DataCapacity(info));
         string withEcc = ErrorCorrection.encodeECC200(data, info);
         var placement = new DefaultPlacement(withEcc, info.getSymbolDataWidth(), info.getSymbolDataHeight());
@@ -65,7 +66,7 @@ internal static class Gs1DataMatrixEncoder
                 continue;
             }
             if (c > 127)
-                throw new ArgumentException("GS1 DataMatrix yalnızca GS1 karakter kümesindeki (ASCII) karakterleri taşır.");
+                throw new ArgumentException(L10n.T("GS1 DataMatrix yalnızca GS1 karakter kümesindeki (ASCII) karakterleri taşır."));
             sb.Append((char)(c + 1));
         }
         return sb.ToString();

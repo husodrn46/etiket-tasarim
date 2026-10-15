@@ -3,13 +3,14 @@ using AkelEtiket.Core.Assets;
 using AkelEtiket.Core.Data;
 using AkelEtiket.Core.Imaging;
 using AkelEtiket.Core.Model;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Rendering;
 
 /// <summary>Basılacak tek bir etiket görüntüsü (adet kadar tekrar edilir).</summary>
 public sealed record PrintItem(int Sequence, int? RowNumber, int Copies, IFieldValueSource Fields)
 {
-    public string Describe() => RowNumber is { } row ? $"Satır {row}" : $"Etiket {Sequence}";
+    public string Describe() => RowNumber is { } row ? L10n.T($"Satır {row}") : $"Etiket {Sequence}";
 }
 
 /// <summary>
@@ -50,7 +51,7 @@ public sealed class LabelProducer : IDisposable
                 var region = result.Bitmap.Crop(layer.OffsetX, layer.OffsetY, layer.Width, layer.Height);
                 var verification = BarcodeVerifier.Verify(region, model.Symbology, info.VerificationText);
                 if (!verification.Success)
-                    problems.Add($"{model.DisplayName}: okunabilirlik kontrolü başarısız — {verification.Message}");
+                    problems.Add(L10n.T($"{model.DisplayName}: okunabilirlik kontrolü başarısız — {verification.Message}"));
             }
         }
         return (problems.Count == 0 ? result.Bitmap : null, problems, warnings);

@@ -1,4 +1,7 @@
 <Project>
+  <ItemGroup Condition="'$(IsTestProject)' == 'true'">
+    <Compile Include="$(MSBuildThisFileDirectory)tests/TestUiCulture.cs" Link="TestUiCulture.cs" />
+  </ItemGroup>
   <!--
     SkiaSharp/HarfBuzzSharp yerel paketlerindeki .pdb dosyaları (~100 MB) derleme/yayın çıktısına
     kopyalanmasın. Uygulamanın kendi .pdb dosyaları etkilenmez.

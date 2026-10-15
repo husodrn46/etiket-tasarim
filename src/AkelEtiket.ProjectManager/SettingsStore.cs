@@ -1,5 +1,6 @@
 using System.Text.Json;
 using AkelEtiket.Core.Serialization;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.ProjectManager;
 
@@ -32,7 +33,7 @@ public sealed class JsonSettingsStore<T> where T : class, new()
         }
         catch (Exception ex) when (ex is JsonException or IOException or UnauthorizedAccessException or NotSupportedException)
         {
-            LastLoadProblem = $"Ayar dosyası okunamadı, varsayılanlar kullanılıyor ({ex.Message}).";
+            LastLoadProblem = L10n.T($"Ayar dosyası okunamadı, varsayılanlar kullanılıyor ({ex.Message}).");
             try
             {
                 File.Copy(FilePath, FilePath + ".bozuk-" + DateTime.Now.ToString("yyyyMMddHHmmss"), overwrite: true);

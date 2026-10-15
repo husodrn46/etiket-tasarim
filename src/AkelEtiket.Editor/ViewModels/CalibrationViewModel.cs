@@ -104,7 +104,7 @@ public sealed partial class CalibrationViewModel : ObservableObject
 
     /// <summary>Kaydedilecek profil hakkında bilgi.</summary>
     public string TargetProfileText => _print.SelectedProfile is { IsBuiltIn: false } p
-        ? $"Ofsetler \"{p.Name}\" profiline de kaydedilir."
+        ? L10n.T($"Ofsetler \"{p.Name}\" profiline de kaydedilir.")
         : L10n.T("Hazır profil değiştirilemez: uygularken yeni bir profil adı sorulur (vazgeçerseniz ofsetler yalnızca yazıcı ayarlarına kaydedilir).");
 
     [ObservableProperty]

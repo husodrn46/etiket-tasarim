@@ -2,6 +2,7 @@ using System.Globalization;
 using AkelEtiket.DataImport.Internal;
 using CsvHelper;
 using CsvHelper.Configuration;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.DataImport.Csv;
 
@@ -18,7 +19,7 @@ internal static class CsvImporter
     {
         byte[] bytes = FileAccessHelper.ReadAllBytes(path, MaxFileBytes);
         if (bytes.Length == 0)
-            throw new DataImportException("Dosya boş; içinde okunacak veri yok.") { FilePath = path };
+            throw new DataImportException(L10n.T("Dosya boş; içinde okunacak veri yok.")) { FilePath = path };
 
         var (text, encodingName) = TextDecoding.Decode(bytes, options.Encoding);
         if (text.Length > 0 && text[0] == '\uFEFF') text = text[1..];
@@ -42,8 +43,8 @@ internal static class CsvImporter
         if (headerIndex < 0)
         {
             string message = options.HeaderRow is int requested
-                ? $"Belirtilen başlık satırında ({requested}) veya sonrasında veri bulunamadı."
-                : "Dosyada okunabilir veri bulunamadı (yalnızca boş satırlar var).";
+                ? L10n.T($"Belirtilen başlık satırında ({requested}) veya sonrasında veri bulunamadı.")
+                : L10n.T("Dosyada okunabilir veri bulunamadı (yalnızca boş satırlar var).");
             throw new DataImportException(message) { FilePath = path };
         }
 
@@ -82,12 +83,12 @@ internal static class CsvImporter
 
         if (rows.Count == 0)
         {
-            issues.Add(new ImportIssue(0, null, ImportIssueSeverity.Warning, "Başlık satırından sonra veri satırı yok."));
+            issues.Add(new ImportIssue(0, null, ImportIssueSeverity.Warning, L10n.T("Başlık satırından sonra veri satırı yok.")));
         }
         if (truncated)
         {
             issues.Add(new ImportIssue(0, null, ImportIssueSeverity.Warning,
-                $"Dosyada {options.MaxRows} satırdan fazla veri var; yalnızca ilk {options.MaxRows} satır okundu."));
+                L10n.T($"Dosyada {options.MaxRows} satırdan fazla veri var; yalnızca ilk {options.MaxRows} satır okundu.")));
         }
 
         IntegrityChecks.Run(columns, rows, issues);
@@ -128,7 +129,7 @@ internal static class CsvImporter
             catch (CsvHelperException ex)
             {
                 throw new DataImportException(
-                    $"CSV dosyası {previousRawRow + 1 + lineOffset}. satır civarında okunamadı. Dosyanın bozuk olmadığını ve ayırıcının doğru seçildiğini kontrol edin.",
+                    L10n.T($"CSV dosyası {previousRawRow + 1 + lineOffset}. satır civarında okunamadı. Dosyanın bozuk olmadığını ve ayırıcının doğru seçildiğini kontrol edin."),
                     ex) { FilePath = path };
             }
             if (!read) break;
@@ -140,7 +141,7 @@ internal static class CsvImporter
             if (badData)
             {
                 issues.Add(new ImportIssue(line, null, ImportIssueSeverity.Warning,
-                    "Hatalı tırnak (\") kullanımı; satır olduğu gibi okundu. Bu satırdaki değerleri kontrol edin."));
+                    L10n.T("Hatalı tırnak (\") kullanımı; satır olduğu gibi okundu. Bu satırdaki değerleri kontrol edin.")));
                 badData = false;
             }
             records.Add((line, fields));

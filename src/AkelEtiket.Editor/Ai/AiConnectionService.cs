@@ -1,6 +1,7 @@
 using AkelEtiket.Core.Automation;
 using AkelEtiket.Design.Tools;
 using AkelEtiket.LocalApi;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.Ai;
 
@@ -42,7 +43,7 @@ public sealed class AiConnectionService : IAsyncDisposable
 
     public AiConnectionState State { get; private set; } = AiConnectionState.Off;
 
-    public string StatusText { get; private set; } = "Yapay zekâ bağlantısı kapalı.";
+    public string StatusText { get; private set; } = L10n.T("Yapay zekâ bağlantısı kapalı.");
 
     public string? Url => _host?.Url;
 
@@ -62,13 +63,13 @@ public sealed class AiConnectionService : IAsyncDisposable
             await StopCoreAsync().ConfigureAwait(false);
             if (!settings.Enabled)
             {
-                SetState(AiConnectionState.Off, "Yapay zekâ bağlantısı kapalı (Ayarlar → Yapay Zekâ).");
+                SetState(AiConnectionState.Off, L10n.T("Yapay zekâ bağlantısı kapalı (Ayarlar → Yapay Zekâ)."));
                 return;
             }
             _lock = await ApiHostCoordinator.AcquireForDesktopAsync(settings).ConfigureAwait(false);
             if (_lock is null)
             {
-                SetState(AiConnectionState.OtherWindow, "Yapay zekâ bağlantısı başka bir Etiket Tasarım penceresinde çalışıyor.");
+                SetState(AiConnectionState.OtherWindow, L10n.T("Yapay zekâ bağlantısı başka bir Etiket Tasarım penceresinde çalışıyor."));
                 return;
             }
             try
@@ -91,7 +92,7 @@ public sealed class AiConnectionService : IAsyncDisposable
             _host.Activity += OnActivity;
             ApiHostCoordinator.Publish(_host, _version);
             string mcp = settings.EnableHttpMcp ? $" · MCP: {_host.Url}/mcp" : "";
-            SetState(AiConnectionState.Hosting, $"Bağlantı açık: {_host.Url}{mcp}");
+            SetState(AiConnectionState.Hosting, L10n.T($"Bağlantı açık: {_host.Url}{mcp}"));
         }
         finally
         {

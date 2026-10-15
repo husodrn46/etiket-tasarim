@@ -14,6 +14,18 @@
         <TextBlock Text="{loc:Text T_527534366db7}" Margin="0,0,0,4"/>
         <ComboBox ItemsSource="{Binding LanguageChoices}" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding UiLanguage}" Margin="0,0,0,8" AutomationProperties.AutomationId="InterfaceLanguage"/>
         <TextBlock Text="{loc:Text T_586cf0ced444}" Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="0,0,0,16"/>
+        <TextBlock Text="{loc:Text T_992cd3dcd7d6}" Style="{StaticResource Text.Section}"/>
+        <TextBlock Text="{loc:Text T_858e76097487}" Style="{StaticResource FieldLabel}"/>
+        <ComboBox ItemsSource="{Binding AccentChoices}" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding Accent}" Margin="0,4,0,10"/>
+        <TextBlock Text="{loc:Text T_10774630715a}" Style="{StaticResource FieldLabel}"/>
+        <ComboBox ItemsSource="{Binding ScaleChoices}" SelectedItem="{Binding UiScale}" ItemStringFormat="P0" Margin="0,4,0,10"/>
+        <TextBlock Text="{loc:Text T_97c062f9333d}" Style="{StaticResource FieldLabel}"/>
+        <ComboBox IsEditable="True" ItemsSource="{Binding FontChoices}" Text="{Binding DefaultFontFamily}" Margin="0,4,0,10"/>
+        <TextBlock Text="{loc:Text T_f632a3a2aed7}" Style="{StaticResource FieldLabel}"/>
+        <TextBox Text="{Binding StartupTemplatePath}" IsReadOnly="True" Margin="0,4,0,6"/>
+        <WrapPanel Margin="0,0,0,10"><Button Content="{loc:Text T_4e59932d69f7}" Command="{Binding ChooseStartupTemplateCommand}" Margin="0,0,8,0"/><Button Content="{loc:Text T_e306951c12fe}" Command="{Binding ClearStartupTemplateCommand}"/></WrapPanel>
+        <CheckBox Content="{loc:Text T_b470e1c35ee9}" IsChecked="{Binding RememberPanelLayout}" Margin="0,0,0,10"/>
+        <TextBlock Text="{loc:Text T_ed9536e4989b}" Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="0,0,0,16"/>
         <TextBlock Text="{loc:Text T_28ed729e7118}" Style="{StaticResource Text.Section}" />
         <TextBlock Text="{loc:Text T_bb32eee2c44c}" Style="{StaticResource FieldLabel}" />
         <TextBox AutomationProperties.AutomationId="CompanyNameInput" Text="{Binding CompanyName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,8" MaxLength="160" />

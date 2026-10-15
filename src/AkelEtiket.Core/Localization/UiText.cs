@@ -16,6 +16,7 @@ public static class UiText
     public static string Get(string key) => Resources.GetString(key, ResourceCulture) ?? key;
     public static string T(string source) => Resources.GetString(Key(source), ResourceCulture) ?? source;
     public static string T(ref UiStringHandler message) => string.Format(CultureInfo.CurrentCulture, T(message.Pattern), message.Arguments);
+    public static string TInvariant(ref UiStringHandler message) => string.Format(CultureInfo.InvariantCulture, T(message.Pattern), message.Arguments);
     public static string ResolveLanguage(string? preference, CultureInfo systemCulture) => preference switch
     {
         "tr" => "tr", "en" => "en", _ => systemCulture.TwoLetterISOLanguageName == "tr" ? "tr" : "en",

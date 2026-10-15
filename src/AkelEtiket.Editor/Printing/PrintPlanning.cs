@@ -6,6 +6,7 @@ using AkelEtiket.Core.Model;
 using AkelEtiket.Editor.ViewModels;
 using AkelEtiket.Gs1;
 using AkelEtiket.Rendering;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.Printing;
 
@@ -42,7 +43,7 @@ public static class PrintPlanner
                 if (!row.IsSelected || row.Copies <= 0) continue;
                 if (row.Status == RowStatus.Error)
                 {
-                    plan.Skipped.Add($"Satır {row.RowNumber}: {row.Problem}");
+                    plan.Skipped.Add(L10n.T($"Satır {row.RowNumber}: {row.Problem}"));
                     continue;
                 }
                 var fields = new CompositeFieldSource(row.Record.ToFieldSource(table.Columns), EditorFields.BuiltIns(sequence, now));

@@ -7,6 +7,7 @@ using ZXing.OneD;
 using ZXing.PDF417;
 using ZXing.PDF417.Internal;
 using ZXing.QrCode;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.BarcodeEngine;
 
@@ -67,8 +68,8 @@ public static class BarcodeEncoder
                              ex.Message.Contains("capacity", StringComparison.OrdinalIgnoreCase) ||
                              ex.Message.Contains("symbol arrangement", StringComparison.OrdinalIgnoreCase) ||
                              ex.Message.Contains("kapasite", StringComparison.OrdinalIgnoreCase)
-                ? "İçerik bu barkod türünün kapasitesini aşıyor; içeriği kısaltın veya hata düzeltme seviyesini düşürün."
-                : $"Barkod oluşturulamadı: {ex.Message}";
+                ? L10n.T("İçerik bu barkod türünün kapasitesini aşıyor; içeriği kısaltın veya hata düzeltme seviyesini düşürün.")
+                : L10n.T($"Barkod oluşturulamadı: {ex.Message}");
             validation.Errors.Add(message);
             return new BarcodeEncodeResult(validation, null, message);
         }

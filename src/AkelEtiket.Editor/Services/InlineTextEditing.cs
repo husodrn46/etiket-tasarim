@@ -1,6 +1,7 @@
 using AkelEtiket.Core;
 using AkelEtiket.Core.Model;
 using AkelEtiket.Editor.Documents;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.Services;
 
@@ -66,7 +67,7 @@ public static class InlineTextEditing
             return false;
         string text = Normalize(newText);
         if (text == element.Text) return false;
-        using (session.BeginTransaction("Metin düzenlendi"))
+        using (session.BeginTransaction(L10n.T("Metin düzenlendi")))
         {
             element.Text = text;
         }

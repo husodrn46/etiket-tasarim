@@ -42,10 +42,11 @@ def main():
             raise RuntimeError('Dependency merge mismatch: '+str(file))
     docs = payload/'Belgeler'; docs.mkdir(exist_ok=True)
     for name in ['README.md', 'README.tr.md', 'NOTICE']: shutil.copy2(ROOT/name, docs/name)
-    for name in ['GENEL-URUN.md','LISANSLAR.md','USER-GUIDE.md','INTERNATIONALIZATION.md']: shutil.copy2(ROOT/'docs'/name, docs/name)
+    for name in ['GENEL-URUN.md','LISANSLAR.md','USER-GUIDE.md','INTERNATIONALIZATION.md','WORKFLOWS.md','WORKFLOWS.tr.md']: shutil.copy2(ROOT/'docs'/name, docs/name)
     samples = payload/'Örnekler'; samples.mkdir(exist_ok=True)
     for file in (ROOT/'samples').iterdir():
         if file.is_file() and file.suffix in ['.csv','.xlsx','.akelabel','.png']: shutil.copy2(file, samples/file.name)
+    shutil.copytree(ROOT/"samples"/"packs", samples/"packs", dirs_exist_ok=True)
     notices = collect(ROOT, args.cache.resolve(), payload/'licenses')
     if notices['missingLicenseFiles']: raise RuntimeError('Missing upstream license files; installer not built.')
     for file in payload.rglob('*.pdb'): file.unlink()

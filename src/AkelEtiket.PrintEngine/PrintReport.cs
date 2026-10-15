@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Text;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.PrintEngine;
 
@@ -77,32 +78,32 @@ public sealed class PrintReport
         get
         {
             var sb = new StringBuilder();
-            string method = Method == PrintMethod.TsplRaw ? "TSPL (RAW)" : "Windows sürücüsü";
-            sb.AppendLine($"Yazıcı: {(string.IsNullOrWhiteSpace(PrinterName) ? "-" : PrinterName)} — yöntem: {method}");
+            string method = Method == PrintMethod.TsplRaw ? "TSPL (RAW)" : L10n.T("Windows sürücüsü");
+            sb.AppendLine(L10n.T($"Yazıcı: {(string.IsNullOrWhiteSpace(PrinterName) ? "-" : PrinterName)} — yöntem: {method}"));
 
             sb.AppendLine(DataGenerated
-                ? $"1) Baskı verisi üretildi: {LabelsGenerated} etiket görüntüsü, toplam {CopiesTotal} adet, {BytesGenerated.ToString("N0", Turkish)} bayt."
-                : "1) Baskı verisi üretilmedi.");
+                ? L10n.T($"1) Baskı verisi üretildi: {LabelsGenerated} etiket görüntüsü, toplam {CopiesTotal} adet, {BytesGenerated.ToString("N0", Turkish)} bayt.")
+                : L10n.T("1) Baskı verisi üretilmedi."));
 
             if (Spooled)
             {
-                string jobs = JobIds.Count > 0 ? $" (iş no: {string.Join(", ", JobIds)})" : "";
-                sb.AppendLine($"2) Windows yazdırma kuyruğuna gönderildi: {LabelsSpooled} etiket görüntüsü{jobs}.");
+                string jobs = JobIds.Count > 0 ? L10n.T($" (iş no: {string.Join(", ", JobIds)})") : "";
+                sb.AppendLine(L10n.T($"2) Windows yazdırma kuyruğuna gönderildi: {LabelsSpooled} etiket görüntüsü{jobs}."));
             }
             else
             {
-                sb.AppendLine("2) Windows yazdırma kuyruğuna gönderilmedi.");
+                sb.AppendLine(L10n.T("2) Windows yazdırma kuyruğuna gönderilmedi."));
             }
 
             sb.AppendLine(QueueOutcome is null
-                ? "3) Kuyruk sonucu: bilinmiyor."
-                : $"3) Kuyruk sonucu: {QueueMessage}");
-            if (OutputFile is not null) sb.AppendLine($"   Çıktı dosyası: {OutputFile}");
+                ? L10n.T("3) Kuyruk sonucu: bilinmiyor.")
+                : L10n.T($"3) Kuyruk sonucu: {QueueMessage}"));
+            if (OutputFile is not null) sb.AppendLine(L10n.T($"   Çıktı dosyası: {OutputFile}"));
             sb.AppendLine("4) " + PhysicalVerificationText);
 
-            if (Canceled) sb.AppendLine("İşlem kullanıcı tarafından iptal edildi.");
+            if (Canceled) sb.AppendLine(L10n.T("İşlem kullanıcı tarafından iptal edildi."));
             foreach (var error in Errors) sb.AppendLine("HATA: " + error);
-            foreach (var warning in Warnings.Distinct()) sb.AppendLine("Uyarı: " + warning);
+            foreach (var warning in Warnings.Distinct()) sb.AppendLine(L10n.T("Uyarı: ") + warning);
             return sb.ToString().TrimEnd();
         }
     }

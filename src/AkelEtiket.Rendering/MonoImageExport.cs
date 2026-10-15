@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using AkelEtiket.Core.Imaging;
 using SkiaSharp;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Rendering;
 
@@ -26,7 +27,7 @@ public static class MonoImageExport
         for (int y = 0; y < bitmap.Height; y++)
             Marshal.Copy(gray, y * bitmap.Width, pixels + y * rowBytes, bitmap.Width);
         using var data = skBitmap.Encode(SKEncodedImageFormat.Png, 100)
-                         ?? throw new InvalidOperationException("PNG kodlanamadı.");
+                         ?? throw new InvalidOperationException(L10n.T("PNG kodlanamadı."));
         return InsertPhysChunk(data.ToArray(), dpi);
     }
 

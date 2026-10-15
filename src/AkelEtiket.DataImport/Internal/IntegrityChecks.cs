@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.DataImport.Internal;
 
@@ -47,8 +48,8 @@ internal static partial class IntegrityChecks
                 string value = row.GetValue(c);
                 if (!IsScientificNotation(value)) continue;
                 issues.Add(new ImportIssue(row.RowNumber, columns[c], ImportIssueSeverity.Warning,
-                    $"\"{value.Trim()}\" bilimsel gösterimde. Barkod veya uzun sayı büyük olasılıkla Excel tarafından yuvarlanmış ve bozulmuş. " +
-                    "Excel'de sütunu 'Metin' olarak biçimlendirip değerleri yeniden girin ya da dosyayı yeniden dışa aktarın."));
+                    L10n.T($"\"{value.Trim()}\" bilimsel gösterimde. Barkod veya uzun sayı büyük olasılıkla Excel tarafından yuvarlanmış ve bozulmuş. ") +
+                    L10n.T("Excel'de sütunu 'Metin' olarak biçimlendirip değerleri yeniden girin ya da dosyayı yeniden dışa aktarın.")));
             }
         }
     }
@@ -80,9 +81,9 @@ internal static partial class IntegrityChecks
                 string value = row.GetValue(c).Trim();
                 if (!IsDigitsOnly(value) || value.Length >= expectedLength) continue;
                 issues.Add(new ImportIssue(row.RowNumber, columns[c], ImportIssueSeverity.Warning,
-                    $"\"{value}\" {value.Length} haneli, sütundaki değerlerin çoğu {expectedLength} haneli: " +
-                    $"baştaki sıfırlar kaybolmuş olabilir (beklenen {expectedLength} hane). " +
-                    "Excel'de sütunu 'Metin' olarak biçimlendirip değerleri yeniden girin."));
+                    L10n.T($"\"{value}\" {value.Length} haneli, sütundaki değerlerin çoğu {expectedLength} haneli: ") +
+                    L10n.T($"baştaki sıfırlar kaybolmuş olabilir (beklenen {expectedLength} hane). ") +
+                    L10n.T("Excel'de sütunu 'Metin' olarak biçimlendirip değerleri yeniden girin.")));
             }
         }
     }

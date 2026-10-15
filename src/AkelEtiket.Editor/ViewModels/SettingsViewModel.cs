@@ -23,6 +23,9 @@ public sealed partial class SettingsViewModel : ObservableObject
         CompanyWebsite = settings.Company.Website;
         _logoPng = settings.Company.LogoPng?.ToArray();
         Theme = settings.Theme;
+        Accent = settings.Personalization.Accent; UiScale = settings.Personalization.UiScale;
+        DefaultFontFamily = settings.Personalization.DefaultFontFamily; StartupTemplatePath = settings.Personalization.StartupTemplatePath ?? "";
+        RememberPanelLayout = settings.Personalization.RememberPanelLayout;
         GridSizeMm = settings.GridSizeMm;
         ShowGrid = settings.ShowGrid;
         SnapToGrid = settings.SnapToGrid;
@@ -42,11 +45,27 @@ public sealed partial class SettingsViewModel : ObservableObject
     [
         new(AppTheme.Dark, L10n.T("Koyu")),
         new(AppTheme.Light, L10n.T("Açık")),
+        new(AppTheme.System, L10n.T("Sistem teması")),
     ];
 
     public IReadOnlyList<KeyValuePair<string, string>> LanguageChoices { get; } =
-        [new("auto", "System / Otomatik"), new("en", "English"), new("tr", L10n.T("Türkçe"))];
+        [new("auto", L10n.T("System / Otomatik")), new("en", "English"), new("tr", L10n.T("Türkçe"))];
     [ObservableProperty] public partial string UiLanguage { get; set; } = "auto";
+
+    public IReadOnlyList<KeyValuePair<string,string>> AccentChoices { get; } = [new("red", L10n.T("Kırmızı")), new("blue", L10n.T("Mavi")), new("teal", L10n.T("Petrol mavisi")), new("purple", L10n.T("Mor"))];
+    public IReadOnlyList<double> ScaleChoices { get; } = [0.9, 1, 1.1, 1.25];
+    public IReadOnlyList<string> FontChoices => Rendering.FontProvider.Default.Families;
+    [ObservableProperty] public partial string Accent { get; set; }
+    [ObservableProperty] public partial double UiScale { get; set; }
+    [ObservableProperty] public partial string DefaultFontFamily { get; set; }
+    [ObservableProperty] public partial string StartupTemplatePath { get; set; }
+    [ObservableProperty] public partial bool RememberPanelLayout { get; set; }
+    [RelayCommand] private void ChooseStartupTemplate()
+    {
+        string? path = Dialogs?.ShowOpenFileDialog(L10n.T("Başlangıç şablonunu seç"), "Label (*.akelabel)|*.akelabel");
+        if (path is not null) StartupTemplatePath = path;
+    }
+    [RelayCommand] private void ClearStartupTemplate() => StartupTemplatePath = "";
 
     public IReadOnlyList<PrintResolution> Resolutions { get; } = PrintResolution.Standard;
 
@@ -81,7 +100,7 @@ public sealed partial class SettingsViewModel : ObservableObject
         try
         {
             if (new FileInfo(path).Length > 10 * 1024 * 1024)
-                throw new ImageLoadException("Logo en fazla 10 MB olabilir.");
+                throw new ImageLoadException(L10n.T("Logo en fazla 10 MB olabilir."));
             using var image = ImageLoader.Load(File.ReadAllBytes(path), Path.GetFileName(path));
             double scale = Math.Min(1, 1024.0 / Math.Max(image.Width, image.Height));
             using var bitmap = new SKBitmap(Math.Max(1, (int)(image.Width * scale)), Math.Max(1, (int)(image.Height * scale)));
@@ -128,6 +147,9 @@ public sealed partial class SettingsViewModel : ObservableObject
         bool folderChanged = !string.Equals(target.EffectiveTemplatesFolder, TemplatesFolder, StringComparison.OrdinalIgnoreCase);
         target.UiLanguage = UiLanguage;
         target.Theme = Theme;
+        target.Personalization.Accent = Accent; target.Personalization.UiScale = UiScale;
+        target.Personalization.DefaultFontFamily = DefaultFontFamily; target.Personalization.StartupTemplatePath = StartupTemplatePath;
+        target.Personalization.RememberPanelLayout = RememberPanelLayout; target.Personalization.Normalize();
         target.Company = new CompanyProfile
         {
             Name = CompanyName, Address = CompanyAddress, Website = CompanyWebsite,

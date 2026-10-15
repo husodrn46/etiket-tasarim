@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using AkelEtiket.Core.Model;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.BarcodeEngine;
 
@@ -82,13 +83,13 @@ public static partial class BarcodeValidator
 
         if (input.Length == 0 || (input.Trim().Length == 0 && !BarcodeElement.IsTwoDimensional(type)))
         {
-            result.Errors.Add("Barkod içeriği boş.");
+            result.Errors.Add(L10n.T("Barkod içeriği boş."));
             return result;
         }
         if (LooksLikeScientificNotation(input))
         {
-            result.Errors.Add($"Değer bilimsel gösterimde (\"{input.Trim()}\"). Excel sayıyı bozmuş olabilir; " +
-                              "sütunu Metin olarak biçimlendirip barkodu yeniden girin.");
+            result.Errors.Add(L10n.T($"Değer bilimsel gösterimde (\"{input.Trim()}\"). Excel sayıyı bozmuş olabilir; ") +
+                              L10n.T("sütunu Metin olarak biçimlendirip barkodu yeniden girin."));
             return result;
         }
 
@@ -128,7 +129,7 @@ public static partial class BarcodeValidator
                 Validate2D(result, input, type);
                 break;
             default:
-                result.Errors.Add("Desteklenmeyen barkod türü.");
+                result.Errors.Add(L10n.T("Desteklenmeyen barkod türü."));
                 break;
         }
         return result;
@@ -137,7 +138,7 @@ public static partial class BarcodeValidator
     private static string StripSpaces(BarcodeValidationResult result, string input)
     {
         string compact = string.Concat(input.Where(c => !char.IsWhiteSpace(c)));
-        if (compact.Length != input.Length && compact.Length > 0) result.Notes.Add("Boşluklar kaldırıldı.");
+        if (compact.Length != input.Length && compact.Length > 0) result.Notes.Add(L10n.T("Boşluklar kaldırıldı."));
         return compact;
     }
 
@@ -148,14 +149,14 @@ public static partial class BarcodeValidator
         if (!CheckDigits.IsAllDigits(digits))
         {
             char bad = digits.FirstOrDefault(c => c is < '0' or > '9');
-            result.Errors.Add($"{name} yalnızca rakam içerebilir (geçersiz karakter: '{bad}').");
+            result.Errors.Add(L10n.T($"{name} yalnızca rakam içerebilir (geçersiz karakter: '{bad}')."));
             return;
         }
         if (digits.Length == fullLength - 1)
         {
             int check = CheckDigits.Gs1Mod10(digits);
             digits += (char)('0' + check);
-            result.Notes.Add($"Kontrol basamağı otomatik hesaplandı: {check}");
+            result.Notes.Add(L10n.T($"Kontrol basamağı otomatik hesaplandı: {check}"));
         }
         else if (digits.Length == fullLength)
         {
@@ -163,14 +164,14 @@ public static partial class BarcodeValidator
             int actual = digits[^1] - '0';
             if (expected != actual)
             {
-                result.Errors.Add($"{name} kontrol basamağı hatalı: son hane {actual} girilmiş, {expected} olmalı " +
-                                  $"(doğrusu {digits[..^1]}{expected}).");
+                result.Errors.Add(L10n.T($"{name} kontrol basamağı hatalı: son hane {actual} girilmiş, {expected} olmalı ") +
+                                  L10n.T($"(doğrusu {digits[..^1]}{expected})."));
                 return;
             }
         }
         else
         {
-            result.Errors.Add($"{name} için {fullLength - 1} veya {fullLength} rakam gerekir (girilen: {digits.Length} rakam).");
+            result.Errors.Add(L10n.T($"{name} için {fullLength - 1} veya {fullLength} rakam gerekir (girilen: {digits.Length} rakam)."));
             return;
         }
 
@@ -186,21 +187,21 @@ public static partial class BarcodeValidator
             if (c > 127)
             {
                 result.Errors.Add(IsTurkishLetter(c)
-                    ? $"Code 128 Türkçe karakterleri desteklemez ('{c}'). Türkçe karakter gerekiyorsa QR kod veya Data Matrix kullanın."
-                    : $"Code 128 bu karakteri desteklemez: '{c}' (yalnızca ASCII).");
+                    ? L10n.T($"Code 128 Türkçe karakterleri desteklemez ('{c}'). Türkçe karakter gerekiyorsa QR kod veya Data Matrix kullanın.")
+                    : L10n.T($"Code 128 bu karakteri desteklemez: '{c}' (yalnızca ASCII)."));
                 return;
             }
         }
         if (input.Length > 80)
         {
-            result.Errors.Add($"Code 128 içeriği en fazla 80 karakter olabilir (girilen {input.Length}).");
+            result.Errors.Add(L10n.T($"Code 128 içeriği en fazla 80 karakter olabilir (girilen {input.Length})."));
             return;
         }
         result.EncoderData = input;
         result.HumanReadableText = new string(input.Select(c => c < 32 ? ' ' : c).ToArray());
         result.VerificationText = input;
         if (input.Length > 30)
-            result.Warnings.Add("Uzun Code 128 barkodu geniş yer kaplar; 2B barkod (QR/Data Matrix) düşünün.");
+            result.Warnings.Add(L10n.T("Uzun Code 128 barkodu geniş yer kaplar; 2B barkod (QR/Data Matrix) düşünün."));
     }
 
     private static void ValidateGs1_128(BarcodeValidationResult result, string input)
@@ -241,11 +242,11 @@ public static partial class BarcodeValidator
         {
             if (CheckDigits.IsCode39Char(c)) continue;
             if (char.IsLower(c) && CheckDigits.IsCode39Char(char.ToUpperInvariant(c)))
-                result.Errors.Add($"Code 39 küçük harf desteklemez ('{c}'). Büyük harf kullanın: {input.ToUpperInvariant()}");
+                result.Errors.Add(L10n.T($"Code 39 küçük harf desteklemez ('{c}'). Büyük harf kullanın: {input.ToUpperInvariant()}"));
             else if (c == '*')
-                result.Errors.Add("Code 39 içinde '*' kullanılamaz (başlangıç/bitiş karakteridir).");
+                result.Errors.Add(L10n.T("Code 39 içinde '*' kullanılamaz (başlangıç/bitiş karakteridir)."));
             else
-                result.Errors.Add($"Code 39 bu karakteri desteklemez: '{c}'. İzin verilenler: A–Z, 0–9, - . boşluk $ / + %");
+                result.Errors.Add(L10n.T($"Code 39 bu karakteri desteklemez: '{c}'. İzin verilenler: A–Z, 0–9, - . boşluk $ / + %"));
             return;
         }
         string data = input;
@@ -253,7 +254,7 @@ public static partial class BarcodeValidator
         {
             char check = CheckDigits.Code39Mod43(input);
             data += check;
-            result.Notes.Add($"Mod 43 kontrol karakteri eklendi: {check}");
+            result.Notes.Add(L10n.T($"Mod 43 kontrol karakteri eklendi: {check}"));
         }
         result.EncoderData = data;
         result.HumanReadableText = data;
@@ -265,25 +266,25 @@ public static partial class BarcodeValidator
         string digits = StripSpaces(result, input);
         if (!CheckDigits.IsAllDigits(digits))
         {
-            result.Errors.Add("ITF yalnızca rakam içerebilir.");
+            result.Errors.Add(L10n.T("ITF yalnızca rakam içerebilir."));
             return;
         }
         if (settings.AppendCheckDigit)
         {
             int check = CheckDigits.Gs1Mod10(digits);
             digits += (char)('0' + check);
-            result.Notes.Add($"Mod 10 kontrol basamağı eklendi: {check}");
+            result.Notes.Add(L10n.T($"Mod 10 kontrol basamağı eklendi: {check}"));
         }
         if (digits.Length % 2 != 0)
         {
             result.Errors.Add(settings.AppendCheckDigit
-                ? $"ITF toplam hane sayısı (kontrol basamağıyla {digits.Length}) çift olmalı; değerin başına 0 ekleyin."
-                : $"ITF hane sayısı çift olmalı (girilen {digits.Length}); değerin başına 0 ekleyin.");
+                ? L10n.T($"ITF toplam hane sayısı (kontrol basamağıyla {digits.Length}) çift olmalı; değerin başına 0 ekleyin.")
+                : L10n.T($"ITF hane sayısı çift olmalı (girilen {digits.Length}); değerin başına 0 ekleyin."));
             return;
         }
         if (digits.Length < 2 || digits.Length > 80)
         {
-            result.Errors.Add("ITF 2–80 rakam içermelidir.");
+            result.Errors.Add(L10n.T("ITF 2–80 rakam içermelidir."));
             return;
         }
         result.EncoderData = digits;
@@ -302,7 +303,7 @@ public static partial class BarcodeValidator
         };
         if (byteCount > limit)
         {
-            result.Errors.Add($"İçerik bu barkod türü için çok uzun ({byteCount} bayt, en fazla yaklaşık {limit}).");
+            result.Errors.Add(L10n.T($"İçerik bu barkod türü için çok uzun ({byteCount} bayt, en fazla yaklaşık {limit})."));
             return;
         }
         result.EncoderData = input;

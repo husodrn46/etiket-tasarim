@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using AkelEtiket.PrintEngine.Interop;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.PrintEngine;
 
@@ -49,9 +50,9 @@ public sealed unsafe class RawPrintJob : IRawJobWriter
     public static RawPrintJob Start(string printerName, string documentName)
     {
         if (string.IsNullOrWhiteSpace(printerName))
-            throw new PrintEngineException("Yazıcı seçilmedi. Ayarlar'dan etiket yazıcısını seçin.");
+            throw new PrintEngineException(L10n.T("Yazıcı seçilmedi. Ayarlar'dan etiket yazıcısını seçin."));
         if (!NativeMethods.TryOpen(printerName, out var handle, out int openError))
-            throw PrintEngineException.FromWin32("Yazıcı açılamadı", openError, printerName);
+            throw PrintEngineException.FromWin32(L10n.T("Yazıcı açılamadı"), openError, printerName);
 
         var docInfo = new NativeMethods.DOC_INFO_1
         {
@@ -64,14 +65,14 @@ public sealed unsafe class RawPrintJob : IRawJobWriter
         {
             int error = Marshal.GetLastPInvokeError();
             handle.Dispose();
-            throw PrintEngineException.FromWin32("Yazdırma işi başlatılamadı", error, printerName);
+            throw PrintEngineException.FromWin32(L10n.T("Yazdırma işi başlatılamadı"), error, printerName);
         }
         if (!NativeMethods.StartPagePrinter(handle))
         {
             int error = Marshal.GetLastPInvokeError();
             NativeMethods.AbortPrinter(handle);
             handle.Dispose();
-            throw PrintEngineException.FromWin32("Yazdırma sayfası başlatılamadı", error, printerName);
+            throw PrintEngineException.FromWin32(L10n.T("Yazdırma sayfası başlatılamadı"), error, printerName);
         }
         return new RawPrintJob(handle, printerName, docInfo.pDocName, jobId);
     }
@@ -80,7 +81,7 @@ public sealed unsafe class RawPrintJob : IRawJobWriter
     public void Write(ReadOnlySpan<byte> data)
     {
         ObjectDisposedException.ThrowIf(_handle.IsClosed, this);
-        if (_finished) throw new InvalidOperationException("İş tamamlandıktan sonra veri yazılamaz.");
+        if (_finished) throw new InvalidOperationException(L10n.T("İş tamamlandıktan sonra veri yazılamaz."));
         int offset = 0;
         while (offset < data.Length)
         {
@@ -92,9 +93,9 @@ public sealed unsafe class RawPrintJob : IRawJobWriter
                 ok = NativeMethods.WritePrinter(_handle, p, count, out written);
             }
             if (!ok)
-                throw PrintEngineException.FromWin32("Yazıcıya veri gönderilemedi", Marshal.GetLastPInvokeError(), PrinterName);
+                throw PrintEngineException.FromWin32(L10n.T("Yazıcıya veri gönderilemedi"), Marshal.GetLastPInvokeError(), PrinterName);
             if (written <= 0)
-                throw new PrintEngineException($"'{PrinterName}' yazıcısı veri kabul etmiyor (0 bayt yazıldı).");
+                throw new PrintEngineException(L10n.T($"'{PrinterName}' yazıcısı veri kabul etmiyor (0 bayt yazıldı)."));
             offset += written;
             BytesWritten += written;
         }
@@ -109,13 +110,13 @@ public sealed unsafe class RawPrintJob : IRawJobWriter
         {
             _pageOpen = false;
             if (!NativeMethods.EndPagePrinter(_handle))
-                throw PrintEngineException.FromWin32("Yazdırma sayfası kapatılamadı", Marshal.GetLastPInvokeError(), PrinterName);
+                throw PrintEngineException.FromWin32(L10n.T("Yazdırma sayfası kapatılamadı"), Marshal.GetLastPInvokeError(), PrinterName);
         }
         if (_docOpen)
         {
             _docOpen = false;
             if (!NativeMethods.EndDocPrinter(_handle))
-                throw PrintEngineException.FromWin32("Yazdırma işi tamamlanamadı", Marshal.GetLastPInvokeError(), PrinterName);
+                throw PrintEngineException.FromWin32(L10n.T("Yazdırma işi tamamlanamadı"), Marshal.GetLastPInvokeError(), PrinterName);
         }
         _finished = true;
     }

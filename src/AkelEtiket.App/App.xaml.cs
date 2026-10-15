@@ -61,7 +61,7 @@ public partial class App : Application
         };
 
         _main = new MainViewModel(services);
-        ThemeManager.Apply(_main.Settings.Theme);
+        ThemeManager.Configure(_main.Settings);
         var window = new MainWindow(_main);
         dialogs.Owner = window;
         MainWindow = window;

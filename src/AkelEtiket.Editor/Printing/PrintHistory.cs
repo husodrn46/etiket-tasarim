@@ -8,6 +8,7 @@ using AkelEtiket.Core;
 using AkelEtiket.Core.Serialization;
 using AkelEtiket.PrintEngine;
 using AkelEtiket.ProjectManager;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.Printing;
 
@@ -44,7 +45,7 @@ public sealed class PrintHistoryEntry
     public DateTimeOffset Time { get; set; } = DateTimeOffset.Now;
 
     /// <summary>Baskı, Test baskısı, Devam baskısı, Kalibrasyon etiketi.</summary>
-    public string Title { get; set; } = "Baskı";
+    public string Title { get; set; } = L10n.T("Baskı");
 
     public string DocumentName { get; set; } = "";
     public string? TemplatePath { get; set; }
@@ -125,11 +126,11 @@ public sealed class PrintHistoryEntry
 
     [JsonIgnore]
     public string StatusText => Success && LabelsRemaining == 0 && LabelsFailed == 0
-        ? "Kuyruğa gönderildi"
-        : Canceled ? $"İptal edildi — {LabelsRemaining} etiket gönderilmedi"
-        : LabelsRemaining > 0 ? $"Yarım kaldı — {LabelsRemaining} etiket gönderilmedi"
-        : LabelsFailed > 0 ? $"{LabelsFailed} etiket hatalı (atlandı)"
-        : Errors.Count > 0 ? "Hata" : "Kuyruğa gönderildi (kuyruk sonucu belirsiz)";
+        ? L10n.T("Kuyruğa gönderildi")
+        : Canceled ? L10n.T($"İptal edildi — {LabelsRemaining} etiket gönderilmedi")
+        : LabelsRemaining > 0 ? L10n.T($"Yarım kaldı — {LabelsRemaining} etiket gönderilmedi")
+        : LabelsFailed > 0 ? L10n.T($"{LabelsFailed} etiket hatalı (atlandı)")
+        : Errors.Count > 0 ? L10n.T("Hata") : L10n.T("Kuyruğa gönderildi (kuyruk sonucu belirsiz)");
 
     [JsonIgnore]
     public string TimeText => Time.ToLocalTime().ToString("dd.MM.yyyy HH:mm:ss", CultureInfo.GetCultureInfo("tr-TR"));
@@ -186,7 +187,7 @@ public sealed class PrintHistoryStore
         {
             try { acquired = mutex.WaitOne(TimeSpan.FromSeconds(5)); }
             catch (AbandonedMutexException) { acquired = true; }
-            if (!acquired) throw new IOException("Baskı geçmişi başka bir işlem tarafından kullanılıyor; kayıt eklenemedi.");
+            if (!acquired) throw new IOException(L10n.T("Baskı geçmişi başka bir işlem tarafından kullanılıyor; kayıt eklenemedi."));
             using var stream = new FileStream(LogPath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read);
             if (stream.Length > 0)
             {
@@ -275,15 +276,28 @@ public sealed class PrintHistoryStore
     public string? SnapshotPath(PrintHistoryEntry entry) =>
         entry.SnapshotFile is { Length: > 0 } file && File.Exists(Path.Combine(SnapshotFolder, file)) ? Path.Combine(SnapshotFolder, file) : null;
 
+    private string PinsPath => Path.Combine(Folder, "favorite-snapshots.json");
+    public void SetPinnedSnapshots(IEnumerable<string?> names)
+    {
+        var safe = names.Where(n => n is not null && n == Path.GetFileName(n) && n.EndsWith(ProjectFile.Extension, StringComparison.OrdinalIgnoreCase)).Distinct().ToArray();
+        Directory.CreateDirectory(Folder);
+        string temp = PinsPath + "." + Guid.NewGuid().ToString("N") + ".tmp";
+        try { File.WriteAllText(temp, JsonSerializer.Serialize(safe)); File.Move(temp, PinsPath, overwrite: true); }
+        finally { if (File.Exists(temp)) File.Delete(temp); }
+    }
+
     /// <summary>Eski tasarım kopyalarını siler (kayıt satırları kalır).</summary>
     public int PruneSnapshots(TimeSpan maxAge)
     {
         if (!Directory.Exists(SnapshotFolder)) return 0;
+        HashSet<string> pinned;
+        try { pinned = File.Exists(PinsPath) ? new(JsonSerializer.Deserialize<string[]>(File.ReadAllText(PinsPath)) ?? [], StringComparer.OrdinalIgnoreCase) : []; }
+        catch (Exception ex) when (ex is JsonException or IOException or UnauthorizedAccessException) { return 0; }
         int removed = 0;
         var limit = DateTime.UtcNow - maxAge;
         foreach (var file in new DirectoryInfo(SnapshotFolder).GetFiles("*" + ProjectFile.Extension))
         {
-            if (file.LastWriteTimeUtc > limit) continue;
+            if (file.LastWriteTimeUtc > limit || pinned.Contains(file.Name)) continue;
             try
             {
                 file.Delete();

@@ -79,8 +79,13 @@ public sealed class RenderCache
         }
     }
 
+    private static string ResolveText(string text, IFieldValueSource? fields, LabelFormatting? formatting)
+    {
+        try { return FieldTemplate.Resolve(text, formatting is not null && fields is not null ? new RegionalFieldSource(fields,formatting) : fields).Text; }
+        catch (Exception ex) when (ex is FormatException or ArgumentException) { return "format-error:" + ex.Message; }
+    }
     /// <summary>Öğenin konumdan bağımsız içerik anahtarı.</summary>
-    public static string ComputeKey(LabelElement element, IFieldValueSource? fields, double dotsPerMm)
+    public static string ComputeKey(LabelElement element, IFieldValueSource? fields, double dotsPerMm, LabelFormatting? formatting = null)
     {
         var node = JsonNode.Parse(ModelJson.SerializeElements([element]))!.AsArray()[0]!.AsObject();
         node.Remove("x");
@@ -90,7 +95,7 @@ public sealed class RenderCache
         node.Remove("groupId");
         string resolved = element switch
         {
-            TextElement t => FieldTemplate.Resolve(t.Text, fields).Text,
+            TextElement t => ResolveText(t.Text, fields, formatting),
             BarcodeElement b => FieldTemplate.Resolve(b.Content, fields).Text,
             ImageElement { SourceField: { } field } => FieldTemplate.Resolve(FieldTemplate.MakePlaceholder(field), fields).Text,
             _ => "",
@@ -101,6 +106,6 @@ public sealed class RenderCache
             : "";
         // Konum, nokta ızgarasına yuvarlandığı için kesirli kısmı çizimi etkilemez; yine de alt-nokta
         // kaydırması olmadığından anahtar konumdan bağımsızdır.
-        return $"{dotsPerMm:0.###}|{resolved}|{condition}|{node.ToJsonString()}";
+        return $"{dotsPerMm:0.###}|{System.Text.Json.JsonSerializer.Serialize(formatting)}|{resolved}|{condition}|{node.ToJsonString()}";
     }
 }

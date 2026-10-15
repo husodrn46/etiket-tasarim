@@ -1,3 +1,4 @@
+using L10n = AkelEtiket.Core.Localization.UiText;
 namespace AkelEtiket.Gs1;
 
 /// <summary>
@@ -20,7 +21,7 @@ public sealed class SsccPrintSession
     {
         _registry = registry ?? throw new ArgumentNullException(nameof(registry));
         _profile = (profile ?? throw new ArgumentNullException(nameof(profile))).Clone();
-        JobDescription = string.IsNullOrWhiteSpace(jobDescription) ? "Baskı" : jobDescription.Trim();
+        JobDescription = string.IsNullOrWhiteSpace(jobDescription) ? L10n.T("Baskı") : jobDescription.Trim();
     }
 
     public string JobDescription { get; }
@@ -46,7 +47,7 @@ public sealed class SsccPrintSession
     {
         lock (_gate)
         {
-            if (_finished) throw new InvalidOperationException("Baskı oturumu kapandı; yeni SSCC ayrılamaz.");
+            if (_finished) throw new InvalidOperationException(L10n.T("Baskı oturumu kapandı; yeni SSCC ayrılamaz."));
             string note = string.IsNullOrWhiteSpace(labelDescription) ? JobDescription : $"{JobDescription} — {labelDescription.Trim()}";
             string sscc = _registry.Allocate(_profile, 1, note)[0];
             _pending.Add(sscc);

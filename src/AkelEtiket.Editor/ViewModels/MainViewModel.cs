@@ -73,6 +73,11 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         Settings = services.InitialSettings ?? services.SettingsStore.Load();
         Settings.Normalize();
         _recovery = new AutoRecoveryService(services.RecoveryFolder);
+        if (Settings.Personalization.RememberPanelLayout)
+        {
+            ActivePanel = Enum.Parse<LeftPanel>(Settings.Personalization.ActivePanel);
+            IsPanelOpen = Settings.Personalization.IsPanelOpen; IsAiPanelOpen = Settings.Personalization.IsAiPanelOpen;
+        }
         Data = new DataSourceViewModel();
         Data.PreviewChanged += (_, _) => ApplyPreviewFields();
         Data.TableChanged += (_, _) =>
@@ -191,7 +196,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
     partial void OnActivePanelChanged(LeftPanel value)
     {
         IsPanelOpen = true;
-        if (value == LeftPanel.Templates) Templates.Refresh();
+        if (value == LeftPanel.Templates) Templates?.Refresh();
     }
 
     partial void OnZoomChanged(double value)
@@ -332,6 +337,12 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
                 SetStatus(L10n.T($"AKEL Etiket (v1) şablonlarından {Templates.ImportedLegacyCount} tanesi kopyalandı (v1'deki asıllar değişmedi)."));
         }
 
+        if (!recovered && args.Count == 0 && Settings.Personalization.StartupTemplatePath is { } startup)
+        {
+            try { OpenProjectAsNew(ProjectFile.Load(startup).Project, L10n.T("Başlangıç şablonu açıldı.")); }
+            catch (Exception ex) when (ex is ProjectFileException or IOException or UnauthorizedAccessException)
+            { Dialogs.ShowMessage(L10n.T("Başlangıç şablonu açılamadı"), ex.Message, MessageKind.Warning); }
+        }
         var fileArgs = args.Where(File.Exists).ToList();
         if (fileArgs.Count > 0) HandleFileDrop(fileArgs, null, null);
         Templates.Refresh();
@@ -428,6 +439,11 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         Settings.Recent.Items = RecentFiles.ToList();
         try
         {
+            if (Settings.Personalization.RememberPanelLayout)
+            {
+                Settings.Personalization.ActivePanel = ActivePanel.ToString(); Settings.Personalization.IsPanelOpen = IsPanelOpen;
+                Settings.Personalization.IsAiPanelOpen = IsAiPanelOpen;
+            }
             _services.SettingsStore.Save(Settings);
         }
         catch (Exception ex) when (ex is not OutOfMemoryException)

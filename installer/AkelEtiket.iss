@@ -78,6 +78,11 @@ Source: "..\docs\GENEL-URUN.md"; DestDir: "{app}\Belgeler"; Flags: ignoreversion
 Source: "..\docs\MIMARI.md"; DestDir: "{app}\Belgeler"; Flags: ignoreversion
 Source: "..\docs\LISANSLAR.md"; DestDir: "{app}\Belgeler"; Flags: ignoreversion
 
+Source: "..\samples\packs\*"; DestDir: "{app}\Örnekler\packs"; Flags: ignoreversion recursesubdirs createallsubdirs
+
+Source: "..\docs\WORKFLOWS.md"; DestDir: "{app}\Belgeler"; Flags: ignoreversion
+Source: "..\docs\WORKFLOWS.tr.md"; DestDir: "{app}\Belgeler"; Flags: ignoreversion
+
 [Icons]
 Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExe}"; Comment: "{cm:AppDescription}"
 Name: "{group}\{cm:SampleFiles}"; Filename: "{app}\Örnekler"

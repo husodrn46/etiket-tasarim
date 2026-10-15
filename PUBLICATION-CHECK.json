@@ -1,7 +1,8 @@
 {
-  "files": 446,
+  "files": 474,
   "excluded": [],
   "findings": [],
   "historyIncluded": false,
-  "published": false
+  "published": false,
+  "hashScope": "working source snapshot before Git line-ending normalization (.gitattributes)"
 }

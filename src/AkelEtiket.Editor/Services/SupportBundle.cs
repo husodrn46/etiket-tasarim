@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using AkelEtiket.Core;
 using AkelEtiket.Core.Automation;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.Services;
 
@@ -27,12 +28,12 @@ public static class SupportBundle
         using var zip = ZipFile.Open(path, ZipArchiveMode.Create);
 
         var info = new StringBuilder();
-        info.AppendLine($"Ürün: {AppIdentity.ProductName} {Assembly.GetEntryAssembly()?.GetName().Version}");
+        info.AppendLine(L10n.T($"Ürün: {AppIdentity.ProductName} {Assembly.GetEntryAssembly()?.GetName().Version}"));
         info.AppendLine($"Tarih: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
-        info.AppendLine($"İşletim sistemi: {RuntimeInformation.OSDescription} ({RuntimeInformation.OSArchitecture})");
+        info.AppendLine(L10n.T($"İşletim sistemi: {RuntimeInformation.OSDescription} ({RuntimeInformation.OSArchitecture})"));
         info.AppendLine($".NET: {RuntimeInformation.FrameworkDescription}");
-        info.AppendLine($"Veri klasörleri: {AppIdentity.LocalFolder} | {AppIdentity.DocumentsFolder}");
-        info.AppendLine("Yazıcılar:");
+        info.AppendLine(L10n.T($"Veri klasörleri: {AppIdentity.LocalFolder} | {AppIdentity.DocumentsFolder}"));
+        info.AppendLine(L10n.T("Yazıcılar:"));
         foreach (string printer in printers) info.AppendLine("  - " + printer);
         AddText(zip, "bilgi.txt", info.ToString());
 
@@ -55,7 +56,7 @@ public static class SupportBundle
             }
             catch (Exception ex) when (ex is IOException or JsonException)
             {
-                AddText(zip, "ayarlar/yapay-zeka.txt", "Okunamadı: " + ex.Message);
+                AddText(zip, "ayarlar/yapay-zeka.txt", L10n.T("Okunamadı: ") + ex.Message);
             }
         }
         if (currentDocument is not null && File.Exists(currentDocument))
@@ -82,7 +83,7 @@ public static class SupportBundle
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            AddText(zip, entryName + ".hata.txt", "Okunamadı: " + ex.Message);
+            AddText(zip, entryName + ".hata.txt", L10n.T("Okunamadı: ") + ex.Message);
         }
     }
 

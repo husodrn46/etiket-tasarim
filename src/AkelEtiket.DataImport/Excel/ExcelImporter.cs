@@ -1,6 +1,7 @@
 using System.Globalization;
 using AkelEtiket.DataImport.Internal;
 using ClosedXML.Excel;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.DataImport.Excel;
 
@@ -32,7 +33,7 @@ internal static class ExcelImporter
         var firstColumnUsed = sheet.FirstColumnUsed();
         var lastColumnUsed = sheet.LastColumnUsed();
         if (firstRowUsed is null || lastRowUsed is null || firstColumnUsed is null || lastColumnUsed is null)
-            throw new DataImportException($"\"{sheet.Name}\" sayfasında veri bulunamadı.") { FilePath = path };
+            throw new DataImportException(L10n.T($"\"{sheet.Name}\" sayfasında veri bulunamadı.")) { FilePath = path };
 
         int firstRow = firstRowUsed.RowNumber(), lastRow = lastRowUsed.RowNumber();
         int firstColumn = firstColumnUsed.ColumnNumber(), lastColumn = lastColumnUsed.ColumnNumber();
@@ -76,12 +77,12 @@ internal static class ExcelImporter
 
         if (rows.Count == 0)
         {
-            issues.Add(new ImportIssue(0, null, ImportIssueSeverity.Warning, "Başlık satırından sonra veri satırı yok."));
+            issues.Add(new ImportIssue(0, null, ImportIssueSeverity.Warning, L10n.T("Başlık satırından sonra veri satırı yok.")));
         }
         if (truncated)
         {
             issues.Add(new ImportIssue(0, null, ImportIssueSeverity.Warning,
-                $"Sayfada {options.MaxRows} satırdan fazla veri var; yalnızca ilk {options.MaxRows} satır okundu."));
+                L10n.T($"Sayfada {options.MaxRows} satırdan fazla veri var; yalnızca ilk {options.MaxRows} satır okundu.")));
         }
 
         IntegrityChecks.Run(columns, rows, issues);
@@ -96,7 +97,7 @@ internal static class ExcelImporter
         // Dosya belleğe alınır: tanıtıcı hemen bırakılır ve Excel'de açık dosyalar da okunur.
         byte[] bytes = FileAccessHelper.ReadAllBytes(path, MaxFileBytes);
         if (bytes.Length == 0)
-            throw new DataImportException("Dosya boş; geçerli bir Excel dosyası değil.") { FilePath = path };
+            throw new DataImportException(L10n.T("Dosya boş; geçerli bir Excel dosyası değil.")) { FilePath = path };
         try
         {
             return new XLWorkbook(new MemoryStream(bytes, writable: false));
@@ -104,8 +105,8 @@ internal static class ExcelImporter
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
             throw new DataImportException(
-                "Excel dosyası açılamadı. Dosya bozuk, parola korumalı ya da geçerli bir .xlsx dosyası değil. " +
-                "Dosyayı Excel'de açıp \"Farklı Kaydet → Excel Çalışma Kitabı (.xlsx)\" ile yeniden kaydetmeyi deneyin.",
+                L10n.T("Excel dosyası açılamadı. Dosya bozuk, parola korumalı ya da geçerli bir .xlsx dosyası değil. ") +
+                L10n.T("Dosyayı Excel'de açıp \"Farklı Kaydet → Excel Çalışma Kitabı (.xlsx)\" ile yeniden kaydetmeyi deneyin."),
                 ex) { FilePath = path };
         }
     }
@@ -114,7 +115,7 @@ internal static class ExcelImporter
     {
         var sheets = workbook.Worksheets.ToList();
         if (sheets.Count == 0)
-            throw new DataImportException("Excel dosyasında çalışma sayfası yok.") { FilePath = path };
+            throw new DataImportException(L10n.T("Excel dosyasında çalışma sayfası yok.")) { FilePath = path };
 
         if (!string.IsNullOrWhiteSpace(sheetName))
         {
@@ -122,24 +123,24 @@ internal static class ExcelImporter
             var match = sheets.FirstOrDefault(s => string.Equals(s.Name, wanted, StringComparison.OrdinalIgnoreCase))
                         ?? sheets.FirstOrDefault(s => string.Compare(s.Name, wanted, Turkish, CompareOptions.IgnoreCase) == 0);
             return match ?? throw new DataImportException(
-                $"\"{wanted}\" adlı sayfa bulunamadı. Dosyadaki sayfalar: {string.Join(", ", sheets.Select(s => s.Name))}.")
+                L10n.T($"\"{wanted}\" adlı sayfa bulunamadı. Dosyadaki sayfalar: {string.Join(", ", sheets.Select(s => s.Name))}."))
                 { FilePath = path };
         }
 
         return sheets.FirstOrDefault(s => s.Visibility == XLWorksheetVisibility.Visible && s.FirstRowUsed() is not null)
                ?? sheets.FirstOrDefault(s => s.FirstRowUsed() is not null)
-               ?? throw new DataImportException("Excel dosyasında veri içeren bir sayfa bulunamadı.") { FilePath = path };
+               ?? throw new DataImportException(L10n.T("Excel dosyasında veri içeren bir sayfa bulunamadı.")) { FilePath = path };
     }
 
     private static int FindHeaderRow(IXLWorksheet sheet, int? requested, int firstRow, int lastRow, int firstColumn, int lastColumn, string path)
     {
         if (requested is not int row) return firstRow;
         if (row < 1)
-            throw new DataImportException("Başlık satırı 1 veya daha büyük olmalı.") { FilePath = path };
+            throw new DataImportException(L10n.T("Başlık satırı 1 veya daha büyük olmalı.")) { FilePath = path };
         if (row > lastRow)
         {
             throw new DataImportException(
-                $"Başlık satırı ({row}) sayfadaki son dolu satırdan ({lastRow}) sonra geliyor.") { FilePath = path };
+                L10n.T($"Başlık satırı ({row}) sayfadaki son dolu satırdan ({lastRow}) sonra geliyor.")) { FilePath = path };
         }
         // İstenen satır boşsa sonraki ilk dolu satır başlık olur.
         for (int r = Math.Max(row, firstRow); r <= lastRow; r++)
@@ -147,7 +148,7 @@ internal static class ExcelImporter
             for (int c = firstColumn; c <= lastColumn; c++)
                 if (!string.IsNullOrWhiteSpace(ReadCell(sheet.Cell(r, c), r, null, null, trim: true))) return r;
         }
-        throw new DataImportException($"Belirtilen başlık satırında ({row}) veya sonrasında veri bulunamadı.") { FilePath = path };
+        throw new DataImportException(L10n.T($"Belirtilen başlık satırında ({row}) veya sonrasında veri bulunamadı.")) { FilePath = path };
     }
 
     /// <summary>Hücreyi metne çevirir. <paramref name="issues"/> null ise sorun kaydedilmez (başlıklar).</summary>
@@ -161,7 +162,7 @@ internal static class ExcelImporter
         catch (Exception)
         {
             issues?.Add(new ImportIssue(row, column, ImportIssueSeverity.Warning,
-                "Formül hesaplanamadı; hücre boş kabul edildi. Dosyayı Excel'de açıp kaydederek formül sonuçlarının dosyaya yazılmasını sağlayın."));
+                L10n.T("Formül hesaplanamadı; hücre boş kabul edildi. Dosyayı Excel'de açıp kaydederek formül sonuçlarının dosyaya yazılmasını sağlayın.")));
             return "";
         }
 

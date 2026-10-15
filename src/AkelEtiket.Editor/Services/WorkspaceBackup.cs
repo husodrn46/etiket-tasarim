@@ -4,6 +4,7 @@ using System.Text.Json;
 using AkelEtiket.Core.Serialization;
 using AkelEtiket.Design.Data;
 using AkelEtiket.ProjectManager;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.Services;
 
@@ -37,6 +38,7 @@ public static class WorkspaceBackup
         portable.Recent.Items.Clear(); portable.TemplatesFolder = null;
         portable.LastDataFolder = null; portable.LastImageFolder = null; portable.LastProjectFolder = null;
         portable.LastQuickTemplatePath = null; portable.Window = new();
+        portable.Personalization = new(); portable.FavoriteTemplatePaths.Clear(); portable.FavoritePrintJobIds.Clear(); portable.ImportProfiles.Clear();
         portable.Printer.PrinterName = "";
         portable.Gs1CompanyPrefix = ""; portable.NextItemNumber = 1;
         portable.OnboardingCompleted = false;
@@ -45,20 +47,20 @@ public static class WorkspaceBackup
         var files = new Dictionary<string, byte[]> { ["settings.json"] = Json(portable), ["products.json"] = Json(productCopy) };
         foreach (var item in templates.List())
         {
-            if (item.Problem is not null) throw new InvalidDataException("Okunamayan şablon yedeklenemedi: " + item.Name);
+            if (item.Problem is not null) throw new InvalidDataException(L10n.T("Okunamayan şablon yedeklenemedi: ") + item.Name);
             string name = "templates/" + Path.GetFileName(item.FilePath);
-            if (!AllowedName(name)) throw new InvalidDataException("Şablon dosyasının adını Windows ile uyumlu olacak şekilde değiştirin: " + item.Name);
+            if (!AllowedName(name)) throw new InvalidDataException(L10n.T("Şablon dosyasının adını Windows ile uyumlu olacak şekilde değiştirin: ") + item.Name);
             files.Add(name, File.ReadAllBytes(item.FilePath));
         }
         if (files.Keys.Distinct(StringComparer.OrdinalIgnoreCase).Count() != files.Count)
-            throw new InvalidDataException("Şablon dosya adları Windows'ta birbirinden farklı olmalı.");
+            throw new InvalidDataException(L10n.T("Şablon dosya adları Windows'ta birbirinden farklı olmalı."));
         if (files.Count > MaxFiles || files.Values.Sum(b => (long)b.Length) > MaxBytes)
-            throw new InvalidDataException("Yedek en fazla 1000 dosya ve 128 MB olabilir.");
+            throw new InvalidDataException(L10n.T("Yedek en fazla 1000 dosya ve 128 MB olabilir."));
         var manifest = new WorkspaceBackupManifest { Files = files.ToDictionary(p => p.Key, p => Hash(p.Value)) };
         string temporary = path + "." + Guid.NewGuid().ToString("N") + ".tmp";
         try
         {
-            if (File.Exists(path)) throw new IOException("Bu adla bir dosya var. Yedeğe yeni bir dosya adı verin.");
+            if (File.Exists(path)) throw new IOException(L10n.T("Bu adla bir dosya var. Yedeğe yeni bir dosya adı verin."));
             using (var stream = new FileStream(temporary, FileMode.CreateNew, FileAccess.Write, FileShare.None))
             using (var zip = new ZipArchive(stream, ZipArchiveMode.Create))
             {
@@ -76,29 +78,29 @@ public static class WorkspaceBackup
         using var zip = new ZipArchive(stream, ZipArchiveMode.Read);
         if (zip.Entries.Count > MaxFiles + 1 || zip.Entries.Where(e => e.FullName != "manifest.json").Sum(e => e.Length) > MaxBytes ||
             zip.Entries.Select(e => e.FullName).Distinct(StringComparer.OrdinalIgnoreCase).Count() != zip.Entries.Count)
-            throw new InvalidDataException("Yedek boyutu veya dosya listesi geçersiz.");
-        var manifestEntry = zip.GetEntry("manifest.json") ?? throw new InvalidDataException("Yedek manifesti eksik.");
-        if (manifestEntry.Length > 1024 * 1024) throw new InvalidDataException("Yedek manifesti çok büyük.");
+            throw new InvalidDataException(L10n.T("Yedek boyutu veya dosya listesi geçersiz."));
+        var manifestEntry = zip.GetEntry("manifest.json") ?? throw new InvalidDataException(L10n.T("Yedek manifesti eksik."));
+        if (manifestEntry.Length > 1024 * 1024) throw new InvalidDataException(L10n.T("Yedek manifesti çok büyük."));
         var manifest = JsonSerializer.Deserialize<WorkspaceBackupManifest>(ReadEntry(manifestEntry, 1024 * 1024), ModelJson.FileOptions);
         if (manifest is not { Format: "etiket-workspace", Version: 1 } || manifest.Files is null ||
             manifest.Files.Count != zip.Entries.Count - 1 || !manifest.Files.ContainsKey("settings.json") || !manifest.Files.ContainsKey("products.json"))
-            throw new InvalidDataException("Bu yedek biçimi desteklenmiyor veya dosya listesi eksik.");
+            throw new InvalidDataException(L10n.T("Bu yedek biçimi desteklenmiyor veya dosya listesi eksik."));
         var files = new Dictionary<string, byte[]>();
         long totalRead = 0;
         foreach (var (name, expected) in manifest.Files)
         {
-            if (!AllowedName(name)) throw new InvalidDataException("Yedekte geçersiz dosya yolu var.");
-            var entry = zip.GetEntry(name) ?? throw new InvalidDataException("Yedekte dosya eksik: " + name);
+            if (!AllowedName(name)) throw new InvalidDataException(L10n.T("Yedekte geçersiz dosya yolu var."));
+            var entry = zip.GetEntry(name) ?? throw new InvalidDataException(L10n.T("Yedekte dosya eksik: ") + name);
             byte[] data = ReadEntry(entry, MaxBytes - totalRead);
             totalRead += data.Length;
-            if (Hash(data) != expected) throw new InvalidDataException("Yedek dosyasının bütünlüğü doğrulanamadı: " + name);
+            if (Hash(data) != expected) throw new InvalidDataException(L10n.T("Yedek dosyasının bütünlüğü doğrulanamadı: ") + name);
             files.Add(name, data);
         }
         var settings = JsonSerializer.Deserialize<AppSettings>(files["settings.json"], ModelJson.FileOptions)
-            ?? throw new InvalidDataException("Yedek ayarları boş.");
+            ?? throw new InvalidDataException(L10n.T("Yedek ayarları boş."));
         settings.Normalize();
         var products = JsonSerializer.Deserialize<ProductCatalogData>(files["products.json"], ModelJson.FileOptions)
-            ?? throw new InvalidDataException("Yedek ürün listesi boş.");
+            ?? throw new InvalidDataException(L10n.T("Yedek ürün listesi boş."));
         products = ProductCatalog.ValidateBackup(products);
         // Şablon paketleri de kullanıcı ayarlarına dokunulmadan açılıp doğrulanır.
         foreach (var (name, data) in files.Where(p => p.Key.StartsWith("templates/", StringComparison.Ordinal)))
@@ -125,18 +127,18 @@ public static class WorkspaceBackup
         int count;
         while ((count = input.Read(buffer)) > 0)
         {
-            if (memory.Length + count > limit) throw new InvalidDataException("Yedek açıldığında boyut sınırını aşıyor.");
+            if (memory.Length + count > limit) throw new InvalidDataException(L10n.T("Yedek açıldığında boyut sınırını aşıyor."));
             memory.Write(buffer, 0, count);
         }
-        if (memory.Length != entry.Length) throw new InvalidDataException("Yedek dosyasının boyutu uyuşmuyor.");
+        if (memory.Length != entry.Length) throw new InvalidDataException(L10n.T("Yedek dosyasının boyutu uyuşmuyor."));
         return memory.ToArray();
     }
 
     /// <summary>Her zaman yeni bir klasöre çıkarır; var olan ayar veya dosyaların üzerine yazmaz.</summary>
     public static void ExtractToNewFolder(WorkspaceBackupContent content, string folder)
     {
-        if (Directory.Exists(folder) || File.Exists(folder)) throw new IOException("Geri yükleme klasörü zaten var.");
-        if (content.Files.Keys.Any(name => !AllowedName(name))) throw new InvalidDataException("Geçersiz yedek yolu.");
+        if (Directory.Exists(folder) || File.Exists(folder)) throw new IOException(L10n.T("Geri yükleme klasörü zaten var."));
+        if (content.Files.Keys.Any(name => !AllowedName(name))) throw new InvalidDataException(L10n.T("Geçersiz yedek yolu."));
         Directory.CreateDirectory(folder);
         Directory.CreateDirectory(Path.Combine(folder, "templates"));
         foreach (var (name, data) in content.Files)

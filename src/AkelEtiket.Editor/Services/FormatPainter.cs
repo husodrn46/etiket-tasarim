@@ -1,5 +1,6 @@
 using System.Reflection;
 using AkelEtiket.Core.Model;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.Services;
 
@@ -76,8 +77,8 @@ public sealed class ElementStyle
         {
             TextElement => "Metin",
             BarcodeElement => "Barkod",
-            ImageElement => "Görsel",
-            _ => "Şekil",
+            ImageElement => L10n.T("Görsel"),
+            _ => L10n.T("Şekil"),
         };
         return new ElementStyle(type, kind, values);
     }

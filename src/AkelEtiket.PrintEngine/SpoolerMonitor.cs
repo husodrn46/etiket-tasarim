@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using AkelEtiket.PrintEngine.Interop;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.PrintEngine;
 
@@ -42,7 +43,7 @@ public sealed class JobSnapshot
 
     public string StatusText => SpoolerMonitor.DescribeJobStatus(Status, DriverStatus);
 
-    public override string ToString() => $"İş {JobId}: {StatusText}";
+    public override string ToString() => L10n.T($"İş {JobId}: {StatusText}");
 }
 
 /// <summary>Kuyruk takibinin sonucu.</summary>
@@ -155,7 +156,7 @@ public static class SpoolerMonitor
             if (snapshot is null && getPrinter() is { Exists: false } missing)
             {
                 // İş değil yazıcı kuyruğunun kendisi kayboldu (silindi/biriktirici durdu): "iletildi" sayılamaz.
-                return new SpoolWaitResult(SpoolOutcome.Error, missing.ErrorMessage ?? "Yazıcı kuyruğu bulunamadı.", last);
+                return new SpoolWaitResult(SpoolOutcome.Error, missing.ErrorMessage ?? L10n.T("Yazıcı kuyruğu bulunamadı."), last);
             }
             if (snapshot is null)
             {
@@ -249,20 +250,20 @@ public static class SpoolerMonitor
         return outcome switch
         {
             SpoolOutcome.LeftQueue =>
-                "İş Windows kuyruğundan çıktı; veri yazıcı portuna iletildi. Etiketin basıldığını yazıcıdan kontrol edin.",
+                L10n.T("İş Windows kuyruğundan çıktı; veri yazıcı portuna iletildi. Etiketin basıldığını yazıcıdan kontrol edin."),
             SpoolOutcome.Printed =>
-                "Windows işi 'yazıcıya gönderildi' olarak işaretledi. Etiketin basıldığını yazıcıdan kontrol edin.",
-            SpoolOutcome.Offline => "Yazıcı çevrimdışı; iş kuyrukta bekliyor. USB kablosunu ve yazıcının açık olduğunu kontrol edin." + driver,
-            SpoolOutcome.PaperOut => "Etiket/kağıt bitti; iş kuyrukta bekliyor. Etiket rulosunu kontrol edin." + driver,
-            SpoolOutcome.UserIntervention => "Yazıcı müdahale bekliyor (kapak, etiket veya hata ışığını kontrol edin)." + driver,
-            SpoolOutcome.Error => "Yazdırma işinde hata oluştu; Windows yazıcı kuyruğunu kontrol edin." + driver,
-            SpoolOutcome.Paused => "Yazdırma işi veya yazıcı kuyruğu duraklatılmış; Windows yazıcı kuyruğundan devam ettirin." + driver,
-            SpoolOutcome.Deleted => "Yazdırma işi kuyruktan silindi (iptal edildi).",
+                L10n.T("Windows işi 'yazıcıya gönderildi' olarak işaretledi. Etiketin basıldığını yazıcıdan kontrol edin."),
+            SpoolOutcome.Offline => L10n.T("Yazıcı çevrimdışı; iş kuyrukta bekliyor. USB kablosunu ve yazıcının açık olduğunu kontrol edin.") + driver,
+            SpoolOutcome.PaperOut => L10n.T("Etiket/kağıt bitti; iş kuyrukta bekliyor. Etiket rulosunu kontrol edin.") + driver,
+            SpoolOutcome.UserIntervention => L10n.T("Yazıcı müdahale bekliyor (kapak, etiket veya hata ışığını kontrol edin).") + driver,
+            SpoolOutcome.Error => L10n.T("Yazdırma işinde hata oluştu; Windows yazıcı kuyruğunu kontrol edin.") + driver,
+            SpoolOutcome.Paused => L10n.T("Yazdırma işi veya yazıcı kuyruğu duraklatılmış; Windows yazıcı kuyruğundan devam ettirin.") + driver,
+            SpoolOutcome.Deleted => L10n.T("Yazdırma işi kuyruktan silindi (iptal edildi)."),
             SpoolOutcome.TimedOut when snapshot is not null && snapshot.Status.HasFlag(JobStatusFlags.Printing) =>
-                "Veri yazıcıya aktarılmaya devam ediyor (yazıcı belleği doldukça bastıkça alır; büyük işlerde normaldir). " +
-                "İlerlemeyi Windows yazıcı kuyruğundan izleyebilirsiniz." + driver,
+                L10n.T("Veri yazıcıya aktarılmaya devam ediyor (yazıcı belleği doldukça bastıkça alır; büyük işlerde normaldir). ") +
+                L10n.T("İlerlemeyi Windows yazıcı kuyruğundan izleyebilirsiniz.") + driver,
             SpoolOutcome.TimedOut =>
-                "İş belirtilen sürede kuyruktan çıkmadı; yazıcı bağlı, açık ve hazır mı? Windows yazıcı kuyruğunu kontrol edin." + driver,
+                L10n.T("İş belirtilen sürede kuyruktan çıkmadı; yazıcı bağlı, açık ve hazır mı? Windows yazıcı kuyruğunu kontrol edin.") + driver,
             _ => outcome.ToString(),
         };
     }
@@ -272,18 +273,18 @@ public static class SpoolerMonitor
         var parts = new List<string>();
         if (status.HasFlag(JobStatusFlags.Deleted)) parts.Add("Silindi");
         else if (status.HasFlag(JobStatusFlags.Deleting)) parts.Add("Siliniyor");
-        if (status.HasFlag(JobStatusFlags.Offline)) parts.Add("Yazıcı çevrimdışı");
-        if (status.HasFlag(JobStatusFlags.PaperOut)) parts.Add("Kağıt bitti");
-        if (status.HasFlag(JobStatusFlags.UserIntervention)) parts.Add("Müdahale gerekiyor");
-        if (status.HasFlag(JobStatusFlags.Error)) parts.Add("Hata");
-        if (status.HasFlag(JobStatusFlags.Paused)) parts.Add("Duraklatıldı");
+        if (status.HasFlag(JobStatusFlags.Offline)) parts.Add(L10n.T("Yazıcı çevrimdışı"));
+        if (status.HasFlag(JobStatusFlags.PaperOut)) parts.Add(L10n.T("Kağıt bitti"));
+        if (status.HasFlag(JobStatusFlags.UserIntervention)) parts.Add(L10n.T("Müdahale gerekiyor"));
+        if (status.HasFlag(JobStatusFlags.Error)) parts.Add(L10n.T("Hata"));
+        if (status.HasFlag(JobStatusFlags.Paused)) parts.Add(L10n.T("Duraklatıldı"));
         if (status.HasFlag(JobStatusFlags.BlockedDevQueue)) parts.Add("Engellendi");
-        if (status.HasFlag(JobStatusFlags.Restart)) parts.Add("Yeniden başlatılıyor");
+        if (status.HasFlag(JobStatusFlags.Restart)) parts.Add(L10n.T("Yeniden başlatılıyor"));
         if (status.HasFlag(JobStatusFlags.Spooling)) parts.Add("Biriktiriliyor");
-        if (status.HasFlag(JobStatusFlags.Printing)) parts.Add("Yazıcıya gönderiliyor");
-        if (status.HasFlag(JobStatusFlags.Printed) || status.HasFlag(JobStatusFlags.Complete)) parts.Add("Yazıcıya gönderildi");
-        if (status.HasFlag(JobStatusFlags.Retained)) parts.Add("Saklandı");
-        string text = parts.Count == 0 ? "Kuyrukta bekliyor" : string.Join(", ", parts);
+        if (status.HasFlag(JobStatusFlags.Printing)) parts.Add(L10n.T("Yazıcıya gönderiliyor"));
+        if (status.HasFlag(JobStatusFlags.Printed) || status.HasFlag(JobStatusFlags.Complete)) parts.Add(L10n.T("Yazıcıya gönderildi"));
+        if (status.HasFlag(JobStatusFlags.Retained)) parts.Add(L10n.T("Saklandı"));
+        string text = parts.Count == 0 ? L10n.T("Kuyrukta bekliyor") : string.Join(", ", parts);
         return string.IsNullOrWhiteSpace(driverStatus) ? text : $"{text} ({driverStatus})";
     }
 

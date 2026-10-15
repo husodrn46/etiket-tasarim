@@ -5,6 +5,7 @@ using System.Text.Json;
 using AkelEtiket.Core.Assets;
 using AkelEtiket.Core.Model;
 using AkelEtiket.Core.Serialization;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.ProjectManager;
 
@@ -75,7 +76,7 @@ public static class ProjectFile
         ArgumentNullException.ThrowIfNull(project);
         ArgumentException.ThrowIfNullOrWhiteSpace(path);
         string fullPath = Path.GetFullPath(path);
-        string directory = Path.GetDirectoryName(fullPath) ?? throw new ProjectFileException("Geçersiz kayıt yolu.");
+        string directory = Path.GetDirectoryName(fullPath) ?? throw new ProjectFileException(L10n.T("Geçersiz kayıt yolu."));
         string tempPath = Path.Combine(directory, $".{Path.GetFileName(fullPath)}.{Guid.NewGuid():N}.tmp");
         try
         {
@@ -95,7 +96,7 @@ public static class ProjectFile
         }
         catch (IOException ex)
         {
-            throw new ProjectFileException($"Proje kaydedilemedi ({ex.Message}). Dosya başka bir programda açık olabilir veya disk dolu olabilir.", ex);
+            throw new ProjectFileException(L10n.T($"Proje kaydedilemedi ({ex.Message}). Dosya başka bir programda açık olabilir veya disk dolu olabilir."), ex);
         }
         finally
         {
@@ -156,7 +157,7 @@ public static class ProjectFile
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(path);
         string fullPath = Path.GetFullPath(path);
-        if (!File.Exists(fullPath)) throw new ProjectFileException($"Dosya bulunamadı: {fullPath}");
+        if (!File.Exists(fullPath)) throw new ProjectFileException(L10n.T($"Dosya bulunamadı: {fullPath}"));
         try
         {
             using var stream = new FileStream(fullPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
@@ -170,11 +171,11 @@ public static class ProjectFile
         }
         catch (UnauthorizedAccessException ex)
         {
-            throw new ProjectFileException($"Dosyayı okuma izni yok: {fullPath}", ex);
+            throw new ProjectFileException(L10n.T($"Dosyayı okuma izni yok: {fullPath}"), ex);
         }
         catch (IOException ex)
         {
-            throw new ProjectFileException($"Dosya okunamadı: {ex.Message}", ex);
+            throw new ProjectFileException(L10n.T($"Dosya okunamadı: {ex.Message}"), ex);
         }
     }
 
@@ -186,12 +187,12 @@ public static class ProjectFile
             using var zip = new ZipArchive(stream, ZipArchiveMode.Read, leaveOpen: true, Encoding.UTF8);
             var manifest = ReadManifest(zip);
             if (manifest.FormatVersion > LabelDocument.CurrentFormatVersion)
-                warnings.Add($"Bu dosya daha yeni bir Etiket Tasarım sürümüyle kaydedilmiş (biçim {manifest.FormatVersion}). " +
-                             "Bazı özellikler eksik görünebilir.");
+                warnings.Add(L10n.T($"Bu dosya daha yeni bir Etiket Tasarım sürümüyle kaydedilmiş (biçim {manifest.FormatVersion}). ") +
+                             L10n.T("Bazı özellikler eksik görünebilir."));
 
             var docEntry = zip.GetEntry(string.IsNullOrWhiteSpace(manifest.Document) ? DocumentEntry : manifest.Document)
                            ?? zip.GetEntry(DocumentEntry)
-                           ?? throw new ProjectFileException("Proje dosyasında tasarım verisi (label.json) yok; dosya bozuk.");
+                           ?? throw new ProjectFileException(L10n.T("Proje dosyasında tasarım verisi (label.json) yok; dosya bozuk."));
             LabelDocument document;
             using (var reader = new StreamReader(docEntry.Open(), Encoding.UTF8))
                 document = ModelJson.DeserializeDocument(reader.ReadToEnd());
@@ -205,7 +206,7 @@ public static class ProjectFile
                 if (manifestAssets.TryGetValue(id, out var info) && info.Sha256.Length > 0 &&
                     !string.Equals(info.Sha256, Convert.ToHexStringLower(SHA256.HashData(data)), StringComparison.OrdinalIgnoreCase))
                 {
-                    warnings.Add($"Görsel bozuk olabilir (özet uyuşmuyor): {info.FileName}");
+                    warnings.Add(L10n.T($"Görsel bozuk olabilir (özet uyuşmuyor): {info.FileName}"));
                 }
                 string fileName = info?.FileName ?? id;
                 store.AddExisting(new ImageAsset(id, fileName, data));
@@ -215,17 +216,17 @@ public static class ProjectFile
             foreach (var missing in project.GetMissingAssetIds())
             {
                 string name = manifestAssets.TryGetValue(missing, out var info) ? info.FileName : missing;
-                warnings.Add($"Görsel dosyası pakette bulunamadı: {name}");
+                warnings.Add(L10n.T($"Görsel dosyası pakette bulunamadı: {name}"));
             }
             return new ProjectLoadResult(project, warnings);
         }
         catch (InvalidDataException ex)
         {
-            throw new ProjectFileException("Dosya geçerli bir Etiket projesi değil veya bozuk (ZIP okunamadı).", ex);
+            throw new ProjectFileException(L10n.T("Dosya geçerli bir Etiket projesi değil veya bozuk (ZIP okunamadı)."), ex);
         }
         catch (JsonException ex)
         {
-            throw new ProjectFileException($"Proje verisi okunamadı (JSON hatası: {ex.Message}).", ex);
+            throw new ProjectFileException(L10n.T($"Proje verisi okunamadı (JSON hatası: {ex.Message})."), ex);
         }
     }
 
@@ -240,7 +241,7 @@ public static class ProjectFile
         }
         catch (InvalidDataException ex)
         {
-            throw new ProjectFileException("Dosya geçerli bir Etiket projesi değil.", ex);
+            throw new ProjectFileException(L10n.T("Dosya geçerli bir Etiket projesi değil."), ex);
         }
     }
 
@@ -263,12 +264,12 @@ public static class ProjectFile
     private static ProjectManifest ReadManifest(ZipArchive zip)
     {
         var entry = zip.GetEntry(ManifestEntry)
-                    ?? throw new ProjectFileException("Bu dosya bir Etiket projesi değil (manifest.json yok).");
+                    ?? throw new ProjectFileException(L10n.T("Bu dosya bir Etiket projesi değil (manifest.json yok)."));
         using var reader = new StreamReader(entry.Open(), Encoding.UTF8);
         var manifest = JsonSerializer.Deserialize<ProjectManifest>(reader.ReadToEnd(), ModelJson.FileOptions)
-                       ?? throw new ProjectFileException("Proje özet bilgisi boş.");
+                       ?? throw new ProjectFileException(L10n.T("Proje özet bilgisi boş."));
         if (!string.Equals(manifest.Format, ProjectManifest.FormatName, StringComparison.Ordinal))
-            throw new ProjectFileException("Bu dosya bir Etiket projesi değil.");
+            throw new ProjectFileException(L10n.T("Bu dosya bir Etiket projesi değil."));
         manifest.Assets ??= [];
         return manifest;
     }

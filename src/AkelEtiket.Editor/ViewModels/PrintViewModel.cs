@@ -593,7 +593,7 @@ public sealed partial class PrintViewModel : ObservableObject
         }
         if (plan.Skipped.Count > 0 && !_main.Dialogs.Confirm(L10n.T("Hatalı satırlar"),
                 L10n.T($"{plan.Skipped.Count} hatalı satır atlanacak, {plan.TotalLabels} etiket basılacak.\n\n") +
-                string.Join("\n", plan.Skipped.Take(10)) + (plan.Skipped.Count > 10 ? "\n…" : "") + "\n\nDevam edilsin mi?",
+                string.Join("\n", plan.Skipped.Take(10)) + (plan.Skipped.Count > 10 ? "\n…" : "") + L10n.T("\n\nDevam edilsin mi?"),
                 L10n.T("Yazdır"), L10n.T("Vazgeç")))
             return;
         if (plan.TotalLabels > 200 && !_main.Dialogs.Confirm(L10n.T("Toplu baskı"), L10n.T($"{plan.TotalLabels} etiket basılacak. Devam edilsin mi?"), L10n.T("Yazdır"), L10n.T("Vazgeç")))

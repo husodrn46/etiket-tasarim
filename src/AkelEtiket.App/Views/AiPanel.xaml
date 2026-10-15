@@ -39,7 +39,7 @@
                                     <StackPanel>
                                         <TextBlock Text="{Binding Header}" FontWeight="SemiBold" />
                                         <TextBlock TextWrapping="Wrap">
-                                            <Run Text="&quot;" /><Run Text="{Binding Name, Mode=OneWay}" /><Run Text="{loc:Text T_dd90bca6dd07}" />
+                                            <Run Text="{loc:Text T_8a331fdde703}" /><Run Text="{Binding Name, Mode=OneWay}" /><Run Text="{loc:Text T_dd90bca6dd07}" />
                                         </TextBlock>
                                     </StackPanel>
                                 </DockPanel>

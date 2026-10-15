@@ -1,5 +1,6 @@
 using AkelEtiket.Core.Data;
 using AkelEtiket.Core.Model;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Gs1;
 
@@ -36,7 +37,7 @@ public sealed class Gs1FieldSource : IFieldValueSource
     public static Gs1FieldSource ForAllocated(string sscc, Func<Gs1CompanyProfile?>? profile = null)
     {
         var check = Gs1Identifiers.ValidateSscc(sscc);
-        if (!check.IsValid) throw new ArgumentException($"Geçersiz SSCC: {check.Error}", nameof(sscc));
+        if (!check.IsValid) throw new ArgumentException(L10n.T($"Geçersiz SSCC: {check.Error}"), nameof(sscc));
         return new Gs1FieldSource(check.Normalized, false, profile);
     }
 

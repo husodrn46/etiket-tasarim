@@ -1,3 +1,4 @@
+using L10n = AkelEtiket.Core.Localization.UiText;
 namespace AkelEtiket.BarcodeEngine;
 
 /// <summary>Kontrol basamağı hesaplamaları.</summary>
@@ -20,7 +21,7 @@ public static class CheckDigits
     public static int Gs1Mod10(ReadOnlySpan<char> digitsWithoutCheck)
     {
         if (!IsAllDigits(digitsWithoutCheck))
-            throw new ArgumentException("Yalnızca rakam içermelidir.", nameof(digitsWithoutCheck));
+            throw new ArgumentException(L10n.T("Yalnızca rakam içermelidir."), nameof(digitsWithoutCheck));
         int sum = 0;
         bool weightThree = true;
         for (int i = digitsWithoutCheck.Length - 1; i >= 0; i--)
@@ -46,7 +47,7 @@ public static class CheckDigits
         foreach (char c in data)
         {
             int value = Code39Alphabet.IndexOf(c);
-            if (value < 0) throw new ArgumentException($"Code 39 karakteri değil: '{c}'", nameof(data));
+            if (value < 0) throw new ArgumentException(L10n.T($"Code 39 karakteri değil: '{c}'"), nameof(data));
             sum += value;
         }
         return Code39Alphabet[sum % 43];

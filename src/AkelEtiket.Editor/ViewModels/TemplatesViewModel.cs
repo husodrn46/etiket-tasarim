@@ -11,7 +11,9 @@ namespace AkelEtiket.Editor.ViewModels;
 /// <summary>Şablon galerisi öğesi.</summary>
 public sealed class TemplateItemViewModel
 {
-    public TemplateItemViewModel(TemplateInfo info) => Info = info;
+    public TemplateItemViewModel(TemplateInfo info, bool favorite = false) { Info = info; IsFavorite = favorite; }
+    public bool IsFavorite { get; }
+    public string DisplayName => (IsFavorite ? "★ " : "") + Name;
 
     public TemplateInfo Info { get; }
     public string Name => Info.Name;
@@ -51,6 +53,18 @@ public sealed partial class TemplatesViewModel : ObservableObject
     public ObservableCollection<TemplateItemViewModel> Items { get; } = [];
     public IReadOnlyList<string> Categories { get; } = ["Tümü", "Ürün", "Raf", "Koli", "Kargo", "Demirbaş", "Diğer"];
     public IReadOnlyList<KeyValuePair<string,string>> LocalizedCategories => Categories.Select(c => new KeyValuePair<string,string>(c, L10n.T(c))).ToArray();
+    [ObservableProperty] public partial bool OnlyFavorites { get; set; }
+    partial void OnOnlyFavoritesChanged(bool value) => FilterItems();
+    public string FavoriteAction => SelectedItem?.IsFavorite == true ? L10n.T("Favoriden çıkar") : L10n.T("Favoriye ekle");
+    [RelayCommand] private void ToggleFavorite()
+    {
+        if (SelectedItem is not { } item) return;
+        if (_main.UpdatePreferences(settings =>
+        {
+            if (item.IsFavorite) settings.FavoriteTemplatePaths.RemoveAll(p => string.Equals(p,item.Info.FilePath,StringComparison.OrdinalIgnoreCase));
+            else settings.FavoriteTemplatePaths.Add(item.Info.FilePath);
+        })) Refresh();
+    }
     [ObservableProperty] public partial string Query { get; set; } = "";
     [ObservableProperty] public partial string Category { get; set; } = "Tümü";
     public string ResultSummary => L10n.T($"{Items.Count} / {_allItems.Count} şablon");
@@ -61,7 +75,7 @@ public sealed partial class TemplatesViewModel : ObservableObject
         string? selectedPath = SelectedItem?.Info.FilePath;
         string query = Design.Data.ProductCatalog.Fold(Query ?? "");
         Items.Clear();
-        foreach (var item in _allItems.Where(i => (Category == "Tümü" || i.Category == Category) &&
+        foreach (var item in _allItems.Where(i => (!OnlyFavorites || i.IsFavorite) && (Category == "Tümü" || i.Category == Category) &&
             Design.Data.ProductCatalog.Fold(i.Name + " " + i.Info.SizeText).Contains(query))) Items.Add(item);
         SelectedItem = Items.FirstOrDefault(i => i.Info.FilePath == selectedPath);
         OnPropertyChanged(nameof(ResultSummary));
@@ -69,6 +83,7 @@ public sealed partial class TemplatesViewModel : ObservableObject
 
     [ObservableProperty]
     public partial TemplateItemViewModel? SelectedItem { get; set; }
+    partial void OnSelectedItemChanged(TemplateItemViewModel? value) => OnPropertyChanged(nameof(FavoriteAction));
 
     public string FolderText => Library.Folder;
 
@@ -85,7 +100,7 @@ public sealed partial class TemplatesViewModel : ObservableObject
         _allItems.Clear();
         try
         {
-            foreach (var info in Library.List()) _allItems.Add(new TemplateItemViewModel(info));
+            foreach (var info in Library.List()) _allItems.Add(new TemplateItemViewModel(info, _main.Settings.FavoriteTemplatePaths.Contains(info.FilePath, StringComparer.OrdinalIgnoreCase)));
             FilterItems();
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
@@ -195,7 +210,14 @@ public sealed partial class TemplatesViewModel : ObservableObject
         if (string.IsNullOrWhiteSpace(name) || name == item.Name) return;
         try
         {
+            string oldPath = item.Info.FilePath;
             Library.Rename(item.Info, name);
+            string newPath = Library.GetPathForName(name);
+            _main.UpdatePreferences(settings =>
+            {
+                if (settings.FavoriteTemplatePaths.RemoveAll(p => string.Equals(p,oldPath,StringComparison.OrdinalIgnoreCase)) > 0) settings.FavoriteTemplatePaths.Add(newPath);
+                if (string.Equals(settings.Personalization.StartupTemplatePath,oldPath,StringComparison.OrdinalIgnoreCase)) settings.Personalization.StartupTemplatePath = newPath;
+            });
             Refresh();
         }
         catch (Exception ex) when (ex is ProjectFileException or IOException or UnauthorizedAccessException)
@@ -213,6 +235,11 @@ public sealed partial class TemplatesViewModel : ObservableObject
         try
         {
             Library.Delete(item.Info, _main.Services.RecycleFile);
+            _main.UpdatePreferences(settings =>
+            {
+                settings.FavoriteTemplatePaths.RemoveAll(p => string.Equals(p,item.Info.FilePath,StringComparison.OrdinalIgnoreCase));
+                if (string.Equals(settings.Personalization.StartupTemplatePath,item.Info.FilePath,StringComparison.OrdinalIgnoreCase)) settings.Personalization.StartupTemplatePath = null;
+            });
             Refresh();
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)

@@ -4,6 +4,7 @@ using AkelEtiket.Core.Automation;
 using AkelEtiket.Editor.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.Ai;
 
@@ -39,9 +40,9 @@ public sealed partial class AiSettingsViewModel : ObservableObject
 
     public IReadOnlyList<KeyValuePair<AssistantProviderKind, string>> ProviderChoices { get; } =
     [
-        new(AssistantProviderKind.None, "Yok (yalnızca dış ajanlar)"),
-        new(AssistantProviderKind.Anthropic, "Anthropic Claude (kendi API anahtarınız)"),
-        new(AssistantProviderKind.OpenAiCompatible, "OpenAI uyumlu uç nokta (Ollama, LM Studio, yerel model…)"),
+        new(AssistantProviderKind.None, L10n.T("Yok (yalnızca dış ajanlar)")),
+        new(AssistantProviderKind.Anthropic, L10n.T("Anthropic Claude (kendi API anahtarınız)")),
+        new(AssistantProviderKind.OpenAiCompatible, L10n.T("OpenAI uyumlu uç nokta (Ollama, LM Studio, yerel model…)")),
     ];
 
     [ObservableProperty]
@@ -103,17 +104,17 @@ public sealed partial class AiSettingsViewModel : ObservableObject
     public bool IsProviderSelected => ProviderKind != AssistantProviderKind.None;
     public bool NeedsBaseUrl => ProviderKind == AssistantProviderKind.OpenAiCompatible;
     public IReadOnlyList<string> ModelSuggestions => ChatModelFactory.SuggestedModels(ProviderKind);
-    public string KeyStatus => HasStoredKey ? "Kayıtlı anahtar var (Windows hesabınıza şifreli saklanır)." : "Anahtar girilmedi.";
+    public string KeyStatus => HasStoredKey ? L10n.T("Kayıtlı anahtar var (Windows hesabınıza şifreli saklanır).") : "Anahtar girilmedi.";
     public string TokenDisplay => ShowToken ? Token : new string('•', Math.Min(24, Token.Length));
 
     public string ConsentText => ProviderKind switch
     {
         AssistantProviderKind.Anthropic =>
-            "Asistanı kullandığımda açık tasarımın içeriğinin (metinler, barkod içerikleri, öğe konumları, isteğe bağlı önizleme görüntüsü " +
-            "ve asistanın araçla okuduğu veri satırlarının) Anthropic'e gönderilmesine izin veriyorum.",
+            L10n.T("Asistanı kullandığımda açık tasarımın içeriğinin (metinler, barkod içerikleri, öğe konumları, isteğe bağlı önizleme görüntüsü ") +
+            L10n.T("ve asistanın araçla okuduğu veri satırlarının) Anthropic'e gönderilmesine izin veriyorum."),
         AssistantProviderKind.OpenAiCompatible =>
-            $"Asistanı kullandığımda açık tasarımın içeriğinin {(string.IsNullOrWhiteSpace(BaseUrl) ? "girilen adrese" : BaseUrl.Trim() + " adresine")} " +
-            "gönderilmesine izin veriyorum. (Yerel bir model ise veri bu bilgisayardan çıkmaz.)",
+            L10n.T($"Asistanı kullandığımda açık tasarımın içeriğinin {(string.IsNullOrWhiteSpace(BaseUrl) ? "girilen adrese" : BaseUrl.Trim() + " adresine")} ") +
+            L10n.T("gönderilmesine izin veriyorum. (Yerel bir model ise veri bu bilgisayardan çıkmaz.)"),
         _ => "",
     };
 
@@ -131,9 +132,9 @@ public sealed partial class AiSettingsViewModel : ObservableObject
     [RelayCommand]
     private void RegenerateToken()
     {
-        if (!_dialogs.Confirm("Bağlantı anahtarı",
-                "Yeni anahtar oluşturulsun mu? Anahtarı elle girdiğiniz HTTP MCP / yerel API istemcilerini yeni anahtarla güncellemeniz gerekir. " +
-                "(stdio MCP köprüsü anahtarı kendisi okur.)", "Yenile", "Vazgeç"))
+        if (!_dialogs.Confirm(L10n.T("Bağlantı anahtarı"),
+                L10n.T("Yeni anahtar oluşturulsun mu? Anahtarı elle girdiğiniz HTTP MCP / yerel API istemcilerini yeni anahtarla güncellemeniz gerekir. ") +
+                L10n.T("(stdio MCP köprüsü anahtarı kendisi okur.)"), "Yenile", L10n.T("Vazgeç")))
             return;
         Token = AiSettings.NewToken();
         ShowToken = true;
@@ -165,10 +166,10 @@ public sealed partial class AiSettingsViewModel : ObservableObject
     /// <summary>Doğrular; sorun varsa Türkçe açıklama döner.</summary>
     public string? Validate()
     {
-        if (Port is < 1024 or > 65535) return "Port 1024–65535 arasında olmalı.";
+        if (Port is < 1024 or > 65535) return L10n.T("Port 1024–65535 arasında olmalı.");
         if (ProviderKind == AssistantProviderKind.OpenAiCompatible &&
             !Uri.TryCreate(BaseUrl?.Trim(), UriKind.Absolute, out var uri))
-            return "OpenAI uyumlu uç nokta için geçerli bir adres girin (ör. http://127.0.0.1:11434/v1).";
+            return L10n.T("OpenAI uyumlu uç nokta için geçerli bir adres girin (ör. http://127.0.0.1:11434/v1).");
         return null;
     }
 

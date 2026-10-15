@@ -1,6 +1,7 @@
 using AkelEtiket.Core;
 using AkelEtiket.Core.Imaging;
 using SkiaSharp;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Rendering;
 
@@ -51,7 +52,7 @@ public static class PdfExport
                 document.EndPage();
                 count++;
             }
-            if (count == 0) throw new InvalidOperationException("PDF'e yazılacak etiket yok.");
+            if (count == 0) throw new InvalidOperationException(L10n.T("PDF'e yazılacak etiket yok."));
             document.Close();
         }
         return count;

@@ -3,8 +3,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:views="clr-namespace:AkelEtiket.App.Views"
                     xmlns:controls="clr-namespace:AkelEtiket.App.Controls"
-                    Title="{Binding Title}" Width="560" SizeToContent="Height" ResizeMode="NoResize">
-    <StackPanel Margin="24,18,24,18">
+                    Title="{Binding Title}" Width="560" Height="820" MinHeight="500" ResizeMode="CanResizeWithGrip" MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="24,18,24,18">
         <TextBlock Text="{Binding Title}" Style="{StaticResource Text.Title}" FontSize="18" />
         <TextBlock Text="{loc:Text T_9cd477a88196}" Style="{StaticResource Text.Hint}" Margin="0,4,0,0" />
 
@@ -54,9 +54,20 @@
         <TextBlock Text="{Binding Warning}" Foreground="{DynamicResource Brush.Warning}" TextWrapping="Wrap"
                    Visibility="{Binding Warning, Converter={StaticResource NullToVisibility}}" />
 
+        <TextBlock Text="{loc:Text T_c1c2b4f6e598}" Style="{StaticResource Text.Section}" Margin="0,18,0,8"/>
+        <CheckBox Content="{loc:Text T_124e60394f93}" IsChecked="{Binding Formatting.Enabled}" Margin="0,0,0,10"/>
+        <StackPanel IsEnabled="{Binding Formatting.Enabled}">
+         <TextBlock Text="{loc:Text T_2e3406b35424}"/><ComboBox ItemsSource="{Binding Formatting.Cultures}" SelectedItem="{Binding Formatting.CultureName}" Margin="0,4,0,8"/>
+         <TextBlock Text="{loc:Text T_7d7f4bb7a887}"/><ComboBox ItemsSource="{Binding Formatting.Cultures}" SelectedItem="{Binding Formatting.InputCultureName}" Margin="0,4,0,8"/>
+         <TextBlock Text="{loc:Text T_48928c33c70f}"/><ComboBox ItemsSource="{Binding Formatting.DateFormats}" SelectedItem="{Binding Formatting.DateFormat}" Margin="0,4,0,8"/>
+         <TextBlock Text="{loc:Text T_288a065b0201}"/><ComboBox ItemsSource="{Binding Formatting.NumberFormats}" SelectedItem="{Binding Formatting.NumberFormat}" Margin="0,4,0,8"/>
+         <TextBlock Text="{loc:Text T_3774cd647e7e}"/><ComboBox ItemsSource="{Binding Formatting.Currencies}" SelectedItem="{Binding Formatting.CurrencyCode}" Margin="0,4,0,8"/>
+        </StackPanel>
+        <TextBlock Text="{Binding Formatting.Preview}" TextWrapping="Wrap" Margin="0,8,0,6"/>
+        <TextBlock Text="{loc:Text T_a0c3d649e483}" Style="{StaticResource Text.Hint}" TextWrapping="Wrap"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,18,0,0">
             <Button Content="{loc:Text T_39a8d28c1c6b}" MinWidth="96" IsCancel="True" Margin="0,0,8,0" />
             <Button Content="{loc:Text T_79c4b04b6ee8}" MinWidth="96" Style="{StaticResource Button.Accent}" IsDefault="True" Click="OnOk" IsEnabled="{Binding IsValid}" />
         </StackPanel>
-    </StackPanel>
+    </StackPanel></ScrollViewer>
 </views:ThemedWindow>

@@ -3,6 +3,7 @@ using AkelEtiket.Core;
 using AkelEtiket.Core.Imaging;
 using AkelEtiket.Core.Model;
 using SkiaSharp;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Rendering;
 
@@ -21,7 +22,7 @@ internal static class BarcodeElementRenderer
         if (!encode.Success)
         {
             var info = new BarcodeRenderInfo { Validation = encode.Validation };
-            return new Output(new MonoBitmap(boxWidth, boxHeight), info, encode.Error ?? "Barkod oluşturulamadı.", []);
+            return new Output(new MonoBitmap(boxWidth, boxHeight), info, encode.Error ?? L10n.T("Barkod oluşturulamadı."), []);
         }
 
         int? textHeight = element.TextSize > 0

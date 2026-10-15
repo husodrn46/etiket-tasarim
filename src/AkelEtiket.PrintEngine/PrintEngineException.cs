@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.PrintEngine;
 
@@ -16,7 +17,7 @@ public sealed class PrintEngineException : Exception
 
     /// <summary>"İşlem: açıklama (Windows hata kodu N)" biçiminde hata üretir.</summary>
     public static PrintEngineException FromWin32(string action, int error, string? printerName = null) =>
-        new($"{action}: {Win32ErrorText.Explain(error, printerName)} (Windows hata kodu {error})", error);
+        new(L10n.T($"{action}: {Win32ErrorText.Explain(error, printerName)} (Windows hata kodu {error})"), error);
 }
 
 /// <summary>Yazdırmayla ilgili Windows hata kodlarının Türkçe açıklamaları.</summary>
@@ -49,31 +50,31 @@ public static class Win32ErrorText
     /// <summary>Kodun Türkçe, ne yapılacağını söyleyen açıklaması.</summary>
     public static string Explain(int error, string? printerName = null)
     {
-        string printer = string.IsNullOrWhiteSpace(printerName) ? "Seçilen yazıcı" : $"'{printerName}' adlı yazıcı";
+        string printer = string.IsNullOrWhiteSpace(printerName) ? L10n.T("Seçilen yazıcı") : L10n.T($"'{printerName}' adlı yazıcı");
         return error switch
         {
             ErrorInvalidPrinterName or ErrorPrinterNotFound =>
-                $"{printer} bulunamadı. Yazıcının Windows'ta kurulu olduğunu ve Ayarlar'da doğru yazıcının seçildiğini kontrol edin.",
-            ErrorAccessDenied => "Erişim reddedildi; bu yazıcıya yazdırma izniniz yok.",
-            ErrorInvalidHandle => "Yazıcı bağlantısı geçersiz (yazıcı kaldırılmış veya yeniden adlandırılmış olabilir).",
-            ErrorFileNotFound => "Dosya veya yazıcı bulunamadı.",
+                L10n.T($"{printer} bulunamadı. Yazıcının Windows'ta kurulu olduğunu ve Ayarlar'da doğru yazıcının seçildiğini kontrol edin."),
+            ErrorAccessDenied => L10n.T("Erişim reddedildi; bu yazıcıya yazdırma izniniz yok."),
+            ErrorInvalidHandle => L10n.T("Yazıcı bağlantısı geçersiz (yazıcı kaldırılmış veya yeniden adlandırılmış olabilir)."),
+            ErrorFileNotFound => L10n.T("Dosya veya yazıcı bulunamadı."),
             ErrorNotEnoughMemory or ErrorOutOfMemory => "Bellek yetersiz.",
-            ErrorNotReady => "Yazıcı hazır değil (kapalı veya bağlantısı kesik olabilir).",
-            ErrorGenFailure => "Yazıcıya bağlı aygıt yanıt vermiyor; USB kablosunu ve yazıcının açık olduğunu kontrol edin.",
-            ErrorDeviceNotConnected => "Yazıcı bağlı değil; USB kablosunu ve yazıcının açık olduğunu kontrol edin.",
-            ErrorInvalidParameter => "Geçersiz parametre.",
-            ErrorDiskFull => "Diskte yer kalmadı; yazdırma kuyruğu dosyası yazılamadı.",
-            ErrorTimeout => "İşlem zaman aşımına uğradı.",
+            ErrorNotReady => L10n.T("Yazıcı hazır değil (kapalı veya bağlantısı kesik olabilir)."),
+            ErrorGenFailure => L10n.T("Yazıcıya bağlı aygıt yanıt vermiyor; USB kablosunu ve yazıcının açık olduğunu kontrol edin."),
+            ErrorDeviceNotConnected => L10n.T("Yazıcı bağlı değil; USB kablosunu ve yazıcının açık olduğunu kontrol edin."),
+            ErrorInvalidParameter => L10n.T("Geçersiz parametre."),
+            ErrorDiskFull => L10n.T("Diskte yer kalmadı; yazdırma kuyruğu dosyası yazılamadı."),
+            ErrorTimeout => L10n.T("İşlem zaman aşımına uğradı."),
             RpcServerUnavailable or RpcCallFailed =>
-                "Windows Yazdırma Biriktiricisi (Print Spooler) hizmeti çalışmıyor. Hizmetler penceresinden 'Yazdırma Biriktiricisi' hizmetini başlatın.",
-            ErrorUnknownPrinterDriver => "Yazıcı sürücüsü bulunamadı; üreticinin sürücüsünü yeniden kurun.",
-            ErrorUnknownPrintProcessor => "Yazdırma işlemcisi bulunamadı; yazıcı sürücüsünü yeniden kurun.",
-            ErrorInvalidPrinterCommand => "Yazıcı komutu geçersiz.",
+                L10n.T("Windows Yazdırma Biriktiricisi (Print Spooler) hizmeti çalışmıyor. Hizmetler penceresinden 'Yazdırma Biriktiricisi' hizmetini başlatın."),
+            ErrorUnknownPrinterDriver => L10n.T("Yazıcı sürücüsü bulunamadı; üreticinin sürücüsünü yeniden kurun."),
+            ErrorUnknownPrintProcessor => L10n.T("Yazdırma işlemcisi bulunamadı; yazıcı sürücüsünü yeniden kurun."),
+            ErrorInvalidPrinterCommand => L10n.T("Yazıcı komutu geçersiz."),
             ErrorInvalidDatatype =>
-                "Yazıcı sürücüsü RAW veri türünü kabul etmiyor (v4 tipi sürücü olabilir). Üreticinin v3 sürücüsünü kurun veya Ayarlar'dan 'Windows sürücüsü' baskı yöntemini seçin.",
-            ErrorPrinterDeleted => "Yazıcı silinmiş.",
-            ErrorInvalidPrinterState => "Yazıcı geçersiz durumda (duraklatılmış veya hata durumunda olabilir).",
-            ErrorSpoolFileNotFound => "Yazdırma kuyruğu dosyası bulunamadı.",
+                L10n.T("Yazıcı sürücüsü RAW veri türünü kabul etmiyor (v4 tipi sürücü olabilir). Üreticinin v3 sürücüsünü kurun veya Ayarlar'dan 'Windows sürücüsü' baskı yöntemini seçin."),
+            ErrorPrinterDeleted => L10n.T("Yazıcı silinmiş."),
+            ErrorInvalidPrinterState => L10n.T("Yazıcı geçersiz durumda (duraklatılmış veya hata durumunda olabilir)."),
+            ErrorSpoolFileNotFound => L10n.T("Yazdırma kuyruğu dosyası bulunamadı."),
             _ => SystemMessage(error),
         };
     }
@@ -83,11 +84,11 @@ public static class Win32ErrorText
         try
         {
             string text = new Win32Exception(error).Message;
-            return string.IsNullOrWhiteSpace(text) ? "Bilinmeyen Windows hatası." : text.TrimEnd('.', ' ') + ".";
+            return string.IsNullOrWhiteSpace(text) ? L10n.T("Bilinmeyen Windows hatası.") : text.TrimEnd('.', ' ') + ".";
         }
         catch
         {
-            return "Bilinmeyen Windows hatası.";
+            return L10n.T("Bilinmeyen Windows hatası.");
         }
     }
 }

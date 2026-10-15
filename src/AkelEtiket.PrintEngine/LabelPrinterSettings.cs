@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using AkelEtiket.Core;
 using AkelEtiket.Core.Imaging;
 using AkelEtiket.Core.Model;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.PrintEngine;
 
@@ -111,15 +112,15 @@ public sealed class LabelPrinterSettings
     {
         var problems = new List<string>();
         if (string.IsNullOrWhiteSpace(PrinterName))
-            problems.Add("Yazıcı seçilmedi. Ayarlar'dan etiket yazıcısını seçin.");
+            problems.Add(L10n.T("Yazıcı seçilmedi. Ayarlar'dan etiket yazıcısını seçin."));
         if (!double.IsFinite(DotsPerMm) || DotsPerMm < 4 || DotsPerMm > 24)
-            problems.Add($"Yazıcı çözünürlüğü geçersiz ({Format(DotsPerMm)} nokta/mm). 203 DPI için 8, 300 DPI için 12 olmalı.");
+            problems.Add(L10n.T($"Yazıcı çözünürlüğü geçersiz ({Format(DotsPerMm)} nokta/mm). 203 DPI için 8, 300 DPI için 12 olmalı."));
         if (!double.IsFinite(MaxPrintWidthMm) || MaxPrintWidthMm < 10 || MaxPrintWidthMm > 300)
-            problems.Add($"Azami baskı genişliği geçersiz ({Format(MaxPrintWidthMm)} mm).");
+            problems.Add(L10n.T($"Azami baskı genişliği geçersiz ({Format(MaxPrintWidthMm)} mm)."));
         if (Density is < MinDensity or > MaxDensity)
-            problems.Add($"Baskı yoğunluğu {MinDensity}–{MaxDensity} arasında olmalı (girilen {Density}).");
+            problems.Add(L10n.T($"Baskı yoğunluğu {MinDensity}–{MaxDensity} arasında olmalı (girilen {Density})."));
         if (Speed is < MinSpeed or > MaxSpeed)
-            problems.Add($"Baskı hızı {MinSpeed}–{MaxSpeed} inç/sn arasında olmalı (girilen {Speed}).");
+            problems.Add(L10n.T($"Baskı hızı {MinSpeed}–{MaxSpeed} inç/sn arasında olmalı (girilen {Speed})."));
         if (!double.IsFinite(OffsetXMm) || Math.Abs(OffsetXMm) > MaxOffsetMm)
             problems.Add($"Yatay ofset en fazla ±{Format(MaxOffsetMm)} mm olabilir (girilen {Format(OffsetXMm)} mm).");
         if (!double.IsFinite(OffsetYMm) || Math.Abs(OffsetYMm) > MaxOffsetMm)
@@ -147,12 +148,12 @@ public sealed record LabelMedia(double WidthMm, double HeightMm, double GapMm, d
     public IReadOnlyList<string> Validate()
     {
         var problems = new List<string>();
-        if (!double.IsFinite(WidthMm) || WidthMm <= 0) problems.Add("Etiket genişliği geçersiz.");
-        if (!double.IsFinite(HeightMm) || HeightMm <= 0) problems.Add("Etiket yüksekliği geçersiz.");
-        if (!double.IsFinite(GapMm) || GapMm < 0 || GapMm > 25.4) problems.Add("Etiket boşluğu 0–25,4 mm arasında olmalı.");
-        if (!double.IsFinite(GapOffsetMm) || GapOffsetMm < 0 || GapOffsetMm > 25.4) problems.Add("Boşluk ofseti 0–25,4 mm arasında olmalı.");
+        if (!double.IsFinite(WidthMm) || WidthMm <= 0) problems.Add(L10n.T("Etiket genişliği geçersiz."));
+        if (!double.IsFinite(HeightMm) || HeightMm <= 0) problems.Add(L10n.T("Etiket yüksekliği geçersiz."));
+        if (!double.IsFinite(GapMm) || GapMm < 0 || GapMm > 25.4) problems.Add(L10n.T("Etiket boşluğu 0–25,4 mm arasında olmalı."));
+        if (!double.IsFinite(GapOffsetMm) || GapOffsetMm < 0 || GapOffsetMm > 25.4) problems.Add(L10n.T("Boşluk ofseti 0–25,4 mm arasında olmalı."));
         if (Type == MediaType.Gap && GapMm <= 0)
-            problems.Add("Boşluklu etikette boşluk 0 olamaz; sürekli rulo için medya türünü 'Sürekli' seçin.");
+            problems.Add(L10n.T("Boşluklu etikette boşluk 0 olamaz; sürekli rulo için medya türünü 'Sürekli' seçin."));
         return problems;
     }
 }

@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using AkelEtiket.PrintEngine.Interop;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.PrintEngine;
 
@@ -135,14 +136,14 @@ public static class PrinterDiscovery
         if (needed <= 0)
         {
             if (error is 0 or Win32ErrorText.ErrorInsufficientBuffer) return [];
-            throw PrintEngineException.FromWin32("Yazıcılar listelenemedi", error);
+            throw PrintEngineException.FromWin32(L10n.T("Yazıcılar listelenemedi"), error);
         }
 
         IntPtr buffer = Marshal.AllocHGlobal(needed);
         try
         {
             if (!NativeMethods.EnumPrinters(flags, null, Level2, buffer, needed, out _, out int returned))
-                throw PrintEngineException.FromWin32("Yazıcılar listelenemedi", Marshal.GetLastPInvokeError());
+                throw PrintEngineException.FromWin32(L10n.T("Yazıcılar listelenemedi"), Marshal.GetLastPInvokeError());
 
             string? defaultPrinter = GetDefaultPrinterName();
             var present = UsbPrinterPorts.GetPresentPortNames();
@@ -187,18 +188,18 @@ public static class PrinterDiscovery
         if (!NativeMethods.TryOpen(printerName, out var handle, out int error))
         {
             if (IsNotFound(error)) return null;
-            throw PrintEngineException.FromWin32("Yazıcı açılamadı", error, printerName);
+            throw PrintEngineException.FromWin32(L10n.T("Yazıcı açılamadı"), error, printerName);
         }
         using (handle)
         {
             NativeMethods.GetPrinter(handle, Level2, IntPtr.Zero, 0, out int needed);
             if (needed <= 0)
-                throw PrintEngineException.FromWin32("Yazıcı bilgisi okunamadı", Marshal.GetLastPInvokeError(), printerName);
+                throw PrintEngineException.FromWin32(L10n.T("Yazıcı bilgisi okunamadı"), Marshal.GetLastPInvokeError(), printerName);
             IntPtr buffer = Marshal.AllocHGlobal(needed);
             try
             {
                 if (!NativeMethods.GetPrinter(handle, Level2, buffer, needed, out _))
-                    throw PrintEngineException.FromWin32("Yazıcı bilgisi okunamadı", Marshal.GetLastPInvokeError(), printerName);
+                    throw PrintEngineException.FromWin32(L10n.T("Yazıcı bilgisi okunamadı"), Marshal.GetLastPInvokeError(), printerName);
                 var info = Marshal.PtrToStructure<NativeMethods.PRINTER_INFO_2>(buffer);
                 return FromInfo2(info, GetDefaultPrinterName(), UsbPrinterPorts.GetPresentPortNames());
             }
@@ -213,7 +214,7 @@ public static class PrinterDiscovery
     public static PrinterStatusSnapshot GetStatus(string printerName)
     {
         if (string.IsNullOrWhiteSpace(printerName))
-            return new PrinterStatusSnapshot { PrinterName = "", ErrorMessage = "Yazıcı seçilmedi. Ayarlar'dan etiket yazıcısını seçin." };
+            return new PrinterStatusSnapshot { PrinterName = "", ErrorMessage = L10n.T("Yazıcı seçilmedi. Ayarlar'dan etiket yazıcısını seçin.") };
         try
         {
             var printer = GetPrinter(printerName);
@@ -232,7 +233,7 @@ public static class PrinterDiscovery
         }
         catch (Exception ex) when (ex is ExternalException or InvalidOperationException)
         {
-            return new PrinterStatusSnapshot { PrinterName = printerName, ErrorMessage = "Yazıcı durumu okunamadı: " + ex.Message };
+            return new PrinterStatusSnapshot { PrinterName = printerName, ErrorMessage = L10n.T("Yazıcı durumu okunamadı: ") + ex.Message };
         }
     }
 
@@ -294,28 +295,28 @@ internal static class PrinterStatusText
     public static string Describe(PrinterStatusFlags status, bool workOffline, bool? usbConnected, int jobCount)
     {
         var parts = new List<string>();
-        if (usbConnected == false) parts.Add("USB bağlantısı yok (kablo takılı ve yazıcı açık mı?)");
-        if (workOffline) parts.Add("Windows'ta 'Yazıcıyı Çevrimdışı Kullan' seçili");
-        if (status.HasFlag(PrinterStatusFlags.Offline)) parts.Add("Çevrimdışı");
-        if (status.HasFlag(PrinterStatusFlags.ServerOffline)) parts.Add("Yazdırma sunucusu çevrimdışı");
-        if (status.HasFlag(PrinterStatusFlags.ServerUnknown)) parts.Add("Yazdırma sunucusu bilinmiyor");
-        if (status.HasFlag(PrinterStatusFlags.NotAvailable)) parts.Add("Kullanılamıyor");
-        if (status.HasFlag(PrinterStatusFlags.Paused)) parts.Add("Duraklatıldı");
-        if (status.HasFlag(PrinterStatusFlags.Error)) parts.Add("Hata");
-        if (status.HasFlag(PrinterStatusFlags.PaperJam)) parts.Add("Kağıt sıkıştı");
-        if (status.HasFlag(PrinterStatusFlags.PaperOut)) parts.Add("Etiket/kağıt bitti");
-        if (status.HasFlag(PrinterStatusFlags.PaperProblem)) parts.Add("Kağıt sorunu");
-        if (status.HasFlag(PrinterStatusFlags.DoorOpen)) parts.Add("Kapak açık");
-        if (status.HasFlag(PrinterStatusFlags.UserIntervention)) parts.Add("Kullanıcı müdahalesi gerekiyor");
-        if (status.HasFlag(PrinterStatusFlags.OutOfMemory)) parts.Add("Yazıcı belleği yetersiz");
+        if (usbConnected == false) parts.Add(L10n.T("USB bağlantısı yok (kablo takılı ve yazıcı açık mı?)"));
+        if (workOffline) parts.Add(L10n.T("Windows'ta 'Yazıcıyı Çevrimdışı Kullan' seçili"));
+        if (status.HasFlag(PrinterStatusFlags.Offline)) parts.Add(L10n.T("Çevrimdışı"));
+        if (status.HasFlag(PrinterStatusFlags.ServerOffline)) parts.Add(L10n.T("Yazdırma sunucusu çevrimdışı"));
+        if (status.HasFlag(PrinterStatusFlags.ServerUnknown)) parts.Add(L10n.T("Yazdırma sunucusu bilinmiyor"));
+        if (status.HasFlag(PrinterStatusFlags.NotAvailable)) parts.Add(L10n.T("Kullanılamıyor"));
+        if (status.HasFlag(PrinterStatusFlags.Paused)) parts.Add(L10n.T("Duraklatıldı"));
+        if (status.HasFlag(PrinterStatusFlags.Error)) parts.Add(L10n.T("Hata"));
+        if (status.HasFlag(PrinterStatusFlags.PaperJam)) parts.Add(L10n.T("Kağıt sıkıştı"));
+        if (status.HasFlag(PrinterStatusFlags.PaperOut)) parts.Add(L10n.T("Etiket/kağıt bitti"));
+        if (status.HasFlag(PrinterStatusFlags.PaperProblem)) parts.Add(L10n.T("Kağıt sorunu"));
+        if (status.HasFlag(PrinterStatusFlags.DoorOpen)) parts.Add(L10n.T("Kapak açık"));
+        if (status.HasFlag(PrinterStatusFlags.UserIntervention)) parts.Add(L10n.T("Kullanıcı müdahalesi gerekiyor"));
+        if (status.HasFlag(PrinterStatusFlags.OutOfMemory)) parts.Add(L10n.T("Yazıcı belleği yetersiz"));
         if (status.HasFlag(PrinterStatusFlags.PendingDeletion)) parts.Add("Siliniyor");
-        if (status.HasFlag(PrinterStatusFlags.Initializing) || status.HasFlag(PrinterStatusFlags.WarmingUp)) parts.Add("Hazırlanıyor");
-        if (status.HasFlag(PrinterStatusFlags.Printing)) parts.Add("Yazdırıyor");
-        else if (status.HasFlag(PrinterStatusFlags.Busy) || status.HasFlag(PrinterStatusFlags.Processing)) parts.Add("Meşgul");
-        if (status.HasFlag(PrinterStatusFlags.DriverUpdateNeeded)) parts.Add("Sürücü güncellemesi gerekiyor");
+        if (status.HasFlag(PrinterStatusFlags.Initializing) || status.HasFlag(PrinterStatusFlags.WarmingUp)) parts.Add(L10n.T("Hazırlanıyor"));
+        if (status.HasFlag(PrinterStatusFlags.Printing)) parts.Add(L10n.T("Yazdırıyor"));
+        else if (status.HasFlag(PrinterStatusFlags.Busy) || status.HasFlag(PrinterStatusFlags.Processing)) parts.Add(L10n.T("Meşgul"));
+        if (status.HasFlag(PrinterStatusFlags.DriverUpdateNeeded)) parts.Add(L10n.T("Sürücü güncellemesi gerekiyor"));
 
-        string text = parts.Count == 0 ? "Hazır" : string.Join(", ", parts);
-        if (jobCount > 0) text += $" ({jobCount} iş kuyrukta)";
+        string text = parts.Count == 0 ? L10n.T("Hazır") : string.Join(", ", parts);
+        if (jobCount > 0) text += L10n.T($" ({jobCount} iş kuyrukta)");
         return text;
     }
 }
