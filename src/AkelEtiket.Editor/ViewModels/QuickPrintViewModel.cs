@@ -7,6 +7,7 @@ using AkelEtiket.Editor.Printing;
 using AkelEtiket.Rendering;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -76,8 +77,8 @@ public sealed partial class QuickPrintViewModel : ObservableObject
     [ObservableProperty]
     public partial string? ScanMessage { get; set; }
 
-    public string EmptyHint => Templates.Count == 0 ? "Şablon bulunamadı. Şablonlar panelinden örnekleri ekleyin veya tasarımınızı şablon olarak kaydedin."
-        : Products.Count == 0 ? "Ürün listesi boş. Ürün listesi düğmesinden Excel/CSV dosyanızı aktarabilirsiniz." : "";
+    public string EmptyHint => Templates.Count == 0 ? L10n.T("Şablon bulunamadı. Şablonlar panelinden örnekleri ekleyin veya tasarımınızı şablon olarak kaydedin.")
+        : Products.Count == 0 ? L10n.T("Ürün listesi boş. Ürün listesi düğmesinden Excel/CSV dosyanızı aktarabilirsiniz.") : "";
 
     partial void OnScanInputChanged(string value) => PrintCommand.NotifyCanExecuteChanged();
 
@@ -117,9 +118,9 @@ public sealed partial class QuickPrintViewModel : ObservableObject
             FocusCopiesRequested?.Invoke(this, EventArgs.Empty);
         }
         else ScanMessage = Products.Results.Count == 0
-            ? "Bu kodla ürün bulunamadı. Kodu kontrol edin veya ürün listesini güncelleyin."
-            : exact.Count > 1 ? "Birden fazla ürün aynı koda sahip. Listeden doğru ürünü seçin."
-            : "Tam kod eşleşmesi yok. Listeden doğru ürünü seçin.";
+            ? L10n.T("Bu kodla ürün bulunamadı. Kodu kontrol edin veya ürün listesini güncelleyin.")
+            : exact.Count > 1 ? L10n.T("Birden fazla ürün aynı koda sahip. Listeden doğru ürünü seçin.")
+            : L10n.T("Tam kod eşleşmesi yok. Listeden doğru ürünü seçin.");
     }
 
     private void UpdatePreview()
@@ -141,11 +142,11 @@ public sealed partial class QuickPrintViewModel : ObservableObject
             PreviewPng = PreviewRenderer.EncodeMono(render.Bitmap, render.DotsPerMm);
             var errors = render.Issues.Where(i => i.Severity == RenderIssueSeverity.Error).Select(i => i.ToString()).Distinct().ToList();
             if ((!RequiresProduct || Products.SelectedProduct is not null) && errors.Count > 0) Problem = string.Join("\n", errors.Take(4));
-            else if (Products.SelectedProduct is null && RequiresProduct) Problem = "Ürün seçin (arayın ya da barkod okutun).";
+            else if (Products.SelectedProduct is null && RequiresProduct) Problem = L10n.T("Ürün seçin (arayın ya da barkod okutun).");
         }
         catch (ProjectFileException ex)
         {
-            Problem = "Şablon açılamadı: " + ex.Message;
+            Problem = L10n.T("Şablon açılamadı: ") + ex.Message;
         }
     }
 

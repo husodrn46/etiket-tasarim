@@ -5,6 +5,7 @@ using AkelEtiket.Editor.Printing;
 using AkelEtiket.Rendering;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -81,8 +82,8 @@ public sealed partial class PreviewViewModel : ObservableObject
     public string PositionText => Plan.Items.Count <= 1 ? "" : $"{Index + 1} / {Plan.Items.Count}";
 
     public string SummaryText => Plan.UsesData
-        ? $"{Plan.Items.Count} farklı etiket, toplam {Plan.TotalLabels} adet" + (Plan.Skipped.Count > 0 ? $" • {Plan.Skipped.Count} hatalı satır atlanacak" : "")
-        : "Tek etiket önizlemesi";
+        ? L10n.T($"{Plan.Items.Count} farklı etiket, toplam {Plan.TotalLabels} adet") + (Plan.Skipped.Count > 0 ? L10n.T($" • {Plan.Skipped.Count} hatalı satır atlanacak") : "")
+        : L10n.T("Tek etiket önizlemesi");
 
     partial void OnIndexChanged(int value) => RenderCurrent();
 
@@ -115,13 +116,13 @@ public sealed partial class PreviewViewModel : ObservableObject
         PixelWidth = result.Bitmap.Width;
         PixelHeight = result.Bitmap.Height;
         Caption = Plan.Items.Count > 0 && Plan.Items[Math.Clamp(Index, 0, Plan.Items.Count - 1)].RowNumber is { } row
-            ? $"Satır {row} • {result.Bitmap.Width} × {result.Bitmap.Height} nokta (gerçek baskı çözünürlüğü)"
-            : $"{result.Bitmap.Width} × {result.Bitmap.Height} nokta (gerçek baskı çözünürlüğü)";
+            ? L10n.T($"Satır {row} • {result.Bitmap.Width} × {result.Bitmap.Height} nokta (gerçek baskı çözünürlüğü)")
+            : L10n.T($"{result.Bitmap.Width} × {result.Bitmap.Height} nokta (gerçek baskı çözünürlüğü)");
         Issues.Clear();
         foreach (var issue in result.Issues.Where(i => i.Severity >= RenderIssueSeverity.Warning).DistinctBy(i => i.ToString()))
-            Issues.Add((issue.Severity == RenderIssueSeverity.Error ? "HATA: " : "Uyarı: ") + issue);
+            Issues.Add((issue.Severity == RenderIssueSeverity.Error ? L10n.T("HATA: ") : L10n.T("Uyarı: ")) + issue);
         if (Index == 0)
-            foreach (var skipped in Plan.Skipped.Take(20)) Issues.Add("Atlanacak – " + skipped);
+            foreach (var skipped in Plan.Skipped.Take(20)) Issues.Add(L10n.T("Atlanacak – ") + skipped);
     }
 
     /// <summary>Toplu önizleme küçük resimleri arka planda üretilir (en fazla 300).</summary>
@@ -136,7 +137,7 @@ public sealed partial class PreviewViewModel : ObservableObject
             var item = Plan.Items[i];
             Thumbnails.Add(new PreviewThumbnail(i, item.Describe() + (item.Copies > 1 ? $" × {item.Copies}" : "")));
         }
-        ThumbnailStatus = count < Plan.Items.Count ? $"İlk {count} etiket gösteriliyor." : "";
+        ThumbnailStatus = count < Plan.Items.Count ? L10n.T($"İlk {count} etiket gösteriliyor.") : "";
         var document = ModelJson.Clone(_main.Session.Document);
         var assets = _main.Session.Assets;
         var factory = _main.Services.ImageFactory;

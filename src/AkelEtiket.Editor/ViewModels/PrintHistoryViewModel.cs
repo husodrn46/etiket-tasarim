@@ -5,6 +5,7 @@ using AkelEtiket.Editor.Printing;
 using AkelEtiket.PrintEngine;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -81,7 +82,7 @@ public sealed partial class PrintHistoryViewModel : ObservableObject
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            Problem = "Baskı geçmişi okunamadı: " + ex.Message;
+            Problem = L10n.T("Baskı geçmişi okunamadı: ") + ex.Message;
             _all = [];
         }
         TemplateNames.Clear();
@@ -123,7 +124,7 @@ public sealed partial class PrintHistoryViewModel : ObservableObject
         Entries.Clear();
         foreach (var entry in Filter(_all, FromDate, ToDate, TemplateFilter, OnlyIncomplete)) Entries.Add(entry);
         SelectedEntry = Entries.FirstOrDefault(e => e.Id == selected) ?? Entries.FirstOrDefault();
-        CountText = Entries.Count == _all.Count ? $"{_all.Count} kayıt" : $"{Entries.Count} / {_all.Count} kayıt";
+        CountText = Entries.Count == _all.Count ? L10n.T($"{_all.Count} kayıt") : L10n.T($"{Entries.Count} / {_all.Count} kayıt");
     }
 
     private bool CanReprint() => SelectedEntry is { } e && (e.TemplatePath is not null || e.SnapshotFile is not null);
@@ -145,84 +146,84 @@ public sealed partial class PrintHistoryViewModel : ObservableObject
     }
 
     /// <summary>Seçili işin ayrıntıları (rapor aşamaları, satırlar, hatalar).</summary>
-    public string Details => SelectedEntry is { } e ? Describe(e) : "Soldan bir baskı işi seçin.";
+    public string Details => SelectedEntry is { } e ? Describe(e) : L10n.T("Soldan bir baskı işi seçin.");
 
     public static string Describe(PrintHistoryEntry e)
     {
         var sb = new StringBuilder();
         sb.AppendLine($"{e.TimeText} · {e.Title}");
-        sb.AppendLine("Durum: " + e.StatusText);
+        sb.AppendLine(L10n.T("Durum: ") + e.StatusText);
         sb.AppendLine();
-        sb.AppendLine("Şablon: " + (e.DocumentName.Length > 0 ? e.DocumentName : "(adsız)") +
-                      (e.TemplatePath is { } path ? $" — {path}" : " — dosyaya kaydedilmemiş tasarım") +
-                      (e.SnapshotFile is not null ? " (baskıdaki hâlinin kopyası saklı)" : ""));
+        sb.AppendLine(L10n.T("Şablon: ") + (e.DocumentName.Length > 0 ? e.DocumentName : L10n.T("(adsız)")) +
+                      (e.TemplatePath is { } path ? $" — {path}" : L10n.T(" — dosyaya kaydedilmemiş tasarım")) +
+                      (e.SnapshotFile is not null ? L10n.T(" (baskıdaki hâlinin kopyası saklı)") : ""));
         if (e.UseData)
         {
-            sb.Append("Veri: " + (e.DataFile ?? "(bilinmiyor)"));
+            sb.Append(L10n.T("Veri: ") + (e.DataFile ?? L10n.T("(bilinmiyor)")));
             if (!string.IsNullOrEmpty(e.DataSheet)) sb.Append($" · sayfa \"{e.DataSheet}\"");
             if (!string.IsNullOrEmpty(e.DataEncoding)) sb.Append(" · " + e.DataEncoding);
             sb.AppendLine();
             var rows = ResumePlanner.AllRows(e);
-            sb.AppendLine($"Seçili satırlar: {rows.Count} satır, {rows.Sum(r => r.Copies)} etiket");
+            sb.AppendLine(L10n.T($"Seçili satırlar: {rows.Count} satır, {rows.Sum(r => r.Copies)} etiket"));
         }
         else
         {
-            sb.AppendLine($"Veri kaynağı kullanılmadı · başlangıç no {e.StartNumber}");
+            sb.AppendLine(L10n.T($"Veri kaynağı kullanılmadı · başlangıç no {e.StartNumber}"));
         }
-        sb.AppendLine($"Etiket: {e.TotalLabels} istendi · {e.LabelsSent} kuyruğa gönderildi · {e.LabelsRemaining} gönderilmedi · {e.LabelsFailed} hatalı");
+        sb.AppendLine(L10n.T($"Etiket: {e.TotalLabels} istendi · {e.LabelsSent} kuyruğa gönderildi · {e.LabelsRemaining} gönderilmedi · {e.LabelsFailed} hatalı"));
         sb.AppendLine();
-        string method = e.Method == PrintMethod.TsplRaw ? "TSPL doğrudan" : "Windows sürücüsü";
-        sb.Append($"Yazıcı: {e.PrinterName} · {method}");
+        string method = e.Method == PrintMethod.TsplRaw ? L10n.T("TSPL doğrudan") : L10n.T("Windows sürücüsü");
+        sb.Append(L10n.T($"Yazıcı: {e.PrinterName} · {method}"));
         if (e.Method == PrintMethod.TsplRaw)
-            sb.Append(string.Create(Turkish, $" · yoğunluk {e.Density} · hız {e.Speed} · {(e.Rotate180 ? "180° (DIRECTION 0)" : "normal yön")} · ofset {e.OffsetXMm:0.###} / {e.OffsetYMm:0.###} mm"));
-        if (e.SingleJob) sb.Append(" · tek parça");
+            sb.Append(L10n.T($" · yoğunluk {e.Density} · hız {e.Speed} · {(e.Rotate180 ? "180° (DIRECTION 0)" : L10n.T("normal yön"))} · ofset {e.OffsetXMm:0.###} / {e.OffsetYMm:0.###} mm"));
+        if (e.SingleJob) sb.Append(L10n.T(" · tek parça"));
         sb.AppendLine();
-        if (e.ProfileName is not null) sb.AppendLine("Profil: " + e.ProfileName);
+        if (e.ProfileName is not null) sb.AppendLine(L10n.T("Profil: ") + e.ProfileName);
         sb.AppendLine();
-        sb.AppendLine("Aşamalar:");
+        sb.AppendLine(L10n.T("Aşamalar:"));
         sb.AppendLine(e.DataGenerated
-            ? $"  ✓ Baskı verisi üretildi: {e.LabelsGenerated} etiket görüntüsü, toplam {e.CopiesTotal} adet"
-            : "  ✗ Baskı verisi üretilemedi");
+            ? L10n.T($"  ✓ Baskı verisi üretildi: {e.LabelsGenerated} etiket görüntüsü, toplam {e.CopiesTotal} adet")
+            : L10n.T("  ✗ Baskı verisi üretilemedi"));
         sb.AppendLine(e.Spooled
-            ? $"  ✓ Windows kuyruğuna gönderildi: {e.LabelsSpooled} etiket" + (e.JobIds.Count > 0 ? $" (iş no {string.Join(", ", e.JobIds)})" : "")
-            : "  ✗ Windows kuyruğuna gönderilmedi");
-        if (e.QueueMessage is not null) sb.AppendLine("  Kuyruk durumu: " + e.QueueMessage);
-        if (e.Canceled) sb.AppendLine("  ! Kullanıcı tarafından iptal edildi");
-        sb.AppendLine("  Fiziksel baskı bu kayıtla doğrulanamaz; etiketleri yazıcıdan kontrol edin.");
+            ? L10n.T($"  ✓ Windows kuyruğuna gönderildi: {e.LabelsSpooled} etiket") + (e.JobIds.Count > 0 ? L10n.T($" (iş no {string.Join(", ", e.JobIds)})") : "")
+            : L10n.T("  ✗ Windows kuyruğuna gönderilmedi"));
+        if (e.QueueMessage is not null) sb.AppendLine(L10n.T("  Kuyruk durumu: ") + e.QueueMessage);
+        if (e.Canceled) sb.AppendLine(L10n.T("  ! Kullanıcı tarafından iptal edildi"));
+        sb.AppendLine(L10n.T("  Fiziksel baskı bu kayıtla doğrulanamaz; etiketleri yazıcıdan kontrol edin."));
         if (e.SsccSummary is not null) sb.AppendLine(e.SsccSummary);
         if (e.SsccFirst is not null)
-            sb.AppendLine(e.SsccSentCount > 1 ? $"SSCC aralığı: {e.SsccFirst} – {e.SsccLast} ({e.SsccSentCount} numara)" : $"SSCC: {e.SsccFirst}");
+            sb.AppendLine(e.SsccSentCount > 1 ? L10n.T($"SSCC aralığı: {e.SsccFirst} – {e.SsccLast} ({e.SsccSentCount} numara)") : $"SSCC: {e.SsccFirst}");
         if (e.CounterSummary is not null) sb.AppendLine(e.CounterSummary);
         if (e.CounterRanges is { Count: > 0 } ranges)
-            sb.AppendLine("Sayaç aralıkları: " + string.Join("; ", ranges.Select(r => $"{r.Key} {r.Value}")));
+            sb.AppendLine(L10n.T("Sayaç aralıkları: ") + string.Join("; ", ranges.Select(r => $"{r.Key} {r.Value}")));
         if (e.Errors.Count > 0)
         {
             sb.AppendLine();
-            sb.AppendLine("Hatalar:");
+            sb.AppendLine(L10n.T("Hatalar:"));
             foreach (string error in e.Errors) sb.AppendLine("  " + error);
         }
         if (e.Skipped.Count > 0)
         {
             sb.AppendLine();
-            sb.AppendLine("Atlanan satırlar / etiketler:");
+            sb.AppendLine(L10n.T("Atlanan satırlar / etiketler:"));
             foreach (string skipped in e.Skipped.Take(30)) sb.AppendLine("  " + skipped);
             if (e.Skipped.Count > 30) sb.AppendLine($"  … ve {e.Skipped.Count - 30} tane daha");
         }
         if (e.Warnings.Count > 0)
         {
             sb.AppendLine();
-            sb.AppendLine("Uyarılar:");
+            sb.AppendLine(L10n.T("Uyarılar:"));
             foreach (string warning in e.Warnings.Take(10)) sb.AppendLine("  " + warning);
         }
         var notSent = e.Items.Where(i => i.State != PrintItemState.Sent).ToList();
         if (notSent.Count > 0)
         {
             sb.AppendLine();
-            sb.AppendLine("Gönderilmeyenler:");
+            sb.AppendLine(L10n.T("Gönderilmeyenler:"));
             foreach (var item in notSent.Take(40))
             {
-                string what = item.Row is { } row ? $"Satır {row}" : $"Etiket {item.Sequence}";
-                string state = item.State == PrintItemState.Failed ? "hatalı" + (item.Problem is { } p ? ": " + p : "") : "gönderilmedi";
+                string what = item.Row is { } row ? L10n.T($"Satır {row}") : $"Etiket {item.Sequence}";
+                string state = item.State == PrintItemState.Failed ? L10n.T("hatalı") + (item.Problem is { } p ? ": " + p : "") : L10n.T("gönderilmedi");
                 sb.AppendLine($"  {what} × {item.Copies} — {state}");
             }
             if (notSent.Count > 40) sb.AppendLine($"  … ve {notSent.Count - 40} tane daha");

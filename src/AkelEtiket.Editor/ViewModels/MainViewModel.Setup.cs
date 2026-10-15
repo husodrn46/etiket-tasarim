@@ -2,6 +2,7 @@ using AkelEtiket.Editor.Services;
 using AkelEtiket.Core.Serialization;
 using AkelEtiket.ProjectManager;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -27,7 +28,7 @@ public sealed partial class MainViewModel
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             _setupSaveFailed = true;
-            Dialogs.ShowMessage("Kurulum kaydedilemedi", ex.Message + "\nMevcut ayarlar korundu; kaydetmeyi yeniden deneyebilirsiniz.", MessageKind.Error);
+            Dialogs.ShowMessage(L10n.T("Kurulum kaydedilemedi"), ex.Message + "\nMevcut ayarlar korundu; kaydetmeyi yeniden deneyebilirsiniz.", MessageKind.Error);
             return false;
         }
         Settings = candidate;
@@ -38,12 +39,12 @@ public sealed partial class MainViewModel
         {
             try { Templates.AddCompanyTemplates(); }
             catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ProjectFileException)
-            { Dialogs.ShowMessage("Şablonlar", "Ayarlar kaydedildi; şablonlar eklenemedi: " + ex.Message, MessageKind.Warning); }
+            { Dialogs.ShowMessage(L10n.T("Şablonlar"), L10n.T("Ayarlar kaydedildi; şablonlar eklenemedi: ") + ex.Message, MessageKind.Warning); }
         }
         // Baskı ve önizleme yalnız kullanıcı düğmesiyle açılır; kurulum hiçbir iş göndermez.
         _setupPreviewRequested = setup.OpenPreview;
         _setupAddTemplates = setup.AddTemplates;
-        StatusMessage = "İlk kurulum kaydedildi. Tasarımınızı açıp baskı önizlemesini kontrol edebilirsiniz.";
+        StatusMessage = L10n.T("İlk kurulum kaydedildi. Tasarımınızı açıp baskı önizlemesini kontrol edebilirsiniz.");
         return true;
     }
 

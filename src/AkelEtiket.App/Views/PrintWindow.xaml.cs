@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Windows;
 using AkelEtiket.Editor.ViewModels;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.App.Views;
 
@@ -24,9 +25,9 @@ public partial class PrintWindow : ThemedWindow
         if (_vm.IsBusy)
         {
             // Baskı sürerken pencere kapatılamaz; önce durdurulmalı.
-            e.Cancel = !MessageWindow.Confirm(this, "Baskı sürüyor",
-                "Baskı devam ediyor. Durdurup pencereyi kapatmak ister misiniz? (Kuyruğa gönderilmiş etiketler basılmaya devam edebilir.)",
-                "Durdur ve kapat", "Bekle");
+            e.Cancel = !MessageWindow.Confirm(this, L10n.T("Baskı sürüyor"),
+                L10n.T("Baskı devam ediyor. Durdurup pencereyi kapatmak ister misiniz? (Kuyruğa gönderilmiş etiketler basılmaya devam edebilir.)"),
+                L10n.T("Durdur ve kapat"), L10n.T("Bekle"));
             if (!e.Cancel) _vm.CancelCommand.Execute(null);
         }
     }

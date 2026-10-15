@@ -1,4 +1,5 @@
 using System.IO;
+using L10n = AkelEtiket.Core.Localization.UiText;
 using System.Windows;
 using AkelEtiket.App.Views;
 using AkelEtiket.Editor.Services;
@@ -17,14 +18,14 @@ public sealed class WpfDialogService : IDialogService
 
     public string? ShowOpenFileDialog(string title, string filter, string? initialDirectory = null)
     {
-        var dialog = new OpenFileDialog { Title = title, Filter = filter, CheckFileExists = true };
+        var dialog = new OpenFileDialog { Title = title, Filter = L10n.T(filter), CheckFileExists = true };
         if (initialDirectory is not null && Directory.Exists(initialDirectory)) dialog.InitialDirectory = initialDirectory;
         return dialog.ShowDialog(ActiveOwner) == true ? dialog.FileName : null;
     }
 
     public string? ShowSaveFileDialog(string title, string filter, string defaultFileName, string? initialDirectory = null)
     {
-        var dialog = new SaveFileDialog { Title = title, Filter = filter, FileName = defaultFileName, OverwritePrompt = true, AddExtension = true };
+        var dialog = new SaveFileDialog { Title = title, Filter = L10n.T(filter), FileName = defaultFileName, OverwritePrompt = true, AddExtension = true };
         if (initialDirectory is not null && Directory.Exists(initialDirectory)) dialog.InitialDirectory = initialDirectory;
         return dialog.ShowDialog(ActiveOwner) == true ? dialog.FileName : null;
     }
@@ -33,7 +34,7 @@ public sealed class WpfDialogService : IDialogService
         MessageWindow.Show(ActiveOwner, title, message, kind);
 
     public bool Confirm(string title, string message, string confirmText = "Evet", string cancelText = "Hayır") =>
-        MessageWindow.Confirm(ActiveOwner, title, message, confirmText, cancelText);
+        MessageWindow.Confirm(ActiveOwner, title, message, L10n.T(confirmText), L10n.T(cancelText));
 
     public SaveChangesChoice AskSaveChanges(string documentName) => MessageWindow.AskSaveChanges(ActiveOwner, documentName);
 

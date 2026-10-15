@@ -3,6 +3,7 @@ using AkelEtiket.Editor.Services;
 using AkelEtiket.PrintEngine;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -13,7 +14,7 @@ public sealed partial class FirstSetupViewModel : ObservableObject
     {
         Profile = new SettingsViewModel(settings) { Dialogs = dialogs };
         PrinterName = settings.Printer.PrinterName ?? "";
-        PrinterMessage = "Yazıcıyı daha sonra da seçebilirsiniz.";
+        PrinterMessage = L10n.T("Yazıcıyı daha sonra da seçebilirsiniz.");
         Profile.PropertyChanged += (_, _) => NotifyValidation();
     }
 
@@ -26,7 +27,7 @@ public sealed partial class FirstSetupViewModel : ObservableObject
         if (value is null) return;
         Profile.DefaultWidthMm = value.WidthMm; Profile.DefaultHeightMm = value.HeightMm;
     }
-    public IReadOnlyList<string> Steps { get; } = ["Firma bilgileri", "Yazıcı ve ölçü", "Başlamaya hazırsınız"];
+    public IReadOnlyList<string> Steps { get; } = [L10n.T("Firma bilgileri"), L10n.T("Yazıcı ve ölçü"), L10n.T("Başlamaya hazırsınız")];
     [ObservableProperty] public partial int StepIndex { get; set; }
     [ObservableProperty] public partial string PrinterName { get; set; }
     [ObservableProperty] public partial string? PrinterMessage { get; set; }
@@ -37,15 +38,15 @@ public sealed partial class FirstSetupViewModel : ObservableObject
     public bool IsFinishStep => StepIndex == 2;
     public bool IsNotFinishStep => !IsFinishStep;
     public string StepTitle => Steps[StepIndex];
-    public string Summary => $"{(string.IsNullOrWhiteSpace(Profile.CompanyName) ? "Firma adı daha sonra girilebilir" : Profile.CompanyName.Trim())}\n" +
+    public string Summary => $"{(string.IsNullOrWhiteSpace(Profile.CompanyName) ? L10n.T("Firma adı daha sonra girilebilir") : Profile.CompanyName.Trim())}\n" +
         $"{Profile.DefaultWidthMm:0.##} × {Profile.DefaultHeightMm:0.##} mm\n" +
-        (string.IsNullOrWhiteSpace(PrinterName) ? "Yazıcı baskı sırasında seçilecek." : "Yazıcı: " + PrinterName);
+        (string.IsNullOrWhiteSpace(PrinterName) ? L10n.T("Yazıcı baskı sırasında seçilecek.") : L10n.T("Yazıcı: ") + PrinterName);
     public string? ValidationProblem => !double.IsFinite(Profile.MaxPrintWidthMm) || Profile.MaxPrintWidthMm is < 20 or > 300
-        ? "Yazıcının en fazla baskı genişliği 20–300 mm arasında olmalı."
+        ? L10n.T("Yazıcının en fazla baskı genişliği 20–300 mm arasında olmalı.")
         : !double.IsFinite(Profile.DefaultWidthMm) || !double.IsFinite(Profile.DefaultHeightMm) ||
         Profile.DefaultWidthMm is < 5 or > 1000 || Profile.DefaultHeightMm is < 5 or > 1000
-        ? "Etiket genişliği ve yüksekliği 5–1000 mm arasında olmalı."
-        : Profile.DefaultWidthMm > Profile.MaxPrintWidthMm ? "Etiket genişliği yazıcının baskı genişliğini aşıyor. Ölçüyü veya yazıcı genişliğini düzeltin." : null;
+        ? L10n.T("Etiket genişliği ve yüksekliği 5–1000 mm arasında olmalı.")
+        : Profile.DefaultWidthMm > Profile.MaxPrintWidthMm ? L10n.T("Etiket genişliği yazıcının baskı genişliğini aşıyor. Ölçüyü veya yazıcı genişliğini düzeltin.") : null;
 
     partial void OnStepIndexChanged(int value)
     {
@@ -71,7 +72,7 @@ public sealed partial class FirstSetupViewModel : ObservableObject
         Printers.Clear();
         if (PrintingServices.ReadPrinters(out var printers, out string? error))
             foreach (var printer in printers) Printers.Add(printer.Name);
-        PrinterMessage = error ?? (Printers.Count == 0 ? "Yazıcı bulunamadı. Bu adımı boş bırakıp daha sonra seçebilirsiniz." : null);
+        PrinterMessage = error ?? (Printers.Count == 0 ? L10n.T("Yazıcı bulunamadı. Bu adımı boş bırakıp daha sonra seçebilirsiniz.") : null);
     }
 
     public void ApplyTo(AppSettings settings)

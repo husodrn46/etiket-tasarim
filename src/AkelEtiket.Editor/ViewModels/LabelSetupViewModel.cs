@@ -1,5 +1,6 @@
 using AkelEtiket.Core.Model;
 using CommunityToolkit.Mvvm.ComponentModel;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -30,23 +31,23 @@ public sealed partial class LabelSetupViewModel : ObservableObject
 
     public IReadOnlyList<LabelPreset> Presets { get; } =
     [
-        new("100 × 100 mm (varsayılan)", 100, 100, 3),
+        new(L10n.T("100 × 100 mm (varsayılan)"), 100, 100, 3),
         new("100 × 150 mm (kargo/koli)", 100, 150, 3),
         new("100 × 50 mm", 100, 50, 3),
         new("100 × 75 mm", 100, 75, 3),
         new("80 × 50 mm", 80, 50, 2),
         new("60 × 40 mm", 60, 40, 2),
-        new("58 × 40 mm (raf)", 58, 40, 2),
+        new(L10n.T("58 × 40 mm (raf)"), 58, 40, 2),
         new("50 × 30 mm", 50, 30, 2),
         new("40 × 30 mm", 40, 30, 2),
-        new("4 × 6 inç (101,6 × 152,4 mm)", 101.6, 152.4, 3),
+        new(L10n.T("4 × 6 inç (101,6 × 152,4 mm)"), 101.6, 152.4, 3),
     ];
 
     public IReadOnlyList<KeyValuePair<MediaType, string>> MediaTypes { get; } =
     [
-        new(MediaType.Gap, "Boşluklu etiket (gap)"),
-        new(MediaType.BlackMark, "Siyah işaretli (black mark)"),
-        new(MediaType.Continuous, "Sürekli rulo"),
+        new(MediaType.Gap, L10n.T("Boşluklu etiket (gap)")),
+        new(MediaType.BlackMark, L10n.T("Siyah işaretli (black mark)")),
+        new(MediaType.Continuous, L10n.T("Sürekli rulo")),
     ];
 
     [ObservableProperty]
@@ -84,9 +85,9 @@ public sealed partial class LabelSetupViewModel : ObservableObject
     {
         get
         {
-            if (!IsValid) return $"Genişlik ve yükseklik {LabelSetup.MinSizeMm:0}–{LabelSetup.MaxSizeMm:0} mm arasında olmalı.";
+            if (!IsValid) return L10n.T($"Genişlik ve yükseklik {LabelSetup.MinSizeMm:0}–{LabelSetup.MaxSizeMm:0} mm arasında olmalı.");
             if (WidthMm > MaxPrintWidthMm + 0.01)
-                return $"Etiket genişliği yazıcının en fazla baskı genişliğini ({MaxPrintWidthMm:0.#} mm) aşıyor; taşan kısım basılmaz.";
+                return L10n.T($"Etiket genişliği yazıcının en fazla baskı genişliğini ({MaxPrintWidthMm:0.#} mm) aşıyor; taşan kısım basılmaz.");
             return null;
         }
     }

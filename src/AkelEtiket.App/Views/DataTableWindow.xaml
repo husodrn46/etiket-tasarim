@@ -1,13 +1,13 @@
-<views:ThemedWindow x:Class="AkelEtiket.App.Views.DataTableWindow"
+<views:ThemedWindow xmlns:loc="clr-namespace:AkelEtiket.App.Localization" x:Class="AkelEtiket.App.Views.DataTableWindow"
                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:views="clr-namespace:AkelEtiket.App.Views"
-                    Title="Veri tablosu" Width="1100" Height="720" MinWidth="760" MinHeight="480" ResizeMode="CanResizeWithGrip">
+                    Title="{loc:Text T_e511509b5c89}" Width="1100" Height="720" MinWidth="760" MinHeight="480" ResizeMode="CanResizeWithGrip">
     <DockPanel Margin="18,14,18,14">
         <DockPanel DockPanel.Dock="Top" Margin="0,0,0,10">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                <Button Content="Sütunları eşleştir…" Command="{Binding MapColumnsCommand}" Margin="0,0,14,0"/>
-                <TextBlock Text="Adet sütunu" Style="{StaticResource Text.Label}" />
+                <Button Content="{loc:Text T_716df669b395}" Command="{Binding MapColumnsCommand}" Margin="0,0,14,0"/>
+                <TextBlock Text="{loc:Text T_26bfc08ea86f}" Style="{StaticResource Text.Label}" />
                 <ComboBox Width="160" ItemsSource="{Binding Columns}" SelectedItem="{Binding CopiesColumn}" />
             </StackPanel>
             <StackPanel>
@@ -16,25 +16,25 @@
             </StackPanel>
         </DockPanel>
         <WrapPanel DockPanel.Dock="Top" Margin="0,0,0,8">
-            <TextBlock Text="Ara" Style="{StaticResource Text.Label}" />
+            <TextBlock Text="{loc:Text T_17233932ffda}" Style="{StaticResource Text.Label}" />
             <TextBox x:Name="SearchBox" Width="240" Margin="0,0,14,0" VerticalContentAlignment="Center" KeyDown="OnSearchKeyDown"
                      Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged, Delay=250}"
-                     ToolTip="Tüm sütunlarda ve sorun metninde arar; Türkçe harf ve büyük/küçük harf farkı gözetilmez (isik → IŞIK). Birden çok sözcük yazılırsa hepsini içeren satırlar gösterilir." />
-            <CheckBox Content="Yalnızca hatalı satırlar" IsChecked="{Binding OnlyErrorRows}" VerticalAlignment="Center" Margin="0,0,14,0" />
-            <CheckBox Content="Yalnızca seçili satırlar" IsChecked="{Binding OnlySelectedRows}" VerticalAlignment="Center" Margin="0,0,14,0" />
+                     ToolTip="{loc:Text T_98571bdc7b21}" />
+            <CheckBox Content="{loc:Text T_9bbb9a0bba95}" IsChecked="{Binding OnlyErrorRows}" VerticalAlignment="Center" Margin="0,0,14,0" />
+            <CheckBox Content="{loc:Text T_43c026680c1f}" IsChecked="{Binding OnlySelectedRows}" VerticalAlignment="Center" Margin="0,0,14,0" />
             <TextBlock Text="{Binding VisibleSummary}" Style="{StaticResource Text.Hint}" VerticalAlignment="Center" />
         </WrapPanel>
         <WrapPanel DockPanel.Dock="Top" Margin="0,0,0,6">
             <Button Content="{Binding SelectVisibleLabel}" Command="{Binding SelectVisibleRowsCommand}" Margin="0,0,6,0" />
             <Button Content="{Binding DeselectVisibleLabel}" Command="{Binding DeselectVisibleRowsCommand}" Margin="0,0,6,0" />
-            <Button Content="Yalnızca hatasızları seç" Command="{Binding SelectValidRowsCommand}" Margin="0,0,16,0" />
-            <TextBlock Text="Satır no" Style="{StaticResource Text.Label}" />
+            <Button Content="{loc:Text T_102efb6b9493}" Command="{Binding SelectValidRowsCommand}" Margin="0,0,16,0" />
+            <TextBlock Text="{loc:Text T_96f19d2d96d4}" Style="{StaticResource Text.Label}" />
             <TextBox x:Name="RangeBox" Width="160" VerticalContentAlignment="Center" KeyDown="OnRangeKeyDown"
                      Text="{Binding RowRangeText, UpdateSourceTrigger=PropertyChanged}"
-                     ToolTip="Excel/CSV satır numaraları: 2-20, 35, 40-42 (40- = 40'tan sona kadar). Seç'e basınca seçim yalnızca bu satırlar olur." />
-            <Button Content="Seç" Command="{Binding SelectRowRangeCommand}" Margin="6,0,16,0" />
+                     ToolTip="{loc:Text T_ac359f8530b7}" />
+            <Button Content="{loc:Text T_6caa06b138cc}" Command="{Binding SelectRowRangeCommand}" Margin="6,0,16,0" />
             <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource Brush.TextSecondary}">
-                <Run Text="Basılacak etiket:" />
+                <Run Text="{loc:Text T_4a66f7780c8e}" />
                 <Run Text="{Binding SelectedLabelCount, Mode=OneWay}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text}" />
             </TextBlock>
         </WrapPanel>
@@ -52,9 +52,9 @@
             </TextBlock.Style>
         </TextBlock>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
-            <TextBlock Text="Satır numaraları Excel/CSV dosyasındaki gerçek satırlardır. Hatalı satırlar basılmaz, diğerleri etkilenmez."
+            <TextBlock Text="{loc:Text T_2e85d12ddea4}"
                        Style="{StaticResource Text.Hint}" VerticalAlignment="Center" Margin="0,0,16,0" />
-            <Button Content="Kapat" MinWidth="96" Style="{StaticResource Button.Accent}" IsDefault="True" IsCancel="True" Click="OnClose" />
+            <Button Content="{loc:Text T_7b31a9fc4816}" MinWidth="96" Style="{StaticResource Button.Accent}" IsDefault="True" IsCancel="True" Click="OnClose" />
         </StackPanel>
         <!-- ItemsSource kod tarafında verilir (süzgeç değişince önce düzenleme kaydedilir). -->
         <DataGrid x:Name="Grid" FrozenColumnCount="4" EnableRowVirtualization="True" EnableColumnVirtualization="True"

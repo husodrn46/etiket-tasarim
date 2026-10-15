@@ -20,7 +20,11 @@ internal static class TestDataRoot
     public static readonly string Root = Path.Combine(Path.GetTempPath(), "akel-editor-tests", Guid.NewGuid().ToString("N"));
 
     [ModuleInitializer]
-    internal static void Initialize() => Environment.SetEnvironmentVariable(AppIdentity.DataRootVariable, Root);
+    internal static void Initialize()
+    {
+        Environment.SetEnvironmentVariable(AppIdentity.DataRootVariable, Root);
+        System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("tr");
+    }
 }
 
 /// <summary>

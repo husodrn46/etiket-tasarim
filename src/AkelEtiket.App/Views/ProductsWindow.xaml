@@ -1,21 +1,21 @@
-<views:ThemedWindow x:Class="AkelEtiket.App.Views.ProductsWindow"
+<views:ThemedWindow xmlns:loc="clr-namespace:AkelEtiket.App.Localization" x:Class="AkelEtiket.App.Views.ProductsWindow"
                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:views="clr-namespace:AkelEtiket.App.Views"
-                    Title="Ürün listesi" Width="860" Height="640" MinWidth="620" MinHeight="420" ResizeMode="CanResizeWithGrip">
+                    Title="{loc:Text T_3f7032d603d5}" Width="860" Height="640" MinWidth="620" MinHeight="420" ResizeMode="CanResizeWithGrip">
     <DockPanel Margin="22,16,22,14">
         <StackPanel DockPanel.Dock="Top" Margin="0,0,0,10">
-            <TextBlock Text="Ürün listesi" Style="{StaticResource Text.Title}" FontSize="18" />
+            <TextBlock Text="{loc:Text T_3f7032d603d5}" Style="{StaticResource Text.Title}" FontSize="18" />
             <TextBlock Style="{StaticResource Text.Hint}" Margin="0,4,0,0" TextWrapping="Wrap"
-                       Text="Ürünlerinizi Excel/CSV'den bir kez aktarın; Hızlı Baskı'da ad, kod ya da barkodla bulunur. Liste bu bilgisayarda saklanır (Belgeler\Etiket Tasarım\Ürünler)." />
+                       Text="{loc:Text T_c08599b46e21}" />
         </StackPanel>
         <DockPanel DockPanel.Dock="Top" Margin="0,0,0,8">
-            <Button DockPanel.Dock="Right" Content="Excel/CSV'den aktar…" Command="{Binding ImportCommand}" Margin="8,0,0,0" />
-            <TextBox Text="{Binding Query, UpdateSourceTrigger=PropertyChanged, Delay=200}" ToolTip="Ad, kod veya barkod" />
+            <Button DockPanel.Dock="Right" Content="{loc:Text T_2507e7d789e0}" Command="{Binding ImportCommand}" Margin="8,0,0,0" />
+            <TextBox Text="{Binding Query, UpdateSourceTrigger=PropertyChanged, Delay=200}" ToolTip="{loc:Text T_e1d1400ea547}" />
         </DockPanel>
         <TextBlock DockPanel.Dock="Top" Text="{Binding Summary}" Style="{StaticResource Text.Hint}" Margin="0,0,0,8" TextWrapping="Wrap" />
         <DockPanel DockPanel.Dock="Bottom" Margin="0,12,0,0">
-            <Button DockPanel.Dock="Right" Content="Kapat" MinWidth="96" IsCancel="True" IsDefault="True" />
+            <Button DockPanel.Dock="Right" Content="{loc:Text T_7b31a9fc4816}" MinWidth="96" IsCancel="True" IsDefault="True" />
             <Border />
         </DockPanel>
         <ListBox ItemsSource="{Binding Results}" SelectedItem="{Binding SelectedProduct}" VirtualizingPanel.IsVirtualizing="True">

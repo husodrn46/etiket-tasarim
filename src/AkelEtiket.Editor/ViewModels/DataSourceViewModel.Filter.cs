@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -49,12 +50,12 @@ public sealed partial class DataSourceViewModel
     public bool IsFiltered => _visibleRows is not null;
 
     public string VisibleSummary => Rows.Count == 0 ? ""
-        : IsFiltered ? $"{VisibleRows.Count.ToString("N0", Turkish)} / {Rows.Count.ToString("N0", Turkish)} satır gösteriliyor"
-        : $"{Rows.Count.ToString("N0", Turkish)} satır";
+        : IsFiltered ? L10n.T($"{VisibleRows.Count.ToString("N0", Turkish)} / {Rows.Count.ToString("N0", Turkish)} satır gösteriliyor")
+        : L10n.T($"{Rows.Count.ToString("N0", Turkish)} satır");
 
-    public string SelectVisibleLabel => IsFiltered ? $"Görünen {VisibleRows.Count.ToString("N0", Turkish)} satırı seç" : "Tümünü seç";
+    public string SelectVisibleLabel => IsFiltered ? L10n.T($"Görünen {VisibleRows.Count.ToString("N0", Turkish)} satırı seç") : L10n.T("Tümünü seç");
 
-    public string DeselectVisibleLabel => IsFiltered ? "Görünenlerin seçimini kaldır" : "Hiçbirini seçme";
+    public string DeselectVisibleLabel => IsFiltered ? L10n.T("Görünenlerin seçimini kaldır") : L10n.T("Hiçbirini seçme");
 
     partial void OnSearchTextChanged(string value) => RefreshVisibleRows();
 
@@ -154,7 +155,7 @@ public sealed partial class DataSourceViewModel
         }
         if (Rows.Count == 0)
         {
-            SetRangeMessage("Önce bir veri dosyası yükleyin.", isError: true);
+            SetRangeMessage(L10n.T("Önce bir veri dosyası yükleyin."), isError: true);
             return;
         }
         int[] numbers = Rows.Select(r => r.RowNumber).Order().ToArray();
@@ -162,8 +163,8 @@ public sealed partial class DataSourceViewModel
         int matched = Rows.Count(r => set.Contains(r.RowNumber));
         if (matched == 0)
         {
-            SetRangeMessage($"Bu numaralarda veri satırı yok ({string.Join(", ", unmatched)}). Dosyadaki veri satırları " +
-                            $"{numbers[0]}–{numbers[^1]} arasında; seçim değiştirilmedi.", isError: true);
+            SetRangeMessage(L10n.T($"Bu numaralarda veri satırı yok ({string.Join(", ", unmatched)}). Dosyadaki veri satırları ") +
+                            L10n.T($"{numbers[0]}–{numbers[^1]} arasında; seçim değiştirilmedi."), isError: true);
             return;
         }
         int errorRows = 0;
@@ -176,17 +177,17 @@ public sealed partial class DataSourceViewModel
                 if (selected && row.Status == RowStatus.Error) errorRows++;
             }
         }
-        var message = new StringBuilder($"{matched.ToString("N0", Turkish)} satır seçildi");
-        if (errorRows > 0) message.Append($"; {errorRows.ToString("N0", Turkish)} tanesi hatalı olduğu için basılmaz");
+        var message = new StringBuilder(L10n.T($"{matched.ToString("N0", Turkish)} satır seçildi"));
+        if (errorRows > 0) message.Append(L10n.T($"; {errorRows.ToString("N0", Turkish)} tanesi hatalı olduğu için basılmaz"));
         message.Append('.');
-        if (unmatched.Count > 0) message.Append(" Dosyada veri satırı olmayan: ").Append(string.Join(", ", unmatched)).Append('.');
+        if (unmatched.Count > 0) message.Append(L10n.T(" Dosyada veri satırı olmayan: ")).Append(string.Join(", ", unmatched)).Append('.');
         SetRangeMessage(message.ToString(), isError: false);
         if (OnlySelectedRows) RefreshVisibleRows();
     }
 
     private string DescribeRange(RowRange range) =>
         range.Start == range.End && Table is not null && range.Start == Table.HeaderRowNumber
-            ? $"{range} (başlık satırı)"
+            ? L10n.T($"{range} (başlık satırı)")
             : range.ToString();
 
     private static bool AnyRowIn(int[] sortedNumbers, RowRange range)

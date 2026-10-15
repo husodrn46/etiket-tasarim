@@ -1,38 +1,41 @@
-<views:ThemedWindow x:Class="AkelEtiket.App.Views.SettingsWindow"
+<views:ThemedWindow xmlns:loc="clr-namespace:AkelEtiket.App.Localization" x:Class="AkelEtiket.App.Views.SettingsWindow"
                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:views="clr-namespace:AkelEtiket.App.Views"
                     xmlns:controls="clr-namespace:AkelEtiket.App.Controls"
-                    Title="Ayarlar" AutomationProperties.AutomationId="GeneralSettingsWindow" Width="680" Height="800" MinHeight="450" ResizeMode="CanResize">
+                    Title="{loc:Text T_80ad54ad05fa}" AutomationProperties.AutomationId="GeneralSettingsWindow" Width="680" Height="800" MinHeight="450" ResizeMode="CanResize">
     <Window.Resources>
         <Style x:Key="FieldLabel" TargetType="TextBlock" BasedOn="{StaticResource Text.Label}" />
     </Window.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Auto">
     <StackPanel Margin="24,18,24,18">
-        <TextBlock Text="Ayarlar" Style="{StaticResource Text.Title}" FontSize="18" />
+        <TextBlock Text="{loc:Text T_80ad54ad05fa}" Style="{StaticResource Text.Title}" FontSize="18" />
 
-        <TextBlock Text="FİRMA BİLGİLERİ" Style="{StaticResource Text.Section}" />
-        <TextBlock Text="Firma adı" Style="{StaticResource FieldLabel}" />
+        <TextBlock Text="{loc:Text T_527534366db7}" Margin="0,0,0,4"/>
+        <ComboBox ItemsSource="{Binding LanguageChoices}" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding UiLanguage}" Margin="0,0,0,8" AutomationProperties.AutomationId="InterfaceLanguage"/>
+        <TextBlock Text="{loc:Text T_586cf0ced444}" Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="0,0,0,16"/>
+        <TextBlock Text="{loc:Text T_28ed729e7118}" Style="{StaticResource Text.Section}" />
+        <TextBlock Text="{loc:Text T_bb32eee2c44c}" Style="{StaticResource FieldLabel}" />
         <TextBox AutomationProperties.AutomationId="CompanyNameInput" Text="{Binding CompanyName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,8" MaxLength="160" />
-        <TextBlock Text="Adres" Style="{StaticResource FieldLabel}" />
+        <TextBlock Text="{loc:Text T_32c6bebf1cb0}" Style="{StaticResource FieldLabel}" />
         <TextBox AutomationProperties.AutomationId="CompanyAddressInput" Text="{Binding CompanyAddress, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,8" AcceptsReturn="True" Height="54" MaxLength="600" />
-        <TextBlock Text="Web sitesi (QR için https:// ile)" Style="{StaticResource FieldLabel}" />
+        <TextBlock Text="{loc:Text T_f2a8803138ad}" Style="{StaticResource FieldLabel}" />
         <TextBox AutomationProperties.AutomationId="CompanyWebsiteInput" Text="{Binding CompanyWebsite, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,8" MaxLength="300" />
         <StackPanel Orientation="Horizontal">
-            <Button Content="Logo seç…" Command="{Binding ChooseLogoCommand}" Margin="0,0,8,0" />
-            <Button Content="Logoyu kaldır" Command="{Binding ClearLogoCommand}" />
+            <Button Content="{loc:Text T_87de99d3b26f}" Command="{Binding ChooseLogoCommand}" Margin="0,0,8,0" />
+            <Button Content="{loc:Text T_773f6d015f09}" Command="{Binding ClearLogoCommand}" />
         </StackPanel>
         <TextBlock Text="{Binding LogoStatus}" Style="{StaticResource Text.Hint}" />
-        <CheckBox AutomationProperties.AutomationId="CreateCompanyTemplates" Content="Kaydederken firma bilgileriyle yeni örnek şablonlar oluştur" IsChecked="{Binding CreateCompanyTemplates}" Margin="0,8,0,0" />
-        <TextBlock Text="Mevcut şablonlar korunur. Firma bilgileri GS1 kodu oluşturmaz. Ürünler Excel/CSV ile bağlanabilir; hesap gerekmez." Style="{StaticResource Text.Hint}" TextWrapping="Wrap" />
+        <CheckBox AutomationProperties.AutomationId="CreateCompanyTemplates" Content="{loc:Text T_7bfa9b4dc86a}" IsChecked="{Binding CreateCompanyTemplates}" Margin="0,8,0,0" />
+        <TextBlock Text="{loc:Text T_74d7707ff3d0}" Style="{StaticResource Text.Hint}" TextWrapping="Wrap" />
 
-        <TextBlock Text="GÖRÜNÜM" Style="{StaticResource Text.Section}" />
+        <TextBlock Text="{loc:Text T_7e1f3a1bb475}" Style="{StaticResource Text.Section}" />
         <Grid Margin="0,0,0,8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="190" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Tema" Style="{StaticResource FieldLabel}" />
+            <TextBlock Text="{loc:Text T_d5df3708bc68}" Style="{StaticResource FieldLabel}" />
             <ComboBox Grid.Column="1" ItemsSource="{Binding ThemeChoices}" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding Theme}" />
         </Grid>
         <Grid Margin="0,0,0,8">
@@ -41,24 +44,24 @@
                 <ColumnDefinition Width="120" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Izgara aralığı" Style="{StaticResource FieldLabel}" />
+            <TextBlock Text="{loc:Text T_91e9e783f6b4}" Style="{StaticResource FieldLabel}" />
             <ComboBox Grid.Column="1" ItemsSource="{Binding GridChoices}" SelectedItem="{Binding GridSizeMm}" />
-            <TextBlock Grid.Column="2" Text="mm" Style="{StaticResource Text.Label}" Margin="8,0,0,0" />
+            <TextBlock Grid.Column="2" Text="{loc:Text T_8fa1dddd5360}" Style="{StaticResource Text.Label}" Margin="8,0,0,0" />
         </Grid>
         <WrapPanel>
-            <CheckBox Content="Izgarayı göster" IsChecked="{Binding ShowGrid}" Margin="0,0,20,0" />
-            <CheckBox Content="Izgaraya yakala" IsChecked="{Binding SnapToGrid}" Margin="0,0,20,0" />
-            <CheckBox Content="Nesnelere yakala" IsChecked="{Binding SnapToObjects}" Margin="0,0,20,0" />
-            <CheckBox Content="Cetvelleri göster" IsChecked="{Binding ShowRulers}" />
+            <CheckBox Content="{loc:Text T_cbb0dd201b6c}" IsChecked="{Binding ShowGrid}" Margin="0,0,20,0" />
+            <CheckBox Content="{loc:Text T_42711dcdf4ff}" IsChecked="{Binding SnapToGrid}" Margin="0,0,20,0" />
+            <CheckBox Content="{loc:Text T_8231cc7a4476}" IsChecked="{Binding SnapToObjects}" Margin="0,0,20,0" />
+            <CheckBox Content="{loc:Text T_18fc0056f547}" IsChecked="{Binding ShowRulers}" />
         </WrapPanel>
 
-        <TextBlock Text="YAZICI PROFİLİ" Style="{StaticResource Text.Section}" />
+        <TextBlock Text="{loc:Text T_64778cbb2f5e}" Style="{StaticResource Text.Section}" />
         <Grid Margin="0,0,0,8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="190" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Çözünürlük" Style="{StaticResource FieldLabel}" />
+            <TextBlock Text="{loc:Text T_339daf924864}" Style="{StaticResource FieldLabel}" />
             <ComboBox Grid.Column="1" ItemsSource="{Binding Resolutions}" SelectedItem="{Binding Resolution}" />
         </Grid>
         <Grid Margin="0,0,0,4">
@@ -67,13 +70,13 @@
                 <ColumnDefinition Width="120" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="En fazla baskı genişliği" Style="{StaticResource FieldLabel}" />
+            <TextBlock Text="{loc:Text T_e5a8f1d52eb8}" Style="{StaticResource FieldLabel}" />
             <controls:NumberBox Grid.Column="1" Value="{Binding MaxPrintWidthMm}" Minimum="20" Maximum="300" Step="1" Decimals="1" />
-            <TextBlock Grid.Column="2" Text="mm (XP-470B: 108)" Style="{StaticResource Text.Label}" Margin="8,0,0,0" />
+            <TextBlock Grid.Column="2" Text="{loc:Text T_7663a9a55c99}" Style="{StaticResource Text.Label}" Margin="8,0,0,0" />
         </Grid>
-        <CheckBox Content="Baskıdan önce her barkodu okuyarak doğrula" IsChecked="{Binding VerifyBarcodes}" Margin="0,6,0,0" />
+        <CheckBox Content="{loc:Text T_8a4b4a7f2111}" IsChecked="{Binding VerifyBarcodes}" Margin="0,6,0,0" />
 
-        <TextBlock Text="YENİ ETİKET" Style="{StaticResource Text.Section}" />
+        <TextBlock Text="{loc:Text T_f4ac9214a63c}" Style="{StaticResource Text.Section}" />
         <Grid Margin="0,0,0,8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="190" />
@@ -82,11 +85,11 @@
                 <ColumnDefinition Width="90" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Varsayılan ölçü" Style="{StaticResource FieldLabel}" />
+            <TextBlock Text="{loc:Text T_472a7956e059}" Style="{StaticResource FieldLabel}" />
             <controls:NumberBox Grid.Column="1" Value="{Binding DefaultWidthMm}" Minimum="5" Maximum="1000" Decimals="1" />
             <TextBlock Grid.Column="2" Text="×" Margin="8,0" VerticalAlignment="Center" />
             <controls:NumberBox Grid.Column="3" Value="{Binding DefaultHeightMm}" Minimum="5" Maximum="1000" Decimals="1" />
-            <TextBlock Grid.Column="4" Text="mm" Style="{StaticResource Text.Label}" Margin="8,0,0,0" />
+            <TextBlock Grid.Column="4" Text="{loc:Text T_8fa1dddd5360}" Style="{StaticResource Text.Label}" Margin="8,0,0,0" />
         </Grid>
         <Grid Margin="0,0,0,8">
             <Grid.ColumnDefinitions>
@@ -94,9 +97,9 @@
                 <ColumnDefinition Width="140" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="EAN firma öneki" Style="{StaticResource FieldLabel}" ToolTip="Otomatik EAN-13 üretiminde kullanılır" />
+            <TextBlock Text="{loc:Text T_5d681cdfe49c}" Style="{StaticResource FieldLabel}" ToolTip="{loc:Text T_2220eff09654}" />
             <TextBox Grid.Column="1" Text="{Binding Gs1Prefix, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Grid.Column="2" Text="GS1 belgenizdeki firma öneki; GLN değildir" Style="{StaticResource Text.Label}" TextWrapping="Wrap" Margin="8,0,0,0" />
+            <TextBlock Grid.Column="2" Text="{loc:Text T_7b791e1cee4f}" Style="{StaticResource Text.Label}" TextWrapping="Wrap" Margin="8,0,0,0" />
         </Grid>
         <Grid Margin="0,0,0,8">
             <Grid.ColumnDefinitions>
@@ -104,21 +107,21 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="GS1 firma bilgileri" Style="{StaticResource FieldLabel}" />
-            <Button Grid.Column="1" Content="GS1 Firma Profili…" Command="{Binding OpenGs1ProfileCommand}" />
-            <TextBlock Grid.Column="2" Text="GLN, firma öneki, SSCC ve kayıtlı GTIN'ler" Style="{StaticResource Text.Label}" Margin="8,0,0,0" />
+            <TextBlock Text="{loc:Text T_fce8396ddb89}" Style="{StaticResource FieldLabel}" />
+            <Button Grid.Column="1" Content="{loc:Text T_b74c06f7f8a5}" Command="{Binding OpenGs1ProfileCommand}" />
+            <TextBlock Grid.Column="2" Text="{loc:Text T_f2baa71d6954}" Style="{StaticResource Text.Label}" Margin="8,0,0,0" />
         </Grid>
 
-        <TextBlock Text="DOSYALAR" Style="{StaticResource Text.Section}" />
+        <TextBlock Text="{loc:Text T_a20d1881f1f9}" Style="{StaticResource Text.Section}" />
         <Grid Margin="0,0,0,8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="190" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Şablon klasörü" Style="{StaticResource FieldLabel}" />
+            <TextBlock Text="{loc:Text T_931d40166f2b}" Style="{StaticResource FieldLabel}" />
             <TextBox Grid.Column="1" Text="{Binding TemplatesFolder, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Grid.Column="2" Content="Seç…" Margin="6,0,0,0" Click="OnBrowseTemplates" />
+            <Button Grid.Column="2" Content="{loc:Text T_dfd12ee38484}" Margin="6,0,0,0" Click="OnBrowseTemplates" />
         </Grid>
         <Grid Margin="0,0,0,8">
             <Grid.ColumnDefinitions>
@@ -126,18 +129,18 @@
                 <ColumnDefinition Width="90" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Otomatik kurtarma aralığı" Style="{StaticResource FieldLabel}" />
+            <TextBlock Text="{loc:Text T_02caeb350578}" Style="{StaticResource FieldLabel}" />
             <controls:NumberBox Grid.Column="1" Value="{Binding AutoRecoverySeconds}" Minimum="0" Maximum="3600" Step="10" Decimals="0" />
-            <TextBlock Grid.Column="2" Text="saniye (0 = kapalı)" Style="{StaticResource Text.Label}" Margin="8,0,0,0" />
+            <TextBlock Grid.Column="2" Text="{loc:Text T_7ac8c79fd8cf}" Style="{StaticResource Text.Label}" Margin="8,0,0,0" />
         </Grid>
         <TextBlock Style="{StaticResource Text.Hint}">
-            <Run Text="Ayar dosyası:" />
+            <Run Text="{loc:Text T_24ee22fca982}" />
             <Run Text="{Binding SettingsFolder, Mode=OneWay}" />
         </TextBlock>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
-            <Button Content="Vazgeç" MinWidth="96" IsCancel="True" Margin="0,0,8,0" />
-            <Button AutomationProperties.AutomationId="SaveGeneralSettings" Content="Kaydet" MinWidth="96" Style="{StaticResource Button.Accent}" IsDefault="True" Click="OnSave" />
+            <Button Content="{loc:Text T_39a8d28c1c6b}" MinWidth="96" IsCancel="True" Margin="0,0,8,0" />
+            <Button AutomationProperties.AutomationId="SaveGeneralSettings" Content="{loc:Text T_c1fe2ecdff02}" MinWidth="96" Style="{StaticResource Button.Accent}" IsDefault="True" Click="OnSave" />
         </StackPanel>
     </StackPanel>
     </ScrollViewer>

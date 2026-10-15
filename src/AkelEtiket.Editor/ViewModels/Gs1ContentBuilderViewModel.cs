@@ -8,6 +8,7 @@ using AkelEtiket.Core.Model;
 using AkelEtiket.Gs1;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -72,7 +73,7 @@ public sealed partial class Gs1ContentRow : ObservableObject
     public string ProblemKey => Gs1BuilderMessage.KeyOf(ProblemKind);
 
     /// <summary>Seçili AI'nın biçimi ve Türkçe açıklaması.</summary>
-    public string Hint => Ai is null ? "Listeden bir AI seçin (rakamını yazarak da arayabilirsiniz)." : $"{Ai.Format} · {Ai.Description}";
+    public string Hint => Ai is null ? L10n.T("Listeden bir AI seçin (rakamını yazarak da arayabilirsiniz).") : $"{Ai.Format} · {Ai.Description}";
 
     /// <summary>Değer yerine yazılabilecek alanlar: AI'ya uygun yerleşik alanlar ve veri kaynağının sütunları.</summary>
     public IReadOnlyList<string> Suggestions
@@ -122,7 +123,7 @@ public sealed partial class Gs1ContentBuilderViewModel : ObservableObject
     public Gs1ContentBuilderViewModel(BarcodeType symbology, string? content, Gs1CompanyProfile? profile, IEnumerable<string>? dataFields = null)
     {
         if (!BarcodeElement.IsGs1(symbology))
-            throw new ArgumentException("GS1 içerik oluşturucu yalnızca GS1-128, GS1 DataMatrix ve GS1 QR içindir.", nameof(symbology));
+            throw new ArgumentException(L10n.T("GS1 içerik oluşturucu yalnızca GS1-128, GS1 DataMatrix ve GS1 QR içindir."), nameof(symbology));
         Symbology = symbology;
         _fieldNames = (dataFields ?? [])
             .Where(f => !string.IsNullOrWhiteSpace(f))
@@ -146,7 +147,7 @@ public sealed partial class Gs1ContentBuilderViewModel : ObservableObject
 
     public string SymbologyName => BarcodeCatalog.GetDisplayName(Symbology);
 
-    public string Title => $"GS1 içerik oluşturucu — {SymbologyName}";
+    public string Title => L10n.T($"GS1 içerik oluşturucu — {SymbologyName}");
 
     /// <summary>Seçilebilir AI'lar (barkod motorunun bildiği tümü, Türkçe açıklamalı).</summary>
     public IReadOnlyList<Gs1AiInfo> AiChoices => Gs1AiCatalog.All;
@@ -159,8 +160,8 @@ public sealed partial class Gs1ContentBuilderViewModel : ObservableObject
     public bool HasGtins => Gtins.Count > 0;
 
     public string GtinNote => HasGtins
-        ? "Seçtiğiniz GTIN (01) ya da (02) satırına yazılır; satır yoksa eklenir."
-        : "GS1 Firma Profili'nde kayıtlı GTIN yok. Ayarlar → GS1 Firma Profili… bölümünden ekleyebilirsiniz.";
+        ? L10n.T("Seçtiğiniz GTIN (01) ya da (02) satırına yazılır; satır yoksa eklenir.")
+        : L10n.T("GS1 Firma Profili'nde kayıtlı GTIN yok. Ayarlar → GS1 Firma Profili… bölümünden ekleyebilirsiniz.");
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(UseGtinAs01Command), nameof(UseGtinAs02Command))]
@@ -227,19 +228,19 @@ public sealed partial class Gs1ContentBuilderViewModel : ObservableObject
         var warnings = new List<string>();
         bool hasGtin = set.Contains("01") || set.Contains("02");
         if (set.Contains("01") && set.Contains("02"))
-            warnings.Add("(01) ve (02) birlikte kullanılmaz: koli bir ticari ürünse (01), içindeki ürünleri gösteriyorsa (02) kullanılır.");
+            warnings.Add(L10n.T("(01) ve (02) birlikte kullanılmaz: koli bir ticari ürünse (01), içindeki ürünleri gösteriyorsa (02) kullanılır."));
         if (set.Contains("02") && !set.Contains("37"))
-            warnings.Add("(02) içerik GTIN'i, (37) adet ile birlikte kullanılır.");
+            warnings.Add(L10n.T("(02) içerik GTIN'i, (37) adet ile birlikte kullanılır."));
         if (set.Contains("37") && !set.Contains("02"))
-            warnings.Add("(37) adet, (02) içerik GTIN'i ile birlikte kullanılır.");
+            warnings.Add(L10n.T("(37) adet, (02) içerik GTIN'i ile birlikte kullanılır."));
         foreach (string ai in ais.Distinct(StringComparer.Ordinal))
         {
             bool attribute = TradeItemAttributes.Contains(ai) || IsMeasure(ai);
             if (attribute && !hasGtin)
-                warnings.Add($"({ai}) bir ürün numarasına bağlıdır: (01) GTIN ya da (02) içerik GTIN'i de ekleyin.");
+                warnings.Add(L10n.T($"({ai}) bir ürün numarasına bağlıdır: (01) GTIN ya da (02) içerik GTIN'i de ekleyin."));
         }
         if (set.Contains("21") && !set.Contains("01"))
-            warnings.Add("(21) seri numarası (01) GTIN ile birlikte kullanılır.");
+            warnings.Add(L10n.T("(21) seri numarası (01) GTIN ile birlikte kullanılır."));
         return warnings;
     }
 
@@ -281,12 +282,12 @@ public sealed partial class Gs1ContentBuilderViewModel : ObservableObject
         }
         if (consumed != text.Length || rows.Count == 0)
         {
-            LoadNote = $"Şimdiki içerik \"{Shorten(text)}\" AI satırlarına ayrılamadı. Uygula'ya basarsanız yerine buradaki içerik yazılır.";
+            LoadNote = L10n.T($"Şimdiki içerik \"{Shorten(text)}\" AI satırlarına ayrılamadı. Uygula'ya basarsanız yerine buradaki içerik yazılır.");
             Rows.Add(CreateRow(Gs1AiCatalog.Find("01"), ""));
             return;
         }
         if (unknown.Count > 0)
-            LoadNote = $"{string.Join(", ", unknown)} bilinen bir GS1 AI değil; bu satırlar için listeden AI seçin ya da satırı silin.";
+            LoadNote = L10n.T($"{string.Join(", ", unknown)} bilinen bir GS1 AI değil; bu satırlar için listeden AI seçin ya da satırı silin.");
         foreach (var row in rows) Rows.Add(row);
     }
 
@@ -348,9 +349,9 @@ public sealed partial class Gs1ContentBuilderViewModel : ObservableObject
             messages.Add(new(Gs1MessageKind.Error, "En az bir AI ekleyin."));
         int errorRows = Rows.Count(r => r.Problem is not null && r.ProblemKind == Gs1MessageKind.Error);
         if (errorRows > 0)
-            messages.Add(new(Gs1MessageKind.Error, $"{errorRows} satırda hata var; içerik ancak hatalar düzeltilince uygulanabilir."));
+            messages.Add(new(Gs1MessageKind.Error, L10n.T($"{errorRows} satırda hata var; içerik ancak hatalar düzeltilince uygulanabilir.")));
         foreach (var dup in complete.GroupBy(r => r.Ai).Where(g => g.Count() > 1))
-            messages.Add(new(Gs1MessageKind.Error, $"({dup.Key}) birden fazla kez kullanılmış."));
+            messages.Add(new(Gs1MessageKind.Error, L10n.T($"({dup.Key}) birden fazla kez kullanılmış.")));
 
         // Bütün içerik ancak satırlar tek tek geçerliyse denetlenir; alan varsa değerler baskıda belli olur.
         if (messages.Count == 0)
@@ -359,14 +360,14 @@ public sealed partial class Gs1ContentBuilderViewModel : ObservableObject
             if (hasFields)
             {
                 messages.Add(new(Gs1MessageKind.Info,
-                    "İçerikte veri alanı var: alanların değerleri önizlemede ve baskıda, gerçek verilerle GS1 kurallarına göre yeniden denetlenir."));
+                    L10n.T("İçerikte veri alanı var: alanların değerleri önizlemede ve baskıda, gerçek verilerle GS1 kurallarına göre yeniden denetlenir.")));
             }
             else
             {
                 var result = BarcodeValidator.Validate(Symbology, Content);
                 foreach (string error in result.Errors) messages.Add(new(Gs1MessageKind.Error, error));
                 if (result.IsValid)
-                    messages.Add(new(Gs1MessageKind.Ok, $"Geçerli {SymbologyName} içeriği. Okunur metin: {result.HumanReadableText}"));
+                    messages.Add(new(Gs1MessageKind.Ok, L10n.T($"Geçerli {SymbologyName} içeriği. Okunur metin: {result.HumanReadableText}")));
             }
         }
 
@@ -374,13 +375,13 @@ public sealed partial class Gs1ContentBuilderViewModel : ObservableObject
         foreach (string warning in PairingWarnings(ais)) messages.Add(new(Gs1MessageKind.Warning, warning));
         if (HasVariableBeforeFixed(ais))
             messages.Add(new(Gs1MessageKind.Info,
-                "İpucu: sabit uzunluklu AI'ları ((01), (17) gibi) başa, değişken uzunlukluları ((10), (21) gibi) sona almak ayırıcı sayısını azaltır ve sembolü küçültür."));
+                L10n.T("İpucu: sabit uzunluklu AI'ları ((01), (17) gibi) başa, değişken uzunlukluları ((10), (21) gibi) sona almak ayırıcı sayısını azaltır ve sembolü küçültür.")));
         if (complete.Any(r => r.Ai == "00" && FieldTemplate.GetFieldNames(r.TrimmedValue).Any(n => FieldNames.Normalize(n) == "sscc")))
             messages.Add(new(Gs1MessageKind.Info,
-                "{SSCC}: numara her etiket için baskı anında GS1 Firma Profili'nden ayrılır ve kaydedilir (önizlemede 18 sıfır görünür). Firma öneki doğrulanmış olmalıdır."));
+                L10n.T("{SSCC}: numara her etiket için baskı anında GS1 Firma Profili'nden ayrılır ve kaydedilir (önizlemede 18 sıfır görünür). Firma öneki doğrulanmış olmalıdır.")));
         if (ais.Contains("00") && Symbology != BarcodeType.Gs1_128)
             messages.Add(new(Gs1MessageKind.Info,
-                "Lojistik etiket standardı SSCC için GS1-128 barkod ister; GS1 DataMatrix / GS1 QR'ı ona ek olarak kullanın."));
+                L10n.T("Lojistik etiket standardı SSCC için GS1-128 barkod ister; GS1 DataMatrix / GS1 QR'ı ona ek olarak kullanın.")));
 
         Messages.Clear();
         foreach (var message in messages) Messages.Add(message);
@@ -404,9 +405,9 @@ public sealed partial class Gs1ContentBuilderViewModel : ObservableObject
         string value = row.TrimmedValue;
         (Gs1MessageKind kind, string? problem) = row.Ai switch
         {
-            null => (Gs1MessageKind.Error, "AI seçin."),
-            _ when value.Length == 0 => (Gs1MessageKind.Error, "Değer boş."),
-            _ when value.IndexOfAny(['(', ')']) >= 0 => (Gs1MessageKind.Error, "Değerde parantez kullanılamaz: parantez AI'ları ayırır."),
+            null => (Gs1MessageKind.Error, L10n.T("AI seçin.")),
+            _ when value.Length == 0 => (Gs1MessageKind.Error, L10n.T("Değer boş.")),
+            _ when value.IndexOfAny(['(', ')']) >= 0 => (Gs1MessageKind.Error, L10n.T("Değerde parantez kullanılamaz: parantez AI'ları ayırır.")),
             { } ai when row.HasFields => EvaluateFields(ai, value),
             { } ai => EvaluateFixed(ai, value),
         };
@@ -418,14 +419,14 @@ public sealed partial class Gs1ContentBuilderViewModel : ObservableObject
     {
         var names = FieldTemplate.GetFieldNames(value);
         if (names.Any(n => FieldNames.Normalize(n) == "sscc") && ai.Ai != "00")
-            return (Gs1MessageKind.Error, "{SSCC} yalnızca (00) AI'sıyla kullanılır.");
+            return (Gs1MessageKind.Error, L10n.T("{SSCC} yalnızca (00) AI'sıyla kullanılır."));
         if (_fieldNames.Count > 0)
         {
             var missing = names.Where(n => !_knownFields.Contains(FieldNames.Normalize(n))).ToList();
             if (missing.Count > 0)
-                return (Gs1MessageKind.Warning, $"Veri kaynağında {string.Join(", ", missing.Select(FieldTemplate.MakePlaceholder))} sütunu yok.");
+                return (Gs1MessageKind.Warning, L10n.T($"Veri kaynağında {string.Join(", ", missing.Select(FieldTemplate.MakePlaceholder))} sütunu yok."));
         }
-        return (Gs1MessageKind.Info, $"Değer baskıda {string.Join(", ", names.Select(FieldTemplate.MakePlaceholder))} alanından gelir.");
+        return (Gs1MessageKind.Info, L10n.T($"Değer baskıda {string.Join(", ", names.Select(FieldTemplate.MakePlaceholder))} alanından gelir."));
     }
 
     private (Gs1MessageKind, string?) EvaluateFixed(Gs1AiInfo ai, string value)

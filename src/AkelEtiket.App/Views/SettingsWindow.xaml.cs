@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Input;
 using AkelEtiket.Editor.ViewModels;
 using Microsoft.Win32;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.App.Views;
 
@@ -19,7 +20,7 @@ public partial class SettingsWindow : ThemedWindow
 
     private void OnBrowseTemplates(object sender, RoutedEventArgs e)
     {
-        var dialog = new OpenFolderDialog { Title = "Şablon klasörünü seçin", InitialDirectory = _vm.TemplatesFolder };
+        var dialog = new OpenFolderDialog { Title = L10n.T("Şablon klasörünü seçin"), InitialDirectory = _vm.TemplatesFolder };
         if (dialog.ShowDialog(this) == true) _vm.TemplatesFolder = dialog.FolderName;
     }
 

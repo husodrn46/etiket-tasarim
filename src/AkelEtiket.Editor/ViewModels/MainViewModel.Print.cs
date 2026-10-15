@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -44,17 +45,17 @@ public sealed partial class MainViewModel
         OnPropertyChanged(nameof(Settings));
         OnPropertyChanged(nameof(LabelSizeText));
         OnPropertyChanged(nameof(DotsPerMm));
-        StatusMessage = "Ayarlar kaydedildi.";
+        StatusMessage = L10n.T("Ayarlar kaydedildi.");
         if (vm.CreateCompanyTemplates)
         {
             try
             {
                 int created = Templates.AddCompanyTemplates();
-                StatusMessage = $"Ayarlar kaydedildi; firma bilgileriyle {created} yeni şablon eklendi. Mevcut şablonlar korundu.";
+                StatusMessage = L10n.T($"Ayarlar kaydedildi; firma bilgileriyle {created} yeni şablon eklendi. Mevcut şablonlar korundu.");
             }
             catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ProjectManager.ProjectFileException)
             {
-                Dialogs.ShowMessage("Firma şablonları", "Ayarlar kaydedildi, ancak yeni şablonlar eklenemedi: " + ex.Message, AkelEtiket.Editor.Services.MessageKind.Warning);
+                Dialogs.ShowMessage(L10n.T("Firma şablonları"), L10n.T("Ayarlar kaydedildi, ancak yeni şablonlar eklenemedi: ") + ex.Message, AkelEtiket.Editor.Services.MessageKind.Warning);
             }
         }
     }

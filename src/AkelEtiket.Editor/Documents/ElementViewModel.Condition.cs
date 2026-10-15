@@ -1,5 +1,6 @@
 using AkelEtiket.Core.Model;
 using AkelEtiket.Rendering;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.Documents;
 
@@ -65,10 +66,10 @@ public sealed partial class ElementViewModel
 
     /// <summary>Koşulun durumu (önizleme satırına göre).</summary>
     public string? ConditionStatusText => Model.VisibleWhen is not { } condition
-        ? ConditionEnabled ? "Koşul için bir alan seçin." : null
+        ? ConditionEnabled ? L10n.T("Koşul için bir alan seçin.") : null
         : RenderResult?.HiddenByCondition == true
-            ? $"Bu önizleme satırında koşul sağlanmıyor: öğe basılmaz (yalnızca {condition.Describe()} basılır)."
-            : $"Yalnızca {condition.Describe()} basılır.";
+            ? L10n.T($"Bu önizleme satırında koşul sağlanmıyor: öğe basılmaz (yalnızca {condition.Describe()} basılır).")
+            : L10n.T($"Yalnızca {condition.Describe()} basılır.");
 
     /// <summary>Modeldeki koşulu taslağa alır (dosyadan açılan ya da geri alınan koşul düzenlenirken).</summary>
     private void SyncDraftFromModel()

@@ -5,6 +5,7 @@ using AkelEtiket.Editor.Services;
 using AkelEtiket.Editor.Templates;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -32,8 +33,8 @@ public sealed partial class CalibrationViewModel : ObservableObject
     public double ExpectedMm => CalibrationLabelFactory.FrameInsetMm;
 
     public string PrinterText => _print.SelectedPrinter is { } p
-        ? $"{p.Name} · {(_print.IsTspl ? "TSPL doğrudan" : "Windows sürücüsü")}"
-        : "Yazıcı seçilmedi";
+        ? $"{p.Name} · {(_print.IsTspl ? L10n.T("TSPL doğrudan") : L10n.T("Windows sürücüsü"))}"
+        : L10n.T("Yazıcı seçilmedi");
 
     public string LabelText
     {
@@ -42,9 +43,9 @@ public sealed partial class CalibrationViewModel : ObservableObject
             var label = _print.Label;
             string media = label.Media switch
             {
-                MediaType.BlackMark => $"siyah işaretli ({label.GapMm:0.##} mm)",
-                MediaType.Continuous => "sürekli rulo",
-                _ => $"boşluklu (boşluk {label.GapMm:0.##} mm)",
+                MediaType.BlackMark => L10n.T($"siyah işaretli ({label.GapMm:0.##} mm)"),
+                MediaType.Continuous => L10n.T("sürekli rulo"),
+                _ => L10n.T($"boşluklu (boşluk {label.GapMm:0.##} mm)"),
             };
             return string.Create(Turkish, $"{label.WidthMm:0.##} × {label.HeightMm:0.##} mm · {media}");
         }
@@ -57,19 +58,19 @@ public sealed partial class CalibrationViewModel : ObservableObject
 
     public string SensorText => _print.Label.Media switch
     {
-        MediaType.Continuous => "Sürekli ruloda etiket arası olmadığı için sensör kalibrasyonu gerekmez.",
+        MediaType.Continuous => L10n.T("Sürekli ruloda etiket arası olmadığı için sensör kalibrasyonu gerekmez."),
         MediaType.BlackMark =>
-            "BLINEDETECT: yazıcı birkaç etiket ilerleterek arkadaki siyah işaretleri ölçer ve etiket boyunu hafızasına yazar. " +
-            "Rulo değiştirdiğinizde, baskı her etikette aynı yerden başlamıyorsa ya da yazıcı kırmızı ışıkla duruyorsa yapın.",
+            L10n.T("BLINEDETECT: yazıcı birkaç etiket ilerleterek arkadaki siyah işaretleri ölçer ve etiket boyunu hafızasına yazar. ") +
+            L10n.T("Rulo değiştirdiğinizde, baskı her etikette aynı yerden başlamıyorsa ya da yazıcı kırmızı ışıkla duruyorsa yapın."),
         _ =>
-            "GAPDETECT: yazıcı birkaç etiket ilerleterek etiketler arasındaki boşluğu ölçer ve etiket boyunu hafızasına yazar. " +
-            "Rulo değiştirdiğinizde, baskı her etikette aynı yerden başlamıyorsa (etiketler kayarak ya da iki etikete bölünerek " +
-            "basılıyorsa) veya yazıcı kırmızı ışıkla duruyorsa yapın. Komut birkaç boş etiket harcayabilir.",
+            L10n.T("GAPDETECT: yazıcı birkaç etiket ilerleterek etiketler arasındaki boşluğu ölçer ve etiket boyunu hafızasına yazar. ") +
+            L10n.T("Rulo değiştirdiğinizde, baskı her etikette aynı yerden başlamıyorsa (etiketler kayarak ya da iki etikete bölünerek ") +
+            L10n.T("basılıyorsa) veya yazıcı kırmızı ışıkla duruyorsa yapın. Komut birkaç boş etiket harcayabilir."),
     };
 
     public string DirectionText => _print.Rotate180
-        ? "Şu an: 180° döndürülmüş (TSPL DIRECTION 0 — sipariş sistemiyle aynı)."
-        : "Şu an: normal yön (TSPL DIRECTION 1).";
+        ? L10n.T("Şu an: 180° döndürülmüş (TSPL DIRECTION 0 — sipariş sistemiyle aynı).")
+        : L10n.T("Şu an: normal yön (TSPL DIRECTION 1).");
 
     public double CurrentOffsetXMm => _print.OffsetXMm;
     public double CurrentOffsetYMm => _print.OffsetYMm;
@@ -94,17 +95,17 @@ public sealed partial class CalibrationViewModel : ObservableObject
         {
             double dx = MeasuredLeftMm - ExpectedMm, dy = MeasuredTopMm - ExpectedMm;
             if (Math.Abs(dx) < 0.01 && Math.Abs(dy) < 0.01)
-                return "Çerçeve beklenen yerde: ofset değişmez.";
-            string h = Math.Abs(dx) < 0.01 ? "yatayda kayma yok" : string.Create(Turkish, $"içerik {Math.Abs(dx):0.##} mm {(dx > 0 ? "sağa" : "sola")}");
-            string v = Math.Abs(dy) < 0.01 ? "dikeyde kayma yok" : string.Create(Turkish, $"{Math.Abs(dy):0.##} mm {(dy > 0 ? "aşağı" : "yukarı")} kaymış");
-            return string.Create(Turkish, $"{h}, {v} → yeni ofset sağ {NewOffsetXMm:0.###} mm, aşağı {NewOffsetYMm:0.###} mm");
+                return L10n.T("Çerçeve beklenen yerde: ofset değişmez.");
+            string h = Math.Abs(dx) < 0.01 ? L10n.T("yatayda kayma yok") : L10n.T($"içerik {Math.Abs(dx):0.##} mm {(dx > 0 ? L10n.T("sağa") : "sola")}");
+            string v = Math.Abs(dy) < 0.01 ? L10n.T("dikeyde kayma yok") : L10n.T($"{Math.Abs(dy):0.##} mm {(dy > 0 ? L10n.T("aşağı") : L10n.T("yukarı"))} kaymış");
+            return L10n.T($"{h}, {v} → yeni ofset sağ {NewOffsetXMm:0.###} mm, aşağı {NewOffsetYMm:0.###} mm");
         }
     }
 
     /// <summary>Kaydedilecek profil hakkında bilgi.</summary>
     public string TargetProfileText => _print.SelectedProfile is { IsBuiltIn: false } p
         ? $"Ofsetler \"{p.Name}\" profiline de kaydedilir."
-        : "Hazır profil değiştirilemez: uygularken yeni bir profil adı sorulur (vazgeçerseniz ofsetler yalnızca yazıcı ayarlarına kaydedilir).";
+        : L10n.T("Hazır profil değiştirilemez: uygularken yeni bir profil adı sorulur (vazgeçerseniz ofsetler yalnızca yazıcı ayarlarına kaydedilir).");
 
     [ObservableProperty]
     public partial string Status { get; private set; } = "";
@@ -126,8 +127,8 @@ public sealed partial class CalibrationViewModel : ObservableObject
             bool? sent = await _print.DetectMediaAsync();
             if (sent is null) return;
             Status = sent == true
-                ? "Sensör kalibrasyonu komutu yazıcı kuyruğuna gönderildi. Yazıcı birkaç etiket ilerletip durmalı; ardından kalibrasyon etiketini basın."
-                : "Sensör kalibrasyonu komutu gönderilemedi; baskı penceresindeki rapora bakın.";
+                ? L10n.T("Sensör kalibrasyonu komutu yazıcı kuyruğuna gönderildi. Yazıcı birkaç etiket ilerletip durmalı; ardından kalibrasyon etiketini basın.")
+                : L10n.T("Sensör kalibrasyonu komutu gönderilemedi; baskı penceresindeki rapora bakın.");
         }
         finally
         {
@@ -141,21 +142,21 @@ public sealed partial class CalibrationViewModel : ObservableObject
     {
         if (_print.SelectedPrinter is not { } printer)
         {
-            _dialogs.ShowMessage("Kalibrasyon etiketi", "Lütfen baskı penceresinde bir yazıcı seçin.", MessageKind.Warning);
+            _dialogs.ShowMessage(L10n.T("Kalibrasyon etiketi"), L10n.T("Lütfen baskı penceresinde bir yazıcı seçin."), MessageKind.Warning);
             return;
         }
         var label = _print.Label;
-        if (!_dialogs.Confirm("Kalibrasyon etiketi",
-                string.Create(Turkish, $"\"{printer.Name}\" yazıcısına 1 adet {label.WidthMm:0.##} × {label.HeightMm:0.##} mm kalibrasyon etiketi gönderilecek ") +
-                "(penceredeki yoğunluk, hız, yön ve ofset ayarlarıyla).\n\nGönderilsin mi?", "Yazdır", "Vazgeç"))
+        if (!_dialogs.Confirm(L10n.T("Kalibrasyon etiketi"),
+                L10n.T($"\"{printer.Name}\" yazıcısına 1 adet {label.WidthMm:0.##} × {label.HeightMm:0.##} mm kalibrasyon etiketi gönderilecek ") +
+                L10n.T("(penceredeki yoğunluk, hız, yön ve ofset ayarlarıyla).\n\nGönderilsin mi?"), L10n.T("Yazdır"), L10n.T("Vazgeç")))
             return;
         IsWorking = true;
         try
         {
             bool ok = await _print.PrintCalibrationLabelAsync();
             Status = ok
-                ? "Kalibrasyon etiketi yazıcı kuyruğuna gönderildi. Etiketi alın: önce ▲ ÜST işaretinin yönünü kontrol edin, sonra sol ve üst kenardan çerçeveye olan uzaklığı ölçün."
-                : "Kalibrasyon etiketi gönderilemedi; baskı penceresindeki rapora bakın.";
+                ? L10n.T("Kalibrasyon etiketi yazıcı kuyruğuna gönderildi. Etiketi alın: önce ▲ ÜST işaretinin yönünü kontrol edin, sonra sol ve üst kenardan çerçeveye olan uzaklığı ölçün.")
+                : L10n.T("Kalibrasyon etiketi gönderilemedi; baskı penceresindeki rapora bakın.");
             NotifyOffsets();
         }
         finally
@@ -172,7 +173,7 @@ public sealed partial class CalibrationViewModel : ObservableObject
         _print.SaveCurrentSettings();
         MeasuredLeftMm = ExpectedMm;
         MeasuredTopMm = ExpectedMm;
-        Status = "Baskı yönü değiştirildi. " + DirectionText + " Yön değişince kayma da değişir: kalibrasyon etiketini yeniden basıp ölçün.";
+        Status = L10n.T("Baskı yönü değiştirildi. ") + DirectionText + L10n.T(" Yön değişince kayma da değişir: kalibrasyon etiketini yeniden basıp ölçün.");
         OnPropertyChanged(nameof(DirectionText));
     }
 
@@ -183,7 +184,7 @@ public sealed partial class CalibrationViewModel : ObservableObject
         double maxX = _print.Label.WidthMm / 2, maxY = _print.Label.HeightMm / 2;
         if (MeasuredLeftMm < 0 || MeasuredTopMm < 0 || MeasuredLeftMm > maxX || MeasuredTopMm > maxY)
         {
-            _dialogs.ShowMessage("Kalibrasyon", "Ölçülen uzaklık etiketin yarısından büyük olamaz. Etiketin kenarından çerçevenin dış çizgisine kadar ölçün.", MessageKind.Warning);
+            _dialogs.ShowMessage(L10n.T("Kalibrasyon"), L10n.T("Ölçülen uzaklık etiketin yarısından büyük olamaz. Etiketin kenarından çerçevenin dış çizgisine kadar ölçün."), MessageKind.Warning);
             return;
         }
         Status = _print.StoreCalibration(NewOffsetXMm, NewOffsetYMm);

@@ -7,6 +7,7 @@ using AkelEtiket.Editor.Documents;
 using AkelEtiket.Editor.Services;
 using AkelEtiket.ImageProcessor;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.ViewModels;
 
@@ -15,7 +16,7 @@ public sealed partial class MainViewModel
     // ───────────────────────── Öğe ekleme ─────────────────────────
 
     [RelayCommand]
-    private void AddText() => AddTextWithContent("Metin");
+    private void AddText() => AddTextWithContent(L10n.T("Metin"));
 
     /// <summary>Hazır metin stili ekler: "Baslik", "AltBaslik", "Govde", "Kucuk".</summary>
     [RelayCommand]
@@ -23,13 +24,13 @@ public sealed partial class MainViewModel
     {
         var text = style switch
         {
-            "Baslik" => new TextElement { Text = "Başlık", FontSize = 24, Bold = true, Width = 70, Height = 11 },
-            "AltBaslik" => new TextElement { Text = "Alt başlık", FontSize = 14, Bold = true, Width = 60, Height = 7 },
-            "Kucuk" => new TextElement { Text = "Küçük metin", FontSize = 8, Width = 40, Height = 5 },
-            _ => new TextElement { Text = "Metin", FontSize = 12, Width = 50, Height = 7 },
+            "Baslik" => new TextElement { Text = L10n.T("Başlık"), FontSize = 24, Bold = true, Width = 70, Height = 11 },
+            "AltBaslik" => new TextElement { Text = L10n.T("Alt başlık"), FontSize = 14, Bold = true, Width = 60, Height = 7 },
+            "Kucuk" => new TextElement { Text = L10n.T("Küçük metin"), FontSize = 8, Width = 40, Height = 5 },
+            _ => new TextElement { Text = L10n.T("Metin"), FontSize = 12, Width = 50, Height = 7 },
         };
         var added = Session.AddCentered(text);
-        SetStatus("Metin eklendi: yazmaya başlayın (Enter: bitir, Shift+Enter: yeni satır, Esc: vazgeç).");
+        SetStatus(L10n.T("Metin eklendi: yazmaya başlayın (Enter: bitir, Shift+Enter: yeni satır, Esc: vazgeç)."));
         RequestInlineTextEdit(added);
     }
 
@@ -46,7 +47,7 @@ public sealed partial class MainViewModel
         if (string.IsNullOrWhiteSpace(column)) return;
         var text = new TextElement { Text = FieldTemplate.MakePlaceholder(column), FontSize = 12, Width = 60, Height = 7, AutoShrink = true, WordWrap = false };
         Session.AddCentered(text);
-        SetStatus($"{{{column}}} alanına bağlı metin eklendi.");
+        SetStatus(L10n.T($"{{{column}}} alanına bağlı metin eklendi."));
     }
 
     /// <summary>Seçili metin/barkoda alan ekler; seçim yoksa yeni metin oluşturur.</summary>
@@ -58,12 +59,12 @@ public sealed partial class MainViewModel
         switch (SelectedElement?.Model)
         {
             case TextElement text:
-                text.Text = string.IsNullOrEmpty(text.Text) || text.Text == "Metin" ? placeholder : text.Text + " " + placeholder;
-                SetStatus($"{placeholder} metne eklendi.");
+                text.Text = string.IsNullOrEmpty(text.Text) || (text.Text is "Metin" or "Text") ? placeholder : text.Text + " " + placeholder;
+                SetStatus(L10n.T($"{placeholder} metne eklendi."));
                 break;
             case BarcodeElement barcode:
                 barcode.Content = placeholder;
-                SetStatus($"Barkod içeriği {placeholder} alanına bağlandı.");
+                SetStatus(L10n.T($"Barkod içeriği {placeholder} alanına bağlandı."));
                 break;
             default:
                 AddFieldText(column);
@@ -104,7 +105,7 @@ public sealed partial class MainViewModel
             if (column is not null) barcode.Content = FieldTemplate.MakePlaceholder(column);
         }
         Session.AddCentered(barcode);
-        SetStatus($"{BarcodeCatalog.GetDisplayName(type)} eklendi.");
+        SetStatus(L10n.T($"{BarcodeCatalog.GetDisplayName(type)} eklendi."));
     }
 
     [RelayCommand]
@@ -121,7 +122,7 @@ public sealed partial class MainViewModel
             "FilledRect" => new ShapeElement { Kind = ShapeKind.Rectangle, Width = 40, Height = 12, Fill = FillStyle.Black, StrokeWidth = 0 },
             "Frame" => new ShapeElement
             {
-                Kind = ShapeKind.Rectangle, Name = "Çerçeve", X = 1.5, Y = 1.5, StrokeWidth = 0.5, CornerRadius = 2,
+                Kind = ShapeKind.Rectangle, Name = L10n.T("Çerçeve"), X = 1.5, Y = 1.5, StrokeWidth = 0.5, CornerRadius = 2,
                 Width = Session.Document.Label.WidthMm - 3, Height = Session.Document.Label.HeightMm - 3,
             },
             _ => new ShapeElement { Kind = ShapeKind.Rectangle, Width = 40, Height = 25 },
@@ -133,7 +134,7 @@ public sealed partial class MainViewModel
     [RelayCommand]
     private void AddImage()
     {
-        string? path = Dialogs.ShowOpenFileDialog("Görsel ekle", ImageLoader.OpenFileFilter, Settings.LastImageFolder);
+        string? path = Dialogs.ShowOpenFileDialog(L10n.T("Görsel ekle"), ImageLoader.OpenFileFilter, Settings.LastImageFolder);
         if (path is null) return;
         Settings.LastImageFolder = Path.GetDirectoryName(path);
         AddImageFromFile(path, null, null);
@@ -149,7 +150,7 @@ public sealed partial class MainViewModel
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            Dialogs.ShowMessage("Görsel okunamadı", ex.Message, MessageKind.Error);
+            Dialogs.ShowMessage(L10n.T("Görsel okunamadı"), ex.Message, MessageKind.Error);
             return;
         }
         AddImageFromBytes(data, Path.GetFileName(path), xMm, yMm);
@@ -168,7 +169,7 @@ public sealed partial class MainViewModel
         }
         catch (ImageLoadException ex)
         {
-            Dialogs.ShowMessage("Görsel eklenemedi", ex.Message, MessageKind.Error);
+            Dialogs.ShowMessage(L10n.T("Görsel eklenemedi"), ex.Message, MessageKind.Error);
             return;
         }
         var asset = Session.Assets.Add(data, fileName);
@@ -187,8 +188,8 @@ public sealed partial class MainViewModel
         {
             Session.AddCentered(image);
         }
-        SetStatus($"Görsel eklendi ve 1-bit siyah-beyaza dönüştürüldü ({width} × {height} px). Ayarlar sağ panelde." +
-                  (warning is null ? "" : " Uyarı: " + warning));
+        SetStatus(L10n.T($"Görsel eklendi ve 1-bit siyah-beyaza dönüştürüldü ({width} × {height} px). Ayarlar sağ panelde.") +
+                  (warning is null ? "" : L10n.T(" Uyarı: ") + warning));
     }
 
     // ───────────────────────── Düzen ─────────────────────────
@@ -197,7 +198,7 @@ public sealed partial class MainViewModel
     private void Undo()
     {
         Session.Undo();
-        SetStatus("Geri alındı.");
+        SetStatus(L10n.T("Geri alındı."));
     }
 
     private bool CanUndo() => Session.CanUndo;
@@ -206,7 +207,7 @@ public sealed partial class MainViewModel
     private void Redo()
     {
         Session.Redo();
-        SetStatus("İleri alındı.");
+        SetStatus(L10n.T("İleri alındı."));
     }
 
     private bool CanRedo() => Session.CanRedo;
@@ -226,7 +227,7 @@ public sealed partial class MainViewModel
         }));
         _services.Clipboard.SetElements(payload, plain);
         _pasteCount = 0;
-        SetStatus($"{Session.SelectedElements.Count} öğe kopyalandı.");
+        SetStatus(L10n.T($"{Session.SelectedElements.Count} öğe kopyalandı."));
     }
 
     [RelayCommand(CanExecute = nameof(CanEditSelection))]
@@ -245,7 +246,7 @@ public sealed partial class MainViewModel
         string? payload = clipboard.GetElements();
         if (payload is not null && Session.PastePayload(payload, 3 * ++_pasteCount))
         {
-            SetStatus("Yapıştırıldı.");
+            SetStatus(L10n.T("Yapıştırıldı."));
             return;
         }
         if (clipboard.GetImagePng() is { Length: > 0 } png)
@@ -257,7 +258,7 @@ public sealed partial class MainViewModel
         {
             var element = new TextElement { Text = text.Length > 500 ? text[..500] : text, FontSize = 12, Width = 60, Height = 10, AutoShrink = true };
             Session.AddCentered(element);
-            SetStatus("Panodaki metin eklendi.");
+            SetStatus(L10n.T("Panodaki metin eklendi."));
         }
     }
 
@@ -269,7 +270,7 @@ public sealed partial class MainViewModel
     {
         int lockedCount = Session.SelectedElements.Count(e => e.Model.Locked);
         Session.DeleteSelection();
-        if (lockedCount > 0) SetStatus($"{lockedCount} kilitli öğe silinmedi (önce kilidi açın).");
+        if (lockedCount > 0) SetStatus(L10n.T($"{lockedCount} kilitli öğe silinmedi (önce kilidi açın)."));
     }
 
     [RelayCommand]
@@ -285,17 +286,17 @@ public sealed partial class MainViewModel
     [RelayCommand]
     private void GroupSelection()
     {
-        if (Session.GroupSelection()) SetStatus($"{Session.SelectedElements.Count} öğe gruplandı (birlikte seçilir ve taşınır). Çözmek için Ctrl+Shift+G.");
-        else if (Session.SelectedElements.Count < 2) SetStatus("Gruplamak için en az iki öğe seçin.");
-        else SetStatus("Kilitli öğeler gruplanamaz.");
+        if (Session.GroupSelection()) SetStatus(L10n.T($"{Session.SelectedElements.Count} öğe gruplandı (birlikte seçilir ve taşınır). Çözmek için Ctrl+Shift+G."));
+        else if (Session.SelectedElements.Count < 2) SetStatus(L10n.T("Gruplamak için en az iki öğe seçin."));
+        else SetStatus(L10n.T("Kilitli öğeler gruplanamaz."));
     }
 
     /// <summary>Seçili öğelerin grubunu çözer (Ctrl+Shift+G).</summary>
     [RelayCommand]
     private void UngroupSelection()
     {
-        if (Session.UngroupSelection()) SetStatus("Grup çözüldü.");
-        else SetStatus("Seçimde grup yok.");
+        if (Session.UngroupSelection()) SetStatus(L10n.T("Grup çözüldü."));
+        else SetStatus(L10n.T("Seçimde grup yok."));
     }
 
     [RelayCommand(CanExecute = nameof(CanEditSelection))]
@@ -335,7 +336,7 @@ public sealed partial class MainViewModel
     private void RenameElement(ElementViewModel? vm)
     {
         if (vm is null) return;
-        string? name = Dialogs.Prompt("Yeniden adlandır", "Öğe adı:", vm.Model.DisplayName);
+        string? name = Dialogs.Prompt(L10n.T("Yeniden adlandır"), L10n.T("Öğe adı:"), vm.Model.DisplayName);
         if (name is not null) vm.Model.Name = name.Trim();
     }
 
@@ -358,7 +359,7 @@ public sealed partial class MainViewModel
         var info = vm.RenderResult?.Barcode;
         if (info?.Symbol is null)
         {
-            Dialogs.ShowMessage("Barkod", "Önce geçerli bir barkod içeriği girin (değişken alanlı barkodlarda veri kaynağı yükleyin).", MessageKind.Info);
+            Dialogs.ShowMessage(L10n.T("Barkod"), L10n.T("Önce geçerli bir barkod içeriği girin (değişken alanlı barkodlarda veri kaynağı yükleyin)."), MessageKind.Info);
             return;
         }
         int module = moduleDots > 0 ? moduleDots : Math.Max(1, info.ModuleDots);
@@ -378,7 +379,7 @@ public sealed partial class MainViewModel
                 barcode.Height = BarcodeLayoutEngine.GetRequiredHeightDots(matrix, module, options) / DotsPerMm;
             barcode.X = Math.Round(oldCenterX - barcode.Width / 2, 3);
         }
-        SetStatus($"Modül genişliği {module} nokta ({module / DotsPerMm:0.###} mm); kutu barkoda oturtuldu.");
+        SetStatus(L10n.T($"Modül genişliği {module} nokta ({module / DotsPerMm:0.###} mm); kutu barkoda oturtuldu."));
     }
 
     [RelayCommand]
@@ -410,7 +411,7 @@ public sealed partial class MainViewModel
     private void ReplaceImage()
     {
         if (SelectedElement?.Model is not ImageElement image) return;
-        string? path = Dialogs.ShowOpenFileDialog("Görseli değiştir", ImageLoader.OpenFileFilter, Settings.LastImageFolder);
+        string? path = Dialogs.ShowOpenFileDialog(L10n.T("Görseli değiştir"), ImageLoader.OpenFileFilter, Settings.LastImageFolder);
         if (path is null) return;
         try
         {
@@ -421,7 +422,7 @@ public sealed partial class MainViewModel
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ImageLoadException)
         {
-            Dialogs.ShowMessage("Görsel değiştirilemedi", ex.Message, MessageKind.Error);
+            Dialogs.ShowMessage(L10n.T("Görsel değiştirilemedi"), ex.Message, MessageKind.Error);
         }
     }
 
@@ -435,13 +436,13 @@ public sealed partial class MainViewModel
         if (SelectedElement?.Model is not BarcodeElement barcode) return;
         if (barcode.Symbology is BarcodeType.Ean13 or BarcodeType.Ean8 or BarcodeType.UpcA or BarcodeType.Itf14)
         {
-            string? prefix = Dialogs.Prompt("Barkod numarası üret",
-                "GS1 üyelik belgenizdeki firma öneki (GCP). GLN veya ülke kodu girmeyin. Ürün numarası sıradaki değerden devam eder:",
+            string? prefix = Dialogs.Prompt(L10n.T("Barkod numarası üret"),
+                L10n.T("GS1 üyelik belgenizdeki firma öneki (GCP). GLN veya ülke kodu girmeyin. Ürün numarası sıradaki değerden devam eder:"),
                 Settings.Gs1CompanyPrefix);
             if (prefix is null) return;
             if (!Gs1.Gs1Identifiers.IsValidGcpFormat(prefix.Trim(), out var prefixProblem))
             {
-                Dialogs.ShowMessage("Firma öneki gerekli", prefixProblem ?? "GS1 belgenizdeki firma önekini girin.", MessageKind.Warning);
+                Dialogs.ShowMessage(L10n.T("Firma öneki gerekli"), prefixProblem ?? L10n.T("GS1 belgenizdeki firma önekini girin."), MessageKind.Warning);
                 return;
             }
             try
@@ -450,11 +451,11 @@ public sealed partial class MainViewModel
                 Settings.Gs1CompanyPrefix = prefix.Trim();
                 Settings.NextItemNumber++;
                 SaveSettings();
-                SetStatus($"Üretilen barkod: {barcode.Content}");
+                SetStatus(L10n.T($"Üretilen barkod: {barcode.Content}"));
             }
             catch (ArgumentException ex)
             {
-                Dialogs.ShowMessage("Barkod üretilemedi", ex.Message, MessageKind.Warning);
+                Dialogs.ShowMessage(L10n.T("Barkod üretilemedi"), ex.Message, MessageKind.Warning);
             }
             return;
         }

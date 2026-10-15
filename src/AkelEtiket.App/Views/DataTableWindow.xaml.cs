@@ -5,6 +5,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using AkelEtiket.Editor.ViewModels;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.App.Views;
 
@@ -63,20 +64,20 @@ public partial class DataTableWindow : ThemedWindow
         Grid.Columns.Clear();
         Grid.Columns.Add(new DataGridCheckBoxColumn
         {
-            Header = "Bas",
+            Header = L10n.T("Bas"),
             Binding = new Binding(nameof(DataRowViewModel.IsSelected)) { UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged },
             Width = 44,
         });
         Grid.Columns.Add(new DataGridTextColumn
         {
-            Header = "Satır",
+            Header = L10n.T("Satır"),
             Binding = new Binding(nameof(DataRowViewModel.RowNumber)),
             IsReadOnly = true,
             Width = 56,
         });
         Grid.Columns.Add(new DataGridTextColumn
         {
-            Header = "Adet",
+            Header = L10n.T("Adet"),
             Binding = new Binding(nameof(DataRowViewModel.Copies)) { UpdateSourceTrigger = UpdateSourceTrigger.LostFocus },
             Width = 60,
         });
@@ -110,7 +111,7 @@ public partial class DataTableWindow : ThemedWindow
         problemStyle.Setters.Add(new Setter(ToolTipProperty, new Binding(nameof(DataRowViewModel.Problem))));
         Grid.Columns.Add(new DataGridTextColumn
         {
-            Header = "Sorun",
+            Header = L10n.T("Sorun"),
             Binding = new Binding(nameof(DataRowViewModel.Problem)),
             IsReadOnly = true,
             Width = new DataGridLength(1, DataGridLengthUnitType.Star),

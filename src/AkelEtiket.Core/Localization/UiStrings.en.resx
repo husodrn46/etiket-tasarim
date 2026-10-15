@@ -1,0 +1,3750 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
+  </resheader>
+  <data xml:space="preserve" name="T_00076d2ac90b">
+    <value>ASSISTANT</value>
+  </data>
+  <data xml:space="preserve" name="T_00480b8f2d84">
+    <value>Delete selected</value>
+  </data>
+  <data xml:space="preserve" name="T_0059bfc57922">
+    <value>Field</value>
+  </data>
+  <data xml:space="preserve" name="T_00d2fd7ef973">
+    <value>Threshold</value>
+  </data>
+  <data xml:space="preserve" name="T_01611fca8842">
+    <value>Created a new {0:0.#} × {1:0.#} mm label.</value>
+  </data>
+  <data xml:space="preserve" name="T_01fde6ea1d06">
+    <value>Printer and size</value>
+  </data>
+  <data xml:space="preserve" name="T_022f98848d06">
+    <value>Drawing error: </value>
+  </data>
+  <data xml:space="preserve" name="T_023b1747b437">
+    <value>The template has changed since printing; the current version is used (no print snapshot available).</value>
+  </data>
+  <data xml:space="preserve" name="T_025443f49864">
+    <value>Cannot read the template folder: </value>
+  </data>
+  <data xml:space="preserve" name="T_02caeb350578">
+    <value>Auto recovery interval</value>
+  </data>
+  <data xml:space="preserve" name="T_0308e67479f3">
+    <value>Cannot open template: </value>
+  </data>
+  <data xml:space="preserve" name="T_036ca1ae75e0">
+    <value>Cannot import logo</value>
+  </data>
+  <data xml:space="preserve" name="T_037b5bb4e386">
+    <value> (print snapshot)</value>
+  </data>
+  <data xml:space="preserve" name="T_038dab327842">
+    <value>Printer</value>
+  </data>
+  <data xml:space="preserve" name="T_03f33b7c42fd">
+    <value>The automatic label/gap detection command ({0}) will be sent to the printer. The printer may feed several labels.
+
+</value>
+  </data>
+  <data xml:space="preserve" name="T_03f4f7edf2c6">
+    <value>Warning: could not back up the previous version (</value>
+  </data>
+  <data xml:space="preserve" name="T_03f8bc974056">
+    <value>Sensor calibration, ruler test label and measured offset adjustment</value>
+  </data>
+  <data xml:space="preserve" name="T_03ff5ae8fa2d">
+    <value>Sent: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_041319b7c7e2">
+    <value>Cannot write the recovery copy: </value>
+  </data>
+  <data xml:space="preserve" name="T_04194d26a35d">
+    <value>Diagonal (↗)</value>
+  </data>
+  <data xml:space="preserve" name="T_0442143b72bb">
+    <value>Save as, templates, PNG/PDF, print history, counters, data source</value>
+  </data>
+  <data xml:space="preserve" name="T_044a0ffdd5f9">
+    <value>LAYOUT AND CROP</value>
+  </data>
+  <data xml:space="preserve" name="T_0450b6cb1dde">
+    <value>The label is rendered as a 1-bit image at the printer resolution and sent directly using TSPL BITMAP. No scaling is applied.</value>
+  </data>
+  <data xml:space="preserve" name="T_04875a14b7ff">
+    <value>Use {SAYAC} (this label's counter) or a named counter such as {SAYAC.Koli} in text or barcodes; </value>
+  </data>
+  <data xml:space="preserve" name="T_0498bffb3556">
+    <value>{0} elements selected</value>
+  </data>
+  <data xml:space="preserve" name="T_049d9f2015d1">
+    <value> Missing data rows in file: </value>
+  </data>
+  <data xml:space="preserve" name="T_04ecfee5c483">
+    <value>The number of copies for each row is read from this column</value>
+  </data>
+  <data xml:space="preserve" name="T_050c0536feb2">
+    <value>Accept</value>
+  </data>
+  <data xml:space="preserve" name="T_059ce90d7179">
+    <value>Backup restored</value>
+  </data>
+  <data xml:space="preserve" name="T_06455df7d342">
+    <value>Add text</value>
+  </data>
+  <data xml:space="preserve" name="T_06c02f85a7af">
+    <value>, {0} rows have warnings.</value>
+  </data>
+  <data xml:space="preserve" name="T_06e44c77accf">
+    <value>Computer</value>
+  </data>
+  <data xml:space="preserve" name="T_06e63e63f6a1">
+    <value>GENERATED CONTENT</value>
+  </data>
+  <data xml:space="preserve" name="T_06f80b2d813c">
+    <value>{0} labels will be printed.</value>
+  </data>
+  <data xml:space="preserve" name="T_0729216bc964">
+    <value>Driver</value>
+  </data>
+  <data xml:space="preserve" name="T_07361857526c">
+    <value>Use after changing a roll, if printing starts in the wrong position, or if the printer stops with a red light.</value>
+  </data>
+  <data xml:space="preserve" name="T_074664b77811">
+    <value>The label is wider than the printer's print area. Correct the label size or printer width.</value>
+  </data>
+  <data xml:space="preserve" name="T_074ac785e8b1">
+    <value>This design has not been saved. Backups are kept for saved files.</value>
+  </data>
+  <data xml:space="preserve" name="T_074e464dc790">
+    <value>Preparing…</value>
+  </data>
+  <data xml:space="preserve" name="T_0788f382774e">
+    <value>Copied {0} formatting. Select elements of the same type and press Ctrl+Shift+V to apply.</value>
+  </data>
+  <data xml:space="preserve" name="T_07c883e0e986">
+    <value>Formatting pasted</value>
+  </data>
+  <data xml:space="preserve" name="T_07fecf18ff4c">
+    <value>Test label with border, ruler, center marks and barcodes to check size and alignment</value>
+  </data>
+  <data xml:space="preserve" name="T_082a2d588e00">
+    <value>Vertical line</value>
+  </data>
+  <data xml:space="preserve" name="T_0839d629db05">
+    <value>{0} labels will be printed. Continue?</value>
+  </data>
+  <data xml:space="preserve" name="T_0858e57a21bd">
+    <value>Undid {0} steps (Ctrl+Y to redo).</value>
+  </data>
+  <data xml:space="preserve" name="T_08721bbd5ede">
+    <value>not sent</value>
+  </data>
+  <data xml:space="preserve" name="T_088cd77aa2ba">
+    <value>Width × height</value>
+  </data>
+  <data xml:space="preserve" name="T_08a24723d591">
+    <value>Apply</value>
+  </data>
+  <data xml:space="preserve" name="T_08ede57f7e04">
+    <value>Cannot read data.</value>
+  </data>
+  <data xml:space="preserve" name="T_0907f493150a">
+    <value>Unicode text is supported, including Turkish characters (ğüşıöç). For phone scanning, use a module of at least 3 dots (0.375 mm at 203 DPI).</value>
+  </data>
+  <data xml:space="preserve" name="T_090a85bf9bfd">
+    <value>Build content from application identifiers: saved GTINs, (00){SSCC}, {Field} binding and live GS1 validation</value>
+  </data>
+  <data xml:space="preserve" name="T_09663f202d87">
+    <value>Printer profile: media settings</value>
+  </data>
+  <data xml:space="preserve" name="T_0969f8e8ffc1">
+    <value>"{0}" next {1}</value>
+  </data>
+  <data xml:space="preserve" name="T_09a6289e5566">
+    <value>Add shape</value>
+  </data>
+  <data xml:space="preserve" name="T_09a76b0d3760">
+    <value>Include quiet zone in bounds</value>
+  </data>
+  <data xml:space="preserve" name="T_09e5a284f6c9">
+    <value>Rename…</value>
+  </data>
+  <data xml:space="preserve" name="T_0a6779636721">
+    <value>Template file not found; opened the print snapshot as an unsaved document.</value>
+  </data>
+  <data xml:space="preserve" name="T_0a9a1aa98814">
+    <value>Batch printing</value>
+  </data>
+  <data xml:space="preserve" name="T_0afa41a2930b">
+    <value>Cannot add this file type: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_0b417b2fdb53">
+    <value>Cannot understand "{0}". Example: {1} (40- means row 40 to the end).</value>
+  </data>
+  <data xml:space="preserve" name="T_0bcb5ff74923">
+    <value>Last 7 days</value>
+  </data>
+  <data xml:space="preserve" name="T_0c223cb5a132">
+    <value>Welcome! Your label is ready. Create a design or choose an example from the Templates panel.</value>
+  </data>
+  <data xml:space="preserve" name="T_0c70be7a66c9">
+    <value>Shape</value>
+  </data>
+  <data xml:space="preserve" name="T_0cceaa1115be">
+    <value>Print speed</value>
+  </data>
+  <data xml:space="preserve" name="T_0cdb41b16824">
+    <value>New SSCC numbers will be assigned to these labels (numbers for labels not sent remained unused). </value>
+  </data>
+  <data xml:space="preserve" name="T_0cdef1362b87">
+    <value>Cannot generate print data.</value>
+  </data>
+  <data xml:space="preserve" name="T_0d649df19ddb">
+    <value> Warning: </value>
+  </data>
+  <data xml:space="preserve" name="T_0db0c402e9f2">
+    <value>"{0}" has changed since printing. Rows will be selected using the original row numbers; </value>
+  </data>
+  <data xml:space="preserve" name="T_0e155665a54b">
+    <value>Bring forward</value>
+  </data>
+  <data xml:space="preserve" name="T_0e6fac1300f3">
+    <value>Fill (crop overflow)</value>
+  </data>
+  <data xml:space="preserve" name="T_0e8cf2505599">
+    <value>Persistent counters and serial numbers</value>
+  </data>
+  <data xml:space="preserve" name="T_0eeeaa7a144f">
+    <value>Project opened (warnings)</value>
+  </data>
+  <data xml:space="preserve" name="T_0f1f456914da">
+    <value>Print snapshot</value>
+  </data>
+  <data xml:space="preserve" name="T_0f8b5cb2e84b">
+    <value>Türkçe</value>
+  </data>
+  <data xml:space="preserve" name="T_0fa5590881e5">
+    <value>Preview</value>
+  </data>
+  <data xml:space="preserve" name="T_0ff927f2e196">
+    <value>Otsu (automatic threshold)</value>
+  </data>
+  <data xml:space="preserve" name="T_0ffadf2bf014">
+    <value>Copy (Ctrl+C)</value>
+  </data>
+  <data xml:space="preserve" name="T_102efb6b9493">
+    <value>Select valid rows only</value>
+  </data>
+  <data xml:space="preserve" name="T_107ef0e40ef0">
+    <value>Carton</value>
+  </data>
+  <data xml:space="preserve" name="T_116712041101">
+    <value>Choose the folder accessible to AI</value>
+  </data>
+  <data xml:space="preserve" name="T_11fb682be0a0">
+    <value>AI</value>
+  </data>
+  <data xml:space="preserve" name="T_122a47549d70">
+    <value>Add image from file</value>
+  </data>
+  <data xml:space="preserve" name="T_12375d126577">
+    <value>Command summary (diagnostics)</value>
+  </data>
+  <data xml:space="preserve" name="T_1264dd08f398">
+    <value>Applied:</value>
+  </data>
+  <data xml:space="preserve" name="T_1279dae674df">
+    <value>Today</value>
+  </data>
+  <data xml:space="preserve" name="T_1298e583f63d">
+    <value>POSITION AND SIZE</value>
+  </data>
+  <data xml:space="preserve" name="T_13be6cbab43a">
+    <value>Barcode</value>
+  </data>
+  <data xml:space="preserve" name="T_13ed3649db40">
+    <value>Threshold value; for other methods, a higher value produces darker output</value>
+  </data>
+  <data xml:space="preserve" name="T_141c233d2a7b">
+    <value>Ordered (Bayer) dithering</value>
+  </data>
+  <data xml:space="preserve" name="T_1420a3d47c4b">
+    <value>Via Windows driver</value>
+  </data>
+  <data xml:space="preserve" name="T_1428d629a9e2">
+    <value>Saved GTIN</value>
+  </data>
+  <data xml:space="preserve" name="T_14add07ada4a">
+    <value>When enabled, Label Designer opens a local API accessible only on this computer (127.0.0.1), protected by a key. If a request arrives while the app is closed, a headless Worker starts and exits when idle. A connected agent may send design content to its own AI service.</value>
+  </data>
+  <data xml:space="preserve" name="T_14f06929e3ff">
+    <value>Printer profile saved: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_154024daac1f">
+    <value>Company prefix verification</value>
+  </data>
+  <data xml:space="preserve" name="T_157353fe86ee">
+    <value>The product list is empty. Import an Excel/CSV file using Product list.</value>
+  </data>
+  <data xml:space="preserve" name="T_15de1c011090">
+    <value>Actual size</value>
+  </data>
+  <data xml:space="preserve" name="T_1659e1146a16">
+    <value>Print (Ctrl+P)</value>
+  </data>
+  <data xml:space="preserve" name="T_17233932ffda">
+    <value>Search</value>
+  </data>
+  <data xml:space="preserve" name="T_17280276b19a">
+    <value> ({0} invalid rows will be skipped).</value>
+  </data>
+  <data xml:space="preserve" name="T_175099e088f7">
+    <value>Serial reference: {0} digits, 1 – {1}</value>
+  </data>
+  <data xml:space="preserve" name="T_17752bd72ce7">
+    <value>No logo selected; the company name will be used.</value>
+  </data>
+  <data xml:space="preserve" name="T_177cf3f6b86f">
+    <value>Snapping on</value>
+  </data>
+  <data xml:space="preserve" name="T_184c6c59a9fe">
+    <value>Background</value>
+  </data>
+  <data xml:space="preserve" name="T_18e7af93c3b0">
+    <value>Use after changing a roll, if printing starts in the wrong position (labels drift or split across two labels </value>
+  </data>
+  <data xml:space="preserve" name="T_18f5384d58bc">
+    <value>Y</value>
+  </data>
+  <data xml:space="preserve" name="T_18fc0056f547">
+    <value>Show rulers</value>
+  </data>
+  <data xml:space="preserve" name="T_1902d32feb24">
+    <value>Added the "{0}" symbol ({1:0.#} mm). Resize it using the handles.</value>
+  </data>
+  <data xml:space="preserve" name="T_190f382a5aff">
+    <value>Printing was cancelled; labels already sent may continue printing.</value>
+  </data>
+  <data xml:space="preserve" name="T_1968a465e1ba">
+    <value>Cannot rename</value>
+  </data>
+  <data xml:space="preserve" name="T_19a3d2db551c">
+    <value>No GTIN is saved in the GS1 Company Profile. Add one under Settings → GS1 Company Profile…</value>
+  </data>
+  <data xml:space="preserve" name="T_19d982d28c61">
+    <value>Fit to window (Ctrl+0)</value>
+  </data>
+  <data xml:space="preserve" name="T_1a116abb390d">
+    <value>Line thickness</value>
+  </data>
+  <data xml:space="preserve" name="T_1a36957b18e1">
+    <value>A separate copy of the product list will be saved before it is replaced.
+
+</value>
+  </data>
+  <data xml:space="preserve" name="T_1a3c29bd88b2">
+    <value>Columns mapped. The source file is unchanged; save the mapping with the design.</value>
+  </data>
+  <data xml:space="preserve" name="T_1a6f38874da7">
+    <value>ISSUES</value>
+  </data>
+  <data xml:space="preserve" name="T_1a808a5db984">
+    <value>Printed size:</value>
+  </data>
+  <data xml:space="preserve" name="T_1ac4e2987465">
+    <value>Add image</value>
+  </data>
+  <data xml:space="preserve" name="T_1acdb207777d">
+    <value>To report an issue, use ? → Create support package. It is saved only on this computer.</value>
+  </data>
+  <data xml:space="preserve" name="T_1b1ab065b3db">
+    <value>Open selected backup</value>
+  </data>
+  <data xml:space="preserve" name="T_1b4a8d9119f0">
+    <value>Right %</value>
+  </data>
+  <data xml:space="preserve" name="T_1ba1702caea0">
+    <value>{0} different labels, {1} copies in total</value>
+  </data>
+  <data xml:space="preserve" name="T_1bca30b4bbf4">
+    <value>content</value>
+  </data>
+  <data xml:space="preserve" name="T_1be26e1dfd26">
+    <value>ALLOWED FOLDERS</value>
+  </data>
+  <data xml:space="preserve" name="T_1c39c043b395">
+    <value>COLUMNS (click to bind to the label)</value>
+  </data>
+  <data xml:space="preserve" name="T_1c5d04f6b263">
+    <value>A template named "{0}" already exists. Overwrite it?</value>
+  </data>
+  <data xml:space="preserve" name="T_1cae9843d949">
+    <value>Zoom</value>
+  </data>
+  <data xml:space="preserve" name="T_1ce145dd5958">
+    <value>Enter a valid whole number ({0} or greater).</value>
+  </data>
+  <data xml:space="preserve" name="T_1d02026506c1">
+    <value>Apply mapping</value>
+  </data>
+  <data xml:space="preserve" name="T_1d7b69eae06e">
+    <value>{0} invalid rows will be skipped; {1} labels will be printed.
+
+</value>
+  </data>
+  <data xml:space="preserve" name="T_1d97c9fec35a">
+    <value>Name</value>
+  </data>
+  <data xml:space="preserve" name="T_1dac06874c34">
+    <value>does not equal</value>
+  </data>
+  <data xml:space="preserve" name="T_1de4bd6bfd9c">
+    <value>Replace</value>
+  </data>
+  <data xml:space="preserve" name="T_1e39652d0d29">
+    <value>continuous roll</value>
+  </data>
+  <data xml:space="preserve" name="T_1e439d3c0b6d">
+    <value>Incomplete jobs only</value>
+  </data>
+  <data xml:space="preserve" name="T_1e857796acd6">
+    <value>Select an application identifier (AI) from the list, or search by number.</value>
+  </data>
+  <data xml:space="preserve" name="T_1e8d893669ce">
+    <value> (v1 originals are unchanged).</value>
+  </data>
+  <data xml:space="preserve" name="T_1eb5794349ad">
+    <value>Cannot open backup</value>
+  </data>
+  <data xml:space="preserve" name="T_1f0b3400958b">
+    <value>The black and white dots on the canvas match the printed output at the configured resolution (1-bit).</value>
+  </data>
+  <data xml:space="preserve" name="T_1f6eaed5ee84">
+    <value>Data sources</value>
+  </data>
+  <data xml:space="preserve" name="T_2030958ff03c">
+    <value>Direct TSPL</value>
+  </data>
+  <data xml:space="preserve" name="T_20e905dc87dc">
+    <value>Layers</value>
+  </data>
+  <data xml:space="preserve" name="T_213193bd9dad">
+    <value>First setup…</value>
+  </data>
+  <data xml:space="preserve" name="T_213905768b86">
+    <value>Delete (Delete)</value>
+  </data>
+  <data xml:space="preserve" name="T_213aa2553584">
+    <value>The previous version is kept each time you save. A selected backup opens as a new document; the original file is unchanged.</value>
+  </data>
+  <data xml:space="preserve" name="T_2174b28cffa2">
+    <value>Deleted {0} elements</value>
+  </data>
+  <data xml:space="preserve" name="T_21b547ae546b">
+    <value>Sample templates already exist.</value>
+  </data>
+  <data xml:space="preserve" name="T_21d18cafc84d">
+    <value>Each save backs up the previous version: ? → Backups of this design.</value>
+  </data>
+  <data xml:space="preserve" name="T_220b8926fd40">
+    <value>Ellipse</value>
+  </data>
+  <data xml:space="preserve" name="T_2220eff09654">
+    <value>Used for automatic EAN-13 generation</value>
+  </data>
+  <data xml:space="preserve" name="T_222c121df428">
+    <value>Replace image</value>
+  </data>
+  <data xml:space="preserve" name="T_234165059ef3">
+    <value>Built-in profiles cannot be changed. You will be asked for a new profile name (if cancelled, offsets are saved only in printer settings).</value>
+  </data>
+  <data xml:space="preserve" name="T_234629522e49">
+    <value>Fill</value>
+  </data>
+  <data xml:space="preserve" name="T_23a9eaaf836e">
+    <value>Recent files</value>
+  </data>
+  <data xml:space="preserve" name="T_23bfb50dd06c">
+    <value>Cannot duplicate template</value>
+  </data>
+  <data xml:space="preserve" name="T_23e7f11beaaa">
+    <value>Offset (right / down)</value>
+  </data>
+  <data xml:space="preserve" name="T_241dc2b51eb4">
+    <value>Profile "{0}" already exists. Overwrite it?</value>
+  </data>
+  <data xml:space="preserve" name="T_2429d9e8a265">
+    <value>No exact code match. Select the correct product from the list.</value>
+  </data>
+  <data xml:space="preserve" name="T_245f0a878376">
+    <value>Above label</value>
+  </data>
+  <data xml:space="preserve" name="T_24e4107ec1a2">
+    <value>Search template name or size</value>
+  </data>
+  <data xml:space="preserve" name="T_24ee22fca982">
+    <value>Settings file:</value>
+  </data>
+  <data xml:space="preserve" name="T_2507e7d789e0">
+    <value>Import from Excel/CSV…</value>
+  </data>
+  <data xml:space="preserve" name="T_2516db321dbd">
+    <value>not used yet</value>
+  </data>
+  <data xml:space="preserve" name="T_25246ccd7060">
+    <value>Opened: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_261a51344dab">
+    <value>Counter "{0}" already exists.</value>
+  </data>
+  <data xml:space="preserve" name="T_267f47a08053">
+    <value>No issues found.</value>
+  </data>
+  <data xml:space="preserve" name="T_26bfc08ea86f">
+    <value>Quantity column</value>
+  </data>
+  <data xml:space="preserve" name="T_271e612916a3">
+    <value>Distributed evenly</value>
+  </data>
+  <data xml:space="preserve" name="T_279b0d2aa9ea">
+    <value>Send even if the printer appears offline (advanced)</value>
+  </data>
+  <data xml:space="preserve" name="T_280505a1c0b0">
+    <value>font size</value>
+  </data>
+  <data xml:space="preserve" name="T_28ed729e7118">
+    <value>COMPANY DETAILS</value>
+  </data>
+  <data xml:space="preserve" name="T_292491241e16">
+    <value>Product code</value>
+  </data>
+  <data xml:space="preserve" name="T_2948b4756a31">
+    <value>Printer: {0} · {1}</value>
+  </data>
+  <data xml:space="preserve" name="T_2952e28f6c2c">
+    <value>Resume</value>
+  </data>
+  <data xml:space="preserve" name="T_2965a52668dc">
+    <value>{0} AI proposals are awaiting your approval in the AI panel on the right.</value>
+  </data>
+  <data xml:space="preserve" name="T_2966ac6511d8">
+    <value>(untitled)</value>
+  </data>
+  <data xml:space="preserve" name="T_296b7ee4327f">
+    <value>Row range</value>
+  </data>
+  <data xml:space="preserve" name="T_29c06e870544">
+    <value>Document / template name</value>
+  </data>
+  <data xml:space="preserve" name="T_29d74b7c2a95">
+    <value>The {0}-digit prefix was verified against the membership document. SSCC generation is available.</value>
+  </data>
+  <data xml:space="preserve" name="T_2a43d517a66a">
+    <value>Select a printer when printing.</value>
+  </data>
+  <data xml:space="preserve" name="T_2a7c046a4bbf">
+    <value>Open template folder</value>
+  </data>
+  <data xml:space="preserve" name="T_2aa2e1a98dcd">
+    <value>
+
+Templates: </value>
+  </data>
+  <data xml:space="preserve" name="T_2ab1921b90e7">
+    <value>2. PRINT THE CALIBRATION LABEL</value>
+  </data>
+  <data xml:space="preserve" name="T_2ac0b6855963">
+    <value>Direct: changes apply immediately (each step can be undone with Ctrl+Z; files are backed up first).</value>
+  </data>
+  <data xml:space="preserve" name="T_2b2d7a44c946">
+    <value>Send to back</value>
+  </data>
+  <data xml:space="preserve" name="T_2b809c29c769">
+    <value>The printed value comes from the {0} field.</value>
+  </data>
+  <data xml:space="preserve" name="T_2bc4396b93f7">
+    <value>Design backups</value>
+  </data>
+  <data xml:space="preserve" name="T_2bcf6be9b3e7">
+    <value>Claude Desktop: add this to %APPDATA%\Claude\claude_desktop_config.json, then restart Claude Desktop.</value>
+  </data>
+  <data xml:space="preserve" name="T_2c237a0d520f">
+    <value>Enter valid barcode content first (load a data source for variable barcodes).</value>
+  </data>
+  <data xml:space="preserve" name="T_2c65952a3209">
+    <value>… and {0} more rows were skipped.</value>
+  </data>
+  <data xml:space="preserve" name="T_2c6b3833afbf">
+    <value>Quick Print (template + product + quantity)</value>
+  </data>
+  <data xml:space="preserve" name="T_2ca72b9585ac">
+    <value>Offsets applied. A new profile will be saved because no editable profile was selected. Profile name:</value>
+  </data>
+  <data xml:space="preserve" name="T_2cc69ff337ad">
+    <value>Cannot import: </value>
+  </data>
+  <data xml:space="preserve" name="T_2ce62c77163b">
+    <value>The sensor calibration command was sent to the printer queue. The printer should feed several labels and stop; then print the calibration label.</value>
+  </data>
+  <data xml:space="preserve" name="T_2d067f54ba4b">
+    <value>Help and shortcuts</value>
+  </data>
+  <data xml:space="preserve" name="T_2d0cf3a0aff6">
+    <value>Restore</value>
+  </data>
+  <data xml:space="preserve" name="T_2d707032859e">
+    <value>Choose a column</value>
+  </data>
+  <data xml:space="preserve" name="T_2d955117ca5e">
+    <value>{0}-digit prefix. Select "Verified against membership document" to enable SSCC generation.</value>
+  </data>
+  <data xml:space="preserve" name="T_2dc4fb4b1056">
+    <value>Only {0} will be printed.</value>
+  </data>
+  <data xml:space="preserve" name="T_2de4a3caa03d">
+    <value>Border</value>
+  </data>
+  <data xml:space="preserve" name="T_2de7525d280c">
+    <value>Rename</value>
+  </data>
+  <data xml:space="preserve" name="T_2df68e2624fa">
+    <value>Center horizontally</value>
+  </data>
+  <data xml:space="preserve" name="T_2e1ff8caca5d">
+    <value>Saved {0} pages. These labels could not be generated and were omitted from the PDF:
+</value>
+  </data>
+  <data xml:space="preserve" name="T_2e85d12ddea4">
+    <value>Row numbers refer to actual rows in the Excel/CSV file. Invalid rows are skipped; other rows are unaffected.</value>
+  </data>
+  <data xml:space="preserve" name="T_2e9b20ff6b23">
+    <value>Cannot create barcode.</value>
+  </data>
+  <data xml:space="preserve" name="T_2f3eccbc685a">
+    <value>Current: rotated 180° (TSPL DIRECTION 0).</value>
+  </data>
+  <data xml:space="preserve" name="T_2f63000712c8">
+    <value>Counters used by this label: </value>
+  </data>
+  <data xml:space="preserve" name="T_2f71973dd568">
+    <value>GLN (Global Location Number)</value>
+  </data>
+  <data xml:space="preserve" name="T_2f7e7a3c1018">
+    <value>Compared case-insensitively using Turkish rules</value>
+  </data>
+  <data xml:space="preserve" name="T_2fabc8647dc5">
+    <value>{0} / {1} records</value>
+  </data>
+  <data xml:space="preserve" name="T_300e04bff0de">
+    <value>Today's date (dd.MM.yyyy)</value>
+  </data>
+  <data xml:space="preserve" name="T_307a221c7ed5">
+    <value>Every imported image is converted to 1-bit black and white for thermal printing. Sharp thresholding is selected for logos/artwork and detail-preserving dithering for photos. Use the right panel to change method, threshold, brightness, contrast, inversion, fit and crop. Transparent areas print white.</value>
+  </data>
+  <data xml:space="preserve" name="T_3096ff975b43">
+    <value>New counter</value>
+  </data>
+  <data xml:space="preserve" name="T_30c97c570b64">
+    <value>; copied {0} templates</value>
+  </data>
+  <data xml:space="preserve" name="T_30dafe693625">
+    <value>Company, template and product backup</value>
+  </data>
+  <data xml:space="preserve" name="T_30fd220911bd">
+    <value>Nothing to undo</value>
+  </data>
+  <data xml:space="preserve" name="T_310c98d37991">
+    <value>Cannot generate barcode</value>
+  </data>
+  <data xml:space="preserve" name="T_314e42bd6fa8">
+    <value>Valid GLN (correct check digit). A GLN identifies a location/company; it is neither a product barcode nor a company prefix.</value>
+  </data>
+  <data xml:space="preserve" name="T_3154d3e5560f">
+    <value>Replace image…</value>
+  </data>
+  <data xml:space="preserve" name="T_31e16e46f0e9">
+    <value>Each element is printed according to its row's data (for example, show SALE only when {Discount} is not empty)</value>
+  </data>
+  <data xml:space="preserve" name="T_31ec96e448ca">
+    <value>MCP endpoint over HTTP (/mcp) for local clients without stdio support</value>
+  </data>
+  <data xml:space="preserve" name="T_31ef8081d5af">
+    <value> • {0} invalid rows will be skipped</value>
+  </data>
+  <data xml:space="preserve" name="T_31f64f835580">
+    <value>Label Designer – {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_3217e2f49b34">
+    <value>Select a printer in the print window.</value>
+  </data>
+  <data xml:space="preserve" name="T_324881c4287a">
+    <value>Subtitle</value>
+  </data>
+  <data xml:space="preserve" name="T_326ba1f328e5">
+    <value>Opened the print snapshot as an unsaved document.</value>
+  </data>
+  <data xml:space="preserve" name="T_32747fdee2f6">
+    <value>Print data generated: {0} label images, {1} copies in total ({2}).</value>
+  </data>
+  <data xml:space="preserve" name="T_32ba9ec93bff">
+    <value>Cannot export</value>
+  </data>
+  <data xml:space="preserve" name="T_32c6bebf1cb0">
+    <value>Address</value>
+  </data>
+  <data xml:space="preserve" name="T_32d1fc5926c2">
+    <value>Grouped {0} elements (selected and moved together). Press Ctrl+Shift+G to ungroup.</value>
+  </data>
+  <data xml:space="preserve" name="T_3313156e3b30">
+    <value>SSCC range: {0} – {1} ({2} numbers)</value>
+  </data>
+  <data xml:space="preserve" name="T_333e0a1e2781">
+    <value>W</value>
+  </data>
+  <data xml:space="preserve" name="T_334eac4783af">
+    <value>Starting value for counter "{0}":</value>
+  </data>
+  <data xml:space="preserve" name="T_339daf924864">
+    <value>Resolution</value>
+  </data>
+  <data xml:space="preserve" name="T_33b15963bad7">
+    <value>The logistics label standard requires GS1-128 for SSCC. Use GS1 DataMatrix / GS1 QR as an addition.</value>
+  </data>
+  <data xml:space="preserve" name="T_33c022ced3fa">
+    <value>Cannot open template</value>
+  </data>
+  <data xml:space="preserve" name="T_3413a2cfe791">
+    <value>Open print preview after saving</value>
+  </data>
+  <data xml:space="preserve" name="T_34658ade9050">
+    <value>Add small text</value>
+  </data>
+  <data xml:space="preserve" name="T_34efca536c20">
+    <value>Shifted {0:0.##} mm {1}</value>
+  </data>
+  <data xml:space="preserve" name="T_35f9315b2240">
+    <value>Next value</value>
+  </data>
+  <data xml:space="preserve" name="T_3611691e5fe7">
+    <value>Create company, template and product backup…</value>
+  </data>
+  <data xml:space="preserve" name="T_3639300c0b11">
+    <value>Line direction</value>
+  </data>
+  <data xml:space="preserve" name="T_365a5948f989">
+    <value>Left %</value>
+  </data>
+  <data xml:space="preserve" name="T_369ce2e0ede9">
+    <value>Example: Move the logo 5 mm right and enlarge the product name. (Ctrl+Enter to send)</value>
+  </data>
+  <data xml:space="preserve" name="T_36a6fb9dac11">
+    <value>Shapes</value>
+  </data>
+  <data xml:space="preserve" name="T_36c6bb3c5cbf">
+    <value>The company prefix and its length cannot be inferred from a GLN. Enter the exact prefix from your GS1 membership document, check it against the document, then select "Verified against membership document". SSCC generation requires verification; printed SSCCs with an incorrect prefix cannot be recalled.</value>
+  </data>
+  <data xml:space="preserve" name="T_36e5bf6939f2">
+    <value>Template saved: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_373bf4e53b57">
+    <value>Restore sample templates</value>
+  </data>
+  <data xml:space="preserve" name="T_3768026a47db">
+    <value>New counter…</value>
+  </data>
+  <data xml:space="preserve" name="T_376859792c69">
+    <value>Decrease module size (narrow the box)</value>
+  </data>
+  <data xml:space="preserve" name="T_38676e87c754">
+    <value>Fit to window / actual size</value>
+  </data>
+  <data xml:space="preserve" name="T_38a7461cf7cd">
+    <value>Bring to front</value>
+  </data>
+  <data xml:space="preserve" name="T_38a8552ebcbe">
+    <value>Image added and converted to 1-bit black and white ({0} × {1} px). Settings are in the right panel.</value>
+  </data>
+  <data xml:space="preserve" name="T_38dd504fe577">
+    <value>To date (inclusive)</value>
+  </data>
+  <data xml:space="preserve" name="T_39563a322e22">
+    <value>This template last used this data file:
+{0}
+
+Load it?</value>
+  </data>
+  <data xml:space="preserve" name="T_398c68219f11">
+    <value>TSPL commands</value>
+  </data>
+  <data xml:space="preserve" name="T_399de06e1d61">
+    <value>Lock / unlock</value>
+  </data>
+  <data xml:space="preserve" name="T_39a8d28c1c6b">
+    <value>Cancel</value>
+  </data>
+  <data xml:space="preserve" name="T_3a90dc9bbd9b">
+    <value>{0} rows contain errors. Fix them before applying the content.</value>
+  </data>
+  <data xml:space="preserve" name="T_3ac40db3ff20">
+    <value>Case conversion: {Field:BUYUK}, {Field:KUCUK}, {Field:BASHARF} uses Turkish casing rules (i/İ, ı/I). Combine with a format: {TARIH:dd MMMM yyyy|BUYUK}.</value>
+  </data>
+  <data xml:space="preserve" name="T_3b0a85eb1e43">
+    <value>Fit (keep aspect ratio)</value>
+  </data>
+  <data xml:space="preserve" name="T_3b696607380e">
+    <value>Data file for this print job not found</value>
+  </data>
+  <data xml:space="preserve" name="T_3b719801ba3f">
+    <value> (print snapshot available)</value>
+  </data>
+  <data xml:space="preserve" name="T_3b94d5d1f5ac">
+    <value>127.0.0.1 only (no remote access)</value>
+  </data>
+  <data xml:space="preserve" name="T_3bdc43dad304">
+    <value>Horizontal line</value>
+  </data>
+  <data xml:space="preserve" name="T_3bea0519b08e">
+    <value>Documentation folder not found (in a development build, see the repository's docs folder).</value>
+  </data>
+  <data xml:space="preserve" name="T_3c100927aa05">
+    <value>black and white settings</value>
+  </data>
+  <data xml:space="preserve" name="T_3c4ff0240c46">
+    <value>Select none</value>
+  </data>
+  <data xml:space="preserve" name="T_3c51fed99bcb">
+    <value>Claude Code (stdio, recommended): run in a terminal.</value>
+  </data>
+  <data xml:space="preserve" name="T_3c5d8951ca04">
+    <value>Replace the existing list of {0} products with the selected file?</value>
+  </data>
+  <data xml:space="preserve" name="T_3c61ab0065b1">
+    <value>Add check character (Code 39: mod 43, ITF: mod 10)</value>
+  </data>
+  <data xml:space="preserve" name="T_3c989a2b16cc">
+    <value>Pasted</value>
+  </data>
+  <data xml:space="preserve" name="T_3cbdbb888443">
+    <value>(01) and (02) cannot be combined: use (01) if the carton is a trade item, or (02) to identify its contents.</value>
+  </data>
+  <data xml:space="preserve" name="T_3cdb19af8f1c">
+    <value>Horizontal offset (mm); positive moves right</value>
+  </data>
+  <data xml:space="preserve" name="T_3d6610acca3c">
+    <value>Print test label</value>
+  </data>
+  <data xml:space="preserve" name="T_3da7e921e5b6">
+    <value>Gap between labels:</value>
+  </data>
+  <data xml:space="preserve" name="T_3dda2368e5f9">
+    <value>Save as template</value>
+  </data>
+  <data xml:space="preserve" name="T_3e1ccc36249e">
+    <value>Width</value>
+  </data>
+  <data xml:space="preserve" name="T_3e5d57c19300">
+    <value>GAPDETECT: the printer feeds several labels, measures gaps and saves the label length. </value>
+  </data>
+  <data xml:space="preserve" name="T_3e7c86028e42">
+    <value>Invalid</value>
+  </data>
+  <data xml:space="preserve" name="T_3f0a3653ae48">
+    <value>Locked</value>
+  </data>
+  <data xml:space="preserve" name="T_3f42acc85e4c">
+    <value>Xprinter XP-470B detected (203 DPI, maximum print width 108 mm).</value>
+  </data>
+  <data xml:space="preserve" name="T_3f48be73fb7d">
+    <value>Requested</value>
+  </data>
+  <data xml:space="preserve" name="T_3f5d764c85b3">
+    <value>Help (F1), backups, support package</value>
+  </data>
+  <data xml:space="preserve" name="T_3f7032d603d5">
+    <value>Product list</value>
+  </data>
+  <data xml:space="preserve" name="T_3fb8998e50b0">
+    <value>Rename profile</value>
+  </data>
+  <data xml:space="preserve" name="T_3fb91e79782d">
+    <value>The profile roll size is {0:0.##} × {1:0.##} mm; the design is {2:0.##} × {3:0.##} mm. Check that the roll and design sizes match.</value>
+  </data>
+  <data xml:space="preserve" name="T_40baf449a813">
+    <value>Scan or type a product code/barcode, then press Enter</value>
+  </data>
+  <data xml:space="preserve" name="T_40c7deca7601">
+    <value>Formatting can only be applied to {0} elements (excluding locked elements).</value>
+  </data>
+  <data xml:space="preserve" name="T_40f300e450d1">
+    <value>is empty</value>
+  </data>
+  <data xml:space="preserve" name="T_416c889215e0">
+    <value>Label Designer – </value>
+  </data>
+  <data xml:space="preserve" name="T_41712eb27799">
+    <value>Load</value>
+  </data>
+  <data xml:space="preserve" name="T_41aec37a3467">
+    <value>Serial range for this computer</value>
+  </data>
+  <data xml:space="preserve" name="T_41b48e380039">
+    <value>Bearer bar</value>
+  </data>
+  <data xml:space="preserve" name="T_41d23437d010">
+    <value>Sent</value>
+  </data>
+  <data xml:space="preserve" name="T_42711dcdf4ff">
+    <value>Snap to grid</value>
+  </data>
+  <data xml:space="preserve" name="T_42bc70369a44">
+    <value>First setup saved. Open your design and check the print preview.</value>
+  </data>
+  <data xml:space="preserve" name="T_436afd8b2eb9">
+    <value>Circle</value>
+  </data>
+  <data xml:space="preserve" name="T_43bca619d160">
+    <value>Next value…</value>
+  </data>
+  <data xml:space="preserve" name="T_43c026680c1f">
+    <value>Selected rows only</value>
+  </data>
+  <data xml:space="preserve" name="T_44001e869f42">
+    <value>This label only</value>
+  </data>
+  <data xml:space="preserve" name="T_4414e80b1e26">
+    <value>Layer order changed</value>
+  </data>
+  <data xml:space="preserve" name="T_44598980613e">
+    <value>Company prefix (GCP) from your GS1 membership document. Do not enter a GLN or country code. Product numbers continue from the next value:</value>
+  </data>
+  <data xml:space="preserve" name="T_4478ccfbc5d5">
+    <value>Allow AI connections (Claude Desktop, Claude Code and other MCP clients)</value>
+  </data>
+  <data xml:space="preserve" name="T_44baa1017b67">
+    <value>Unexpected print error: </value>
+  </data>
+  <data xml:space="preserve" name="T_44d9ea438daa">
+    <value>  ✓ Print data generated: {0} label images, {1} copies in total</value>
+  </data>
+  <data xml:space="preserve" name="T_451feb1b6459">
+    <value>Send to back</value>
+  </data>
+  <data xml:space="preserve" name="T_4528ef4bf893">
+    <value>EXTERNAL AGENT CONNECTION (MCP / LOCAL API)</value>
+  </data>
+  <data xml:space="preserve" name="T_458d4375e725">
+    <value>Save as</value>
+  </data>
+  <data xml:space="preserve" name="T_459749e7125d">
+    <value>Click to add text at the label's center and start typing (Enter to finish, Shift+Enter for a new line). Double-click text on the canvas, or select it and press Enter to edit.</value>
+  </data>
+  <data xml:space="preserve" name="T_45b2d1c03591">
+    <value>The template file is unchanged: the label opens as a new document, followed by the print window.</value>
+  </data>
+  <data xml:space="preserve" name="T_45d121a1fad5">
+    <value>PRINTER</value>
+  </data>
+  <data xml:space="preserve" name="T_45e8353adc33">
+    <value>Continuous media has no gaps and does not need sensor calibration.</value>
+  </data>
+  <data xml:space="preserve" name="T_4615c1fde964">
+    <value>Add to canvas</value>
+  </data>
+  <data xml:space="preserve" name="T_46afe2d03884">
+    <value>Data source</value>
+  </data>
+  <data xml:space="preserve" name="T_46e38b555a7d">
+    <value>Cannot read data source</value>
+  </data>
+  <data xml:space="preserve" name="T_46f83c8d8c1e">
+    <value>Profile name (saves printer, method, darkness, speed, direction, offsets and roll settings):</value>
+  </data>
+  <data xml:space="preserve" name="T_47116548d47b">
+    <value>L – low (7%)</value>
+  </data>
+  <data xml:space="preserve" name="T_472a7956e059">
+    <value>Default size</value>
+  </data>
+  <data xml:space="preserve" name="T_47b493352c9a">
+    <value>font</value>
+  </data>
+  <data xml:space="preserve" name="T_47ba418cd3f5">
+    <value>Duplicate</value>
+  </data>
+  <data xml:space="preserve" name="T_47d7b12105b7">
+    <value>Open table: row selection and quantities…</value>
+  </data>
+  <data xml:space="preserve" name="T_47dacde79e0c">
+    <value>Cannot save counter</value>
+  </data>
+  <data xml:space="preserve" name="T_480d1b993e11">
+    <value>Template name:</value>
+  </data>
+  <data xml:space="preserve" name="T_480f13ddfb93">
+    <value>Backups of this design…</value>
+  </data>
+  <data xml:space="preserve" name="T_481778bd37cc">
+    <value>Grouped</value>
+  </data>
+  <data xml:space="preserve" name="T_48611b33a0d8">
+    <value>Column count</value>
+  </data>
+  <data xml:space="preserve" name="T_488c8aa7f7f9">
+    <value>Cannot save template</value>
+  </data>
+  <data xml:space="preserve" name="T_49851065daf3">
+    <value>Delete counter "{0}"?{1}</value>
+  </data>
+  <data xml:space="preserve" name="T_49a24f1ef83e">
+    <value>Print selected data source rows</value>
+  </data>
+  <data xml:space="preserve" name="T_49af6e145635">
+    <value>New label from this template</value>
+  </data>
+  <data xml:space="preserve" name="T_49efe92859f2">
+    <value>Arrow keys</value>
+  </data>
+  <data xml:space="preserve" name="T_49fafa879e69">
+    <value>PRESET SIZES</value>
+  </data>
+  <data xml:space="preserve" name="T_4a1eb35f8323">
+    <value>
+
+{0} rows were not added:
+</value>
+  </data>
+  <data xml:space="preserve" name="T_4a36c90d53b0">
+    <value>1. LABEL SENSOR (OPTIONAL)</value>
+  </data>
+  <data xml:space="preserve" name="T_4a44259d4a05">
+    <value>File not found:
+{0}</value>
+  </data>
+  <data xml:space="preserve" name="T_4a66f7780c8e">
+    <value>Labels to print:</value>
+  </data>
+  <data xml:space="preserve" name="T_4a9cbcac3c9f">
+    <value>Update profile "{0}" with the settings in this window?</value>
+  </data>
+  <data xml:space="preserve" name="T_4ae0d741608d">
+    <value>Center vertically</value>
+  </data>
+  <data xml:space="preserve" name="T_4b01bf980409">
+    <value>Print direction changed. </value>
+  </data>
+  <data xml:space="preserve" name="T_4b2b841218e1">
+    <value>Details are listed by row number in the Data panel.</value>
+  </data>
+  <data xml:space="preserve" name="T_4b68ab3847fe">
+    <value>X</value>
+  </data>
+  <data xml:space="preserve" name="T_4be7bd2213d6">
+    <value>Reprint: job dated {0} ({1} labels).</value>
+  </data>
+  <data xml:space="preserve" name="T_4c92ffece010">
+    <value>Tear position enabled</value>
+  </data>
+  <data xml:space="preserve" name="T_4cca5298a2fa">
+    <value>Preset label size</value>
+  </data>
+  <data xml:space="preserve" name="T_4ce876eaee32">
+    <value>GS1 APPLICATION IDENTIFIERS (AI)</value>
+  </data>
+  <data xml:space="preserve" name="T_4cfa2b03d54b">
+    <value>Value</value>
+  </data>
+  <data xml:space="preserve" name="T_4cfa97b79cae">
+    <value>Quick Print: "{0}"</value>
+  </data>
+  <data xml:space="preserve" name="T_4d568c56ba86">
+    <value>No printer found. Skip this step and select one later.</value>
+  </data>
+  <data xml:space="preserve" name="T_4d7acf540230">
+    <value>Module (X) width</value>
+  </data>
+  <data xml:space="preserve" name="T_4ddbf0f624df">
+    <value>Distance from left (mm)</value>
+  </data>
+  <data xml:space="preserve" name="T_4df38779294a">
+    <value>Zoom in (Ctrl +)</value>
+  </data>
+  <data xml:space="preserve" name="T_4e41dbb08860">
+    <value>Template or file name (partial matches supported)</value>
+  </data>
+  <data xml:space="preserve" name="T_4e67365dc6df">
+    <value>Current template: opens the file's current version.</value>
+  </data>
+  <data xml:space="preserve" name="T_4e7c4636b6ee">
+    <value>Height</value>
+  </data>
+  <data xml:space="preserve" name="T_4ed316983a69">
+    <value>Undo / Redo</value>
+  </data>
+  <data xml:space="preserve" name="T_4f3d2ac9d6b1">
+    <value>Let's prepare your first label</value>
+  </data>
+  <data xml:space="preserve" name="T_4f52beae4e65">
+    <value>Deselect visible rows</value>
+  </data>
+  <data xml:space="preserve" name="T_4f74750a1759">
+    <value>Starting number</value>
+  </data>
+  <data xml:space="preserve" name="T_4fc233b3de36">
+    <value>Copied {0} elements.</value>
+  </data>
+  <data xml:space="preserve" name="T_5020939e9234">
+    <value>Decode and verify every barcode before printing</value>
+  </data>
+  <data xml:space="preserve" name="T_5042b321686b">
+    <value>  ! Cancelled by user</value>
+  </data>
+  <data xml:space="preserve" name="T_505c9273badf">
+    <value>Choose data source (Excel/CSV)</value>
+  </data>
+  <data xml:space="preserve" name="T_50d13a143905">
+    <value>Vertical offset (mm); positive moves down</value>
+  </data>
+  <data xml:space="preserve" name="T_518c61d8701a">
+    <value>Opened backup "{0}" ({1:dd.MM.yyyy HH:mm}) as a new document. Save as a new file if needed.</value>
+  </data>
+  <data xml:space="preserve" name="T_51bda150e1ae">
+    <value>SSCC</value>
+  </data>
+  <data xml:space="preserve" name="T_527534366db7">
+    <value>Language / Dil</value>
+  </data>
+  <data xml:space="preserve" name="T_52d1f3bf0b82">
+    <value>Printer "{0}" from the profile was not found on this computer; the current selection was kept.</value>
+  </data>
+  <data xml:space="preserve" name="T_532995393bbe">
+    <value>Documentation: English user guide, Turkish guides, printer setup and testing, AI connections.</value>
+  </data>
+  <data xml:space="preserve" name="T_533f1b8bdf28">
+    <value>Character encoding</value>
+  </data>
+  <data xml:space="preserve" name="T_53a1a38c4b64">
+    <value>Next</value>
+  </data>
+  <data xml:space="preserve" name="T_53aab93016de">
+    <value>No template found. Add examples from the Templates panel or save your design as a template.</value>
+  </data>
+  <data xml:space="preserve" name="T_5432275f09d4">
+    <value>Backup created</value>
+  </data>
+  <data xml:space="preserve" name="T_5444ad83f745">
+    <value>Delete selected elements</value>
+  </data>
+  <data xml:space="preserve" name="T_54c66e1eb6d3">
+    <value>CONNECTION ACTIVITY</value>
+  </data>
+  <data xml:space="preserve" name="T_54cec00c31ae">
+    <value>Warning</value>
+  </data>
+  <data xml:space="preserve" name="T_54e0a4d46df2">
+    <value>Quick Print: import your products once, then scan a product and enter the quantity.</value>
+  </data>
+  <data xml:space="preserve" name="T_54edb8ea5194">
+    <value>IN-APP ASSISTANT</value>
+  </data>
+  <data xml:space="preserve" name="T_554a4cd614ff">
+    <value>Last range</value>
+  </data>
+  <data xml:space="preserve" name="T_5559c97206ee">
+    <value>pt (0 = automatic)</value>
+  </data>
+  <data xml:space="preserve" name="T_5572d72b3ebb">
+    <value>Wide/narrow ratio</value>
+  </data>
+  <data xml:space="preserve" name="T_559aead08264">
+    <value>H</value>
+  </data>
+  <data xml:space="preserve" name="T_567bac84e5ff">
+    <value>PNG, JPG, JPEG, BMP, GIF, WEBP and SVG. The original is embedded in the project; each adjustment is applied to the original so quality loss does not accumulate.</value>
+  </data>
+  <data xml:space="preserve" name="T_5694c05b1a70">
+    <value>Image</value>
+  </data>
+  <data xml:space="preserve" name="T_56a6b2f472d4">
+    <value>Tear position</value>
+  </data>
+  <data xml:space="preserve" name="T_56d81fb08bf6">
+    <value>Open documentation folder</value>
+  </data>
+  <data xml:space="preserve" name="T_56e5bb0fbe18">
+    <value>"{0}" has changed since printing.
+
+</value>
+  </data>
+  <data xml:space="preserve" name="T_572b394ff19f">
+    <value>— keep a backup; deleting this resets counters to 1.</value>
+  </data>
+  <data xml:space="preserve" name="T_5769a8f8aecd">
+    <value>Stop</value>
+  </data>
+  <data xml:space="preserve" name="T_57a01dbd710b">
+    <value>Which source column supplies this label field?</value>
+  </data>
+  <data xml:space="preserve" name="T_57a796aa6100">
+    <value>The label exceeds the printer's maximum print width ({0:0.#} mm); overflow will not print.</value>
+  </data>
+  <data xml:space="preserve" name="T_57ca4eb55ec8">
+    <value>Restored {0} sample templates.</value>
+  </data>
+  <data xml:space="preserve" name="T_57d68a8b4a93">
+    <value>Center vertically</value>
+  </data>
+  <data xml:space="preserve" name="T_57db98fa924b">
+    <value>SAVED GTINS</value>
+  </data>
+  <data xml:space="preserve" name="T_586cf0ced444">
+    <value>Language changes take effect after restarting the app.</value>
+  </data>
+  <data xml:space="preserve" name="T_58c7e447f020">
+    <value>Choose GTIN list (Excel/CSV)</value>
+  </data>
+  <data xml:space="preserve" name="T_590ecef4dfdd">
+    <value>This label contains {SSCC}: a new SSCC is assigned to each label at print time.
+
+</value>
+  </data>
+  <data xml:space="preserve" name="T_593b20e435ad">
+    <value>Settings saved; cannot add templates: </value>
+  </data>
+  <data xml:space="preserve" name="T_5977c361f198">
+    <value>Value or a field ({SSCC}, {TARIH:yyMMdd}, data columns)</value>
+  </data>
+  <data xml:space="preserve" name="T_59ab35ebe9b4">
+    <value>Worker idle timeout</value>
+  </data>
+  <data xml:space="preserve" name="T_59db1c471e6b">
+    <value>Restore company backup…</value>
+  </data>
+  <data xml:space="preserve" name="T_59f636c9e9b5">
+    <value>Show all (instead of frequently used only)</value>
+  </data>
+  <data xml:space="preserve" name="T_5a490f2e095d">
+    <value> · {0} results{1}</value>
+  </data>
+  <data xml:space="preserve" name="T_5a59a76009d6">
+    <value>Previous row</value>
+  </data>
+  <data xml:space="preserve" name="T_5a5e68db76d7">
+    <value>Gap / mark</value>
+  </data>
+  <data xml:space="preserve" name="T_5a75c4f30466">
+    <value>
+
+No print snapshot is available (old record or test print).</value>
+  </data>
+  <data xml:space="preserve" name="T_5ac97ac8617d">
+    <value>Valid {0} content. Human-readable text: {1}</value>
+  </data>
+  <data xml:space="preserve" name="T_5b2207e11590">
+    <value>Offsets apply only to Direct TSPL. For Windows driver printing, use the driver's paper settings to adjust position.</value>
+  </data>
+  <data xml:space="preserve" name="T_5b2db6074c5d">
+    <value>BLINEDETECT: the printer feeds several labels, measures black marks and saves the label length. </value>
+  </data>
+  <data xml:space="preserve" name="T_5b563d78049a">
+    <value>No product rows found in the file.</value>
+  </data>
+  <data xml:space="preserve" name="T_5b693271b7a2">
+    <value>Next row</value>
+  </data>
+  <data xml:space="preserve" name="T_5bc7eefff5d4">
+    <value>Increment</value>
+  </data>
+  <data xml:space="preserve" name="T_5bd24cbccb7c">
+    <value>gap media (gap {0:0.##} mm)</value>
+  </data>
+  <data xml:space="preserve" name="T_5d0b017cd876">
+    <value>Font</value>
+  </data>
+  <data xml:space="preserve" name="T_5d681cdfe49c">
+    <value>EAN company prefix</value>
+  </data>
+  <data xml:space="preserve" name="T_5d6dd22cba82">
+    <value>{0}, {1} → new offset: right {2:0.###} mm, down {3:0.###} mm</value>
+  </data>
+  <data xml:space="preserve" name="T_5d83ebf4f387">
+    <value>Date 30 days from now (expiry, etc.). Examples: {TARIH-7}, {TARIH+2 hafta}, {TARIH+6ay}, {TARIH+1yıl:dd.MM.yyyy}</value>
+  </data>
+  <data xml:space="preserve" name="T_5d8db23d1ade">
+    <value>Reverse direction — rotate 180°</value>
+  </data>
+  <data xml:space="preserve" name="T_5e2c614c23f0">
+    <value>Model</value>
+  </data>
+  <data xml:space="preserve" name="T_5e47f9009fba">
+    <value>QR code, Data Matrix, PDF417</value>
+  </data>
+  <data xml:space="preserve" name="T_5efda9c85481">
+    <value>down</value>
+  </data>
+  <data xml:space="preserve" name="T_5f843a0216e3">
+    <value>Move 0.5 mm (Shift: 5 mm, Ctrl: 1 dot = 0.125 mm at 203 DPI)</value>
+  </data>
+  <data xml:space="preserve" name="T_601027233417">
+    <value>Template: </value>
+  </data>
+  <data xml:space="preserve" name="T_60f2b7774890">
+    <value>Showing the first {0} labels.</value>
+  </data>
+  <data xml:space="preserve" name="T_6135a42bf53e">
+    <value>Data</value>
+  </data>
+  <data xml:space="preserve" name="T_61b8c59f967e">
+    <value>Company prefix required</value>
+  </data>
+  <data xml:space="preserve" name="T_61d65fd13f05">
+    <value>{0}
+
+{1}
+
+The backup was saved only on this computer.</value>
+  </data>
+  <data xml:space="preserve" name="T_61f56942c870">
+    <value>Reprint</value>
+  </data>
+  <data xml:space="preserve" name="T_6231978688e7">
+    <value>Current: normal direction (TSPL DIRECTION 1).</value>
+  </data>
+  <data xml:space="preserve" name="T_6282f5326f11">
+    <value>Font size (points)</value>
+  </data>
+  <data xml:space="preserve" name="T_6295d805893c">
+    <value>Change</value>
+  </data>
+  <data xml:space="preserve" name="T_62fad07e44bf">
+    <value>Website</value>
+  </data>
+  <data xml:space="preserve" name="T_639af9157a61">
+    <value>Selected rows: {0} rows, {1} labels</value>
+  </data>
+  <data xml:space="preserve" name="T_63cd725787a8">
+    <value>Refresh</value>
+  </data>
+  <data xml:space="preserve" name="T_63f3019009d3">
+    <value> Printer used for that job: {0}.</value>
+  </data>
+  <data xml:space="preserve" name="T_64609f6213d3">
+    <value>Check the last label from the printer: paper shortages or other problems may leave queued labels unprinted; </value>
+  </data>
+  <data xml:space="preserve" name="T_64778cbb2f5e">
+    <value>PRINTER PROFILE</value>
+  </data>
+  <data xml:space="preserve" name="T_64e7d98b410c">
+    <value>Calibration label sent to the printer queue. Check the ▲ TOP direction, then measure from the left and top edges to the border.</value>
+  </data>
+  <data xml:space="preserve" name="T_650cc9c6902a">
+    <value>H – highest (30%)</value>
+  </data>
+  <data xml:space="preserve" name="T_65168e89ccdf">
+    <value>The template has changed since printing; the current version is used.</value>
+  </data>
+  <data xml:space="preserve" name="T_651868dac4c4">
+    <value>{0} labels were not sent. Use "{1}" to print only those labels.</value>
+  </data>
+  <data xml:space="preserve" name="T_65b61e5c16ad">
+    <value>Warning: </value>
+  </data>
+  <data xml:space="preserve" name="T_65c955d7a7b0">
+    <value>Select a printer.</value>
+  </data>
+  <data xml:space="preserve" name="T_6665d044932d">
+    <value>Delete row</value>
+  </data>
+  <data xml:space="preserve" name="T_66aab99a1f9c">
+    <value>Persistent serial number: increments for each label sent and continues after restarting. For a named counter, use {SAYAC.Koli}. Manage counters from the arrow beside Save (Counters…) or from the Print window.</value>
+  </data>
+  <data xml:space="preserve" name="T_6816403f28c0">
+    <value>No labels selected for printing.</value>
+  </data>
+  <data xml:space="preserve" name="T_6820b3bd2486">
+    <value>Move up</value>
+  </data>
+  <data xml:space="preserve" name="T_687be9833cf7">
+    <value>GS1 Company Profile</value>
+  </data>
+  <data xml:space="preserve" name="T_6881a0652635">
+    <value>Excel/CSV data: choose a file in the Data panel; bind a field using {ColumnName} in text.</value>
+  </data>
+  <data xml:space="preserve" name="T_688beea357c1">
+    <value>Unsaved changes</value>
+  </data>
+  <data xml:space="preserve" name="T_68ee8f1bdcb3">
+    <value>The measured distance cannot exceed half the label size. Measure from the label edge to the outer line of the border.</value>
+  </data>
+  <data xml:space="preserve" name="T_68fd79af3412">
+    <value>Label size and media</value>
+  </data>
+  <data xml:space="preserve" name="T_69593a8b9000">
+    <value>Print snapshot: opens a copy of the design used for that job as an unsaved document.
+</value>
+  </data>
+  <data xml:space="preserve" name="T_69602884e571">
+    <value>CUSTOM SIZE</value>
+  </data>
+  <data xml:space="preserve" name="T_69e46cc0c631">
+    <value>Right of label</value>
+  </data>
+  <data xml:space="preserve" name="T_69ee9e211515">
+    <value>Logo / artwork (sharp edges)</value>
+  </data>
+  <data xml:space="preserve" name="T_6a61f20c6ec1">
+    <value>Print only labels not sent to the printer queue (confirmation required)</value>
+  </data>
+  <data xml:space="preserve" name="T_6a9e4450b768">
+    <value>Delete template</value>
+  </data>
+  <data xml:space="preserve" name="T_6b24218bc6d6">
+    <value>Quick Print (product list)</value>
+  </data>
+  <data xml:space="preserve" name="T_6b2c64c33c7d">
+    <value>Page</value>
+  </data>
+  <data xml:space="preserve" name="T_6b5c49a00271">
+    <value>4. MEASURE AND SAVE OFFSETS</value>
+  </data>
+  <data xml:space="preserve" name="T_6b65036ad697">
+    <value>Cannot send the sensor calibration command. See the report in the Print window.</value>
+  </data>
+  <data xml:space="preserve" name="T_6b6697427451">
+    <value>Label width and height must be between 5 and 1000 mm.</value>
+  </data>
+  <data xml:space="preserve" name="T_6b9926cf8ee9">
+    <value>Filter by name, code or barcode</value>
+  </data>
+  <data xml:space="preserve" name="T_6bd809330c0e">
+    <value>Unlocked</value>
+  </data>
+  <data xml:space="preserve" name="T_6bf936ffe8c6">
+    <value>Condition</value>
+  </data>
+  <data xml:space="preserve" name="T_6caa06b138cc">
+    <value>Select</value>
+  </data>
+  <data xml:space="preserve" name="T_6cceb6797962">
+    <value>Other</value>
+  </data>
+  <data xml:space="preserve" name="T_6cdb1b6d6445">
+    <value>({0}) requires a product identifier: add (01) GTIN or (02) content GTIN.</value>
+  </data>
+  <data xml:space="preserve" name="T_6d4bc8079cee">
+    <value>Write as (02)</value>
+  </data>
+  <data xml:space="preserve" name="T_6d4e39f2a6ec">
+    <value>Create support package…</value>
+  </data>
+  <data xml:space="preserve" name="T_6d6f82479820">
+    <value>Quick Print: choose a template, search or scan a product, enter quantity and print (Ctrl+Shift+P)</value>
+  </data>
+  <data xml:space="preserve" name="T_6d99092abc81">
+    <value>Black mark</value>
+  </data>
+  <data xml:space="preserve" name="T_6e015c9cbfb7">
+    <value>Redo (Ctrl+Y)</value>
+  </data>
+  <data xml:space="preserve" name="T_6e1ef9c11ac3">
+    <value>Pasted.</value>
+  </data>
+  <data xml:space="preserve" name="T_6e6217e89d55">
+    <value> • {0} warnings</value>
+  </data>
+  <data xml:space="preserve" name="T_6eaffbd583d1">
+    <value>Generate value (EAN: company prefix + sequence + check digit)</value>
+  </data>
+  <data xml:space="preserve" name="T_6ee6aeea53ff">
+    <value>Unused: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_6f1929898d7f">
+    <value>No issues.</value>
+  </data>
+  <data xml:space="preserve" name="T_6f5697f24c96">
+    <value>Save current design as template…</value>
+  </data>
+  <data xml:space="preserve" name="T_6faed16c11cd">
+    <value>{0} / {1} (row {2})</value>
+  </data>
+  <data xml:space="preserve" name="T_6ff8021ebc21">
+    <value>Date</value>
+  </data>
+  <data xml:space="preserve" name="T_70bca6dff14c">
+    <value>Skipped rows / labels:</value>
+  </data>
+  <data xml:space="preserve" name="T_70f96d0349ca">
+    <value>Cannot send the calibration label. See the report in the Print window.</value>
+  </data>
+  <data xml:space="preserve" name="T_7103ac7055ef">
+    <value>Cannot write print history: </value>
+  </data>
+  <data xml:space="preserve" name="T_7134ea23fc81">
+    <value>Cancelling (single job: labels prepared so far will be submitted as one job)…</value>
+  </data>
+  <data xml:space="preserve" name="T_714a221492f6">
+    <value>contains</value>
+  </data>
+  <data xml:space="preserve" name="T_716df669b395">
+    <value>Map columns…</value>
+  </data>
+  <data xml:space="preserve" name="T_71d0fd101658">
+    <value>Company prefix</value>
+  </data>
+  <data xml:space="preserve" name="T_722779670ad6">
+    <value>Aligned</value>
+  </data>
+  <data xml:space="preserve" name="T_7276e05c1a52">
+    <value>PRINTER SETTINGS (TSPL)</value>
+  </data>
+  <data xml:space="preserve" name="T_72e9a59f5a1d">
+    <value>Port</value>
+  </data>
+  <data xml:space="preserve" name="T_731230ab7c58">
+    <value>{SSCC}: a number is reserved and saved from the GS1 Company Profile at print time for each label (preview shows 18 zeros). The company prefix must be verified.</value>
+  </data>
+  <data xml:space="preserve" name="T_73e61a366089">
+    <value>Small text</value>
+  </data>
+  <data xml:space="preserve" name="T_749ef784c3d2">
+    <value>Diagonal line</value>
+  </data>
+  <data xml:space="preserve" name="T_74a0c4ce3e49">
+    <value>Job</value>
+  </data>
+  <data xml:space="preserve" name="T_74be5e6b5fe8">
+    <value>CONNECTION DETAILS</value>
+  </data>
+  <data xml:space="preserve" name="T_74d7707ff3d0">
+    <value>Existing templates are preserved. Company details do not generate GS1 codes. Connect products through Excel/CSV; no account required.</value>
+  </data>
+  <data xml:space="preserve" name="T_759aab337542">
+    <value>Line</value>
+  </data>
+  <data xml:space="preserve" name="T_765eb2f15309">
+    <value>Later</value>
+  </data>
+  <data xml:space="preserve" name="T_7663a9a55c99">
+    <value>mm (XP-470B: 108)</value>
+  </data>
+  <data xml:space="preserve" name="T_766d2634fcf3">
+    <value>{0} × {1} dots (actual print resolution)</value>
+  </data>
+  <data xml:space="preserve" name="T_76ee69ba9ef5">
+    <value>The value will be reset from {0} to {1}. Previously printed numbers may be printed again. Continue?</value>
+  </data>
+  <data xml:space="preserve" name="T_773f6d015f09">
+    <value>Remove logo</value>
+  </data>
+  <data xml:space="preserve" name="T_77f5238f225c">
+    <value>Cannot create backup</value>
+  </data>
+  <data xml:space="preserve" name="T_7837f93a7394">
+    <value>Use if USB status is detected incorrectly. If the printer is off, the job waits in the queue.</value>
+  </data>
+  <data xml:space="preserve" name="T_7856aa3c2171">
+    <value>Templates</value>
+  </data>
+  <data xml:space="preserve" name="T_78c0c7cf3810">
+    <value>Select an AI.</value>
+  </data>
+  <data xml:space="preserve" name="T_78e5fdae705f">
+    <value>Backups:</value>
+  </data>
+  <data xml:space="preserve" name="T_79bc2a1fc4e1">
+    <value>Map Excel/CSV columns</value>
+  </data>
+  <data xml:space="preserve" name="T_79c4b04b6ee8">
+    <value>OK</value>
+  </data>
+  <data xml:space="preserve" name="T_79ce61fc66a6">
+    <value>
+Check the settings and click "Print".</value>
+  </data>
+  <data xml:space="preserve" name="T_7a1af5aa6651">
+    <value>No group in the selection.</value>
+  </data>
+  <data xml:space="preserve" name="T_7a56611c1d0d">
+    <value>This help</value>
+  </data>
+  <data xml:space="preserve" name="T_7ac8c79fd8cf">
+    <value>seconds (0 = disabled)</value>
+  </data>
+  <data xml:space="preserve" name="T_7add36aec044">
+    <value>Data column (for example, Discount) or built-in field</value>
+  </data>
+  <data xml:space="preserve" name="T_7aebb7c03eb7">
+    <value>{0} • {1} elements{2}</value>
+  </data>
+  <data xml:space="preserve" name="T_7aec34bd23e9">
+    <value>The GS1 content builder supports GS1-128, GS1 DataMatrix and GS1 QR only.</value>
+  </data>
+  <data xml:space="preserve" name="T_7b31a9fc4816">
+    <value>Close</value>
+  </data>
+  <data xml:space="preserve" name="T_7b791e1cee4f">
+    <value>Company prefix from your GS1 document; not a GLN</value>
+  </data>
+  <data xml:space="preserve" name="T_7bfa9b4dc86a">
+    <value>Create new sample templates with company details when saving</value>
+  </data>
+  <data xml:space="preserve" name="T_7c45b4a6739b">
+    <value>Remove data source</value>
+  </data>
+  <data xml:space="preserve" name="T_7c6f3f5f37bc">
+    <value>Completed</value>
+  </data>
+  <data xml:space="preserve" name="T_7c7d4b080b10">
+    <value>equals</value>
+  </data>
+  <data xml:space="preserve" name="T_7c8e041b17ff">
+    <value>
+
+Template opened; select the data file and choose rows manually.</value>
+  </data>
+  <data xml:space="preserve" name="T_7c98a31b398d">
+    <value>AI panel: proposals from external agents and the in-app assistant appear here. The design changes only after approval.</value>
+  </data>
+  <data xml:space="preserve" name="T_7df4133fa976">
+    <value>Counter</value>
+  </data>
+  <data xml:space="preserve" name="T_7dfe57324c6a">
+    <value>Choose Excel / CSV data source…</value>
+  </data>
+  <data xml:space="preserve" name="T_7e1f3a1bb475">
+    <value>APPEARANCE</value>
+  </data>
+  <data xml:space="preserve" name="T_7e717bfddd7b">
+    <value>{0} • {1} rows • {2} columns</value>
+  </data>
+  <data xml:space="preserve" name="T_7eb2c3c07b7f">
+    <value>Cut (Ctrl+X)</value>
+  </data>
+  <data xml:space="preserve" name="T_7eee7ff8111a">
+    <value>4 × 6 inches (101.6 × 152.4 mm)</value>
+  </data>
+  <data xml:space="preserve" name="T_7efe3d904c19">
+    <value>First setup</value>
+  </data>
+  <data xml:space="preserve" name="T_7f296ad00591">
+    <value>Send sensor calibration…</value>
+  </data>
+  <data xml:space="preserve" name="T_7f688376417f">
+    <value>Locked elements cannot be grouped.</value>
+  </data>
+  <data xml:space="preserve" name="T_7f6988485885">
+    <value>Tear position disabled</value>
+  </data>
+  <data xml:space="preserve" name="T_7fa1a56b7569">
+    <value>Verification note</value>
+  </data>
+  <data xml:space="preserve" name="T_7fe0fcf5954c">
+    <value>LAYOUT</value>
+  </data>
+  <data xml:space="preserve" name="T_80422e38652c">
+    <value>Text</value>
+  </data>
+  <data xml:space="preserve" name="T_8090db94d735">
+    <value>— back up this folder; deleting records loses the history of used numbers.</value>
+  </data>
+  <data xml:space="preserve" name="T_80ad54ad05fa">
+    <value>Settings</value>
+  </data>
+  <data xml:space="preserve" name="T_80e62b675a8c">
+    <value>Invalid rows</value>
+  </data>
+  <data xml:space="preserve" name="T_8127782e90e5">
+    <value>Light / dark theme</value>
+  </data>
+  <data xml:space="preserve" name="T_81d5f128419b">
+    <value>Label size</value>
+  </data>
+  <data xml:space="preserve" name="T_821596a74dfb">
+    <value>Hold the label with "▲ TOP" at the top. Measure from the left label edge to the outer border line, then from the top edge to the outer border line. Both distances should be 2 mm when aligned.</value>
+  </data>
+  <data xml:space="preserve" name="T_8231cc7a4476">
+    <value>Snap to objects</value>
+  </data>
+  <data xml:space="preserve" name="T_82b8884018aa">
+    <value>PREVIEW ROW</value>
+  </data>
+  <data xml:space="preserve" name="T_82b9b909d4d5">
+    <value>Verified against membership document</value>
+  </data>
+  <data xml:space="preserve" name="T_82c50a2e9fd7">
+    <value>Reset</value>
+  </data>
+  <data xml:space="preserve" name="T_82d963fecc19">
+    <value>Logo is stored in settings.</value>
+  </data>
+  <data xml:space="preserve" name="T_8349832e4d31">
+    <value>Select only labels not sent to the printer queue for this job and open the Print window</value>
+  </data>
+  <data xml:space="preserve" name="T_838c96361e33">
+    <value>Ready to start</value>
+  </data>
+  <data xml:space="preserve" name="T_857637dac12a">
+    <value>) or if the printer stops with a red light. The command may consume several blank labels.</value>
+  </data>
+  <data xml:space="preserve" name="T_859797d0ac71">
+    <value>Stages:</value>
+  </data>
+  <data xml:space="preserve" name="T_85c9ac02a10d">
+    <value>GS1 content applied: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_85d740295b99">
+    <value>visibility</value>
+  </data>
+  <data xml:space="preserve" name="T_866bec73b815">
+    <value>black mark ({0:0.##} mm)</value>
+  </data>
+  <data xml:space="preserve" name="T_8699a582c206">
+    <value>BARCODE</value>
+  </data>
+  <data xml:space="preserve" name="T_869ef8c28249">
+    <value>Variable barcode: each data row is validated separately before printing when a data source is loaded.</value>
+  </data>
+  <data xml:space="preserve" name="T_86be9a55762d">
+    <value>B</value>
+  </data>
+  <data xml:space="preserve" name="T_87547255b4a9">
+    <value>Windows driver</value>
+  </data>
+  <data xml:space="preserve" name="T_875a42db6980">
+    <value>{0} is not a known GS1 AI. Select an AI from the list or delete the row.</value>
+  </data>
+  <data xml:space="preserve" name="T_87a67d198e8d">
+    <value>NOTES</value>
+  </data>
+  <data xml:space="preserve" name="T_87da055900cb">
+    <value>Align left</value>
+  </data>
+  <data xml:space="preserve" name="T_87de99d3b26f">
+    <value>Choose logo…</value>
+  </data>
+  <data xml:space="preserve" name="T_87f8f4ea6a8d">
+    <value>Error correction</value>
+  </data>
+  <data xml:space="preserve" name="T_883f654ed0d4">
+    <value>{1} labels will be printed from {0} rows</value>
+  </data>
+  <data xml:space="preserve" name="T_88566a9de0cf">
+    <value>Undo to here ({0} steps; Ctrl+Y to redo)</value>
+  </data>
+  <data xml:space="preserve" name="T_88574d610115">
+    <value>crop</value>
+  </data>
+  <data xml:space="preserve" name="T_88adde4c9867">
+    <value>Paste (Ctrl+V)</value>
+  </data>
+  <data xml:space="preserve" name="T_892c1df07244">
+    <value>Delete counter</value>
+  </data>
+  <data xml:space="preserve" name="T_89556acedc05">
+    <value>The selected GTIN is written to a (01) or (02) row; a row is added if needed.</value>
+  </data>
+  <data xml:space="preserve" name="T_8957194bb7c1">
+    <value>Clear conversation</value>
+  </data>
+  <data xml:space="preserve" name="T_899371267f8f">
+    <value>Selected rows ({0})</value>
+  </data>
+  <data xml:space="preserve" name="T_89b0f49648f5">
+    <value>Continuous roll</value>
+  </data>
+  <data xml:space="preserve" name="T_89c9f4a6b483">
+    <value>Maximum print width (mm)</value>
+  </data>
+  <data xml:space="preserve" name="T_8a10270c4615">
+    <value>Print history…</value>
+  </data>
+  <data xml:space="preserve" name="T_8a408daf36a2">
+    <value>Text color</value>
+  </data>
+  <data xml:space="preserve" name="T_8a4b4a7f2111">
+    <value>Decode and verify each barcode before printing</value>
+  </data>
+  <data xml:space="preserve" name="T_8b077e4a6947">
+    <value>Moved {0} elements</value>
+  </data>
+  <data xml:space="preserve" name="T_8b3b47febe19">
+    <value>The data file has changed since printing: check the selected rows.</value>
+  </data>
+  <data xml:space="preserve" name="T_8bd057388e28">
+    <value>Status</value>
+  </data>
+  <data xml:space="preserve" name="T_8be82d7983e0">
+    <value>Insert data column</value>
+  </data>
+  <data xml:space="preserve" name="T_8c0d331f3ab5">
+    <value>Errors found in {0} rows. Invalid rows will not print; other rows are unaffected.
+</value>
+  </data>
+  <data xml:space="preserve" name="T_8c4cc65fc3d8">
+    <value>counters do not advance. Use Print for numbered labels.
+
+Continue?</value>
+  </data>
+  <data xml:space="preserve" name="T_8cabe3f7f4d0">
+    <value>Module width: {0} dots ({1:0.###} mm); bounds fitted to barcode.</value>
+  </data>
+  <data xml:space="preserve" name="T_8dc19058a96f">
+    <value>AI can read images and Excel/CSV files only from these folders (the Templates folder is always allowed). For example, product image and logo folders.</value>
+  </data>
+  <data xml:space="preserve" name="T_8dc4e51d4e2a">
+    <value>Guide moved</value>
+  </data>
+  <data xml:space="preserve" name="T_8dca00ec98e8">
+    <value>Row {0} • {1} × {2} dots (actual print resolution)</value>
+  </data>
+  <data xml:space="preserve" name="T_8df3e5bf101a">
+    <value>HTTP MCP (while the app is open; contains the key, do not share):</value>
+  </data>
+  <data xml:space="preserve" name="T_8e121230c7e9">
+    <value>Not sent:</value>
+  </data>
+  <data xml:space="preserve" name="T_8e1419c3d3ae">
+    <value>This name belongs to a built-in profile. Choose a different name.</value>
+  </data>
+  <data xml:space="preserve" name="T_8e59ecdc9ccc">
+    <value>Cannot list printers.</value>
+  </data>
+  <data xml:space="preserve" name="T_8e793367275a">
+    <value>Target:</value>
+  </data>
+  <data xml:space="preserve" name="T_8e99c29e8731">
+    <value>Show/hide grid</value>
+  </data>
+  <data xml:space="preserve" name="T_8ee4241a5305">
+    <value>right</value>
+  </data>
+  <data xml:space="preserve" name="T_8f215bd4f2e0">
+    <value>Profile and SSCC records:</value>
+  </data>
+  <data xml:space="preserve" name="T_8fa1dddd5360">
+    <value>mm</value>
+  </data>
+  <data xml:space="preserve" name="T_8fb67ed57952">
+    <value>Increment…</value>
+  </data>
+  <data xml:space="preserve" name="T_903687e966b3">
+    <value>Select a print job on the left.</value>
+  </data>
+  <data xml:space="preserve" name="T_907b8ec7ae0f">
+    <value>Width (mm)</value>
+  </data>
+  <data xml:space="preserve" name="T_91075b416380">
+    <value>Edit the template file itself</value>
+  </data>
+  <data xml:space="preserve" name="T_9113527ea795">
+    <value>3. CHECK DIRECTION</value>
+  </data>
+  <data xml:space="preserve" name="T_912e9fb3c62b">
+    <value>Choose company logo</value>
+  </data>
+  <data xml:space="preserve" name="T_916ca2404bb7">
+    <value>Printer: </value>
+  </data>
+  <data xml:space="preserve" name="T_918d4a61b17e">
+    <value>QUANTITY AND DATA</value>
+  </data>
+  <data xml:space="preserve" name="T_919616b0cb28">
+    <value>font style</value>
+  </data>
+  <data xml:space="preserve" name="T_91cfda70614e">
+    <value>Automatic (by image type)</value>
+  </data>
+  <data xml:space="preserve" name="T_91d5c425d18f">
+    <value>Counters</value>
+  </data>
+  <data xml:space="preserve" name="T_91e9e783f6b4">
+    <value>Grid spacing</value>
+  </data>
+  <data xml:space="preserve" name="T_920fb19d923a">
+    <value>Add folder…</value>
+  </data>
+  <data xml:space="preserve" name="T_92d262631b8e">
+    <value>Rotation</value>
+  </data>
+  <data xml:space="preserve" name="T_930232a8288d">
+    <value>Select at least two elements to group.</value>
+  </data>
+  <data xml:space="preserve" name="T_930a0da1ee3b">
+    <value>Quick Print</value>
+  </data>
+  <data xml:space="preserve" name="T_930a77066593">
+    <value>RECENT SSCC RECORDS</value>
+  </data>
+  <data xml:space="preserve" name="T_931d40166f2b">
+    <value>Template folder</value>
+  </data>
+  <data xml:space="preserve" name="T_9364546f15cc">
+    <value>COMPANY</value>
+  </data>
+  <data xml:space="preserve" name="T_937d7598ae88">
+    <value>Selected {0} rows</value>
+  </data>
+  <data xml:space="preserve" name="T_93877e687bde">
+    <value>Ungrouped</value>
+  </data>
+  <data xml:space="preserve" name="T_93dccf6fc9dc">
+    <value>Offsets applied ({0}) but the profile could not be saved.</value>
+  </data>
+  <data xml:space="preserve" name="T_9494ff896e95">
+    <value>minutes</value>
+  </data>
+  <data xml:space="preserve" name="T_94bb131ce248">
+    <value>Choose a data column and check its sample value. The mapping is saved in your design; the Excel/CSV file stays unchanged. Undo with Ctrl+Z.</value>
+  </data>
+  <data xml:space="preserve" name="T_94c8518d2345">
+    <value>Undone.</value>
+  </data>
+  <data xml:space="preserve" name="T_95289cc73cb9">
+    <value>A profile applies printer, method, darkness, speed, direction, offsets, single job and media/gap settings. It does not change the label size.</value>
+  </data>
+  <data xml:space="preserve" name="T_959effc5d14f">
+    <value>Open project (Ctrl+O)</value>
+  </data>
+  <data xml:space="preserve" name="T_95b2e6c8a864">
+    <value>Delete template "{0}"?
+(It will be moved to the Recycle Bin.)</value>
+  </data>
+  <data xml:space="preserve" name="T_95c6b3719d6d">
+    <value>Print only when</value>
+  </data>
+  <data xml:space="preserve" name="T_95d791b97083">
+    <value>100 × 100 mm (default)</value>
+  </data>
+  <data xml:space="preserve" name="T_9602fb17db44">
+    <value>New SSCC numbers will be assigned to {0} labels</value>
+  </data>
+  <data xml:space="preserve" name="T_96910885ab65">
+    <value>Applied and saved to profile "{0}" ({1}).</value>
+  </data>
+  <data xml:space="preserve" name="T_96a91ee0f726">
+    <value>Does "▲ TOP" point in the intended direction as the label exits the printer? If reversed, change print direction. This also changes alignment, so print the calibration label again and measure.</value>
+  </data>
+  <data xml:space="preserve" name="T_96f19d2d96d4">
+    <value>Row no.</value>
+  </data>
+  <data xml:space="preserve" name="T_970dbbd01996">
+    <value>Ready</value>
+  </data>
+  <data xml:space="preserve" name="T_983952c4424b">
+    <value>Overwrite</value>
+  </data>
+  <data xml:space="preserve" name="T_98571bdc7b21">
+    <value>Searches all columns and issue text, ignoring case and Turkish accents (isik → IŞIK). With multiple words, all must match.</value>
+  </data>
+  <data xml:space="preserve" name="T_985f36a18d22">
+    <value>  ✗ Not sent to the Windows queue</value>
+  </data>
+  <data xml:space="preserve" name="T_986a70ece69a">
+    <value>Setup step</value>
+  </data>
+  <data xml:space="preserve" name="T_989c70e40d2d">
+    <value>Application Identifier (AI)</value>
+  </data>
+  <data xml:space="preserve" name="T_99c291df249f">
+    <value>Photo (preserve detail)</value>
+  </data>
+  <data xml:space="preserve" name="T_99dbc4861caa">
+    <value>GS1 content builder — {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_99de9ce1e0f7">
+    <value>CHANGE MODE</value>
+  </data>
+  <data xml:space="preserve" name="T_99ff11c535e7">
+    <value>Cannot restore backup</value>
+  </data>
+  <data xml:space="preserve" name="T_9a9093e537a3">
+    <value> Changing direction also changes alignment: print the calibration label again and measure.</value>
+  </data>
+  <data xml:space="preserve" name="T_9ab861f8c2d4">
+    <value>Value is empty.</value>
+  </data>
+  <data xml:space="preserve" name="T_9b13de85b6c1">
+    <value>Print</value>
+  </data>
+  <data xml:space="preserve" name="T_9b1be60f99f3">
+    <value>Move down</value>
+  </data>
+  <data xml:space="preserve" name="T_9b6338171a92">
+    <value>All {0} rows are ready to print.</value>
+  </data>
+  <data xml:space="preserve" name="T_9bbb9a0bba95">
+    <value>Invalid rows only</value>
+  </data>
+  <data xml:space="preserve" name="T_9bd3c084d7c8">
+    <value>Vertical</value>
+  </data>
+  <data xml:space="preserve" name="T_9befd633efbf">
+    <value>SIZE AND MEDIA</value>
+  </data>
+  <data xml:space="preserve" name="T_9bf96e0f3a83">
+    <value>Imported {0} products (key column: {1}).</value>
+  </data>
+  <data xml:space="preserve" name="T_9c5816ece93f">
+    <value>Toggle snapping (Alt while moving: temporarily disable)</value>
+  </data>
+  <data xml:space="preserve" name="T_9c75302d9991">
+    <value>Width and height must be between {0:0} and {1:0} mm.</value>
+  </data>
+  <data xml:space="preserve" name="T_9cd477a88196">
+    <value>Sizes are in millimeters; the design is independent of printer resolution.</value>
+  </data>
+  <data xml:space="preserve" name="T_9cf4f251fc80">
+    <value>FORMATS</value>
+  </data>
+  <data xml:space="preserve" name="T_9d0ccf19ae87">
+    <value>Top</value>
+  </data>
+  <data xml:space="preserve" name="T_9d119cdc2fad">
+    <value>Show</value>
+  </data>
+  <data xml:space="preserve" name="T_9dce5fdba924">
+    <value>Top edge (▲ TOP side) → border</value>
+  </data>
+  <data xml:space="preserve" name="T_9de0257ea86f">
+    <value>Print preview (actual resolution)</value>
+  </data>
+  <data xml:space="preserve" name="T_9de82e46c609">
+    <value>Export as PNG…</value>
+  </data>
+  <data xml:space="preserve" name="T_9e0d6f34b2bf">
+    <value>After applying, print the calibration label again and check that the border is 2 mm from every edge. Differences smaller than one dot (0.125 mm at 203 DPI) cannot be corrected.</value>
+  </data>
+  <data xml:space="preserve" name="T_9e178edf8cb5">
+    <value>Cannot generate label image.</value>
+  </data>
+  <data xml:space="preserve" name="T_9e7b6b0c1ccf">
+    <value>Labels: {0} requested · {1} queued · {2} not sent · {3} invalid</value>
+  </data>
+  <data xml:space="preserve" name="T_9e94fffba14d">
+    <value>No company prefix entered. Use the prefix from your GS1 membership document; it cannot be inferred from a GLN.</value>
+  </data>
+  <data xml:space="preserve" name="T_9eed28ba6a73">
+    <value>Skipped – </value>
+  </data>
+  <data xml:space="preserve" name="T_9f8dd932de3b">
+    <value>Bind Excel/CSV data with {ColumnName} in text. Click to insert into selected text or create new text.</value>
+  </data>
+  <data xml:space="preserve" name="T_9fccc1fd61de">
+    <value>Leave empty to print the same image on every label.</value>
+  </data>
+  <data xml:space="preserve" name="T_9fcff6c48225">
+    <value>Sent to the Windows print queue (job ID: {0}).</value>
+  </data>
+  <data xml:space="preserve" name="T_9fdccc420426">
+    <value>moved</value>
+  </data>
+  <data xml:space="preserve" name="T_a01c513f7d02">
+    <value>(02) content GTIN must be accompanied by (37) count.</value>
+  </data>
+  <data xml:space="preserve" name="T_a024bf947423">
+    <value>Line color</value>
+  </data>
+  <data xml:space="preserve" name="T_a03425caed30">
+    <value>Label Designer</value>
+  </data>
+  <data xml:space="preserve" name="T_a039831c42de">
+    <value>Serial Shipping Container Code: a number is reserved for each label at print time from the GS1 Company Profile</value>
+  </data>
+  <data xml:space="preserve" name="T_a062c203f5e1">
+    <value>No data rows at these numbers ({0}). Data rows in the file: </value>
+  </data>
+  <data xml:space="preserve" name="T_a0bc30f18b9d">
+    <value>Border thickness is rounded to whole printer dots in output.</value>
+  </data>
+  <data xml:space="preserve" name="T_a0cc6769f7f2">
+    <value>No printing yet. The report separates data generation, Windows queue submission, queue status and physical verification.</value>
+  </data>
+  <data xml:space="preserve" name="T_a0dbf92659bd">
+    <value>One {1:0.##} × {2:0.##} mm calibration label will be sent to printer "{0}" </value>
+  </data>
+  <data xml:space="preserve" name="T_a10b562d52d4">
+    <value>GLN, company prefix (GCP), SSCC numbering and saved product identifiers (GTIN). SSCCs are reserved and permanently saved only at print time for the {SSCC} field.</value>
+  </data>
+  <data xml:space="preserve" name="T_a118cfc13fa7">
+    <value>Open the template and data with the same row selection and quantities (printing still requires confirmation)</value>
+  </data>
+  <data xml:space="preserve" name="T_a1b120da7d68">
+    <value>Save as…</value>
+  </data>
+  <data xml:space="preserve" name="T_a20d1881f1f9">
+    <value>FILES</value>
+  </data>
+  <data xml:space="preserve" name="T_a2254f68c2fb">
+    <value>The value can also be a data field such as {Barcode}. For EAN/UPC, missing check digits are calculated; existing ones are validated.</value>
+  </data>
+  <data xml:space="preserve" name="T_a2381a982dbc">
+    <value>Format</value>
+  </data>
+  <data xml:space="preserve" name="T_a29a6ecb3812">
+    <value>New / Open / Save (Ctrl+Shift+S to Save as)</value>
+  </data>
+  <data xml:space="preserve" name="T_a2a1a42069bd">
+    <value>TEMPLATE</value>
+  </data>
+  <data xml:space="preserve" name="T_a2b993762f59">
+    <value>New label (Ctrl+N)</value>
+  </data>
+  <data xml:space="preserve" name="T_a2e6aa564941">
+    <value>Direct TSPL (RAW) — recommended</value>
+  </data>
+  <data xml:space="preserve" name="T_a2fee7b1b79e">
+    <value>Next value of counter "{0}" (assigned to the next label):</value>
+  </data>
+  <data xml:space="preserve" name="T_a30d1d5791a1">
+    <value>Include preview image (for models that support images)</value>
+  </data>
+  <data xml:space="preserve" name="T_a30d403156fb">
+    <value>Data source has issues</value>
+  </data>
+  <data xml:space="preserve" name="T_a3209e795c1a">
+    <value>Cannot read print history: </value>
+  </data>
+  <data xml:space="preserve" name="T_a35ab11a04f2">
+    <value>Below label</value>
+  </data>
+  <data xml:space="preserve" name="T_a36200bb9264">
+    <value>PROGRESS AND REPORT</value>
+  </data>
+  <data xml:space="preserve" name="T_a3943a07f2e9">
+    <value> · Storage folder:</value>
+  </data>
+  <data xml:space="preserve" name="T_a3b8c0cb41b2">
+    <value>Title</value>
+  </data>
+  <data xml:space="preserve" name="T_a3d706901282">
+    <value>No backup for "{0}" yet. Each overwrite keeps the previous version (last {1}).</value>
+  </data>
+  <data xml:space="preserve" name="T_a400e1011910">
+    <value>PROFILE</value>
+  </data>
+  <data xml:space="preserve" name="T_a437b12f9a0f">
+    <value>Barcode content bound to the {0} field.</value>
+  </data>
+  <data xml:space="preserve" name="T_a449fc303f99">
+    <value>QR Code</value>
+  </data>
+  <data xml:space="preserve" name="T_a45c9f6328b5">
+    <value>Maximum print width must be between 20 and 300 mm.</value>
+  </data>
+  <data xml:space="preserve" name="T_a496b563cdcb">
+    <value>  ✗ Cannot generate print data</value>
+  </data>
+  <data xml:space="preserve" name="T_a4d1a301b437">
+    <value>Endpoint URL</value>
+  </data>
+  <data xml:space="preserve" name="T_a51ec95dbda3">
+    <value>No product found with this code. Check the code or update the product list.</value>
+  </data>
+  <data xml:space="preserve" name="T_a52123b61b26">
+    <value>Help</value>
+  </data>
+  <data xml:space="preserve" name="T_a52d28e08331">
+    <value>Choose template folder</value>
+  </data>
+  <data xml:space="preserve" name="T_a530d9cfd0e2">
+    <value>Guide</value>
+  </data>
+  <data xml:space="preserve" name="T_a5a0bdef956a">
+    <value>Top %</value>
+  </data>
+  <data xml:space="preserve" name="T_a6372c376cd8">
+    <value>Enter row numbers (for example, {0}).</value>
+  </data>
+  <data xml:space="preserve" name="T_a6574138b250">
+    <value>Select {0} visible rows</value>
+  </data>
+  <data xml:space="preserve" name="T_a6c406c21137">
+    <value>
+
+Enter the company prefix under Settings → GS1 Company Profile and verify it against your membership document.</value>
+  </data>
+  <data xml:space="preserve" name="T_a6d58bc760b7">
+    <value>Bind selected text/barcode; create text if nothing is selected</value>
+  </data>
+  <data xml:space="preserve" name="T_a6e831816b47">
+    <value>Sample templates</value>
+  </data>
+  <data xml:space="preserve" name="T_a722139f39be">
+    <value>Excel/CSV columns appear here after loading a file in the Data tab.</value>
+  </data>
+  <data xml:space="preserve" name="T_a7b5784b8c6c">
+    <value>No printer selected</value>
+  </data>
+  <data xml:space="preserve" name="T_a8a333d316ec">
+    <value>Cannot read image</value>
+  </data>
+  <data xml:space="preserve" name="T_a8bcca42d9ce">
+    <value>Copy</value>
+  </data>
+  <data xml:space="preserve" name="T_a90c9480255d">
+    <value>Product list (Excel/CSV)</value>
+  </data>
+  <data xml:space="preserve" name="T_a914e95b0c73">
+    <value>Print preview</value>
+  </data>
+  <data xml:space="preserve" name="T_a942007517cb">
+    <value>Empty: 1</value>
+  </data>
+  <data xml:space="preserve" name="T_a96bc2d31f4d">
+    <value>No recent files</value>
+  </data>
+  <data xml:space="preserve" name="T_a9f7381f89a7">
+    <value> This label uses the counter; the next print starts at 1.</value>
+  </data>
+  <data xml:space="preserve" name="T_aa325a1495a5">
+    <value>Align bottom</value>
+  </data>
+  <data xml:space="preserve" name="T_aac3482558f7">
+    <value>Send as a single job (prevent interleaving)</value>
+  </data>
+  <data xml:space="preserve" name="T_ab9617c5e5db">
+    <value>No unsent labels in this job.</value>
+  </data>
+  <data xml:space="preserve" name="T_ab9dc54564e0">
+    <value>Center horizontally</value>
+  </data>
+  <data xml:space="preserve" name="T_abc0eead78bd">
+    <value>Example: http://127.0.0.1:11434/v1 (Ollama) or http://127.0.0.1:1234/v1 (LM Studio)</value>
+  </data>
+  <data xml:space="preserve" name="T_abeba3d76238">
+    <value>Multiple products share this code. Select the correct product from the list.</value>
+  </data>
+  <data xml:space="preserve" name="T_ac0e0fe25fa2">
+    <value>GS1 content not applied: the barcode was changed or deleted in the meantime.</value>
+  </data>
+  <data xml:space="preserve" name="T_ac12fe881291">
+    <value>Send backward</value>
+  </data>
+  <data xml:space="preserve" name="T_ac2fb43d285a">
+    <value>This label contains {SSCC} or a counter field. The PDF uses preview values: no SSCC is reserved, </value>
+  </data>
+  <data xml:space="preserve" name="T_ac359f8530b7">
+    <value>Excel/CSV row numbers: 2-20, 35, 40-42 (40- means row 40 to the end). Select replaces the selection with these rows.</value>
+  </data>
+  <data xml:space="preserve" name="T_ac3f47d51ca7">
+    <value>Refresh printers</value>
+  </data>
+  <data xml:space="preserve" name="T_ac6ecd28f32e">
+    <value>COMPANY PREFIX (GCP)</value>
+  </data>
+  <data xml:space="preserve" name="T_acc80e8cf965">
+    <value>Created a new label from template "{0}".</value>
+  </data>
+  <data xml:space="preserve" name="T_acef372a1c56">
+    <value>Resume ({0} labels)</value>
+  </data>
+  <data xml:space="preserve" name="T_ad645248f840">
+    <value>Restored {0} templates and {1} products. Select your printer when printing.</value>
+  </data>
+  <data xml:space="preserve" name="T_ad8426dd3685">
+    <value>Printer (optional)</value>
+  </data>
+  <data xml:space="preserve" name="T_ad8fa3274ed5">
+    <value>Alternative (button): switch the printer off, hold FEED while switching it on, then release when the light flashes red.
+
+Send the command?</value>
+  </data>
+  <data xml:space="preserve" name="T_ad95c472881e">
+    <value>The image is generated at the resolution reported by the driver and printed without scaling. Driver paper settings and margins apply.</value>
+  </data>
+  <data xml:space="preserve" name="T_adbe51b7d5f5">
+    <value>Fit bounds to barcode</value>
+  </data>
+  <data xml:space="preserve" name="T_ae12d2ad9e94">
+    <value>Diagonal (↘)</value>
+  </data>
+  <data xml:space="preserve" name="T_ae24e6b73192">
+    <value>Text size</value>
+  </data>
+  <data xml:space="preserve" name="T_ae4cf0c1e081">
+    <value>The actual 1-bit image at printer resolution is decoded by an independent reader</value>
+  </data>
+  <data xml:space="preserve" name="T_ae5f63ca3325">
+    <value>The prefix changed, so its verification was cleared. Check the new prefix against your membership document and verify again.</value>
+  </data>
+  <data xml:space="preserve" name="T_ae92bb348094">
+    <value>Feed label</value>
+  </data>
+  <data xml:space="preserve" name="T_ae933cf9e9dc">
+    <value>(using the darkness, speed, direction and offsets in this window).
+
+Send?</value>
+  </data>
+  <data xml:space="preserve" name="T_aee08a56046a">
+    <value>Export as PNG</value>
+  </data>
+  <data xml:space="preserve" name="T_af2bb2217169">
+    <value>Insert (00){SSCC}</value>
+  </data>
+  <data xml:space="preserve" name="T_af6d1eb04348">
+    <value>Template opened (warnings)</value>
+  </data>
+  <data xml:space="preserve" name="T_af6f3859af7c">
+    <value>Sensor calibration</value>
+  </data>
+  <data xml:space="preserve" name="T_af740fb3ed66">
+    <value>(21) serial number requires (01) GTIN.</value>
+  </data>
+  <data xml:space="preserve" name="T_afdffe699908">
+    <value>Label border</value>
+  </data>
+  <data xml:space="preserve" name="T_aff848ed8bd6">
+    <value>Each job is recorded locally: template, data file and selected rows, quantities, printer settings, report stages, errors and queued labels. These records cannot verify physical printing; inspect the labels from the printer.</value>
+  </data>
+  <data xml:space="preserve" name="T_b02f503935f9">
+    <value>Prints a ruler label at the design size: millimeter rulers, a border exactly 2 mm from every edge, a center cross, "▲ TOP" and size information. Uses darkness, speed, direction and offsets from the Print window. Confirmation is requested before sending.</value>
+  </data>
+  <data xml:space="preserve" name="T_b0602177142d">
+    <value>Template (warnings)</value>
+  </data>
+  <data xml:space="preserve" name="T_b0c8114dcd65">
+    <value>Batch sequence number (0001, 0002…)</value>
+  </data>
+  <data xml:space="preserve" name="T_b0cfe2154b74">
+    <value>VARIABLE FIELDS</value>
+  </data>
+  <data xml:space="preserve" name="T_b0d24ebb5bd1">
+    <value>{0} records</value>
+  </data>
+  <data xml:space="preserve" name="T_b0dc157fef6d">
+    <value>Write as (01)</value>
+  </data>
+  <data xml:space="preserve" name="T_b10697e84402">
+    <value>METHOD</value>
+  </data>
+  <data xml:space="preserve" name="T_b11c26a7f004">
+    <value>Counters continue from their saved values. </value>
+  </data>
+  <data xml:space="preserve" name="T_b200dbc9ac7f">
+    <value>Test print</value>
+  </data>
+  <data xml:space="preserve" name="T_b252af229922">
+    <value>Warnings:</value>
+  </data>
+  <data xml:space="preserve" name="T_b2c34226a602">
+    <value>Undo history: return to a point in the list</value>
+  </data>
+  <data xml:space="preserve" name="T_b2e376b0a20c">
+    <value>Settings saved, but new templates could not be added: </value>
+  </data>
+  <data xml:space="preserve" name="T_b3298ba4c936">
+    <value>Print history</value>
+  </data>
+  <data xml:space="preserve" name="T_b33226a5d92c">
+    <value>Corner radius</value>
+  </data>
+  <data xml:space="preserve" name="T_b3e1a6068621">
+    <value>Threshold</value>
+  </data>
+  <data xml:space="preserve" name="T_b3e7b95fcf9e">
+    <value>AI panel: proposals, in-app assistant, connection status</value>
+  </data>
+  <data xml:space="preserve" name="T_b40b5093308c">
+    <value>Row {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_b41ef904c993">
+    <value>BATCH PREVIEW</value>
+  </data>
+  <data xml:space="preserve" name="T_b4ab14504349">
+    <value>Label size/media</value>
+  </data>
+  <data xml:space="preserve" name="T_b4dece1fdeb8">
+    <value>No valid rows to print. Invalid rows:
+</value>
+  </data>
+  <data xml:space="preserve" name="T_b4e49495350f">
+    <value>The preview is the actual 1-bit image that will be sent to the printer.</value>
+  </data>
+  <data xml:space="preserve" name="T_b5a038364a82">
+    <value>DATA WARNINGS</value>
+  </data>
+  <data xml:space="preserve" name="T_b5bb050ab092">
+    <value>BUILT-IN SYMBOLS</value>
+  </data>
+  <data xml:space="preserve" name="T_b5dfaa2e74f9">
+    <value>Degrees (clockwise)</value>
+  </data>
+  <data xml:space="preserve" name="T_b68a3150ea85">
+    <value>Back</value>
+  </data>
+  <data xml:space="preserve" name="T_b69ef08add74">
+    <value>{0} rows</value>
+  </data>
+  <data xml:space="preserve" name="T_b6a09fa8fb6d">
+    <value>Distribute horizontally (3+ elements)</value>
+  </data>
+  <data xml:space="preserve" name="T_b70eb9cefdf8">
+    <value>Undo to the selected change (newest first):</value>
+  </data>
+  <data xml:space="preserve" name="T_b74b73d709d2">
+    <value>Cannot add image</value>
+  </data>
+  <data xml:space="preserve" name="T_b74c06f7f8a5">
+    <value>GS1 Company Profile…</value>
+  </data>
+  <data xml:space="preserve" name="T_b79f64e364f6">
+    <value>Template changed</value>
+  </data>
+  <data xml:space="preserve" name="T_b81b314a4b65">
+    <value>{0} printable rows, {1} invalid rows</value>
+  </data>
+  <data xml:space="preserve" name="T_b831d808452c">
+    <value>resized</value>
+  </data>
+  <data xml:space="preserve" name="T_b8326732aab4">
+    <value>Imported your AKEL Etiket (v1) settings: printer settings, recent files and folders</value>
+  </data>
+  <data xml:space="preserve" name="T_b84e18cbfc6d">
+    <value>Temporarily disable snapping</value>
+  </data>
+  <data xml:space="preserve" name="T_b88019aa289e">
+    <value>Remove</value>
+  </data>
+  <data xml:space="preserve" name="T_b89007ecfee0">
+    <value>Select a product (search or scan a barcode).</value>
+  </data>
+  <data xml:space="preserve" name="T_b8bedfa2f9b8">
+    <value>Product list…</value>
+  </data>
+  <data xml:space="preserve" name="T_b8e2b5e0d035">
+    <value>Offsets applied ({0}); not saved to a profile.</value>
+  </data>
+  <data xml:space="preserve" name="T_b91950d23ded">
+    <value>Continue</value>
+  </data>
+  <data xml:space="preserve" name="T_b944868efd23">
+    <value>Detailed reference: YAPAY-ZEKA-BAGLANTI.md in Documentation (Turkish; Claude, Atlas, Hermes and other agents). See USER-GUIDE.md for an English overview.</value>
+  </data>
+  <data xml:space="preserve" name="T_b95e9e0fcb67">
+    <value>Preparing PDF ({0} labels)…</value>
+  </data>
+  <data xml:space="preserve" name="T_b9a73526483a">
+    <value>GS1 content builder</value>
+  </data>
+  <data xml:space="preserve" name="T_b9b9ad3b6c6b">
+    <value>
+{0} rows have data warnings; details appear in the Data panel when the file is opened.</value>
+  </data>
+  <data xml:space="preserve" name="T_b9d10f005a4c">
+    <value>All labels are submitted as a single job, preventing other jobs from interleaving. Stop printing works only while writing to the queue. Afterwards, cancel in the Windows print queue; labels already received by the printer may still print.</value>
+  </data>
+  <data xml:space="preserve" name="T_ba13e0e04f8f">
+    <value>Consumer unit</value>
+  </data>
+  <data xml:space="preserve" name="T_ba3f1d68f96b">
+    <value>TIPS</value>
+  </data>
+  <data xml:space="preserve" name="T_ba6188fd6a2c">
+    <value>Resume…</value>
+  </data>
+  <data xml:space="preserve" name="T_bab1af3efa7e">
+    <value>Apply writes content to the selected barcode; Undo reverses it.</value>
+  </data>
+  <data xml:space="preserve" name="T_bb17b0a77160">
+    <value>Readability check</value>
+  </data>
+  <data xml:space="preserve" name="T_bb32eee2c44c">
+    <value>Company name</value>
+  </data>
+  <data xml:space="preserve" name="T_bb8a3be974f8">
+    <value>LABEL / MEDIA</value>
+  </data>
+  <data xml:space="preserve" name="T_bbb1132f30f1">
+    <value>Light</value>
+  </data>
+  <data xml:space="preserve" name="T_bbb47728532e">
+    <value>For a different image on each label, select the column containing file names. Images are found beside the data file or in its Görseller subfolder. Rows with missing images are skipped and reported.</value>
+  </data>
+  <data xml:space="preserve" name="T_bbd0f8a8ba78">
+    <value> has an unsaved copy. Recover it?</value>
+  </data>
+  <data xml:space="preserve" name="T_bbee649c1deb">
+    <value>mm (0.125 mm = 1 dot at 203 DPI)</value>
+  </data>
+  <data xml:space="preserve" name="T_bc2daf2e9754">
+    <value>Stop printing</value>
+  </data>
+  <data xml:space="preserve" name="T_bc69c0d4108b">
+    <value>barcode type</value>
+  </data>
+  <data xml:space="preserve" name="T_bc74add79f8b">
+    <value>Check again</value>
+  </data>
+  <data xml:space="preserve" name="T_bc91fce11d6f">
+    <value>Label</value>
+  </data>
+  <data xml:space="preserve" name="T_bce3c039c4d7">
+    <value>Row</value>
+  </data>
+  <data xml:space="preserve" name="T_bd2952226be1">
+    <value>Snapping off</value>
+  </data>
+  <data xml:space="preserve" name="T_be0219164529">
+    <value> • variable</value>
+  </data>
+  <data xml:space="preserve" name="T_be16847168d9">
+    <value>Bottom %</value>
+  </data>
+  <data xml:space="preserve" name="T_be2977ad7b39">
+    <value>BLACK AND WHITE CONVERSION</value>
+  </data>
+  <data xml:space="preserve" name="T_be80215102ed">
+    <value>New offset (right / down):</value>
+  </data>
+  <data xml:space="preserve" name="T_bf6531d30a81">
+    <value>Update</value>
+  </data>
+  <data xml:space="preserve" name="T_c0322b28a759">
+    <value>Group / Ungroup</value>
+  </data>
+  <data xml:space="preserve" name="T_c045826ef1a5">
+    <value>Offsets applied ({0}); a built-in profile name cannot be used, so no profile was saved.</value>
+  </data>
+  <data xml:space="preserve" name="T_c08599b46e21">
+    <value>Import your products from Excel/CSV once, then find them by name, code or barcode in Quick Print. The list is stored locally (Documents\Etiket Tasarım\Ürünler).</value>
+  </data>
+  <data xml:space="preserve" name="T_c09760085faf">
+    <value>use {SAYAC:000000} for formatting. Preview shows the next value without advancing the counter; it advances only </value>
+  </data>
+  <data xml:space="preserve" name="T_c0a9528c964b">
+    <value>{0} locked elements were not deleted (unlock them first).</value>
+  </data>
+  <data xml:space="preserve" name="T_c1091528d5fc">
+    <value>if rows were added or removed, different records may be selected.
+
+Check the selection in the Data panel before printing. Continue?</value>
+  </data>
+  <data xml:space="preserve" name="T_c1108f42b43e">
+    <value>Undo (Ctrl+Z)</value>
+  </data>
+  <data xml:space="preserve" name="T_c11eb96e73c5">
+    <value>Zoom in to see individual printer dots</value>
+  </data>
+  <data xml:space="preserve" name="T_c1440e99371b">
+    <value>Gap between labels</value>
+  </data>
+  <data xml:space="preserve" name="T_c1752600f293">
+    <value> mm</value>
+  </data>
+  <data xml:space="preserve" name="T_c1b60550cb69">
+    <value>Q – high (25%)</value>
+  </data>
+  <data xml:space="preserve" name="T_c1bdff6cf033">
+    <value>Save selected data rows ({0} labels, one per page) or only the label on screen?</value>
+  </data>
+  <data xml:space="preserve" name="T_c1fa9a9cd70d">
+    <value>Brightness</value>
+  </data>
+  <data xml:space="preserve" name="T_c1fe2ecdff02">
+    <value>Save</value>
+  </data>
+  <data xml:space="preserve" name="T_c20882dfd11e">
+    <value>Show / hide</value>
+  </data>
+  <data xml:space="preserve" name="T_c21acc176eb8">
+    <value>Copy / Cut / Paste</value>
+  </data>
+  <data xml:space="preserve" name="T_c238092f9f80">
+    <value>Apply offsets and save to profile</value>
+  </data>
+  <data xml:space="preserve" name="T_c23ae4a11d0d">
+    <value>Current offset (right / down):</value>
+  </data>
+  <data xml:space="preserve" name="T_c253808ace71">
+    <value>Alt (while dragging)</value>
+  </data>
+  <data xml:space="preserve" name="T_c26c0c918d0c">
+    <value>Write GS1 application identifiers in parentheses, for example (00){SSCC} or (02){GTIN}(37){Quantity}(10){Batch}. The app adds required FNC1 separators after variable-length AIs.</value>
+  </data>
+  <data xml:space="preserve" name="T_c2c723ef8181">
+    <value>Resume printing</value>
+  </data>
+  <data xml:space="preserve" name="T_c32718554a60">
+    <value>Align top</value>
+  </data>
+  <data xml:space="preserve" name="T_c332ec882f67">
+    <value>Center</value>
+  </data>
+  <data xml:space="preserve" name="T_c338f588c4e1">
+    <value>Cannot create: </value>
+  </data>
+  <data xml:space="preserve" name="T_c339e4ee5037">
+    <value>Map data columns…</value>
+  </data>
+  <data xml:space="preserve" name="T_c35e09c17ed6">
+    <value> · darkness {0} · speed {1} · {2} · offset {3:0.###} / {4:0.###} mm</value>
+  </data>
+  <data xml:space="preserve" name="T_c389bc18ce42">
+    <value>Undo this change</value>
+  </data>
+  <data xml:space="preserve" name="T_c3d94cf25c76">
+    <value>DOCUMENT</value>
+  </data>
+  <data xml:space="preserve" name="T_c3e9aca82dd3">
+    <value>The product list is empty. Import your products once using "Import from Excel/CSV".</value>
+  </data>
+  <data xml:space="preserve" name="T_c413413f5693">
+    <value>Company prefix {0} will be saved and SSCC generation enabled.
+
+</value>
+  </data>
+  <data xml:space="preserve" name="T_c434f836af56">
+    <value>{0} / {1} templates</value>
+  </data>
+  <data xml:space="preserve" name="T_c45e14c36e61">
+    <value>Add AI</value>
+  </data>
+  <data xml:space="preserve" name="T_c47c939160e2">
+    <value>Provider</value>
+  </data>
+  <data xml:space="preserve" name="T_c4966a03bee5">
+    <value>Map columns</value>
+  </data>
+  <data xml:space="preserve" name="T_c499a29709ad">
+    <value>Confirmation required; the printer feeds several labels</value>
+  </data>
+  <data xml:space="preserve" name="T_c4c39bef7f1c">
+    <value>Valid ({0})</value>
+  </data>
+  <data xml:space="preserve" name="T_c4ec768d3dc0">
+    <value>Changes apply as one undo step; use Ctrl+Z to reverse them.</value>
+  </data>
+  <data xml:space="preserve" name="T_c4f2e2db7ba3">
+    <value>Include the open design ({0}) in the package?</value>
+  </data>
+  <data xml:space="preserve" name="T_c5561812d0d2">
+    <value>Example: GS1 membership document, 2026</value>
+  </data>
+  <data xml:space="preserve" name="T_c55fdca0098f">
+    <value>Enter the company prefix from your GS1 document.</value>
+  </data>
+  <data xml:space="preserve" name="T_c5a9e8ce4553">
+    <value>Set your company details and label size once. You can change them later.</value>
+  </data>
+  <data xml:space="preserve" name="T_c5ddbc334a81">
+    <value>PRODUCT</value>
+  </data>
+  <data xml:space="preserve" name="T_c613bcb4d758">
+    <value>Results arrive as proposals; the design changes only after your approval.</value>
+  </data>
+  <data xml:space="preserve" name="T_c62054ee7907">
+    <value>(37) count requires (02) content GTIN.</value>
+  </data>
+  <data xml:space="preserve" name="T_c64198056bee">
+    <value>Copies</value>
+  </data>
+  <data xml:space="preserve" name="T_c641dfba8dd1">
+    <value>Template</value>
+  </data>
+  <data xml:space="preserve" name="T_c67837bfbc7a">
+    <value>Each row in Excel (XLSX or legacy XLS) or CSV becomes a separate label. Barcode columns are read as text, preserving leading zeros.</value>
+  </data>
+  <data xml:space="preserve" name="T_c68ce72af18f">
+    <value>  These records cannot verify physical printing; inspect the labels from the printer.</value>
+  </data>
+  <data xml:space="preserve" name="T_c808264d1e07">
+    <value>This printer may not support TSPL; use TSPL only with compatible label printers. For other printers, select "Windows driver".</value>
+  </data>
+  <data xml:space="preserve" name="T_c86db6d6cbea">
+    <value>Warning: the label has variable fields but no data source; fields may print empty or as placeholders.</value>
+  </data>
+  <data xml:space="preserve" name="T_c8888c6b5128">
+    <value>Calibration assistant…</value>
+  </data>
+  <data xml:space="preserve" name="T_c8a2802b9e76">
+    <value>In both modes, design files are preserved, overwriting requires permission and locked elements are protected.</value>
+  </data>
+  <data xml:space="preserve" name="T_c8b3461f3891">
+    <value>Left edge → border</value>
+  </data>
+  <data xml:space="preserve" name="T_c9185af4e402">
+    <value>Template for this job not found</value>
+  </data>
+  <data xml:space="preserve" name="T_c91da2e0203b">
+    <value>Bottom</value>
+  </data>
+  <data xml:space="preserve" name="T_c9809cb12580">
+    <value>Before</value>
+  </data>
+  <data xml:space="preserve" name="T_c9a878720fa5">
+    <value>Time</value>
+  </data>
+  <data xml:space="preserve" name="T_c9e1193baef8">
+    <value>{0} rows were not found in the data file (it may have fewer rows now).</value>
+  </data>
+  <data xml:space="preserve" name="T_c9f07e53996f">
+    <value>in proportion to labels sent to the printer queue.</value>
+  </data>
+  <data xml:space="preserve" name="T_ca16d8c6bcfd">
+    <value>0 = automatic</value>
+  </data>
+  <data xml:space="preserve" name="T_ca3dbfdf6cb1">
+    <value>Add title</value>
+  </data>
+  <data xml:space="preserve" name="T_ca6500f8231e">
+    <value>Choose an Application Identifier (AI) and enter a value in each row. Values can be data fields such as {Batch}. The app adds the initial FNC1 and separators required after variable-length AIs.</value>
+  </data>
+  <data xml:space="preserve" name="T_ca72389cc739">
+    <value>right/down offset {0:0.###} / {1:0.###} mm</value>
+  </data>
+  <data xml:space="preserve" name="T_ca82d4215e56">
+    <value>Data file changed</value>
+  </data>
+  <data xml:space="preserve" name="T_caae189681f5">
+    <value>Fit text to box (shrink automatically)</value>
+  </data>
+  <data xml:space="preserve" name="T_caae59a7093f">
+    <value>Keep printer setting</value>
+  </data>
+  <data xml:space="preserve" name="T_cac400c7ec07">
+    <value>No</value>
+  </data>
+  <data xml:space="preserve" name="T_cae7438bc98c">
+    <value>No selection</value>
+  </data>
+  <data xml:space="preserve" name="T_cb0a798888aa">
+    <value>invalid</value>
+  </data>
+  <data xml:space="preserve" name="T_cbb0dd201b6c">
+    <value>Show grid</value>
+  </data>
+  <data xml:space="preserve" name="T_cc037ebae073">
+    <value>ALIGN</value>
+  </data>
+  <data xml:space="preserve" name="T_cc47fbb49d97">
+    <value>Generated barcode: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_cd7af79cbd62">
+    <value>Last used</value>
+  </data>
+  <data xml:space="preserve" name="T_cd7dcde22e36">
+    <value>Bold</value>
+  </data>
+  <data xml:space="preserve" name="T_cd814c1c035f">
+    <value>Black strip</value>
+  </data>
+  <data xml:space="preserve" name="T_cde8fa365cbb">
+    <value>Italic</value>
+  </data>
+  <data xml:space="preserve" name="T_ce5e974c3cfc">
+    <value>Submit batch printing as one Windows job instead of groups of 25</value>
+  </data>
+  <data xml:space="preserve" name="T_ce6f6852badc">
+    <value>Leave blank to use the full range. Assign non-overlapping ranges to computers that print SSCCs.</value>
+  </data>
+  <data xml:space="preserve" name="T_ce913e6493a3">
+    <value>Save as profile…</value>
+  </data>
+  <data xml:space="preserve" name="T_cea314270606">
+    <value>). Each label receives a different number; only labels sent to the queue advance the counter.</value>
+  </data>
+  <data xml:space="preserve" name="T_cf097eb22ef9">
+    <value>Add sample templates with my company details</value>
+  </data>
+  <data xml:space="preserve" name="T_cf4ea62fe5a5">
+    <value>Open company, template and product backup</value>
+  </data>
+  <data xml:space="preserve" name="T_cf63b554903c">
+    <value>Distribute vertically (3+ elements)</value>
+  </data>
+  <data xml:space="preserve" name="T_cf773c25eee2">
+    <value>Text updated (Ctrl+Z to undo).</value>
+  </data>
+  <data xml:space="preserve" name="T_cf90c84f344c">
+    <value>SSCC (SERIAL SHIPPING CONTAINER CODE)</value>
+  </data>
+  <data xml:space="preserve" name="T_cfdc37d2c336">
+    <value> · single job</value>
+  </data>
+  <data xml:space="preserve" name="T_cfe32e96c7ab">
+    <value>Cannot read: </value>
+  </data>
+  <data xml:space="preserve" name="T_cfe86030ce79">
+    <value>Duplicated {0} elements</value>
+  </data>
+  <data xml:space="preserve" name="T_cff275b74696">
+    <value>Invalid</value>
+  </data>
+  <data xml:space="preserve" name="T_d0576deda66c">
+    <value>Duplicate (Ctrl+D)</value>
+  </data>
+  <data xml:space="preserve" name="T_d0902bcd5b94">
+    <value>Forward / backward (Shift: front / back)</value>
+  </data>
+  <data xml:space="preserve" name="T_d0a7782b0e67">
+    <value>Rectangle</value>
+  </data>
+  <data xml:space="preserve" name="T_d0b4f0efea0f">
+    <value>Select an element or add one from the left panel.</value>
+  </data>
+  <data xml:space="preserve" name="T_d0ed81c3a86e">
+    <value>AI settings and connection details</value>
+  </data>
+  <data xml:space="preserve" name="T_d14915af32f2">
+    <value>Have you checked this prefix against your GS1 membership document? SSCCs printed with an incorrect prefix cannot be recalled.</value>
+  </data>
+  <data xml:space="preserve" name="T_d151bbfeca12">
+    <value>Setup does not send print jobs. Existing templates are preserved; no GS1 numbers are generated.</value>
+  </data>
+  <data xml:space="preserve" name="T_d1a6db80dbf7">
+    <value>Required white space on both sides of the barcode. Always included for EAN/UPC.</value>
+  </data>
+  <data xml:space="preserve" name="T_d1e4c1b59b48">
+    <value>Company and appearance settings will be applied. Templates will be imported to a new folder; existing templates are preserved. </value>
+  </data>
+  <data xml:space="preserve" name="T_d22c45175947">
+    <value>"{0}": the start of a range cannot exceed its end.</value>
+  </data>
+  <data xml:space="preserve" name="T_d2341dfe9dc3">
+    <value>Between {0} and {1}; selection unchanged.</value>
+  </data>
+  <data xml:space="preserve" name="T_d257bbfe5fc0">
+    <value>Reprint…</value>
+  </data>
+  <data xml:space="preserve" name="T_d2cbe5a8b1a5">
+    <value>inches/sec (consult your printer manual)</value>
+  </data>
+  <data xml:space="preserve" name="T_d2d7da090d67">
+    <value>{0} (header row)</value>
+  </data>
+  <data xml:space="preserve" name="T_d2e7dbfbf899">
+    <value>Print…</value>
+  </data>
+  <data xml:space="preserve" name="T_d30938608bbb">
+    <value>Visible (prints)</value>
+  </data>
+  <data xml:space="preserve" name="T_d317cff69e0e">
+    <value>AI Settings</value>
+  </data>
+  <data xml:space="preserve" name="T_d34e30c384b1">
+    <value>Save changes to "{0}"?</value>
+  </data>
+  <data xml:space="preserve" name="T_d356fca62a99">
+    <value>Reset counter</value>
+  </data>
+  <data xml:space="preserve" name="T_d3c7db600d0f">
+    <value>AI proposal awaiting approval</value>
+  </data>
+  <data xml:space="preserve" name="T_d4bb4c834dbb">
+    <value>Print</value>
+  </data>
+  <data xml:space="preserve" name="T_d4bbf454a151">
+    <value>Redone.</value>
+  </data>
+  <data xml:space="preserve" name="T_d4fd4d442722">
+    <value>Extension digit</value>
+  </data>
+  <data xml:space="preserve" name="T_d51c8cbd8118">
+    <value>You can also select a printer later.</value>
+  </data>
+  <data xml:space="preserve" name="T_d5334e8992dc">
+    <value> — design not saved to a file</value>
+  </data>
+  <data xml:space="preserve" name="T_d56604ae4417">
+    <value>Element name (shown in Layers)</value>
+  </data>
+  <data xml:space="preserve" name="T_d58c348d315e">
+    <value>Rotate 90°</value>
+  </data>
+  <data xml:space="preserve" name="T_d5dd6a5c70b8">
+    <value>Invert black / white</value>
+  </data>
+  <data xml:space="preserve" name="T_d5df3708bc68">
+    <value>Theme</value>
+  </data>
+  <data xml:space="preserve" name="T_d6307dfccf27">
+    <value>PREFLIGHT CHECK</value>
+  </data>
+  <data xml:space="preserve" name="T_d6489470fb60">
+    <value>Printing in progress</value>
+  </data>
+  <data xml:space="preserve" name="T_d6633f961d51">
+    <value>GS1 content</value>
+  </data>
+  <data xml:space="preserve" name="T_d67100ca5521">
+    <value>SHAPE</value>
+  </data>
+  <data xml:space="preserve" name="T_d71c8a449c94">
+    <value>Save and start</value>
+  </data>
+  <data xml:space="preserve" name="T_d79a5103e5ff">
+    <value> (job ID {0})</value>
+  </data>
+  <data xml:space="preserve" name="T_d7e68641832c">
+    <value>API key</value>
+  </data>
+  <data xml:space="preserve" name="T_d84e4cec0cf5">
+    <value>Delimiter</value>
+  </data>
+  <data xml:space="preserve" name="T_d8867fd83778">
+    <value>Applied formatting to {0} elements.</value>
+  </data>
+  <data xml:space="preserve" name="T_d8b98ff9395f">
+    <value>Numbers are permanently saved when labels are generated. Numbers for failed or cancelled labels are not reused.
+
+Continue?</value>
+  </data>
+  <data xml:space="preserve" name="T_d9226673154c">
+    <value>Values cannot contain parentheses: parentheses separate AIs.</value>
+  </data>
+  <data xml:space="preserve" name="T_d978e624ad21">
+    <value>No data source · starting number {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_d9a42407871d">
+    <value>The content contains data fields: values are checked again against GS1 rules using actual data during preview and printing.</value>
+  </data>
+  <data xml:space="preserve" name="T_d9b70ef648f1">
+    <value>Counters…</value>
+  </data>
+  <data xml:space="preserve" name="T_da1be36b3b62">
+    <value>Data source has no {0} column.</value>
+  </data>
+  <data xml:space="preserve" name="T_da5d9dfdf483">
+    <value>GS1 content builder…</value>
+  </data>
+  <data xml:space="preserve" name="T_db5270d75483">
+    <value>Change label size…</value>
+  </data>
+  <data xml:space="preserve" name="T_db7e665610c3">
+    <value>Restore backup</value>
+  </data>
+  <data xml:space="preserve" name="T_dbcfc6eb2fd9">
+    <value>All AI features are optional; the rest of the app works when they are off. AI has no tool for sending print jobs.</value>
+  </data>
+  <data xml:space="preserve" name="T_dbd27c491e85">
+    <value>Distance from top (mm)</value>
+  </data>
+  <data xml:space="preserve" name="T_dbd417da03e1">
+    <value>Cancelled</value>
+  </data>
+  <data xml:space="preserve" name="T_dbde6c22e631">
+    <value>Settings saved; added {0} new templates with company details. Existing templates are preserved.</value>
+  </data>
+  <data xml:space="preserve" name="T_dc35c5454c2e">
+    <value>Offsets applied ({0}), but cannot save the profile: {1}</value>
+  </data>
+  <data xml:space="preserve" name="T_dc4bcacfc470">
+    <value>Actual size (100% = physical size) (Ctrl+1)</value>
+  </data>
+  <data xml:space="preserve" name="T_dcc084f9a2e1">
+    <value>Open</value>
+  </data>
+  <data xml:space="preserve" name="T_dce20ccd9d17">
+    <value>Sharpen edges (0 = disabled)</value>
+  </data>
+  <data xml:space="preserve" name="T_dd4720fa6412">
+    <value>Next label</value>
+  </data>
+  <data xml:space="preserve" name="T_dd90bca6dd07">
+    <value>" design.</value>
+  </data>
+  <data xml:space="preserve" name="T_ddbd4ae5b72e">
+    <value>Calibration assistant</value>
+  </data>
+  <data xml:space="preserve" name="T_de1d45e90dd3">
+    <value>Select a field for the condition.</value>
+  </data>
+  <data xml:space="preserve" name="T_de2a4073b7dd">
+    <value>VALIDATION</value>
+  </data>
+  <data xml:space="preserve" name="T_dec40f0e8887">
+    <value>Validating labels…</value>
+  </data>
+  <data xml:space="preserve" name="T_dee341c42720">
+    <value>Save the current settings as a new profile</value>
+  </data>
+  <data xml:space="preserve" name="T_deed1b6acf10">
+    <value>Connection key</value>
+  </data>
+  <data xml:space="preserve" name="T_df22199766d8">
+    <value>Ungrouped.</value>
+  </data>
+  <data xml:space="preserve" name="T_df52462be4b5">
+    <value>{0} templates, {1} products.
+
+</value>
+  </data>
+  <data xml:space="preserve" name="T_df65956b53e8">
+    <value>Not saved. Fix these errors first:
+
+</value>
+  </data>
+  <data xml:space="preserve" name="T_dfbb76f06e9a">
+    <value>Lock / unlock</value>
+  </data>
+  <data xml:space="preserve" name="T_dfd12ee38484">
+    <value>Choose…</value>
+  </data>
+  <data xml:space="preserve" name="T_e0588b63724b">
+    <value>• Drag to move; resize at corners and rotate using the circle above.
+• Shift: lock aspect/axis • Alt: move without snapping
+• Ctrl+wheel: zoom • Middle button: pan
+• Arrow keys: 0.5 mm • Shift+arrow: 5 mm • Ctrl+arrow: 1 dot
+• Drag from a ruler to add a guide.</value>
+  </data>
+  <data xml:space="preserve" name="T_e08b347cee37">
+    <value>Print darkness</value>
+  </data>
+  <data xml:space="preserve" name="T_e1015be0ae74">
+    <value>Border is correctly aligned: offsets unchanged.</value>
+  </data>
+  <data xml:space="preserve" name="T_e147fb538df3">
+    <value>Black mark</value>
+  </data>
+  <data xml:space="preserve" name="T_e17ccb1e9466">
+    <value>New</value>
+  </data>
+  <data xml:space="preserve" name="T_e1d1400ea547">
+    <value>Name, code or barcode</value>
+  </data>
+  <data xml:space="preserve" name="T_e1d4f7f94769">
+    <value>Label width × height (mm)</value>
+  </data>
+  <data xml:space="preserve" name="T_e20480a50c24">
+    <value>Clear filters</value>
+  </data>
+  <data xml:space="preserve" name="T_e2101624fb1d">
+    <value>Drag images onto the canvas or paste from the clipboard (Ctrl+V)</value>
+  </data>
+  <data xml:space="preserve" name="T_e2370d7aeba4">
+    <value>This label has no counter field. </value>
+  </data>
+  <data xml:space="preserve" name="T_e240142b3860">
+    <value>{0} moved</value>
+  </data>
+  <data xml:space="preserve" name="T_e28c398cf4f1">
+    <value>Load a data file first.</value>
+  </data>
+  <data xml:space="preserve" name="T_e2a618199620">
+    <value>The condition is false for this preview row: the element will not print (only {0} prints).</value>
+  </data>
+  <data xml:space="preserve" name="T_e319872c29fd">
+    <value>Info: counter in use (</value>
+  </data>
+  <data xml:space="preserve" name="T_e368e444e1b5">
+    <value>Created:
+{0}
+
+The package was saved only on this computer. Connection keys are excluded.</value>
+  </data>
+  <data xml:space="preserve" name="T_e37a48588318">
+    <value>Resume: {1} unsent labels from the job dated {0}.</value>
+  </data>
+  <data xml:space="preserve" name="T_e3cd2a3e7de1">
+    <value>The app appears to have closed unexpectedly.
+
+"{0}" ({1:dd.MM.yyyy HH:mm}) </value>
+  </data>
+  <data xml:space="preserve" name="T_e3d915886d27">
+    <value>All barcodes are aligned to printer dots with whole-dot module widths and can be verified by decoding.</value>
+  </data>
+  <data xml:space="preserve" name="T_e3f53b8bb3fe">
+    <value>With approval (recommended): AI works in a draft; changes are shown as before/after proposals and applied only if accepted.</value>
+  </data>
+  <data xml:space="preserve" name="T_e4244245a2ca">
+    <value>Current content "{0}" could not be parsed into AI rows. Apply will replace it with the content here.</value>
+  </data>
+  <data xml:space="preserve" name="T_e45403e61cae">
+    <value>Left of label</value>
+  </data>
+  <data xml:space="preserve" name="T_e46a08b4c986">
+    <value>CONDITIONAL VISIBILITY</value>
+  </data>
+  <data xml:space="preserve" name="T_e47448e184c3">
+    <value>First SSCC digit (0–9); can distinguish series within the company.</value>
+  </data>
+  <data xml:space="preserve" name="T_e4ac8fe3dc54">
+    <value>SHORTCUTS</value>
+  </data>
+  <data xml:space="preserve" name="T_e4db2a5a5454">
+    <value>Description (optional)</value>
+  </data>
+  <data xml:space="preserve" name="T_e4f5f97196ba">
+    <value>Excel/CSV columns mapped</value>
+  </data>
+  <data xml:space="preserve" name="T_e511509b5c89">
+    <value>Data table</value>
+  </data>
+  <data xml:space="preserve" name="T_e53ca81d608c">
+    <value>content {0:0.##} mm {1}</value>
+  </data>
+  <data xml:space="preserve" name="T_e5417667ec53">
+    <value>TEXT</value>
+  </data>
+  <data xml:space="preserve" name="T_e555bbfbafc3">
+    <value>Previous label</value>
+  </data>
+  <data xml:space="preserve" name="T_e5a8f1d52eb8">
+    <value>Maximum print width</value>
+  </data>
+  <data xml:space="preserve" name="T_e5bfc8a17d0e">
+    <value>Printing is in progress. Stop and close this window? (Labels already queued may continue printing.)</value>
+  </data>
+  <data xml:space="preserve" name="T_e5e7870cb7e9">
+    <value>Separation</value>
+  </data>
+  <data xml:space="preserve" name="T_e61cd476e2f4">
+    <value>Save as template…</value>
+  </data>
+  <data xml:space="preserve" name="T_e632b7095b0b">
+    <value>U</value>
+  </data>
+  <data xml:space="preserve" name="T_e63f2ceb740f">
+    <value>No data source loaded.</value>
+  </data>
+  <data xml:space="preserve" name="T_e65f37b28667">
+    <value>AI</value>
+  </data>
+  <data xml:space="preserve" name="T_e6794f6a7ca4">
+    <value>Media type</value>
+  </data>
+  <data xml:space="preserve" name="T_e6b38eaba6f9">
+    <value>The design has no data fields. Add a field such as {ProductName} to a text element first.</value>
+  </data>
+  <data xml:space="preserve" name="T_e70fd6428696">
+    <value>Empty: largest serial</value>
+  </data>
+  <data xml:space="preserve" name="T_e75b11da693d">
+    <value>pt</value>
+  </data>
+  <data xml:space="preserve" name="T_e75d281d8407">
+    <value>Selected objects only</value>
+  </data>
+  <data xml:space="preserve" name="T_e7aad2dafba8">
+    <value>{0} duplicated</value>
+  </data>
+  <data xml:space="preserve" name="T_e7ae0d9a164c">
+    <value>Description</value>
+  </data>
+  <data xml:space="preserve" name="T_e8872de8dde1">
+    <value>GTIN of the trade item (14 digits; prefix an EAN-13 with 0)</value>
+  </data>
+  <data xml:space="preserve" name="T_e8c6aa4e51e9">
+    <value>Counter "{0}" will restart at 1. Previously printed numbers may be printed again. Continue?</value>
+  </data>
+  <data xml:space="preserve" name="T_e8cd1d564f1f">
+    <value>Zoom out (Ctrl −)</value>
+  </data>
+  <data xml:space="preserve" name="T_e8d77d452a3b">
+    <value>Middle</value>
+  </data>
+  <data xml:space="preserve" name="T_e9025a1ed686">
+    <value>Time (HH:mm)</value>
+  </data>
+  <data xml:space="preserve" name="T_e9076b0d690d">
+    <value>{SSCC} can only be used with AI (00).</value>
+  </data>
+  <data xml:space="preserve" name="T_e90c47c6f8dd">
+    <value>use Print history to print those separately.
+
+Continue?</value>
+  </data>
+  <data xml:space="preserve" name="T_e924b2fe041b">
+    <value>Product handling and packaging symbols. Click to add a crisp black and white image using the Logo method; resize with handles. Registered conformity or licensed marks are not included.</value>
+  </data>
+  <data xml:space="preserve" name="T_e94e2cde4e4d">
+    <value>Element name:</value>
+  </data>
+  <data xml:space="preserve" name="T_e9f00d4e7490">
+    <value>Underline</value>
+  </data>
+  <data xml:space="preserve" name="T_ea33b58c1d8e">
+    <value>Edit</value>
+  </data>
+  <data xml:space="preserve" name="T_ea7f441e1e93">
+    <value>IMAGE</value>
+  </data>
+  <data xml:space="preserve" name="T_eac1097bfdb0">
+    <value>Share the open design with AI (an agent can view the document and propose changes)</value>
+  </data>
+  <data xml:space="preserve" name="T_ead412c040ad">
+    <value>Wrap text</value>
+  </data>
+  <data xml:space="preserve" name="T_eb3fc3c299e5">
+    <value>PREVIEW (PRINT RESOLUTION)</value>
+  </data>
+  <data xml:space="preserve" name="T_eb80a0cb5755">
+    <value>Search templates</value>
+  </data>
+  <data xml:space="preserve" name="T_ebb23b5769f6">
+    <value>1 label will be printed.</value>
+  </data>
+  <data xml:space="preserve" name="T_ebc464d8d55b">
+    <value>Later</value>
+  </data>
+  <data xml:space="preserve" name="T_ebe90565b1f1">
+    <value>Print calibration label…</value>
+  </data>
+  <data xml:space="preserve" name="T_ec17d4ec93e5">
+    <value>Invalid GLN</value>
+  </data>
+  <data xml:space="preserve" name="T_ec1a50faf3e6">
+    <value>{0}: sent to the printer queue. Check the physical label.</value>
+  </data>
+  <data xml:space="preserve" name="T_ec32ddfdf26a">
+    <value>Align right</value>
+  </data>
+  <data xml:space="preserve" name="T_ec45dddff1dd">
+    <value>; {0} invalid labels will not print</value>
+  </data>
+  <data xml:space="preserve" name="T_ec61779edece">
+    <value>Add subtitle</value>
+  </data>
+  <data xml:space="preserve" name="T_ece53c2ae5c9">
+    <value>Rename template</value>
+  </data>
+  <data xml:space="preserve" name="T_ecf3488dbd71">
+    <value>({0}) is used more than once.</value>
+  </data>
+  <data xml:space="preserve" name="T_ed11198cb7ae">
+    <value>Choose Excel / CSV file</value>
+  </data>
+  <data xml:space="preserve" name="T_ed211474d7da">
+    <value>Locked: cannot be moved or deleted</value>
+  </data>
+  <data xml:space="preserve" name="T_ed2632ec78d3">
+    <value>Recovered document opened. Please save it.</value>
+  </data>
+  <data xml:space="preserve" name="T_ed28d3442ea0">
+    <value>QR and 2D codes</value>
+  </data>
+  <data xml:space="preserve" name="T_ed9fcb24a554">
+    <value>rotated</value>
+  </data>
+  <data xml:space="preserve" name="T_edc289eed3d7">
+    <value>normal direction</value>
+  </data>
+  <data xml:space="preserve" name="T_ee0b448acefc">
+    <value>Cannot open project</value>
+  </data>
+  <data xml:space="preserve" name="T_ee6538ea6322">
+    <value>Packaging</value>
+  </data>
+  <data xml:space="preserve" name="T_ee72683e9be5">
+    <value>Height (mm)</value>
+  </data>
+  <data xml:space="preserve" name="T_eeb792f719d3">
+    <value>Data column</value>
+  </data>
+  <data xml:space="preserve" name="T_eee0a6e60641">
+    <value>Cannot create sample templates: </value>
+  </data>
+  <data xml:space="preserve" name="T_ef0b6d89aaa3">
+    <value>Select all</value>
+  </data>
+  <data xml:space="preserve" name="T_ef2eb789f433">
+    <value>Next serial: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_ef891fba0870">
+    <value>Rounded corner</value>
+  </data>
+  <data xml:space="preserve" name="T_effd09b27440">
+    <value>up</value>
+  </data>
+  <data xml:space="preserve" name="T_f026903626e5">
+    <value>GTIN of products contained in the logistics unit; used with (37) count</value>
+  </data>
+  <data xml:space="preserve" name="T_f0424607a268">
+    <value>Show human-readable text</value>
+  </data>
+  <data xml:space="preserve" name="T_f06ef4e5a1b8">
+    <value>Calibration</value>
+  </data>
+  <data xml:space="preserve" name="T_f07841f80fd1">
+    <value>Cannot replace image</value>
+  </data>
+  <data xml:space="preserve" name="T_f086340bacc0">
+    <value>Showing {0} / {1} rows</value>
+  </data>
+  <data xml:space="preserve" name="T_f088e671c53c">
+    <value>Increase module size (widen the box)</value>
+  </data>
+  <data xml:space="preserve" name="T_f103fddfe221">
+    <value>Company templates</value>
+  </data>
+  <data xml:space="preserve" name="T_f19ff59b68a4">
+    <value>Choose a data column for each label field.</value>
+  </data>
+  <data xml:space="preserve" name="T_f1ffa74cce75">
+    <value>Counter names cannot contain { } : characters.</value>
+  </data>
+  <data xml:space="preserve" name="T_f269b8b9af62">
+    <value>Send</value>
+  </data>
+  <data xml:space="preserve" name="T_f269e9504224">
+    <value>1) Choose a template  2) Search or scan a product  3) Enter quantity  4) Print — printer settings and confirmation are in the Print window.</value>
+  </data>
+  <data xml:space="preserve" name="T_f2719fea9076">
+    <value>Sharpness</value>
+  </data>
+  <data xml:space="preserve" name="T_f2a8803138ad">
+    <value>Website (include https:// for QR)</value>
+  </data>
+  <data xml:space="preserve" name="T_f2baa71d6954">
+    <value>GLN, company prefix, SSCC and saved GTINs</value>
+  </data>
+  <data xml:space="preserve" name="T_f3392de9146a">
+    <value>Bring to front</value>
+  </data>
+  <data xml:space="preserve" name="T_f3d865545b87">
+    <value>IMAGE BY ROW</value>
+  </data>
+  <data xml:space="preserve" name="T_f3fd59335c51">
+    <value>Fit box height to image aspect ratio</value>
+  </data>
+  <data xml:space="preserve" name="T_f44fad234051">
+    <value>GTIN</value>
+  </data>
+  <data xml:space="preserve" name="T_f488fad415d0">
+    <value>{0} unsent labels will be printed. Labels already sent to the printer queue will not be repeated. {1}
+
+</value>
+  </data>
+  <data xml:space="preserve" name="T_f4ac9214a63c">
+    <value>NEW LABEL</value>
+  </data>
+  <data xml:space="preserve" name="T_f4f55e7c2d55">
+    <value>Update the selected profile with current settings (built-in profiles cannot be changed)</value>
+  </data>
+  <data xml:space="preserve" name="T_f55981661328">
+    <value>ALIGN AND ORDER</value>
+  </data>
+  <data xml:space="preserve" name="T_f560a85f28c0">
+    <value>Add</value>
+  </data>
+  <data xml:space="preserve" name="T_f5e5dc84fb63">
+    <value>Validation: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_f6041baf47d7">
+    <value>How much should counter "{0}" increase for each label?</value>
+  </data>
+  <data xml:space="preserve" name="T_f698e9b40f9f">
+    <value>Delete</value>
+  </data>
+  <data xml:space="preserve" name="T_f6aba48e74f7">
+    <value>Save (Ctrl+S)</value>
+  </data>
+  <data xml:space="preserve" name="T_f6af2d22b3bd">
+    <value>The assistant sends no data without permission. Changing provider or address requires renewed permission. Paid API usage is subject to the provider's terms and is optional.</value>
+  </data>
+  <data xml:space="preserve" name="T_f702a66ef205">
+    <value>  ✓ Sent to the Windows queue: {0} labels</value>
+  </data>
+  <data xml:space="preserve" name="T_f720fa36c9e3">
+    <value>"{0}": row numbers start at 1.</value>
+  </data>
+  <data xml:space="preserve" name="T_f74f36218ab6">
+    <value>Rename element</value>
+  </data>
+  <data xml:space="preserve" name="T_f79ad7be1269">
+    <value>Add barcode</value>
+  </data>
+  <data xml:space="preserve" name="T_f7a04dcb181e">
+    <value>Cancelling (stops after the current label finishes sending)…</value>
+  </data>
+  <data xml:space="preserve" name="T_f7b444ba4c5f">
+    <value>Generate barcode number</value>
+  </data>
+  <data xml:space="preserve" name="T_f849ba79bcbe">
+    <value>mm (between labels)</value>
+  </data>
+  <data xml:space="preserve" name="T_f857e3bb4870">
+    <value>Contrast</value>
+  </data>
+  <data xml:space="preserve" name="T_f92e6c267591">
+    <value>{0} products · key column: {1} · source: {2} </value>
+  </data>
+  <data xml:space="preserve" name="T_f930e23b87bf">
+    <value>Counter ranges: </value>
+  </data>
+  <data xml:space="preserve" name="T_f9e15a6876d6">
+    <value>Data source removed.</value>
+  </data>
+  <data xml:space="preserve" name="T_fa2b4ad7a130">
+    <value>Tip: put fixed-length AIs (such as (01), (17)) first and variable-length AIs (such as (10), (21)) last to reduce separators and symbol size.</value>
+  </data>
+  <data xml:space="preserve" name="T_fb04eca08ef4">
+    <value>Counter file:</value>
+  </data>
+  <data xml:space="preserve" name="T_fb2a010eeea2">
+    <value>Quantity</value>
+  </data>
+  <data xml:space="preserve" name="T_fb345473a47a">
+    <value>The black and white dots on the canvas match the print output.</value>
+  </data>
+  <data xml:space="preserve" name="T_fb6d868a9dca">
+    <value> (next serial: {0:N0})</value>
+  </data>
+  <data xml:space="preserve" name="T_fb984a1a845d">
+    <value>Gap label</value>
+  </data>
+  <data xml:space="preserve" name="T_fba825c0369c">
+    <value>Original aspect ratio</value>
+  </data>
+  <data xml:space="preserve" name="T_fbdefa6a0a31">
+    <value>Open project</value>
+  </data>
+  <data xml:space="preserve" name="T_fc35ab7ce796">
+    <value>Single label preview</value>
+  </data>
+  <data xml:space="preserve" name="T_fc4249e320fc">
+    <value>Not sent to the Windows queue.</value>
+  </data>
+  <data xml:space="preserve" name="T_fce8396ddb89">
+    <value>GS1 company details</value>
+  </data>
+  <data xml:space="preserve" name="T_fd78c713b1a0">
+    <value>Reject</value>
+  </data>
+  <data xml:space="preserve" name="T_fda98d21f6d0">
+    <value>From date (inclusive)</value>
+  </data>
+  <data xml:space="preserve" name="T_fdb07493c366">
+    <value>Copied {0} AKEL Etiket (v1) templates (v1 originals are unchanged).</value>
+  </data>
+  <data xml:space="preserve" name="T_fdbe71038441">
+    <value>Text added: start typing (Enter: finish, Shift+Enter: new line, Esc: cancel).</value>
+  </data>
+  <data xml:space="preserve" name="T_fdebd90d9e2b">
+    <value>Rotate print 180° (if text is upside down)</value>
+  </data>
+  <data xml:space="preserve" name="T_fe205c7a5f9e">
+    <value>QUANTITY COLUMN</value>
+  </data>
+  <data xml:space="preserve" name="T_fe34faedc97d">
+    <value>Company name can be added later</value>
+  </data>
+  <data xml:space="preserve" name="T_fe52071efa3f">
+    <value>The top element prints in front.</value>
+  </data>
+  <data xml:space="preserve" name="T_fe8152c12728">
+    <value>Data sources (Excel / CSV)</value>
+  </data>
+  <data xml:space="preserve" name="T_feb8c3feae5a">
+    <value>PROPOSALS AWAITING APPROVAL</value>
+  </data>
+  <data xml:space="preserve" name="T_ff2963767b09">
+    <value>Counter name (used as {SAYAC.Name} in labels):</value>
+  </data>
+  <data xml:space="preserve" name="T_ff4b2eb54997">
+    <value>Current template</value>
+  </data>
+  <data xml:space="preserve" name="T_852d8d78470c">
+    <value>Backups</value>
+  </data>
+  <data xml:space="preserve" name="T_4fd8a4f65f4b">
+    <value>Support package</value>
+  </data>
+  <data xml:space="preserve" name="T_b2f8d3295d44">
+    <value>Skip</value>
+  </data>
+  <data xml:space="preserve" name="T_2ee9d3b72fd1">
+    <value>ERROR: </value>
+  </data>
+  <data xml:space="preserve" name="T_1b30e55e53a7">
+    <value>Will be skipped – </value>
+  </data>
+  <data xml:space="preserve" name="T_c83a8b1dbc2c">
+    <value>Reprint</value>
+  </data>
+  <data xml:space="preserve" name="T_9db2a2f6d771">
+    <value>Save as PDF</value>
+  </data>
+  <data xml:space="preserve" name="T_ed2f20d56f8a">
+    <value>Save as PDF…</value>
+  </data>
+  <data xml:space="preserve" name="T_cb7550f1c434">
+    <value>PDF saved (some labels skipped)</value>
+  </data>
+  <data xml:space="preserve" name="T_8c7d3d1f8099">
+    <value>Cannot save PDF</value>
+  </data>
+  <data xml:space="preserve" name="T_c11b163c5dcd">
+    <value>This label</value>
+  </data>
+  <data xml:space="preserve" name="T_6b65f1920bb2">
+    <value>Undo</value>
+  </data>
+  <data xml:space="preserve" name="T_f8352375c43a">
+    <value>New name:</value>
+  </data>
+  <data xml:space="preserve" name="T_5327c26ef6f1">
+    <value>Cannot delete</value>
+  </data>
+  <data xml:space="preserve" name="T_6478124a86c2">
+    <value>New label</value>
+  </data>
+  <data xml:space="preserve" name="T_4066bc1f732a">
+    <value>Cannot save</value>
+  </data>
+  <data xml:space="preserve" name="T_7decc8ab04d1">
+    <value>Unsupported file</value>
+  </data>
+  <data xml:space="preserve" name="T_6203e2c0bbe8">
+    <value>no horizontal shift</value>
+  </data>
+  <data xml:space="preserve" name="T_3342414b1d85">
+    <value>no vertical shift</value>
+  </data>
+  <data xml:space="preserve" name="T_7a40ec88bab0">
+    <value>left</value>
+  </data>
+  <data xml:space="preserve" name="T_ae74da460d94">
+    <value>Calibration label</value>
+  </data>
+  <data xml:space="preserve" name="T_b24a36089466">
+    <value>Dark</value>
+  </data>
+  <data xml:space="preserve" name="T_458f89267c74">
+    <value>58 × 40 mm (shelf)</value>
+  </data>
+  <data xml:space="preserve" name="T_f01719e98096">
+    <value>My XP-470B profile</value>
+  </data>
+  <data xml:space="preserve" name="T_f4c1442b52ac">
+    <value>Save as profile</value>
+  </data>
+  <data xml:space="preserve" name="T_e267d343821f">
+    <value>Profile</value>
+  </data>
+  <data xml:space="preserve" name="T_c2e88b8d0190">
+    <value> – calibrated</value>
+  </data>
+  <data xml:space="preserve" name="T_fc5391fa0adc">
+    <value>Save calibration to profile</value>
+  </data>
+  <data xml:space="preserve" name="T_cd21206582f6">
+    <value>Cannot save profile</value>
+  </data>
+  <data xml:space="preserve" name="T_d6a7bb65e5d2">
+    <value>Data: </value>
+  </data>
+  <data xml:space="preserve" name="T_8e67df07450c">
+    <value>Queue status: </value>
+  </data>
+  <data xml:space="preserve" name="T_1955f05a2c68">
+    <value> report</value>
+  </data>
+  <data xml:space="preserve" name="T_d0ef6cd9c1ba">
+    <value>Issues found</value>
+  </data>
+  <data xml:space="preserve" name="T_7b47e5bf5b95">
+    <value>Label feed</value>
+  </data>
+  <data xml:space="preserve" name="T_cc61f8472fdb">
+    <value>Status: </value>
+  </data>
+  <data xml:space="preserve" name="T_bd6a70a72c9b">
+    <value>(unknown)</value>
+  </data>
+  <data xml:space="preserve" name="T_9b6e6bdbbf90">
+    <value>Profile: </value>
+  </data>
+  <data xml:space="preserve" name="T_7f479db6ea9d">
+    <value>  Queue status: </value>
+  </data>
+  <data xml:space="preserve" name="T_6392cff832d7">
+    <value>Errors:</value>
+  </data>
+  <data xml:space="preserve" name="T_242d002832f9">
+    <value>Pallet</value>
+  </data>
+  <data xml:space="preserve" name="T_65fa3451e475">
+    <value>Import GTINs</value>
+  </data>
+  <data xml:space="preserve" name="T_b9c909383ec7">
+    <value>Yes, verified</value>
+  </data>
+  <data xml:space="preserve" name="T_0d3e86bb27de">
+    <value>Company details</value>
+  </data>
+  <data xml:space="preserve" name="T_9ab90018b9f5">
+    <value>Cannot save setup</value>
+  </data>
+  <data xml:space="preserve" name="T_39130ddbb606">
+    <value>Missing data field: </value>
+  </data>
+  <data xml:space="preserve" name="T_65d314ba55d2">
+    <value>invalid only</value>
+  </data>
+  <data xml:space="preserve" name="T_84ea8e7d1532">
+    <value>Auto recovery</value>
+  </data>
+  <data xml:space="preserve" name="T_1ca94a1c9c7b">
+    <value>Recover</value>
+  </data>
+  <data xml:space="preserve" name="T_d5d6a3b68ac1">
+    <value>Recovery</value>
+  </data>
+  <data xml:space="preserve" name="T_444ee458e607">
+    <value>Cannot save settings: </value>
+  </data>
+  <data xml:space="preserve" name="T_f5532fc7842a">
+    <value>lock</value>
+  </data>
+  <data xml:space="preserve" name="T_70ba33708cbf">
+    <value>name</value>
+  </data>
+  <data xml:space="preserve" name="T_2b687f9b0a24">
+    <value>group</value>
+  </data>
+  <data xml:space="preserve" name="T_2cda111b28e2">
+    <value>text</value>
+  </data>
+  <data xml:space="preserve" name="T_d90eea36a19c">
+    <value>alignment</value>
+  </data>
+  <data xml:space="preserve" name="T_4fc1e908bb8a">
+    <value>setting</value>
+  </data>
+  <data xml:space="preserve" name="T_5bd34386f06c">
+    <value>Print</value>
+  </data>
+  <data xml:space="preserve" name="T_9e9121ff9388">
+    <value>Issue</value>
+  </data>
+  <data xml:space="preserve" name="T_860674e4fd10">
+    <value>is not empty</value>
+  </data>
+  <data xml:space="preserve" name="T_c060a61c1ae5">
+    <value>Stretch (change aspect ratio)</value>
+  </data>
+  <data xml:space="preserve" name="T_159844990f03">
+    <value>Black</value>
+  </data>
+  <data xml:space="preserve" name="T_47ea7a179b1e">
+    <value>White</value>
+  </data>
+  <data xml:space="preserve" name="T_3bf7b1c9a548">
+    <value>None (transparent)</value>
+  </data>
+  <data xml:space="preserve" name="T_33fdc5daf06f">
+    <value>Horizontal</value>
+  </data>
+  <data xml:space="preserve" name="T_bffc23ff0b5a">
+    <value>M – medium (15%)</value>
+  </data>
+  <data xml:space="preserve" name="T_ea678b0d26e8">
+    <value>Square</value>
+  </data>
+  <data xml:space="preserve" name="T_ee1cd50e9422">
+    <value>Automatic</value>
+  </data>
+  <data xml:space="preserve" name="T_716cdedb9607">
+    <value>Don't save</value>
+  </data>
+  <data xml:space="preserve" name="T_d04edc246eed">
+    <value>Stop and close</value>
+  </data>
+  <data xml:space="preserve" name="T_53725907488f">
+    <value>Wait</value>
+  </data>
+  <data xml:space="preserve" name="T_8bf61e69911d">
+    <value>Locked</value>
+  </data>
+  <data xml:space="preserve" name="T_43e180443932">
+    <value>{0} added</value>
+  </data>
+  <data xml:space="preserve" name="T_4a6117d7d0fa">
+    <value>{0} deleted</value>
+  </data>
+  <data xml:space="preserve" name="T_f34d2cb7fbf5">
+    <value>Inserted {0} into text.</value>
+  </data>
+  <data xml:space="preserve" name="T_607abb0d8464">
+    <value>Added {0} GTINs.</value>
+  </data>
+  <data xml:space="preserve" name="T_7f90dc76a329">
+    <value>Pending result: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_19d1215492a7">
+    <value>{0}: issues found; check the report.</value>
+  </data>
+  <data xml:space="preserve" name="T_38b149cc104c">
+    <value>{0} dots = {1} mm</value>
+  </data>
+  <data xml:space="preserve" name="T_0731244e655a">
+    <value>Unexpected error</value>
+  </data>
+  <data xml:space="preserve" name="T_1304f1383970">
+    <value>An error occurred, but the app is still running. Please save your work.
+
+</value>
+  </data>
+  <data xml:space="preserve" name="T_0e8f575f45f0">
+    <value>
+
+Details: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_ee1bed37c58b">
+    <value>(cannot write log)</value>
+  </data>
+  <data xml:space="preserve" name="T_f43a65ad8268">
+    <value>All</value>
+  </data>
+  <data xml:space="preserve" name="T_32b732522863">
+    <value>Product</value>
+  </data>
+  <data xml:space="preserve" name="T_d467fa05da96">
+    <value>Shelf</value>
+  </data>
+  <data xml:space="preserve" name="T_d949980d3c64">
+    <value>Shipping</value>
+  </data>
+  <data xml:space="preserve" name="T_f0426fcd41f5">
+    <value>Asset</value>
+  </data>
+  <data xml:space="preserve" name="T_1caabbad1baf">
+    <value>My first label</value>
+  </data>
+  <data xml:space="preserve" name="T_1a635325e57a">
+    <value>Added text bound to field {{{0}}}.</value>
+  </data>
+  <data xml:space="preserve" name="T_38f7e078b5f8">
+    <value>Data files (*.xlsx; *.xls; *.csv; *.txt)|*.xlsx;*.xlsm;*.xls;*.csv;*.txt;*.tsv|Excel files (*.xlsx; *.xlsm; *.xls)|*.xlsx;*.xlsm;*.xls|CSV files (*.csv; *.txt)|*.csv;*.txt;*.tsv|All files (*.*)|*.*</value>
+  </data>
+  <data xml:space="preserve" name="T_1bfae5cc9357">
+    <value>Images (*.png;*.jpg;*.jpeg;*.bmp;*.gif;*.webp;*.svg)|*.png;*.jpg;*.jpeg;*.bmp;*.gif;*.webp;*.svg|PNG (*.png)|*.png|JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|BMP (*.bmp)|*.bmp|GIF (*.gif)|*.gif|WEBP (*.webp)|*.webp|SVG (*.svg)|*.svg|All files (*.*)|*.*</value>
+  </data>
+  <data xml:space="preserve" name="T_126d2d35ed39">
+    <value>Settings saved.</value>
+  </data>
+  <data xml:space="preserve" name="T_e810f1e6c56d">
+    <value>Saved: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_6b2da220ccda">
+    <value>PNG saved ({0} × {1} dots): {2}</value>
+  </data>
+  <data xml:space="preserve" name="T_90604d35c2a6">
+    <value>Reading data: {0}…</value>
+  </data>
+  <data xml:space="preserve" name="T_50ee9f96fe95">
+    <value>{0} added.</value>
+  </data>
+  <data xml:space="preserve" name="T_039d4f238a0b">
+    <value>Clipboard text added.</value>
+  </data>
+  <data xml:space="preserve" name="T_6707ea61d78e">
+    <value>PDF saved ({0} pages, {1:0.##} × {2:0.##} mm): {3}</value>
+  </data>
+  <data xml:space="preserve" name="T_40d4cad4605a">
+    <value>Cannot save PDF.</value>
+  </data>
+</root>

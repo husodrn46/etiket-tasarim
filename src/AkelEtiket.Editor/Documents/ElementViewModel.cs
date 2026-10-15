@@ -3,6 +3,7 @@ using AkelEtiket.Core;
 using AkelEtiket.Core.Model;
 using AkelEtiket.Rendering;
 using CommunityToolkit.Mvvm.ComponentModel;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.Documents;
 
@@ -24,7 +25,7 @@ public sealed partial class ElementViewModel : ObservableObject
 
     public string Id => Model.Id;
 
-    public string DisplayName => Model.DisplayName;
+    public string DisplayName => string.IsNullOrWhiteSpace(Model.Name) ? AkelEtiket.Core.Localization.UiText.T(Model.KindName) : Model.Name;
 
     [ObservableProperty]
     public partial bool IsSelected { get; set; }
@@ -65,7 +66,7 @@ public sealed partial class ElementViewModel : ObservableObject
 
     /// <summary>Barkod modül bilgisi (ör. "3 nokta = 0,375 mm").</summary>
     public string? BarcodeModuleText => RenderResult?.Barcode is { ModuleDots: > 0 } b
-        ? $"{b.ModuleDots} nokta = {b.ModuleMm.ToString("0.###", System.Globalization.CultureInfo.GetCultureInfo("tr-TR"))} mm"
+        ? L10n.T($"{b.ModuleDots} nokta = {b.ModuleMm.ToString("0.###", System.Globalization.CultureInfo.GetCultureInfo("tr-TR"))} mm")
         : null;
 
     /// <summary>Barkod içerik doğrulama mesajları (hata, uyarı, not) tek liste olarak.</summary>

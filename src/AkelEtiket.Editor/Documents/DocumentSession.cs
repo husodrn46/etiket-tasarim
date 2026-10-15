@@ -12,6 +12,7 @@ using AkelEtiket.Editor.Services;
 using AkelEtiket.ProjectManager;
 using AkelEtiket.Rendering;
 using CommunityToolkit.Mvvm.ComponentModel;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.Documents;
 
@@ -158,7 +159,7 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
         var models = SelectedModels;
         if (models.Count < 2 || models.Any(m => m.Locked)) return false;
         string groupId = "g" + Guid.NewGuid().ToString("N")[..8];
-        using (BeginTransaction("Gruplandı"))
+        using (BeginTransaction(L10n.T("Gruplandı")))
         {
             foreach (var model in models) model.GroupId = groupId;
         }
@@ -170,7 +171,7 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
     {
         var groups = SelectedModels.Select(m => m.GroupId).Where(g => g is not null).ToHashSet();
         if (groups.Count == 0) return false;
-        using (BeginTransaction("Grup çözüldü"))
+        using (BeginTransaction(L10n.T("Grup çözüldü")))
         {
             foreach (var model in Document.Elements.Where(e => e.GroupId is { } g && groups.Contains(g))) model.GroupId = null;
         }
@@ -331,7 +332,7 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
         var entries = History.UndoEntries;
         var items = new List<UndoHistoryItem>();
         for (int i = entries.Count - 1, steps = 1; i >= 0 && items.Count < max; i--, steps++)
-            items.Add(new UndoHistoryItem(entries[i].Description ?? "Değişiklik", entries[i].Time.ToLocalTime(), steps));
+            items.Add(new UndoHistoryItem(entries[i].Description ?? L10n.T("Değişiklik"), entries[i].Time.ToLocalTime(), steps));
         return items;
     }
 
@@ -424,10 +425,10 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
         string? description = e.Action switch
         {
             NotifyCollectionChangedAction.Add when e.NewItems is { Count: > 0 } added && added[0] is LabelElement first =>
-                $"{first.KindName} eklendi",
+                L10n.T($"{first.KindName} eklendi"),
             NotifyCollectionChangedAction.Remove when e.OldItems is { Count: > 0 } removed && removed[0] is LabelElement gone =>
-                $"{gone.DisplayName} silindi",
-            NotifyCollectionChangedAction.Move => "Katman sırası değişti",
+                L10n.T($"{gone.DisplayName} silindi"),
+            NotifyCollectionChangedAction.Move => L10n.T("Katman sırası değişti"),
             _ => null,
         };
         TrackChange(null, description);
@@ -504,25 +505,25 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
     {
         string what = propertyName switch
         {
-            nameof(LabelElement.X) or nameof(LabelElement.Y) => "taşındı",
-            nameof(LabelElement.Width) or nameof(LabelElement.Height) => "boyutlandırıldı",
-            nameof(LabelElement.Rotation) => "döndürüldü",
-            nameof(LabelElement.Locked) => "kilit",
-            nameof(LabelElement.Visible) => "görünürlük",
-            nameof(LabelElement.Name) => "ad",
-            nameof(LabelElement.GroupId) => "grup",
-            nameof(TextElement.Text) => "metin",
-            nameof(BarcodeElement.Content) => "içerik",
-            nameof(BarcodeElement.Symbology) => "barkod türü",
-            nameof(TextElement.FontSize) => "yazı boyutu",
-            nameof(TextElement.FontFamily) => "yazı tipi",
-            nameof(TextElement.Bold) or nameof(TextElement.Italic) or nameof(TextElement.Underline) => "yazı stili",
-            nameof(TextElement.HorizontalAlignment) or nameof(TextElement.VerticalAlignment) => "hizalama",
+            nameof(LabelElement.X) or nameof(LabelElement.Y) => L10n.T("taşındı"),
+            nameof(LabelElement.Width) or nameof(LabelElement.Height) => L10n.T("boyutlandırıldı"),
+            nameof(LabelElement.Rotation) => L10n.T("döndürüldü"),
+            nameof(LabelElement.Locked) => L10n.T("kilit"),
+            nameof(LabelElement.Visible) => L10n.T("görünürlük"),
+            nameof(LabelElement.Name) => L10n.T("ad"),
+            nameof(LabelElement.GroupId) => L10n.T("grup"),
+            nameof(TextElement.Text) => L10n.T("metin"),
+            nameof(BarcodeElement.Content) => L10n.T("içerik"),
+            nameof(BarcodeElement.Symbology) => L10n.T("barkod türü"),
+            nameof(TextElement.FontSize) => L10n.T("yazı boyutu"),
+            nameof(TextElement.FontFamily) => L10n.T("yazı tipi"),
+            nameof(TextElement.Bold) or nameof(TextElement.Italic) or nameof(TextElement.Underline) => L10n.T("yazı stili"),
+            nameof(TextElement.HorizontalAlignment) or nameof(TextElement.VerticalAlignment) => L10n.T("hizalama"),
             nameof(ImageElement.Method) or nameof(ImageElement.Threshold) or nameof(ImageElement.Brightness)
-                or nameof(ImageElement.Contrast) or nameof(ImageElement.Invert) or nameof(ImageElement.Sharpen) => "siyah-beyaz ayarı",
+                or nameof(ImageElement.Contrast) or nameof(ImageElement.Invert) or nameof(ImageElement.Sharpen) => L10n.T("siyah-beyaz ayarı"),
             nameof(ImageElement.CropLeft) or nameof(ImageElement.CropTop) or nameof(ImageElement.CropRight)
-                or nameof(ImageElement.CropBottom) => "kırpma",
-            _ => "ayar",
+                or nameof(ImageElement.CropBottom) => L10n.T("kırpma"),
+            _ => L10n.T("ayar"),
         };
         return $"{model.DisplayName}: {what}";
     }
@@ -530,7 +531,7 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
     private void OnLabelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         LabelSetupChanged?.Invoke(this, EventArgs.Empty);
-        TrackChange($"label:{e.PropertyName}", "Etiket ölçüsü/medya");
+        TrackChange($"label:{e.PropertyName}", L10n.T("Etiket ölçüsü/medya"));
     }
 
     private void OnDocumentPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -549,13 +550,13 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
         if (e.Action == NotifyCollectionChangedAction.Reset)
             foreach (var g in Document.Guides) { g.PropertyChanged -= OnGuidePropertyChanged; g.PropertyChanged += OnGuidePropertyChanged; }
         GuidesChanged?.Invoke(this, EventArgs.Empty);
-        TrackChange(null, "Kılavuz çizgisi");
+        TrackChange(null, L10n.T("Kılavuz çizgisi"));
     }
 
     private void OnGuidePropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         GuidesChanged?.Invoke(this, EventArgs.Empty);
-        TrackChange(sender is null ? null : $"guide:{sender.GetHashCode()}", "Kılavuz çizgisi taşındı");
+        TrackChange(sender is null ? null : $"guide:{sender.GetHashCode()}", L10n.T("Kılavuz çizgisi taşındı"));
     }
 
     // ───────────────────────── Render ─────────────────────────
@@ -636,7 +637,7 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
                 rendered = new RenderedElement(new ElementRenderResult
                 {
                     ElementId = snapshot.Id,
-                    Issues = [new RenderIssue(snapshot.Id, snapshot.DisplayName, RenderIssueSeverity.Error, "Çizim hatası: " + ex.Message)],
+                    Issues = [new RenderIssue(snapshot.Id, snapshot.DisplayName, RenderIssueSeverity.Error, L10n.T("Çizim hatası: ") + ex.Message)],
                 }, null);
             }
             _context.Dispatcher.Post(() =>
@@ -665,13 +666,13 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
         if (result.IsPlaceholder)
         {
             vm.VerificationSuccess = null;
-            vm.VerificationMessage = "Değişken içerikli barkod: veri kaynağı yüklenince her satır baskı öncesi ayrıca doğrulanır.";
+            vm.VerificationMessage = L10n.T("Değişken içerikli barkod: veri kaynağı yüklenince her satır baskı öncesi ayrıca doğrulanır.");
             return;
         }
         if (result.Layer is null || result.Barcode is null || !result.Barcode.IsValid)
         {
             vm.VerificationSuccess = false;
-            vm.VerificationMessage = result.Issues.FirstOrDefault(i => i.Severity == RenderIssueSeverity.Error)?.Message ?? "Barkod oluşturulamadı.";
+            vm.VerificationMessage = result.Issues.FirstOrDefault(i => i.Severity == RenderIssueSeverity.Error)?.Message ?? L10n.T("Barkod oluşturulamadı.");
             return;
         }
         var verification = BarcodeVerifier.Verify(result.Layer.Ink, barcode.Symbology, result.Barcode.VerificationText);
@@ -701,7 +702,7 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
     {
         var targets = SelectedElements.Where(e => !e.Model.Locked).Select(e => e.Model).ToList();
         if (targets.Count == 0) return;
-        using (BeginTransaction(targets.Count == 1 ? $"{targets[0].DisplayName} silindi" : $"{targets.Count} öğe silindi"))
+        using (BeginTransaction(targets.Count == 1 ? L10n.T($"{targets[0].DisplayName} silindi") : L10n.T($"{targets.Count} öğe silindi")))
             foreach (var model in targets) Document.Elements.Remove(model);
     }
 
@@ -711,7 +712,7 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
         if (sources.Count == 0) return;
         var copies = new List<LabelElement>();
         var groupMap = new Dictionary<string, string>(StringComparer.Ordinal);
-        using (BeginTransaction(sources.Count == 1 ? $"{sources[0].DisplayName} çoğaltıldı" : $"{sources.Count} öğe çoğaltıldı"))
+        using (BeginTransaction(sources.Count == 1 ? L10n.T($"{sources[0].DisplayName} çoğaltıldı") : L10n.T($"{sources.Count} öğe çoğaltıldı")))
         {
             foreach (var source in sources)
             {
@@ -731,7 +732,7 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
     {
         var targets = SelectedElements.Where(e => !e.Model.Locked).Select(e => e.Model).ToList();
         if (targets.Count == 0) return;
-        using (BeginTransaction(targets.Count == 1 ? $"{targets[0].DisplayName} taşındı" : $"{targets.Count} öğe taşındı"))
+        using (BeginTransaction(targets.Count == 1 ? L10n.T($"{targets[0].DisplayName} taşındı") : L10n.T($"{targets.Count} öğe taşındı")))
         {
             foreach (var model in targets)
             {
@@ -745,7 +746,7 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
     {
         var models = SelectedModels;
         if (models.Count == 0) return;
-        using (BeginTransaction(mode is AlignMode.DistributeHorizontal or AlignMode.DistributeVertical ? "Eşit dağıtıldı" : "Hizalandı"))
+        using (BeginTransaction(mode is AlignMode.DistributeHorizontal or AlignMode.DistributeVertical ? L10n.T("Eşit dağıtıldı") : L10n.T("Hizalandı")))
             TransformMath.Align(models, mode, Document.Label);
     }
 
@@ -754,7 +755,7 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
         var models = SelectedModels;
         if (models.Count == 0) return;
         bool lockAll = models.Any(m => !m.Locked);
-        using (BeginTransaction(lockAll ? "Kilitlendi" : "Kilit açıldı"))
+        using (BeginTransaction(lockAll ? L10n.T("Kilitlendi") : L10n.T("Kilit açıldı")))
             foreach (var model in models) model.Locked = lockAll;
     }
 
@@ -800,7 +801,7 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
     private void ApplyOrder(List<LabelElement> order)
     {
         if (order.SequenceEqual(Document.Elements)) return;
-        using (BeginTransaction("Katman sırası değişti"))
+        using (BeginTransaction(L10n.T("Katman sırası değişti")))
         {
             for (int i = 0; i < order.Count; i++)
             {
@@ -860,7 +861,7 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
         }
         var added = new List<LabelElement>();
         var groupMap = new Dictionary<string, string>(StringComparer.Ordinal);
-        using (BeginTransaction("Yapıştırıldı"))
+        using (BeginTransaction(L10n.T("Yapıştırıldı")))
         {
             foreach (var element in payload.Elements.Where(e => e is not null))
             {

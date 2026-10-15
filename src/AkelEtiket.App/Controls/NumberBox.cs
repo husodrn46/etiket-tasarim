@@ -1,4 +1,5 @@
 using System.Globalization;
+using AkelEtiket.Core.Localization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -12,7 +13,7 @@ namespace AkelEtiket.App.Controls;
 /// </summary>
 public class NumberBox : TextBox
 {
-    private static readonly CultureInfo Turkish = CultureInfo.GetCultureInfo("tr-TR");
+
 
     public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
         nameof(Value), typeof(double), typeof(NumberBox),
@@ -75,15 +76,10 @@ public class NumberBox : TextBox
     private string Format(double value)
     {
         string pattern = Decimals <= 0 ? "0" : "0." + new string('#', Decimals);
-        return value.ToString(pattern, Turkish);
+        return value.ToString(pattern, CultureInfo.CurrentCulture);
     }
 
-    public static bool TryParse(string text, out double value)
-    {
-        string normalized = text.Trim().Replace(" ", "");
-        if (normalized.Contains('.') && !normalized.Contains(',')) normalized = normalized.Replace('.', ',');
-        return double.TryParse(normalized, NumberStyles.Float, Turkish, out value) && double.IsFinite(value);
-    }
+    public static bool TryParse(string text, out double value) => DisplayNumber.TryParse(text, CultureInfo.CurrentCulture, out value);
 
     private void Commit()
     {

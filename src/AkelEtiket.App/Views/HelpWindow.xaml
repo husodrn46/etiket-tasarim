@@ -1,21 +1,21 @@
-<views:ThemedWindow x:Class="AkelEtiket.App.Views.HelpWindow"
+<views:ThemedWindow xmlns:loc="clr-namespace:AkelEtiket.App.Localization" x:Class="AkelEtiket.App.Views.HelpWindow"
                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:views="clr-namespace:AkelEtiket.App.Views"
-                    Title="Yardım" Width="720" Height="680" MinWidth="560" MinHeight="420" ResizeMode="CanResizeWithGrip">
+                    Title="{loc:Text T_a52123b61b26}" Width="720" Height="680" MinWidth="560" MinHeight="420" ResizeMode="CanResizeWithGrip">
     <DockPanel Margin="22,16,22,14">
-        <TextBlock DockPanel.Dock="Top" Text="Yardım ve kısayollar" Style="{StaticResource Text.Title}" FontSize="18" Margin="0,0,0,8" />
+        <TextBlock DockPanel.Dock="Top" Text="{loc:Text T_2d067f54ba4b}" Style="{StaticResource Text.Title}" FontSize="18" Margin="0,0,0,8" />
         <DockPanel DockPanel.Dock="Bottom" Margin="0,12,0,0">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                <Button Content="Belgeler klasörünü aç" Margin="0,0,8,0" Click="OnOpenDocs" />
-                <Button Content="Kapat" MinWidth="96" IsCancel="True" IsDefault="True" />
+                <Button Content="{loc:Text T_56d81fb08bf6}" Margin="0,0,8,0" Click="OnOpenDocs" />
+                <Button Content="{loc:Text T_7b31a9fc4816}" MinWidth="96" IsCancel="True" IsDefault="True" />
             </StackPanel>
             <TextBlock Style="{StaticResource Text.Hint}" VerticalAlignment="Center" TextWrapping="Wrap"
-                       Text="Ayrıntılı belgeler: BENİOKU, kurulum, XP-470B kurulum ve test, yapay zekâ bağlantı rehberi." />
+                       Text="{loc:Text T_532995393bbe}" />
         </DockPanel>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
-                <TextBlock Text="KISAYOLLAR" Style="{StaticResource Text.Section}" />
+                <TextBlock Text="{loc:Text T_e4ac8fe3dc54}" Style="{StaticResource Text.Section}" />
                 <ItemsControl ItemsSource="{Binding Shortcuts}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -30,7 +30,7 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                <TextBlock Text="İPUÇLARI" Style="{StaticResource Text.Section}" />
+                <TextBlock Text="{loc:Text T_ba3f1d68f96b}" Style="{StaticResource Text.Section}" />
                 <ItemsControl ItemsSource="{Binding Tips}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>

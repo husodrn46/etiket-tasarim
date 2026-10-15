@@ -1,4 +1,5 @@
 using System.Globalization;
+using AkelEtiket.Core.Localization;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -12,7 +13,7 @@ using AkelEtiket.ProjectManager;
 
 namespace AkelEtiket.App;
 
-/// <summary>Uygulama girişi: Türkçe kültür, tema, servisler, ana pencere ve genel hata yakalama.</summary>
+/// <summary>Uygulama girişi: Arayüz dili, tema, servisler, ana pencere ve genel hata yakalama.</summary>
 public partial class App : Application
 {
     private MainViewModel? _main;
@@ -22,14 +23,14 @@ public partial class App : Application
 
     protected override void OnStartup(StartupEventArgs e)
     {
-        var turkish = CultureInfo.GetCultureInfo("tr-TR");
-        CultureInfo.DefaultThreadCurrentCulture = turkish;
-        CultureInfo.DefaultThreadCurrentUICulture = turkish;
-        Thread.CurrentThread.CurrentCulture = turkish;
-        Thread.CurrentThread.CurrentUICulture = turkish;
-        // WPF bağlamaları (sayı biçimleri: 12,5) Türkçe kültürü kullansın.
+        var systemUiCulture = CultureInfo.CurrentUICulture;
+        var settingsStore = new JsonSettingsStore<AppSettings>(Path.Combine(JsonSettingsStore<AppSettings>.DefaultFolder, "ayarlar.json"));
+        bool importedLegacy = LegacySettingsImport.TryImport(settingsStore, Core.AppIdentity.LegacySettingsFile, Core.AppIdentity.LegacyTemplatesFolder);
+        var startupSettings = settingsStore.Load();
+        startupSettings.Normalize();
+        UiText.ApplyLanguage(startupSettings.UiLanguage, systemUiCulture);
         FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
-            new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(turkish.IetfLanguageTag)));
+            new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 
         DispatcherUnhandledException += OnDispatcherUnhandledException;
         AppDomain.CurrentDomain.UnhandledException += (_, args) => CrashLog.Write(args.ExceptionObject as Exception);
@@ -43,9 +44,7 @@ public partial class App : Application
         ProjectFile.AppVersion = Version;
 
         var dialogs = new WpfDialogService();
-        var settingsStore = new JsonSettingsStore<AppSettings>(Path.Combine(JsonSettingsStore<AppSettings>.DefaultFolder, "ayarlar.json"));
         // v1'den geçiş: v2'nin ayar dosyası yoksa v1'in ayarları devralınır (v1'in dosyası değişmez).
-        bool importedLegacy = LegacySettingsImport.TryImport(settingsStore, Core.AppIdentity.LegacySettingsFile, Core.AppIdentity.LegacyTemplatesFolder);
         var services = new AppServices
         {
             Dialogs = dialogs,
@@ -53,6 +52,7 @@ public partial class App : Application
             Dispatcher = new WpfDispatcher(Dispatcher),
             ImageFactory = new WpfLayerImageFactory(),
             SettingsStore = settingsStore,
+            InitialSettings = startupSettings,
             RecoveryFolder = AutoRecoveryService.DefaultFolder,
             RecycleFile = ShellHelper.SendToRecycleBin,
             OpenFolder = ShellHelper.OpenFolder,
@@ -72,9 +72,9 @@ public partial class App : Application
     private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
         string logPath = CrashLog.Write(e.Exception);
-        MessageWindow.Show(MainWindow, "Beklenmeyen hata",
-            "Bir hata oluştu, ancak uygulama çalışmaya devam ediyor. Çalışmanızı kaydetmeniz önerilir.\n\n" +
-            e.Exception.Message + $"\n\nAyrıntılar: {logPath}", MessageKind.Error);
+        MessageWindow.Show(MainWindow, UiText.T("Beklenmeyen hata"),
+            UiText.T("Bir hata oluştu, ancak uygulama çalışmaya devam ediyor. Çalışmanızı kaydetmeniz önerilir.\n\n") +
+            e.Exception.Message + UiText.T($"\n\nAyrıntılar: {logPath}"), MessageKind.Error);
         e.Handled = true;
     }
 
@@ -100,7 +100,7 @@ internal static class CrashLog
         }
         catch (Exception)
         {
-            return "(günlük yazılamadı)";
+            return UiText.T("(günlük yazılamadı)");
         }
     }
 }
