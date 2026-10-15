@@ -55,6 +55,11 @@ try {
     Set-Content -LiteralPath (Join-Path $program 'kullanici-dosyasi.txt') -Value 'Paket dışı dosya korunmalı'
     $ownedProcess = Start-Process -FilePath $app -PassThru
     $main = Wait-Window $ownedProcess
+    # İlk kurulum sihirbazı yenidir; bu eski ayar ekranı kabulünde ertelenir.
+    $defer = [System.Windows.Automation.AutomationElement]::RootElement.FindFirst(
+        [System.Windows.Automation.TreeScope]::Descendants,
+        (New-Object System.Windows.Automation.PropertyCondition([System.Windows.Automation.AutomationElement]::AutomationIdProperty, 'DeferFirstSetup')))
+    if ($null -ne $defer -and $defer.Current.ProcessId -eq $ownedProcess.Id) { Invoke-Control $defer }
     $result.launch = $true
     Invoke-Control (Find-Control $main 'OpenGeneralSettings')
     $settings = Find-Control ([System.Windows.Automation.AutomationElement]::RootElement) 'GeneralSettingsWindow'

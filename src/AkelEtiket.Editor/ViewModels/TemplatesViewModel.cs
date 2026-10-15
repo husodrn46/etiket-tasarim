@@ -19,6 +19,18 @@ public sealed class TemplateItemViewModel
         : "Okunamadı: " + Info.Problem;
     public byte[]? PreviewPng => Info.PreviewPng;
     public bool HasProblem => Info.Problem is not null;
+    public string Category
+    {
+        get
+        {
+            string name = Design.Data.ProductCatalog.Fold(Name);
+            if (name.Contains("demirbas")) return "Demirbaş";
+            if (name.Contains("kargo")) return "Kargo";
+            if (name.Contains("koli")) return "Koli";
+            if (name.Contains("raf")) return "Raf";
+            return name.Contains("urun") ? "Ürün" : "Diğer";
+        }
+    }
 }
 
 /// <summary>Şablonlar paneli: aç, kaydet, çoğalt, yeniden adlandır, sil.</summary>
@@ -34,7 +46,24 @@ public sealed partial class TemplatesViewModel : ObservableObject
 
     public TemplateLibrary Library { get; private set; }
 
+    private readonly List<TemplateItemViewModel> _allItems = [];
     public ObservableCollection<TemplateItemViewModel> Items { get; } = [];
+    public IReadOnlyList<string> Categories { get; } = ["Tümü", "Ürün", "Raf", "Koli", "Kargo", "Demirbaş", "Diğer"];
+    [ObservableProperty] public partial string Query { get; set; } = "";
+    [ObservableProperty] public partial string Category { get; set; } = "Tümü";
+    public string ResultSummary => $"{Items.Count} / {_allItems.Count} şablon";
+    partial void OnQueryChanged(string value) => FilterItems();
+    partial void OnCategoryChanged(string value) => FilterItems();
+    private void FilterItems()
+    {
+        string? selectedPath = SelectedItem?.Info.FilePath;
+        string query = Design.Data.ProductCatalog.Fold(Query ?? "");
+        Items.Clear();
+        foreach (var item in _allItems.Where(i => (Category == "Tümü" || i.Category == Category) &&
+            Design.Data.ProductCatalog.Fold(i.Name + " " + i.Info.SizeText).Contains(query))) Items.Add(item);
+        SelectedItem = Items.FirstOrDefault(i => i.Info.FilePath == selectedPath);
+        OnPropertyChanged(nameof(ResultSummary));
+    }
 
     [ObservableProperty]
     public partial TemplateItemViewModel? SelectedItem { get; set; }
@@ -51,13 +80,17 @@ public sealed partial class TemplatesViewModel : ObservableObject
     [RelayCommand]
     public void Refresh()
     {
-        Items.Clear();
+        _allItems.Clear();
         try
         {
-            foreach (var info in Library.List()) Items.Add(new TemplateItemViewModel(info));
+            foreach (var info in Library.List()) _allItems.Add(new TemplateItemViewModel(info));
+            FilterItems();
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
+            Items.Clear();
+            SelectedItem = null;
+            OnPropertyChanged(nameof(ResultSummary));
             _main.Dialogs.ShowMessage("Şablonlar", "Şablon klasörü okunamadı: " + ex.Message, MessageKind.Warning);
         }
     }
@@ -230,7 +263,9 @@ public sealed partial class TemplatesViewModel : ObservableObject
             string templateName = $"{prefix} - {name}";
             string candidate = templateName;
             for (int n = 2; File.Exists(Library.GetPathForName(candidate)); n++) candidate = $"{templateName} ({n})";
-            Library.SaveAsTemplate(project, candidate, null, overwrite: false);
+            using var renderer = new Rendering.LabelRenderer(project.Assets);
+            var result = renderer.RenderLabel(project.Document, new Rendering.RenderOptions { DotsPerMm = 4 });
+            Library.SaveAsTemplate(project, candidate, Rendering.MonoImageExport.EncodePng(result.Bitmap, 4 * 25.4), overwrite: false);
             created++;
         }
         Refresh();

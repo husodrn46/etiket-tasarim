@@ -129,6 +129,8 @@ public sealed partial class DataSourceViewModel : ObservableObject
 
     /// <summary>Tablo yüklendi/temizlendi.</summary>
     public event EventHandler? TableChanged;
+    public event EventHandler? MappingRequested;
+    [RelayCommand] private void MapColumns() => MappingRequested?.Invoke(this, EventArgs.Empty);
 
     private bool _suppressReload;
 

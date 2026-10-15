@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-15",
+  "baseCommit": "c53c51e2b1fca6b96b45825f4955256f0fc60659",
+  "platform": "macOS",
+  "build": {
+    "windowsTargeting": true,
+    "warnings": 0,
+    "errors": 0
+  },
+  "tests": {
+    "passed": 920,
+    "failed": 0,
+    "runs": [
+      {
+        "project": "AkelEtiket.Tests",
+        "passed": 218,
+        "failed": 0,
+        "filter": "FullyQualifiedName!~InAppAssistant_WithoutConsent_SendsNothing&FullyQualifiedName!~InAppAssistant_WorksInDraft_AndProducesProposal&FullyQualifiedName!~SecretProtector_RoundTripsAndRejectsGarbage"
+      },
+      {
+        "project": "AkelEtiket.Core.Tests",
+        "passed": 203,
+        "failed": 0,
+        "filter": ""
+      },
+      {
+        "project": "AkelEtiket.DataImport.Tests",
+        "passed": 83,
+        "failed": 0,
+        "filter": "FullyQualifiedName!~ExclusivelyLockedFile_GivesTurkishLockMessage"
+      },
+      {
+        "project": "AkelEtiket.Rendering.Tests",
+        "passed": 49,
+        "failed": 0,
+        "filter": ""
+      },
+      {
+        "project": "AkelEtiket.Design.Tests",
+        "passed": 35,
+        "failed": 0,
+        "filter": ""
+      },
+      {
+        "project": "AkelEtiket.Gs1.Tests",
+        "passed": 78,
+        "failed": 0,
+        "filter": ""
+      },
+      {
+        "project": "AkelEtiket.PrintEngine.Tests",
+        "passed": 58,
+        "failed": 0,
+        "filter": "FullyQualifiedName!~WindowsPrintingTests"
+      },
+      {
+        "project": "AkelEtiket.ImageProcessor.Tests",
+        "passed": 107,
+        "failed": 0,
+        "filter": ""
+      },
+      {
+        "project": "AkelEtiket.Assistant.Tests",
+        "passed": 81,
+        "failed": 0,
+        "filter": ""
+      },
+      {
+        "project": "AkelEtiket.LocalApi.Tests",
+        "passed": 8,
+        "failed": 0,
+        "filter": "FullyQualifiedName!~HostHandoverTests&FullyQualifiedName!~McpEndToEndTests"
+      }
+    ]
+  },
+  "historyStress": {
+    "processes": 4,
+    "writesPerProcess": 80,
+    "expectedRecords": 320,
+    "validRecords": 320,
+    "uniqueRecords": 320,
+    "exitCodes": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "githubCiPresent": false,
+  "windowsUiExecuted": false,
+  "physicalPrinterTested": false,
+  "limitations": [
+    "DPAPI kullanan üç editör testi ayrı bırakıldı.",
+    "Windows spooler, yerel Windows EXE/host devralma testleri ertelendi.",
+    "Mac üzerinde farklı kilit hata metni veren tek DataImport testi ayrı bırakıldı.",
+    "Windows/WPF ve gerçek yazıcı kabulü kullanıcının isteğiyle ertelendi."
+  ]
+}

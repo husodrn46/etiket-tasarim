@@ -51,6 +51,13 @@ public sealed partial class ProductsViewModel : ObservableObject
     [ObservableProperty]
     public partial ProductRowViewModel? SelectedProduct { get; set; }
 
+    public IReadOnlyList<ProductRowViewModel> FindScanMatches(string code)
+    {
+        var extras = _catalog.Data.Columns.Where(c => c != _catalog.Data.KeyColumn).ToList();
+        return _catalog.FindScanMatches(code).Select(p => Results.FirstOrDefault(r => r.Key == p.Key)
+            ?? new ProductRowViewModel(p, _catalog.DisplayName(p), extras)).ToList();
+    }
+
     public int Count => _catalog.Data.Products.Count;
 
     partial void OnQueryChanged(string value) => Refresh();
@@ -61,8 +68,11 @@ public sealed partial class ProductsViewModel : ObservableObject
         var data = _catalog.Data;
         var found = _catalog.Search(Query ?? "", MaxShown);
         var extras = data.Columns.Where(c => !string.Equals(c, data.KeyColumn, StringComparison.OrdinalIgnoreCase)).ToList();
+        string? selectedKey = SelectedProduct?.Key;
+        SelectedProduct = null;
         Results.Clear();
         foreach (var product in found) Results.Add(new ProductRowViewModel(product, _catalog.DisplayName(product), extras));
+        SelectedProduct = Results.FirstOrDefault(p => p.Key == selectedKey);
         Summary = data.Products.Count == 0
             ? "Ürün listesi boş. \"Excel/CSV'den aktar\" ile ürünlerinizi bir kez aktarın."
             : $"{data.Products.Count} ürün · anahtar sütun: {data.KeyColumn} · kaynak: {Path.GetFileName(data.SourceFile)} " +

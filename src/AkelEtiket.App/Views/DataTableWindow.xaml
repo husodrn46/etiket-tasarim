@@ -6,6 +6,7 @@
     <DockPanel Margin="18,14,18,14">
         <DockPanel DockPanel.Dock="Top" Margin="0,0,0,10">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button Content="Sütunları eşleştir…" Command="{Binding MapColumnsCommand}" Margin="0,0,14,0"/>
                 <TextBlock Text="Adet sütunu" Style="{StaticResource Text.Label}" />
                 <ComboBox Width="160" ItemsSource="{Binding Columns}" SelectedItem="{Binding CopiesColumn}" />
             </StackPanel>

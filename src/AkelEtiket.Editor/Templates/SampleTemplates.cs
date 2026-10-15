@@ -15,6 +15,8 @@ public static class SampleTemplates
     public const string ShelfLabelName = "Raf Etiketi 58x40";
     public const string CartonLabelName = "Koli Etiketi GS1-128 100x150";
     public const string SsccCartonLabelName = "SSCC Koli Etiketi 100x100";
+    public const string ShippingLabelName = "Kargo Etiketi 100x150";
+    public const string AssetLabelName = "Demirbaş Etiketi 70x35";
     public const string Gs1DataMatrixLabelName = "GS1 DataMatrix Ürün Etiketi 100x100";
 
     public static IReadOnlyList<(string Name, LabelProject Project)> CreateAll(byte[]? logoPng, CompanyProfile? company = null) =>
@@ -25,6 +27,8 @@ public static class SampleTemplates
         (CartonLabelName, CreateCartonLabel(logoPng, company)),
         (SsccCartonLabelName, CreateSsccCartonLabel(logoPng, company)),
         (Gs1DataMatrixLabelName, CreateGs1DataMatrixLabel(logoPng, company)),
+        (ShippingLabelName, CreateShippingLabel(company)),
+        (AssetLabelName, CreateAssetLabel(company)),
     ];
 
     /// <summary>Sabit içerikli 100 × 100 mm ürün etiketi.</summary>
@@ -297,6 +301,44 @@ public static class SampleTemplates
         });
         return ApplyCompany(project, company);
     }
+    /// <summary>Taşıyıcıya ait bir kod üretmez; takip numarasını kullanıcının verisinden alır.</summary>
+    public static LabelProject CreateShippingLabel(CompanyProfile? company = null)
+    {
+        var project = LabelProject.CreateBlank(100, 150);
+        var doc = project.Document; doc.Name = ShippingLabelName;
+        doc.Description = "Alıcı, Adres ve TakipNo sütunlarıyla kullanın; takip numarasını taşıyıcınızdan alın.";
+        doc.Elements.Add(new TextElement { Name = "Firma", Text = "Firma Adınız", X = 5, Y = 5, Width = 90, Height = 10, FontSize = 19, Bold = true, AutoShrink = true });
+        doc.Elements.Add(new TextElement { Name = "Gönderici", Text = company?.Footer ?? "Gönderici adresi", X = 5, Y = 17, Width = 90, Height = 15, FontSize = 10, AutoShrink = true });
+        doc.Elements.Add(new ShapeElement { Kind = ShapeKind.Line, X = 5, Y = 35, Width = 90, Height = 0.5, StrokeWidth = 0.4 });
+        doc.Elements.Add(new TextElement { Name = "Alıcı", Text = "{Alici}", X = 5, Y = 41, Width = 90, Height = 14, FontSize = 20, Bold = true, AutoShrink = true });
+        doc.Elements.Add(new TextElement { Name = "Teslimat adresi", Text = "{Adres}", X = 5, Y = 59, Width = 90, Height = 44, FontSize = 14, AutoShrink = true });
+        doc.Elements.Add(new BarcodeElement { Name = "Takip numarası", Symbology = BarcodeType.Code128, Content = "{TakipNo}", X = 8, Y = 112, Width = 84, Height = 28 });
+        return ApplyCompany(project, company);
+    }
+
+    /// <summary>Şirket içi demirbaş kodu; GS1 numarası değildir.</summary>
+    public static LabelProject CreateAssetLabel(CompanyProfile? company = null)
+    {
+        var project = LabelProject.CreateBlank(70, 35);
+        var doc = project.Document; doc.Name = AssetLabelName;
+        doc.Description = "Şirket içi demirbaş etiketi. DEMIRBAS-001 örnek kodunu kendi envanter kodunuzla değiştirin.";
+        doc.Elements.Add(new TextElement { Name = "Firma", Text = "Firma Adınız", X = 3, Y = 2, Width = 64, Height = 6, FontSize = 12, Bold = true, AutoShrink = true });
+        doc.Elements.Add(new TextElement { Name = "Demirbaş", Text = "Örnek demirbaş", X = 3, Y = 9, Width = 64, Height = 5, FontSize = 10, AutoShrink = true });
+        doc.Elements.Add(new BarcodeElement { Name = "Envanter kodu", Symbology = BarcodeType.Code128, Content = "DEMIRBAS-001", X = 5, Y = 16, Width = 60, Height = 16 });
+        return ApplyCompany(project, company);
+    }
+
+    public static LabelProject CreateForSize(double width, double height, CompanyProfile company)
+    {
+        if (width == 100 && height == 100) return CreateProductLabel(company.LogoPng, company);
+        if (width == 58 && height == 40) return ApplyCompany(CreateShelfLabel(), company);
+        if (width == 70 && height == 35) return CreateAssetLabel(company);
+        if (width == 100 && height == 150) return CreateShippingLabel(company);
+        var project = LabelProject.CreateBlank(width, height);
+        project.Document.Name = "İlk etiketim";
+        return project;
+    }
+
     private static LabelProject ApplyCompany(LabelProject project, CompanyProfile? company)
     {
         if (company is null) return project;

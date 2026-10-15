@@ -500,6 +500,7 @@ internal sealed class ScriptedDialogs : IDialogService
     public List<string> Messages { get; } = [];
     public List<object> Dialogs { get; } = [];
     public Func<string, bool> ConfirmAnswer { get; set; } = _ => true;
+    public Func<object, bool> DialogAnswer { get; set; } = _ => false;
     public string? PromptAnswer { get; set; }
     public string? SaveFileAnswer { get; set; }
     public string? OpenFileAnswer { get; set; }
@@ -520,6 +521,6 @@ internal sealed class ScriptedDialogs : IDialogService
     public bool ShowDialog(object viewModel)
     {
         Dialogs.Add(viewModel);
-        return false;
+        return DialogAnswer(viewModel);
     }
 }

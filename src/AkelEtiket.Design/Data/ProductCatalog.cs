@@ -102,6 +102,65 @@ public sealed class ProductCatalog
         return data;
     }
 
+    /// <summary>Geri yüklemeden önce JSON verisini doğrular ve bağımsız kopyasını verir.</summary>
+    public static ProductCatalogData ValidateBackup(ProductCatalogData data)
+    {
+        if (data.Columns is null || data.Products is null || data.Columns.Any(string.IsNullOrWhiteSpace) ||
+            data.Columns.Distinct(StringComparer.OrdinalIgnoreCase).Count() != data.Columns.Count ||
+            data.Products.Any(p => p is null || string.IsNullOrWhiteSpace(p.Key) || p.Fields is null || p.Fields.Values.Any(v => v is null)) ||
+            data.Products.Select(p => p.Key).Distinct(StringComparer.OrdinalIgnoreCase).Count() != data.Products.Count ||
+            data.Products.Count > 0 && FieldNames.FindIndex(data.Columns, data.KeyColumn ?? "") < 0)
+            throw new InvalidDataException("Yedekteki ürün listesi geçersiz.");
+        return JsonSerializer.Deserialize<ProductCatalogData>(JsonSerializer.Serialize(data, Options), Options)!;
+    }
+
+    /// <summary>Ürünleri değiştirir; önceki listenin ayrı kopyasını korur.</summary>
+    public void RestoreBackup(ProductCatalogData data, Action? commit = null)
+    {
+        var copy = ValidateBackup(data);
+        lock (_lock)
+        {
+            byte[]? previous = File.Exists(FilePath) ? File.ReadAllBytes(FilePath) : null;
+            if (previous is not null) File.WriteAllBytes(FilePath + ".onceki-" + Guid.NewGuid().ToString("N") + ".json", previous);
+            try
+            {
+                Save(copy);
+                commit?.Invoke();
+                _data = copy;
+            }
+            catch (Exception error)
+            {
+                try
+                {
+                    if (previous is null) File.Delete(FilePath);
+                    else
+                    {
+                        string temporary = FilePath + ".rollback-" + Guid.NewGuid().ToString("N");
+                        try { File.WriteAllBytes(temporary, previous); File.Move(temporary, FilePath, overwrite: true); }
+                        finally { if (File.Exists(temporary)) File.Delete(temporary); }
+                    }
+                }
+                catch (Exception rollbackError)
+                {
+                    throw new IOException("Geri yükleme tamamlanamadı ve ürün listesi geri alınamadı. Önceki liste .onceki dosyasında korunuyor.",
+                        new AggregateException(error, rollbackError));
+                }
+                throw;
+            }
+        }
+    }
+
+    /// <summary>Okutma için yalnız kod/barkod alanlarında tam eşleşme; ekranın sonuç sınırına bağlı değildir.</summary>
+    public IReadOnlyList<ProductRecord> FindScanMatches(string code)
+    {
+        string wanted = code.Trim();
+        if (wanted.Length == 0) return [];
+        var names = KeyCandidates.Concat(BarcodeCandidates).Select(FieldNames.Normalize).ToHashSet();
+        return Data.Products.Where(p => string.Equals(p.Key, wanted, StringComparison.OrdinalIgnoreCase) ||
+            p.Fields.Any(f => names.Contains(FieldNames.Normalize(f.Key)) &&
+                string.Equals(f.Value.Trim(), wanted, StringComparison.OrdinalIgnoreCase))).ToList();
+    }
+
     public ProductRecord? Find(string key)
     {
         string wanted = key.Trim();

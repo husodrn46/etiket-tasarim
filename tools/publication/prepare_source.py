@@ -11,7 +11,8 @@ import sys
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[2]
-PUBLIC_DOCS = {'docs/GENEL-URUN.md', 'docs/MIMARI.md', 'docs/LISANSLAR.md'}
+PUBLIC_DOCS = {'docs/GENEL-URUN.md', 'docs/MIMARI.md', 'docs/LISANSLAR.md', 'docs/KULLANIM-GELISTIRMELERI.md', 'docs/VALIDATION-2026-10-15.json'}
+GENERATED_REPORTS = {'SOURCE-MANIFEST.json', 'PUBLICATION-CHECK.json'}
 PRIVATE_ASSETS = {'src/AkelEtiket.App/Assets/akel-logo.png', 'src/AkelEtiket.Design/Assets/akel-logo.png'}
 RULES = {
     'company_identity': re.compile(r'AKEL\s+MELAM[İI]N|akelmelamin[.]com', re.I),
@@ -44,6 +45,7 @@ def main():
     paths = subprocess.check_output(['git', 'ls-files', '--cached', '--others', '--exclude-standard', '-z'], cwd=ROOT).decode().split('\0')
     included, excluded, findings = [], [], []
     for name in sorted(set(filter(None, paths))):
+        if name in GENERATED_REPORTS: continue
         if name in PRIVATE_ASSETS or name.startswith('docs/') and name not in PUBLIC_DOCS:
             excluded.append(name)
             continue

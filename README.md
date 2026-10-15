@@ -49,6 +49,21 @@ Veriler `Belgeler\Etiket Tasarım`, `%APPDATA%\Etiket Tasarım` ve `%LOCALAPPDAT
 Deneme/taşınabilir çalışma için `ETIKET_VERI` tüm klasörleri ayrı bir köke yönlendirir. Diğer kurulumlardan
 ayar, logo, ürün, şablon, GS1 veya SSCC kayıtları otomatik alınmaz. `.akelabel` dosya biçimi uyumluluk için korunur.
 
+## Geliştirme dalındaki kullanım iyileştirmeleri
+
+Bu bölümdeki yenilikler mevcut `v2.0.0-preview.1` indirme paketine henüz dahil değildir.
+
+- İlk açılışta firma, logo, yazıcı ve etiket ölçüsü için üç adımlı kurulum; **? → İlk kurulum** ile yeniden açılır.
+- Şablon galerisinde arama, kategori ve firma şablonlarında görsel önizleme; kargo ve demirbaş tasarımları.
+- **Veri tablosu → Sütunları eşleştir**: Excel/CSV sütunlarını tasarım alanlarına bağlama. Kaynak dosya değişmez;
+  eşleştirme tasarımla kaydedilir ve Ctrl+Z ile geri alınır.
+- Hızlı baskıda bulunamayan/belirsiz okutma önceki ürünü seçili bırakmaz; son şablon hatırlanır.
+- **? → Firma, şablon ve ürün yedeği oluştur / geri yükle**: tek `.etiketyedek` dosyasıyla taşıma.
+  Geri yüklenen şablonlar yeni klasöre alınır, eski ürün listesi ayrıca saklanır. Harici Excel/CSV ve görseller,
+  GS1/SSCC tahsisleri, sayaçlar, baskı geçmişi ve bağlantı anahtarları pakete dahil değildir.
+
+[Değişiklik ve doğrulama kapsamı](docs/KULLANIM-GELISTIRMELERI.md)
+
 ## Geliştirme
 
 C# / .NET 10, WPF, CommunityToolkit.Mvvm, SkiaSharp, ZXing.Net, ClosedXML, ExcelDataReader ve CsvHelper.

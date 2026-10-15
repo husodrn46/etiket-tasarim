@@ -227,6 +227,9 @@
                         </Button>
                         <TextBlock Text="Şablonlar" Style="{StaticResource Text.Title}" VerticalAlignment="Center" />
                     </DockPanel>
+                    <TextBox Text="{Binding Templates.Query, UpdateSourceTrigger=PropertyChanged, Delay=150}" AutomationProperties.Name="Şablon ara" ToolTip="Şablon adı veya ölçü ara" Margin="0,10,0,6"/>
+                    <ComboBox ItemsSource="{Binding Templates.Categories}" SelectedItem="{Binding Templates.Category}"/>
+                    <TextBlock Text="{Binding Templates.ResultSummary}" Style="{StaticResource Text.Hint}" Margin="0,6,0,0"/>
                     <Button Content="Mevcut tasarımı şablon olarak kaydet…" Command="{Binding SaveAsTemplateCommand}" Margin="0,10,0,10" HorizontalAlignment="Stretch" />
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Bottom" Margin="0,8,0,0">

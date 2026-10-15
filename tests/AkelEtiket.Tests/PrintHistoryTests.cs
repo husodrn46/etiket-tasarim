@@ -73,6 +73,22 @@ public sealed class PrintHistoryTests : IDisposable
         Assert.Equal(["İkinci", "Birinci"], store.ReadAll().Select(e => e.Title));
     }
 
+    [Theory]
+    [InlineData("{\"title\":\"yarım", 2)]
+    [InlineData("{\"id\":\"tail\",\"title\":\"son kayıt\"}", 3)]
+    public void Append_AfterUnterminatedTailKeepsNewRecord(string tail, int expectedCount)
+    {
+        var store = new PrintHistoryStore(_folder);
+        store.Append(Entry("Önce", DateTimeOffset.Now.AddMinutes(-1)));
+        File.AppendAllText(store.LogPath, tail);
+        store.Append(Entry("Sonra", DateTimeOffset.Now));
+        var all = store.ReadAll();
+        Assert.Equal(expectedCount, all.Count);
+        Assert.Contains(all, e => e.Title == "Sonra");
+        Assert.Contains(all, e => e.Title == "Önce");
+        Assert.Contains(tail + "\n", File.ReadAllText(store.LogPath));
+    }
+
     [Fact]
     public void Append_IsSafeUnderConcurrentWriters()
     {

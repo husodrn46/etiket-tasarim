@@ -56,11 +56,11 @@ public sealed class CompanyConfigurationTests
         main.Templates.ChangeFolder(Path.Combine(folder, "Şablonlar"));
         main.Settings.Company.Name = new string('A', 160) + ": Firma";
         main.Settings.Company.Address = "Örnek Sokak";
-        Assert.Equal(6, main.Templates.AddCompanyTemplates());
+        Assert.Equal(SampleTemplates.CreateAll(null).Count, main.Templates.AddCompanyTemplates());
         var first = Directory.GetFiles(main.Templates.Library.Folder).ToDictionary(f => f, File.ReadAllBytes);
         main.Settings.Company.Address = "Yeni Adres";
-        Assert.Equal(6, main.Templates.AddCompanyTemplates());
-        Assert.Equal(12, main.Templates.Library.List().Count);
+        Assert.Equal(SampleTemplates.CreateAll(null).Count, main.Templates.AddCompanyTemplates());
+        Assert.Equal(2 * SampleTemplates.CreateAll(null).Count, main.Templates.Library.List().Count);
         foreach (var (file, bytes) in first) Assert.Equal(bytes, File.ReadAllBytes(file));
         Assert.All(main.Templates.Library.List(), t => Assert.DoesNotContain(':', Path.GetFileName(t.FilePath)));
     }

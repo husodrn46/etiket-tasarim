@@ -129,6 +129,111 @@ public sealed class QuickPrintTests : IDisposable
         Assert.False(quick.PrintCommand.CanExecute(null));
     }
 
+    [Fact]
+    public async Task QuickPrint_UnknownAndPartialScans_ClearPreviousSelection()
+    {
+        var products = new ProductsViewModel(_main.Products, _dialogs);
+        await products.ImportFileAsync(WriteCsv(), null);
+        string template = WriteTemplate();
+        var quick = new QuickPrintViewModel(_main, new ProductsViewModel(_main.Products, _dialogs));
+        quick.SelectedTemplate = quick.Templates.Single(t => t.Info.FilePath == template);
+        quick.ScanInput = "TST001"; quick.ScanCommand.Execute(null);
+        Assert.True(quick.PrintCommand.CanExecute(null));
+        quick.Copies = 10000; Assert.False(quick.PrintCommand.CanExecute(null));
+        quick.Copies = 1;
+        quick.ScanInput = "BULUNAMADI";
+        Assert.False(quick.PrintCommand.CanExecute(null));
+        quick.ScanCommand.Execute(null);
+        Assert.Null(quick.Products.SelectedProduct);
+        Assert.NotNull(quick.ScanMessage);
+        Assert.False(quick.PrintCommand.CanExecute(null));
+        quick.ScanInput = "TST01"; quick.ScanCommand.Execute(null);
+        Assert.Null(quick.Products.SelectedProduct); // Kısmi kodla tek sonuç bile otomatik seçilmez.
+        Assert.False(quick.PrintCommand.CanExecute(null));
+        quick.Products.SelectedProduct = Assert.Single(quick.Products.Results);
+        Assert.Equal("", quick.ScanInput);
+        Assert.True(quick.PrintCommand.CanExecute(null));
+    }
+
+    [Fact]
+    public async Task Products_FilterCannotLeaveInvisibleProductSelected()
+    {
+        var products = new ProductsViewModel(_main.Products, _dialogs);
+        await products.ImportFileAsync(WriteCsv(), null);
+        products.SelectedProduct = products.Results.First();
+        products.Query = "BULUNAMADI";
+        Assert.Empty(products.Results);
+        Assert.Null(products.SelectedProduct);
+    }
+
+    [Fact]
+    public void QuickPrint_DuplicateCodeOutsideVisibleResultsDoesNotSelectFirstMatch()
+    {
+        string[] columns = ["Kod", "Barkod"];
+        var rows = new List<AkelEtiket.DataImport.DataRecord> { new(2, ["A", "12345678"], columns) };
+        for (int i = 0; i < 300; i++) rows.Add(new(i + 3, ["B" + i.ToString("000"), "123456789"], columns));
+        rows.Add(new(303, ["Z", "12345678"], columns));
+        _main.Products.Import(new("demo.csv", "CSV", null, 1, columns, rows, []), "Kod");
+        var products = new ProductsViewModel(_main.Products, _dialogs);
+        var quick = new QuickPrintViewModel(_main, products) { ScanInput = "12345678" };
+        quick.ScanCommand.Execute(null);
+        Assert.Equal(ProductsViewModel.MaxShown, products.Results.Count);
+        Assert.DoesNotContain(products.Results, r => r.Key == "Z");
+        Assert.Null(products.SelectedProduct);
+        Assert.Contains("aynı koda", quick.ScanMessage);
+    }
+
+    [Fact]
+    public void QuickPrint_UniqueExactCodeOutsideLimitIsAddedToVisibleSelection()
+    {
+        string[] columns = ["Kod", "Barkod"];
+        var rows = Enumerable.Range(0, 300).Select(i => new AkelEtiket.DataImport.DataRecord(i + 2,
+            ["B" + i.ToString("000"), "123456789"], columns)).ToList();
+        rows.Add(new(302, ["Z", "12345678"], columns));
+        _main.Products.Import(new("demo.csv", "CSV", null, 1, columns, rows, []), "Kod");
+        var products = new ProductsViewModel(_main.Products, _dialogs);
+        var quick = new QuickPrintViewModel(_main, products) { ScanInput = "12345678" };
+        quick.ScanCommand.Execute(null);
+        Assert.Equal("Z", products.SelectedProduct?.Key);
+        Assert.Contains(products.SelectedProduct!, products.Results);
+        Assert.Equal(ProductsViewModel.MaxShown, products.Results.Count);
+    }
+
+    [Fact]
+    public void QuickPrint_PriceValueIsNotAProductCode()
+    {
+        string[] columns = ["Kod", "Fiyat"];
+        _main.Products.Import(new("demo.csv", "CSV", null, 1, columns, [new(2, ["P1", "12345678"], columns)], []), "Kod");
+        var quick = new QuickPrintViewModel(_main, new ProductsViewModel(_main.Products, _dialogs)) { ScanInput = "12345678" };
+        quick.ScanCommand.Execute(null);
+        Assert.Null(quick.Products.SelectedProduct);
+    }
+
+    [Fact]
+    public void QuickPrint_BuiltInOnlyTemplateDoesNotRequireProduct()
+    {
+        var project = LabelProject.CreateBlank(100, 50);
+        project.Document.Elements.Add(new TextElement { Text = "{TARIH} {SIRA}", X = 2, Y = 2, Width = 90, Height = 10 });
+        string path = _main.Templates.Library.SaveAsTemplate(project, "Tarih", null, false);
+        var quick = new QuickPrintViewModel(_main, new ProductsViewModel(_main.Products, _dialogs));
+        quick.SelectedTemplate = quick.Templates.Single(t => t.Info.FilePath == path);
+        Assert.False(quick.RequiresProduct);
+        Assert.Null(quick.Problem);
+        Assert.True(quick.PrintCommand.CanExecute(null));
+    }
+
+    [Fact]
+    public void QuickPrint_StaticInvalidBarcodeBlocksPrint()
+    {
+        var project = LabelProject.CreateBlank(100, 50);
+        project.Document.Elements.Add(new BarcodeElement { Content = "8691234567891", Symbology = BarcodeType.Ean13, X = 5, Y = 5, Width = 70, Height = 30 });
+        string path = _main.Templates.Library.SaveAsTemplate(project, "Hatalı sabit barkod", null, false);
+        var quick = new QuickPrintViewModel(_main, new ProductsViewModel(_main.Products, _dialogs));
+        quick.SelectedTemplate = quick.Templates.Single(t => t.Info.FilePath == path);
+        Assert.NotNull(quick.Problem);
+        Assert.False(quick.PrintCommand.CanExecute(null));
+    }
+
     private sealed class RecordingDialogs : IDialogService
     {
         public List<object> Shown { get; } = [];
