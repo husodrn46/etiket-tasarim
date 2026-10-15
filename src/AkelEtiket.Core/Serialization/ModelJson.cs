@@ -1,3 +1,4 @@
+using L10n = AkelEtiket.Core.Localization.UiText;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -37,7 +38,7 @@ public static class ModelJson
     public static LabelDocument DeserializeDocument(string json)
     {
         var doc = JsonSerializer.Deserialize<LabelDocument>(json, FileOptions)
-                  ?? throw new JsonException("Etiket verisi boş.");
+                  ?? throw new JsonException(L10n.T("Etiket verisi boş."));
         doc.Label ??= new LabelSetup();
         doc.Elements ??= [];
         doc.Guides ??= [];
@@ -63,14 +64,14 @@ public static class ModelJson
     /// <summary>JSON üzerinden derin kopya (aynı kimlikle).</summary>
     public static T Clone<T>(T value) where T : class =>
         JsonSerializer.Deserialize<T>(JsonSerializer.Serialize(value, CompactOptions), CompactOptions)
-        ?? throw new InvalidOperationException("Kopyalama başarısız.");
+        ?? throw new InvalidOperationException(L10n.T("Kopyalama başarısız."));
 
     /// <summary>Öğenin derin kopyası. <paramref name="newId"/> true ise yeni kimlik verilir.</summary>
     public static LabelElement CloneElement(LabelElement element, bool newId)
     {
         var json = JsonSerializer.Serialize(element, CompactOptions);
         var copy = JsonSerializer.Deserialize<LabelElement>(json, CompactOptions)
-                   ?? throw new InvalidOperationException("Kopyalama başarısız.");
+                   ?? throw new InvalidOperationException(L10n.T("Kopyalama başarısız."));
         if (newId) copy.Id = LabelElement.NewId();
         return copy;
     }

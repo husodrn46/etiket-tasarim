@@ -9,6 +9,7 @@ public enum AppTheme
 {
     Dark,
     Light,
+    System,
 }
 
 /// <summary>Pencere konumu.</summary>
@@ -31,6 +32,10 @@ public sealed class AppSettings
     public int SettingsVersion { get; set; } = 1;
     public CompanyProfile Company { get; set; } = new();
     public AppTheme Theme { get; set; } = AppTheme.Dark;
+    public PersonalizationSettings Personalization { get; set; } = new();
+    public List<string> FavoriteTemplatePaths { get; set; } = [];
+    public List<string> FavoritePrintJobIds { get; set; } = [];
+    public List<ImportMappingProfile> ImportProfiles { get; set; } = [];
     public LabelPrinterSettings Printer { get; set; } = new();
     public RecentFilesList Recent { get; set; } = new();
 
@@ -73,6 +78,13 @@ public sealed class AppSettings
     public void Normalize()
     {
         if (UiLanguage is not ("auto" or "tr" or "en")) UiLanguage = FirstRunCompleted ? "tr" : "auto";
+        Personalization ??= new(); Personalization.Normalize();
+        if (!Enum.IsDefined(Theme)) Theme = AppTheme.Dark;
+        FavoriteTemplatePaths = (FavoriteTemplatePaths ?? []).Where(p => !string.IsNullOrWhiteSpace(p)).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+        FavoritePrintJobIds = (FavoritePrintJobIds ?? []).Where(p => !string.IsNullOrWhiteSpace(p)).Distinct(StringComparer.Ordinal).ToList();
+        ImportProfiles = (ImportProfiles ?? []).Where(p => p is not null).Take(100).ToList();
+        foreach (var profile in ImportProfiles) profile.Normalize();
+        ImportProfiles = ImportProfiles.Where(p => p.Name.Length > 0).DistinctBy(p => p.Id).ToList();
         Company ??= new CompanyProfile();
         Company.Normalize();
         Gs1CompanyPrefix ??= "";

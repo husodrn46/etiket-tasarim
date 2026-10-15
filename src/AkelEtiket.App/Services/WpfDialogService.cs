@@ -54,6 +54,7 @@ public sealed class WpfDialogService : IDialogService
             CountersViewModel counters => new CountersWindow(counters),
             PreviewViewModel preview => new PreviewWindow(preview),
             FirstSetupViewModel first => new FirstSetupWindow(first),
+            StarterPacksViewModel packs => new StarterPacksWindow(packs),
             ColumnMappingViewModel mapping => new ColumnMappingWindow(mapping),
             SettingsViewModel settings => new SettingsWindow(settings),
             LabelSetupViewModel setup => new LabelSetupWindow(setup),

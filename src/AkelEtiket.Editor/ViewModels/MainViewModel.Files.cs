@@ -25,6 +25,7 @@ public sealed partial class MainViewModel
         if (!Dialogs.ShowDialog(setup)) return;
         var project = LabelProject.CreateBlank(setup.WidthMm, setup.HeightMm);
         setup.ApplyTo(project.Document.Label);
+        project.Document.Formatting = setup.Formatting.ToModel();
         Session = CreateSession(project);
         _recoveryDirty = true;
         RequestFit();
@@ -35,9 +36,9 @@ public sealed partial class MainViewModel
     [RelayCommand]
     private void LabelSetup()
     {
-        var setup = new LabelSetupViewModel(L10n.T("Etiket ölçüsü"), Session.Document.Label, Settings.Printer.MaxPrintWidthMm);
+        var setup = new LabelSetupViewModel(L10n.T("Etiket ölçüsü"), Session.Document.Label, Settings.Printer.MaxPrintWidthMm, Session.Document.Formatting);
         if (!Dialogs.ShowDialog(setup)) return;
-        using (Session.BeginTransaction()) setup.ApplyTo(Session.Document.Label);
+        using (Session.BeginTransaction()) { setup.ApplyTo(Session.Document.Label); Session.Document.Formatting = setup.Formatting.ToModel(); }
         RequestFit();
     }
 
@@ -245,7 +246,11 @@ public sealed partial class MainViewModel
     private async Task LoadData()
     {
         string? path = Dialogs.ShowOpenFileDialog(L10n.T("Veri kaynağı seç (Excel/CSV)"), DataImporter.OpenFileFilter, Settings.LastDataFolder);
-        if (path is not null) await LoadDataFileAsync(path, null);
+        if (path is not null)
+        {
+            await LoadDataFileAsync(path, SelectedImportProfile?.ToImportOptions());
+            if (SelectedImportProfile is not null && Data.Table?.SourcePath == Path.GetFullPath(path)) OpenColumnMappingCommand.Execute(null);
+        }
     }
 
     public async Task LoadDataFileAsync(string path, ImportOptions? options)

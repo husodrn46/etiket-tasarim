@@ -22,7 +22,7 @@ internal static class EditorTestHelpers
         while (DateTime.UtcNow < deadline)
         {
             if (session.Elements.All(e => !e.IsRendering && !e.PendingRender && e.RenderResult is not null &&
-                e.RenderedKey == RenderCache.ComputeKey(e.Model, session.Fields, session.DotsPerMm))) return;
+                e.RenderedKey == RenderCache.ComputeKey(e.Model, session.Fields, session.DotsPerMm, session.Document.Formatting))) return;
             Thread.Sleep(10);
         }
         throw new TimeoutException("Render tamamlanmadı.");

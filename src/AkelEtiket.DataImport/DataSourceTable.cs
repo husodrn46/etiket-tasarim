@@ -1,4 +1,5 @@
 using AkelEtiket.Core.Data;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.DataImport;
 
@@ -15,7 +16,7 @@ public sealed class DataRecord
     {
         ArgumentNullException.ThrowIfNull(values);
         ArgumentNullException.ThrowIfNull(columns);
-        if (rowNumber < 1) throw new ArgumentOutOfRangeException(nameof(rowNumber), "Satır numarası 1 veya daha büyük olmalı.");
+        if (rowNumber < 1) throw new ArgumentOutOfRangeException(nameof(rowNumber), L10n.T("Satır numarası 1 veya daha büyük olmalı."));
         RowNumber = rowNumber;
         _columns = columns;
         _values = new string[columns.Count];
@@ -45,7 +46,7 @@ public sealed class DataRecord
     /// <summary>{Alan} değişkenlerini verilen sütun adlarıyla eşleştirerek dolduran kaynak.</summary>
     public RecordFieldSource ToFieldSource(IReadOnlyList<string> columns) => new(columns, _values);
 
-    public override string ToString() => $"Satır {RowNumber}: {string.Join(" | ", _values)}";
+    public override string ToString() => L10n.T($"Satır {RowNumber}: {string.Join(" | ", _values)}");
 }
 
 /// <summary>Excel veya CSV dosyasından okunmuş tablo.</summary>
@@ -127,12 +128,12 @@ public sealed class DataSourceTable
     {
         get
         {
-            string text = $"{Rows.Count} satır, {Columns.Count} sütun okundu.";
+            string text = L10n.T($"{Rows.Count} satır, {Columns.Count} sütun okundu.");
             int errors = ErrorCount, warnings = WarningCount;
             if (errors > 0 || warnings > 0)
-                text += $" {errors} hata, {warnings} uyarı.";
+                text += L10n.T($" {errors} hata, {warnings} uyarı.");
             if (WasTruncated)
-                text += " Satır sınırı nedeniyle dosyanın tamamı okunmadı.";
+                text += L10n.T(" Satır sınırı nedeniyle dosyanın tamamı okunmadı.");
             return text;
         }
     }

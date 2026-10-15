@@ -116,7 +116,7 @@ public sealed partial class DataSourceViewModel : ObservableObject
     public string Summary => Table is null
         ? L10n.T("Veri kaynağı yüklenmedi.")
         : L10n.T($"{Table.FileName} • {Table.Rows.Count} satır • {Table.Columns.Count} sütun") +
-          (Table.ErrorCount > 0 ? $" • {Table.ErrorCount} hata" : "") +
+          (Table.ErrorCount > 0 ? L10n.T($" • {Table.ErrorCount} hata") : "") +
           (Table.WarningCount > 0 ? L10n.T($" • {Table.WarningCount} uyarı") : "");
 
     public DataRowViewModel? PreviewRow => PreviewIndex >= 0 && PreviewIndex < Rows.Count ? Rows[PreviewIndex] : null;

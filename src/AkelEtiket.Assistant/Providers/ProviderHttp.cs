@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using AkelEtiket.Assistant.Chat;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Assistant.Providers;
 
@@ -64,7 +65,7 @@ internal static class ProviderHttp
                 response?.Dispose();
                 // Kendi zaman aşımımız veya HttpClient.Timeout.
                 throw new ChatModelException(ChatErrorKind.Timeout,
-                    $"Yanıt {FormatSeconds(options.RequestTimeout)} içinde gelmedi (zaman aşımı). Tekrar deneyin veya daha kısa bir istek gönderin.",
+                    L10n.T($"Yanıt {FormatSeconds(options.RequestTimeout)} içinde gelmedi (zaman aşımı). Tekrar deneyin veya daha kısa bir istek gönderin."),
                     inner: ex);
             }
             catch (HttpRequestException ex)
@@ -166,21 +167,21 @@ internal static class ProviderHttp
     /// <summary>Durum koduna göre Türkçe ileti ve hata türü.</summary>
     public static ChatModelException MapStatus(ProviderHttpFailure failure, string providerName, string model)
     {
-        string detail = string.IsNullOrWhiteSpace(failure.ErrorMessage) ? "" : " Sağlayıcının iletisi: " + Shorten(failure.ErrorMessage!, 400);
+        string detail = string.IsNullOrWhiteSpace(failure.ErrorMessage) ? "" : L10n.T(" Sağlayıcının iletisi: ") + Shorten(failure.ErrorMessage!, 400);
         int status = failure.StatusCode;
         (ChatErrorKind kind, string text) = status switch
         {
-            400 => (ChatErrorKind.BadRequest, $"{providerName} isteği geçersiz buldu (400)."),
-            401 => (ChatErrorKind.Authentication, $"{providerName} API anahtarı geçersiz veya eksik (401). Ayarlar → Yapay Zekâ bölümünden anahtarı kontrol edin."),
-            402 => (ChatErrorKind.Billing, $"{providerName} hesabında ödeme veya bakiye sorunu var (402)."),
-            403 => (ChatErrorKind.Permission, $"Bu anahtarın {providerName} üzerinde bu işlem veya model için izni yok (403)."),
-            404 => (ChatErrorKind.NotFound, $"\"{model}\" modeli ya da uç nokta bulunamadı veya hesabınızda kullanılamıyor (404)."),
-            413 => (ChatErrorKind.TooLarge, "İstek çok büyük (413). Daha küçük bir tasarımla veya önizleme görseli göndermeden deneyin."),
-            429 => (ChatErrorKind.RateLimited, $"{providerName} istek sınırı aşıldı (429). Biraz bekleyip tekrar deneyin."),
-            529 => (ChatErrorKind.Overloaded, $"{providerName} şu anda aşırı yoğun (529). Biraz sonra tekrar deneyin."),
-            503 => (ChatErrorKind.Overloaded, $"{providerName} şu anda hizmet veremiyor (503). Biraz sonra tekrar deneyin."),
-            >= 500 => (ChatErrorKind.Server, $"{providerName} tarafında geçici bir sunucu hatası oluştu ({status}). Biraz sonra tekrar deneyin."),
-            _ => (ChatErrorKind.Other, $"{providerName} beklenmeyen bir hata döndürdü ({status})."),
+            400 => (ChatErrorKind.BadRequest, L10n.T($"{providerName} isteği geçersiz buldu (400).")),
+            401 => (ChatErrorKind.Authentication, L10n.T($"{providerName} API anahtarı geçersiz veya eksik (401). Ayarlar → Yapay Zekâ bölümünden anahtarı kontrol edin.")),
+            402 => (ChatErrorKind.Billing, L10n.T($"{providerName} hesabında ödeme veya bakiye sorunu var (402).")),
+            403 => (ChatErrorKind.Permission, L10n.T($"Bu anahtarın {providerName} üzerinde bu işlem veya model için izni yok (403).")),
+            404 => (ChatErrorKind.NotFound, L10n.T($"\"{model}\" modeli ya da uç nokta bulunamadı veya hesabınızda kullanılamıyor (404).")),
+            413 => (ChatErrorKind.TooLarge, L10n.T("İstek çok büyük (413). Daha küçük bir tasarımla veya önizleme görseli göndermeden deneyin.")),
+            429 => (ChatErrorKind.RateLimited, L10n.T($"{providerName} istek sınırı aşıldı (429). Biraz bekleyip tekrar deneyin.")),
+            529 => (ChatErrorKind.Overloaded, L10n.T($"{providerName} şu anda aşırı yoğun (529). Biraz sonra tekrar deneyin.")),
+            503 => (ChatErrorKind.Overloaded, L10n.T($"{providerName} şu anda hizmet veremiyor (503). Biraz sonra tekrar deneyin.")),
+            >= 500 => (ChatErrorKind.Server, L10n.T($"{providerName} tarafında geçici bir sunucu hatası oluştu ({status}). Biraz sonra tekrar deneyin.")),
+            _ => (ChatErrorKind.Other, L10n.T($"{providerName} beklenmeyen bir hata döndürdü ({status}).")),
         };
         return new ChatModelException(kind, text + detail, status, failure.ErrorType);
     }
@@ -209,5 +210,5 @@ internal static class ProviderHttp
         ex.StatusCode is HttpStatusCode.BadGateway;
 
     /// <summary>Anahtar sızmasını önlemek için iç istisnanın yerine konan boş istisna.</summary>
-    private sealed class ChatModelInnerException() : Exception("(ayrıntı gizlendi)");
+    private sealed class ChatModelInnerException() : Exception(L10n.T("(ayrıntı gizlendi)"));
 }

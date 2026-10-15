@@ -4,6 +4,7 @@ using AkelEtiket.Core.Imaging;
 using AkelEtiket.Core.Model;
 using AkelEtiket.ImageProcessor;
 using SkiaSharp;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Rendering;
 
@@ -64,7 +65,7 @@ public sealed class ImageCache : IDisposable
     private Entry Load(string assetId)
     {
         if (!_assets.TryGet(assetId, out var asset))
-            return new Entry { Error = "Görsel dosyası projede bulunamadı." };
+            return new Entry { Error = L10n.T("Görsel dosyası projede bulunamadı.") };
         try
         {
             var image = ImageLoader.Load(asset.Data, asset.FileName);
@@ -117,14 +118,14 @@ internal static class ImageElementRenderer
         if (overrideAsset is not null)
         {
             if (!cache.TryGet(overrideAsset, out image, out kind, out error) || image is null)
-                return new Output(null, null, error ?? "Görsel okunamadı.");
+                return new Output(null, null, error ?? L10n.T("Görsel okunamadı."));
         }
         else
         {
             if (string.IsNullOrEmpty(element.AssetId))
-                return new Output(null, null, "Görsel seçilmemiş.");
+                return new Output(null, null, L10n.T("Görsel seçilmemiş."));
             if (!cache.TryGet(element.AssetId, out image, out kind, out error) || image is null)
-                return new Output(null, null, error ?? "Görsel okunamadı.");
+                return new Output(null, null, error ?? L10n.T("Görsel okunamadı."));
         }
 
         var (src, dest) = ComputeRects(element, image.Width, image.Height, boxWidth, boxHeight);
@@ -157,8 +158,8 @@ internal static class ImageElementRenderer
             AppliedMethod = result.AppliedMethod,
             DetectedKindText = result.DetectedKind switch
             {
-                ImageKind.Graphic => "Logo / çizim",
-                ImageKind.Photo => "Fotoğraf",
+                ImageKind.Graphic => L10n.T("Logo / çizim"),
+                ImageKind.Photo => L10n.T("Fotoğraf"),
                 _ => "",
             },
             EffectiveThreshold = result.EffectiveThreshold,

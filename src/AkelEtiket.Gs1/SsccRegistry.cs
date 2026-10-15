@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Gs1;
 
@@ -48,9 +49,9 @@ public sealed record SsccEntry(
 {
     public string StatusText => Status switch
     {
-        SsccStatus.Allocated => "Ayrıldı",
-        SsccStatus.Sent => "Yazıcıya gönderildi",
-        _ => "Kullanılmadı (iptal)",
+        SsccStatus.Allocated => L10n.T("Ayrıldı"),
+        SsccStatus.Sent => L10n.T("Yazıcıya gönderildi"),
+        _ => L10n.T("Kullanılmadı (iptal)"),
     };
 
     /// <summary>İnsan okunur biçim: (00) uygulama tanımlayıcısından sonra düz 18 hane.</summary>
@@ -117,7 +118,7 @@ public sealed class SsccRegistry
     {
         ArgumentNullException.ThrowIfNull(profile);
         if (count is < 1 or > MaxAllocationPerCall)
-            throw new ArgumentOutOfRangeException(nameof(count), $"Tek seferde 1–{MaxAllocationPerCall} SSCC ayrılabilir.");
+            throw new ArgumentOutOfRangeException(nameof(count), L10n.T($"Tek seferde 1–{MaxAllocationPerCall} SSCC ayrılabilir."));
         var blockers = profile.GetSsccBlockers();
         if (blockers.Count > 0) throw new Gs1Exception(blockers[0]);
 
@@ -142,8 +143,8 @@ public sealed class SsccRegistry
             {
                 long remaining = Math.Max(0, max - first + 1);
                 throw new Gs1Exception(remaining == 0
-                    ? $"SSCC aralığı doldu (son seri {last:N0}, aralık sonu {max:N0}). GS1 Firma Profili'nde yeni bir aralık tanımlayın."
-                    : $"SSCC aralığında yalnızca {remaining:N0} numara kaldı, {count:N0} isteniyor. GS1 Firma Profili'nde aralığı genişletin.");
+                    ? L10n.T($"SSCC aralığı doldu (son seri {last:N0}, aralık sonu {max:N0}). GS1 Firma Profili'nde yeni bir aralık tanımlayın.")
+                    : L10n.T($"SSCC aralığında yalnızca {remaining:N0} numara kaldı, {count:N0} isteniyor. GS1 Firma Profili'nde aralığı genişletin."));
             }
 
             var now = DateTimeOffset.Now;
@@ -243,7 +244,7 @@ public sealed class SsccRegistry
         foreach (var raw in ssccs)
         {
             var check = Gs1Identifiers.ValidateSscc(raw);
-            if (!check.IsValid) throw new ArgumentException($"Geçersiz SSCC: {raw} ({check.Error})", nameof(ssccs));
+            if (!check.IsValid) throw new ArgumentException(L10n.T($"Geçersiz SSCC: {raw} ({check.Error})"), nameof(ssccs));
             list.Add(new SsccLogRecord
             {
                 Time = now, Sscc = check.Normalized, Status = status, ExtensionDigit = check.Normalized[0] - '0',
@@ -274,7 +275,7 @@ public sealed class SsccRegistry
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            throw new Gs1Exception("SSCC kayıt klasörü oluşturulamadı: " + ex.Message, ex);
+            throw new Gs1Exception(L10n.T("SSCC kayıt klasörü oluşturulamadı: ") + ex.Message, ex);
         }
 
         var sw = Stopwatch.StartNew();
@@ -291,11 +292,11 @@ public sealed class SsccRegistry
             }
             catch (IOException ex)
             {
-                throw new Gs1Exception("SSCC kaydı kilitli: başka bir baskı işlemi numara alıyor olabilir. Biraz sonra tekrar deneyin. (" + ex.Message + ")", ex);
+                throw new Gs1Exception(L10n.T("SSCC kaydı kilitli: başka bir baskı işlemi numara alıyor olabilir. Biraz sonra tekrar deneyin. (") + ex.Message + ")", ex);
             }
             catch (UnauthorizedAccessException ex)
             {
-                throw new Gs1Exception("SSCC kayıt klasörüne yazılamıyor: " + ex.Message, ex);
+                throw new Gs1Exception(L10n.T("SSCC kayıt klasörüne yazılamıyor: ") + ex.Message, ex);
             }
         }
         using (lockStream)
@@ -306,7 +307,7 @@ public sealed class SsccRegistry
             }
             catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
             {
-                throw new Gs1Exception("SSCC kaydı yazılamadı: " + ex.Message, ex);
+                throw new Gs1Exception(L10n.T("SSCC kaydı yazılamadı: ") + ex.Message, ex);
             }
         }
     }
@@ -400,7 +401,7 @@ public sealed class SsccRegistry
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            throw new Gs1Exception("SSCC kayıtları okunamadı: " + ex.Message, ex);
+            throw new Gs1Exception(L10n.T("SSCC kayıtları okunamadı: ") + ex.Message, ex);
         }
         foreach (var line in lines)
         {

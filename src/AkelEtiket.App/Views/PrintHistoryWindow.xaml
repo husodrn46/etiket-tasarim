@@ -24,6 +24,7 @@
             <ComboBox Width="220" IsEditable="True" ItemsSource="{Binding TemplateNames}"
                       Text="{Binding TemplateFilter, UpdateSourceTrigger=PropertyChanged}" ToolTip="{loc:Text T_4e41dbb08860}" />
             <CheckBox Content="{loc:Text T_1e439d3c0b6d}" IsChecked="{Binding OnlyIncomplete}" VerticalAlignment="Center" Margin="14,0,0,0" />
+            <CheckBox Content="{loc:Text T_4d7eb9a5761f}" IsChecked="{Binding OnlyFavorites}" Margin="14,0,0,0"/>
             <Button Content="{loc:Text T_e20480a50c24}" Command="{Binding ClearFiltersCommand}" Margin="14,0,0,0" Padding="10,4" />
             <Button Content="{loc:Text T_63cd725787a8}" Command="{Binding ReloadCommand}" Margin="6,0,0,0" Padding="10,4" />
         </WrapPanel>
@@ -31,6 +32,7 @@
         <!-- Alt düğmeler -->
         <DockPanel DockPanel.Dock="Bottom" Margin="0,12,0,0">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button Content="{Binding FavoriteAction}" Command="{Binding ToggleFavoriteCommand}" IsEnabled="{Binding HasSelection}" Margin="0,0,8,0"/>
                 <Button Content="{loc:Text T_ba6188fd6a2c}" Command="{Binding ResumeCommand}" Margin="0,0,8,0" Padding="12,4"
                         ToolTip="{loc:Text T_8349832e4d31}" />
                 <Button Content="{loc:Text T_d257bbfe5fc0}" Command="{Binding ReprintCommand}" Margin="0,0,8,0" Padding="12,4"
@@ -53,6 +55,12 @@
             <DataGrid ItemsSource="{Binding Entries}" SelectedItem="{Binding SelectedEntry}" AutoGenerateColumns="False" IsReadOnly="True"
                       SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" HeadersVisibility="Column">
                 <DataGrid.Columns>
+                    <DataGridTemplateColumn Width="90">
+                        <DataGridTemplateColumn.CellTemplate><DataTemplate>
+                            <Button Content="{loc:Text T_d257bbfe5fc0}" Padding="6,3" Margin="2"
+                                    Command="{Binding DataContext.OpenJobCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}"/>
+                        </DataTemplate></DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn Header="{loc:Text T_c9a878720fa5}" Binding="{Binding TimeText}" Width="140" />
                     <DataGridTextColumn Header="{loc:Text T_74a0c4ce3e49}" Binding="{Binding Title}" Width="110" />
                     <DataGridTextColumn Header="{loc:Text T_c641dfba8dd1}" Binding="{Binding DocumentName}" Width="*" />

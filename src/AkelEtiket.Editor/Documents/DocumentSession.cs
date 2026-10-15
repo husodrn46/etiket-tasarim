@@ -373,6 +373,7 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
     {
         Document.Name = source.Name;
         Document.Description = source.Description;
+        Document.Formatting = source.Formatting;
         var label = Document.Label;
         label.WidthMm = source.Label.WidthMm;
         label.HeightMm = source.Label.HeightMm;
@@ -536,6 +537,8 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
 
     private void OnDocumentPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
+        if (e.PropertyName == nameof(LabelDocument.Formatting))
+        { _cache.Clear(); RenderAll(); TrackChange("doc:formatting"); }
         if (e.PropertyName is nameof(LabelDocument.Name) or nameof(LabelDocument.Description))
         {
             OnPropertyChanged(nameof(Title));
@@ -596,7 +599,7 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
         if (_disposed) return;
         var fields = Fields;
         double dpmm = DotsPerMm;
-        string key = RenderCache.ComputeKey(vm.Model, fields, dpmm);
+        string key = RenderCache.ComputeKey(vm.Model, fields, dpmm, Document.Formatting);
         if (key == vm.RenderedKey && !vm.IsRendering)
         {
             vm.RaiseGeometry();
@@ -617,7 +620,7 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
         var snapshot = ModelJson.CloneElement(vm.Model, newId: false);
         int version = ++vm.RequestedVersion;
         vm.IsRendering = true;
-        var options = new RenderOptions { DotsPerMm = dpmm, Fields = fields, Mode = RenderMode.Design, ImageResolver = ImageResolver };
+        var options = new RenderOptions { DotsPerMm = dpmm, Fields = fields, Mode = RenderMode.Design, Formatting = Document.Formatting, ImageResolver = ImageResolver };
         var renderer = Renderer;
         var factory = _context.ImageFactory;
         Task.Run(() =>

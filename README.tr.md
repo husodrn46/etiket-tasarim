@@ -116,3 +116,10 @@ Dil seçimi ürün/firma bilgilerini, barkodları, kayıtlı tasarımları ve ve
 
 [İngilizce kullanım rehberi](docs/USER-GUIDE.md) · [Dil altyapısı ve uyumluluk](docs/INTERNATIONALIZATION.md).
 Bu değişiklikler mevcut `v2.0.0-preview.1` indirme paketine dahil değildir; yeni derleme gerekir.
+
+## Kişiselleştirme ve hazır iş akışları
+
+Vurgu rengi, arayüz ölçeği, yeni metin yazı tipi, başlangıç şablonu ve panel düzeni seçilebilir. Şablon/baskı
+favorileri, etiket bazında tarih/sayı/para biçimleri, aktarım önerileri ve tekrar kullanılabilen profiller eklendi.
+Dört paket sekiz tasarım, kurgusal CSV ve iki dilli tarif sunar. Bu özellikler yeni derleme gerektirir.
+[Türkçe kullanım](docs/WORKFLOWS.tr.md) · [English guide](docs/WORKFLOWS.md).

@@ -39,7 +39,7 @@ public sealed partial class MainViewModel
         if (!accepted) return;
         var (themeChanged, resolutionChanged, folderChanged) = vm.ApplyTo(Settings);
         SaveSettings();
-        if (themeChanged) ThemeChanged?.Invoke(this, EventArgs.Empty);
+        ThemeChanged?.Invoke(this, EventArgs.Empty);
         if (resolutionChanged) Session.SetDotsPerMm(Settings.Printer.DotsPerMm);
         if (folderChanged) Templates.ChangeFolder(Settings.EffectiveTemplatesFolder);
         OnPropertyChanged(nameof(Settings));

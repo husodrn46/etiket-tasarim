@@ -4,6 +4,7 @@ using AkelEtiket.Core.Model;
 using AkelEtiket.Core.Serialization;
 using AkelEtiket.DataImport;
 using AkelEtiket.Editor.Printing;
+using AkelEtiket.Editor.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using L10n = AkelEtiket.Core.Localization.UiText;
@@ -16,9 +17,11 @@ public sealed partial class ColumnMappingRow : ObservableObject
     public ColumnMappingRow(string field, IReadOnlyList<string> columns, DataRecord? sample)
     {
         Field = field; Columns = columns; _sample = sample;
-        int index = FieldNames.FindIndex(columns, field);
-        SelectedColumn = index >= 0 ? columns[index] : null;
+        SuggestedColumn = ColumnSuggestions.Suggest(field, columns);
+        SelectedColumn = SuggestedColumn;
     }
+    public string? SuggestedColumn { get; }
+    public string Suggestion => SuggestedColumn is null ? L10n.T("Elle seçim gerekli") : L10n.T("Öneri: ") + SuggestedColumn;
     public string Field { get; }
     public IReadOnlyList<string> Columns { get; }
     [ObservableProperty] [NotifyPropertyChangedFor(nameof(Example))]
@@ -30,9 +33,52 @@ public sealed partial class ColumnMappingRow : ObservableObject
 public sealed partial class ColumnMappingViewModel : ObservableObject
 {
     private readonly LabelDocument _document;
+    private readonly DataSourceTable _table;
+    private IDialogService? _dialogs;
+    private Func<ImportMappingProfile,bool>? _persist;
+    public ObservableCollection<ImportMappingProfile> Profiles { get; } = [];
+    [ObservableProperty] public partial ImportMappingProfile? SelectedProfile { get; set; }
+    [ObservableProperty] public partial string? ProfileMessage { get; set; }
+    partial void OnSelectedProfileChanged(ImportMappingProfile? value)
+    {
+        if (value is null) return;
+        int missing = 0;
+        foreach (var row in Rows)
+        {
+            string? key = value.Mappings.ContainsKey(row.Field) ? row.Field : ColumnSuggestions.Suggest(row.Field, value.Mappings.Keys.ToArray());
+            row.SelectedColumn = key is not null && value.Mappings.TryGetValue(key,out var column) && row.Columns.Contains(column) ? column : null;
+            if (row.SelectedColumn is null) missing++;
+        }
+        ProfileMessage = missing == 0 ? L10n.T("Profil uygulandı; örnek değerleri kontrol edin.") : L10n.T($"{missing} alan eşleştirilmedi; eksik sütunları seçin.");
+    }
+    public void ConfigureProfiles(IEnumerable<ImportMappingProfile> profiles, IDialogService dialogs, Func<ImportMappingProfile,bool> persist, string? selectedId = null)
+    {
+        _dialogs = dialogs; _persist = persist;
+        foreach (var profile in profiles) Profiles.Add(ModelJson.Clone(profile));
+        SelectedProfile = Profiles.FirstOrDefault(p => p.Id == selectedId);
+    }
+    [RelayCommand] private void SaveProfile()
+    {
+        if (!IsValid || _dialogs is null || _persist is null) return;
+        string? name = _dialogs.Prompt(L10n.T("Aktarım profilini kaydet"), L10n.T("Profil adı:"), SelectedProfile?.Name ?? L10n.T("Yeni profil"));
+        if (string.IsNullOrWhiteSpace(name)) return;
+        name = name.Trim(); if (name.Length > 100) name = name[..100];
+        var existing = Profiles.FirstOrDefault(p => string.Equals(p.Name,name,StringComparison.OrdinalIgnoreCase));
+        if (existing is not null && !_dialogs.Confirm(L10n.T("Aktarım profili"), L10n.T("Aynı adlı profil güncellensin mi?"))) return;
+        var profile = new ImportMappingProfile
+        {
+            Id = existing?.Id ?? Guid.NewGuid().ToString("N"), Name = name,
+            Mappings = Rows.ToDictionary(r => r.Field,r => r.SelectedColumn!,StringComparer.Ordinal),
+            Delimiter = _table.Delimiter, EncodingName = ImportChoices.ResolveEncoding(_table.EncodingName)?.WebName, SheetName = _table.SheetName, HeaderRow = _table.HeaderRowNumber,
+        };
+        if (!_persist(profile)) return;
+        if (existing is not null) Profiles.Remove(existing);
+        Profiles.Add(profile); SelectedProfile = profile;
+        ProfileMessage = L10n.T("Profil kaydedildi. Ürün satırları ve dosya yolu profile eklenmedi.");
+    }
     public ColumnMappingViewModel(LabelDocument document, DataSourceTable table, DataRecord? sample = null)
     {
-        _document = document;
+        _document = document; _table = table;
         var builtIns = EditorFields.BuiltIns(1, DateTime.Now);
         foreach (string field in document.Elements.SelectMany(DataSourceViewModel.FieldReferencesOf).Select(f => f.Base)
             .Where(f => !builtIns.TryGetValue(f, null, out _)).Distinct(StringComparer.Ordinal))
@@ -87,6 +133,10 @@ public sealed partial class MainViewModel
     {
         if (Data.Table is not { } table) return;
         var mapping = new ColumnMappingViewModel(Session.Document, table, Data.PreviewRow?.Record);
+        mapping.ConfigureProfiles(Settings.ImportProfiles, Dialogs, profile => UpdatePreferences(s =>
+        {
+            s.ImportProfiles.RemoveAll(p => p.Id == profile.Id); s.ImportProfiles.Add(profile);
+        }), SelectedImportProfileId);
         if (mapping.Rows.Count == 0)
         {
             Dialogs.ShowMessage(L10n.T("Sütunları eşleştir"), L10n.T("Tasarımda veri alanı yok. Önce bir metne {UrunAdi} gibi bir alan ekleyin."));

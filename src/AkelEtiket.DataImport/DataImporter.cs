@@ -1,5 +1,6 @@
 using AkelEtiket.DataImport.Csv;
 using AkelEtiket.DataImport.Excel;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.DataImport;
 
@@ -18,10 +19,10 @@ public static class DataImporter
 
     /// <summary>Dosya açma penceresi filtresi.</summary>
     public static string OpenFileFilter =>
-        "Veri dosyaları (*.xlsx; *.xls; *.csv; *.txt)|*.xlsx;*.xlsm;*.xls;*.csv;*.txt;*.tsv" +
-        "|Excel dosyaları (*.xlsx; *.xlsm; *.xls)|*.xlsx;*.xlsm;*.xls" +
-        "|CSV dosyaları (*.csv; *.txt)|*.csv;*.txt;*.tsv" +
-        "|Tüm dosyalar (*.*)|*.*";
+        L10n.T("Veri dosyaları (*.xlsx; *.xls; *.csv; *.txt)|*.xlsx;*.xlsm;*.xls;*.csv;*.txt;*.tsv") +
+        L10n.T("|Excel dosyaları (*.xlsx; *.xlsm; *.xls)|*.xlsx;*.xlsm;*.xls") +
+        L10n.T("|CSV dosyaları (*.csv; *.txt)|*.csv;*.txt;*.tsv") +
+        L10n.T("|Tüm dosyalar (*.*)|*.*");
 
     public static bool IsSupportedFile(string path) =>
         SupportedExtensions.Contains(Path.GetExtension(path ?? "").ToLowerInvariant());
@@ -34,12 +35,12 @@ public static class DataImporter
     public static DataSourceTable Import(string path, ImportOptions? options = null, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(path))
-            throw new DataImportException("Dosya yolu boş.");
+            throw new DataImportException(L10n.T("Dosya yolu boş."));
         options ??= new ImportOptions();
         if (options.MaxRows < 1)
-            throw new DataImportException("En fazla satır sayısı 1 veya daha büyük olmalı.") { FilePath = path };
+            throw new DataImportException(L10n.T("En fazla satır sayısı 1 veya daha büyük olmalı.")) { FilePath = path };
         if (options.HeaderRow is < 1)
-            throw new DataImportException("Başlık satırı 1 veya daha büyük olmalı.") { FilePath = path };
+            throw new DataImportException(L10n.T("Başlık satırı 1 veya daha büyük olmalı.")) { FilePath = path };
 
         string extension = Path.GetExtension(path).ToLowerInvariant();
         switch (extension)
@@ -48,10 +49,10 @@ public static class DataImporter
                 return XlsImporter.Import(path, options, cancellationToken);
             case ".xlsb":
                 throw new DataImportException(
-                    "İkili Excel biçimi (.xlsb) desteklenmiyor. Dosyayı Excel'de .xlsx olarak kaydedin.") { FilePath = path };
+                    L10n.T("İkili Excel biçimi (.xlsb) desteklenmiyor. Dosyayı Excel'de .xlsx olarak kaydedin.")) { FilePath = path };
             case ".ods":
                 throw new DataImportException(
-                    "OpenDocument (.ods) biçimi desteklenmiyor. Dosyayı .xlsx veya .csv olarak kaydedin.") { FilePath = path };
+                    L10n.T("OpenDocument (.ods) biçimi desteklenmiyor. Dosyayı .xlsx veya .csv olarak kaydedin.")) { FilePath = path };
         }
 
         if (ExcelExtensions.Contains(extension))
@@ -60,7 +61,7 @@ public static class DataImporter
             return CsvImporter.Import(path, options, cancellationToken);
 
         throw new DataImportException(
-            $"\"{extension}\" uzantılı dosyalar desteklenmiyor. Excel (.xlsx, .xls) veya CSV (.csv) dosyası seçin.") { FilePath = path };
+            L10n.T($"\"{extension}\" uzantılı dosyalar desteklenmiyor. Excel (.xlsx, .xls) veya CSV (.csv) dosyası seçin.")) { FilePath = path };
     }
 
     /// <summary>Arayüzü kilitlememek için arka planda okur.</summary>
@@ -72,7 +73,7 @@ public static class DataImporter
     public static IReadOnlyList<string> GetSheetNames(string xlsxPath)
     {
         if (!IsExcelFile(xlsxPath))
-            throw new DataImportException("Sayfa listesi yalnızca Excel (.xlsx/.xlsm/.xls) dosyaları için alınabilir.") { FilePath = xlsxPath };
+            throw new DataImportException(L10n.T("Sayfa listesi yalnızca Excel (.xlsx/.xlsm/.xls) dosyaları için alınabilir.")) { FilePath = xlsxPath };
         return Path.GetExtension(xlsxPath).Equals(".xls", StringComparison.OrdinalIgnoreCase)
             ? XlsImporter.GetSheetNames(xlsxPath)
             : ExcelImporter.GetSheetNames(xlsxPath);

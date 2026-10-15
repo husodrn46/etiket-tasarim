@@ -1,4 +1,5 @@
 using AkelEtiket.Core.Data;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Gs1;
 
@@ -37,14 +38,14 @@ public static class GtinImport
         int gtinIndex = FindColumn(columns, GtinColumns);
         if (gtinIndex < 0)
         {
-            result.Skipped.Add("GTIN sütunu bulunamadı. Sütun adı GTIN, Barkod veya EAN olmalı.");
+            result.Skipped.Add(L10n.T("GTIN sütunu bulunamadı. Sütun adı GTIN, Barkod veya EAN olmalı."));
             return result;
         }
         int codeIndex = FindColumn(columns, CodeColumns);
         int descIndex = FindColumn(columns, DescriptionColumns);
         result.ColumnSummary = "GTIN: " + columns[gtinIndex] +
-                               (codeIndex >= 0 ? ", ürün kodu: " + columns[codeIndex] : "") +
-                               (descIndex >= 0 ? ", açıklama: " + columns[descIndex] : "");
+                               (codeIndex >= 0 ? L10n.T(", ürün kodu: ") + columns[codeIndex] : "") +
+                               (descIndex >= 0 ? L10n.T(", açıklama: ") + columns[descIndex] : "");
 
         var known = new HashSet<string>(StringComparer.Ordinal);
         foreach (var item in existing ?? [])
@@ -59,13 +60,13 @@ public static class GtinImport
             var check = Gs1Identifiers.ValidateGtin(raw);
             if (!check.IsValid)
             {
-                result.Skipped.Add($"Satır {rowNumber}: {check.Error}");
+                result.Skipped.Add(L10n.T($"Satır {rowNumber}: {check.Error}"));
                 continue;
             }
             string key = check.Normalized.PadLeft(14, '0');
             if (!known.Add(key))
             {
-                result.Skipped.Add($"Satır {rowNumber}: {check.Normalized} zaten listede.");
+                result.Skipped.Add(L10n.T($"Satır {rowNumber}: {check.Normalized} zaten listede."));
                 continue;
             }
             result.Added.Add(new RegisteredGtin

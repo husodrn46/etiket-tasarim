@@ -1,4 +1,5 @@
 using System.Text;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.DataImport.Internal;
 
@@ -22,12 +23,12 @@ internal static class HeaderBuilder
             {
                 name = $"Sütun {i + 1}";
                 issues.Add(new ImportIssue(headerRowNumber, name, ImportIssueSeverity.Info,
-                    $"{i + 1}. sütunun başlığı boş; \"{name}\" adı verildi."));
+                    L10n.T($"{i + 1}. sütunun başlığı boş; \"{name}\" adı verildi.")));
             }
             else if (!string.Equals(name, raw, StringComparison.Ordinal))
             {
                 issues.Add(new ImportIssue(headerRowNumber, name, ImportIssueSeverity.Info,
-                    $"Sütun başlığı \"{raw}\" → \"{name}\" olarak düzenlendi (değişken alanlarda kullanılamayan karakterler kaldırıldı)."));
+                    L10n.T($"Sütun başlığı \"{raw}\" → \"{name}\" olarak düzenlendi (değişken alanlarda kullanılamayan karakterler kaldırıldı).")));
             }
 
             string unique = name;
@@ -36,7 +37,7 @@ internal static class HeaderBuilder
             if (!string.Equals(unique, name, StringComparison.Ordinal))
             {
                 issues.Add(new ImportIssue(headerRowNumber, unique, ImportIssueSeverity.Info,
-                    $"\"{name}\" başlığı birden fazla sütunda var; bu sütun \"{unique}\" olarak adlandırıldı."));
+                    L10n.T($"\"{name}\" başlığı birden fazla sütunda var; bu sütun \"{unique}\" olarak adlandırıldı.")));
             }
             result.Add(unique);
         }

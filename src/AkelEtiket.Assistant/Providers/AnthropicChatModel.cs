@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using AkelEtiket.Assistant.Chat;
 using AkelEtiket.Core.Automation;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Assistant.Providers;
 
@@ -45,7 +46,7 @@ public sealed class AnthropicChatModel : IChatModel
         _http = http ?? throw new ArgumentNullException(nameof(http));
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         if (string.IsNullOrWhiteSpace(apiKey))
-            throw new AssistantConfigurationException("Anthropic API anahtarı girilmedi. Ayarlar → Yapay Zekâ bölümünden anahtarınızı girin.");
+            throw new AssistantConfigurationException(L10n.T("Anthropic API anahtarı girilmedi. Ayarlar → Yapay Zekâ bölümünden anahtarınızı girin."));
         _apiKey = apiKey.Trim();
         _options = options ?? new ChatModelOptions();
         Model = string.IsNullOrWhiteSpace(settings.Model) ? DefaultModel : settings.Model.Trim();
@@ -53,7 +54,7 @@ public sealed class AnthropicChatModel : IChatModel
         string baseUrl = string.IsNullOrWhiteSpace(settings.BaseUrl) ? DefaultBaseUrl : settings.BaseUrl.Trim().TrimEnd('/');
         if (!Uri.TryCreate(baseUrl + "/v1/messages", UriKind.Absolute, out var endpoint) ||
             (endpoint.Scheme != Uri.UriSchemeHttps && endpoint.Scheme != Uri.UriSchemeHttp))
-            throw new AssistantConfigurationException($"Anthropic adresi geçersiz: \"{settings.BaseUrl}\".");
+            throw new AssistantConfigurationException(L10n.T($"Anthropic adresi geçersiz: \"{settings.BaseUrl}\"."));
         _endpoint = endpoint;
 
         bool officialEndpoint = string.Equals(baseUrl, DefaultBaseUrl, StringComparison.OrdinalIgnoreCase);
@@ -85,7 +86,7 @@ public sealed class AnthropicChatModel : IChatModel
             failure => ProviderHttp.MapStatus(failure, ProviderName, Model),
             TryDisableOptionalFeature,
             ex => new ChatModelException(ChatErrorKind.Network,
-                "Anthropic sunucusuna bağlanılamadı. İnternet bağlantınızı kontrol edin. Ayrıntı: " +
+                L10n.T("Anthropic sunucusuna bağlanılamadı. İnternet bağlantınızı kontrol edin. Ayrıntı: ") +
                 ProviderHttp.ScrubText(ex.Message, _apiKey), inner: ex),
             _apiKey,
             cancellationToken).ConfigureAwait(false);
@@ -192,7 +193,7 @@ public sealed class AnthropicChatModel : IChatModel
                     parts.Add(Image(image));
                     break;
                 case ChatToolCallBlock:
-                    throw new InvalidOperationException("Kullanıcı mesajında araç çağrısı olamaz.");
+                    throw new InvalidOperationException(L10n.T("Kullanıcı mesajında araç çağrısı olamaz."));
             }
         }
         return new JsonObject { ["role"] = "user", ["content"] = parts };
@@ -224,7 +225,7 @@ public sealed class AnthropicChatModel : IChatModel
 
     private JsonObject ToolResult(ChatToolResultBlock result)
     {
-        var content = new JsonArray { new JsonObject { ["type"] = "text", ["text"] = result.Text.Length > 0 ? result.Text : "(boş sonuç)" } };
+        var content = new JsonArray { new JsonObject { ["type"] = "text", ["text"] = result.Text.Length > 0 ? result.Text : L10n.T("(boş sonuç)") } };
         foreach (var image in result.Images) content.Add(Image(image));
         var node = new JsonObject
         {
@@ -239,7 +240,7 @@ public sealed class AnthropicChatModel : IChatModel
     private JsonObject Image(ChatImageBlock image)
     {
         if (!_settings.SendPreviewImages)
-            return new JsonObject { ["type"] = "text", ["text"] = "[Görsel gönderilmedi: ayarlarda görsel gönderimi kapalı.]" };
+            return new JsonObject { ["type"] = "text", ["text"] = L10n.T("[Görsel gönderilmedi: ayarlarda görsel gönderimi kapalı.]") };
         return new JsonObject
         {
             ["type"] = "image",
@@ -259,11 +260,11 @@ public sealed class AnthropicChatModel : IChatModel
         try
         {
             root = JsonNode.Parse(body) as JsonObject
-                   ?? throw new ChatModelException(ChatErrorKind.InvalidResponse, "Anthropic'ten anlaşılamayan bir yanıt geldi.");
+                   ?? throw new ChatModelException(ChatErrorKind.InvalidResponse, L10n.T("Anthropic'ten anlaşılamayan bir yanıt geldi."));
         }
         catch (JsonException ex)
         {
-            throw new ChatModelException(ChatErrorKind.InvalidResponse, "Anthropic'ten anlaşılamayan bir yanıt geldi (JSON çözümlenemedi).", inner: ex);
+            throw new ChatModelException(ChatErrorKind.InvalidResponse, L10n.T("Anthropic'ten anlaşılamayan bir yanıt geldi (JSON çözümlenemedi)."), inner: ex);
         }
 
         var content = root["content"] as JsonArray ?? [];

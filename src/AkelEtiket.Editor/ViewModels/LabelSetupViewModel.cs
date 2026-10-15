@@ -13,9 +13,10 @@ public sealed record LabelPreset(string Name, double WidthMm, double HeightMm, d
 /// <summary>Yeni etiket / etiket ölçüsü penceresi.</summary>
 public sealed partial class LabelSetupViewModel : ObservableObject
 {
-    public LabelSetupViewModel(string title, LabelSetup? current, double maxPrintWidthMm)
+    public LabelSetupViewModel(string title, LabelSetup? current, double maxPrintWidthMm, LabelFormatting? formatting = null)
     {
-        Title = title;
+        Title = title; Formatting = new(formatting);
+        Formatting.PropertyChanged += (_,_) => { OnPropertyChanged(nameof(IsValid)); OnPropertyChanged(nameof(Warning)); };
         MaxPrintWidthMm = maxPrintWidthMm;
         var source = current ?? new LabelSetup();
         WidthMm = source.WidthMm;
@@ -26,6 +27,7 @@ public sealed partial class LabelSetupViewModel : ObservableObject
         SelectedPreset = Presets.FirstOrDefault(p => Math.Abs(p.WidthMm - WidthMm) < 0.01 && Math.Abs(p.HeightMm - HeightMm) < 0.01);
     }
 
+    public DocumentFormattingViewModel Formatting { get; }
     public string Title { get; }
     public double MaxPrintWidthMm { get; }
 
@@ -78,13 +80,14 @@ public sealed partial class LabelSetupViewModel : ObservableObject
         GapMm = value.GapMm;
     }
 
-    public bool IsValid => WidthMm is >= LabelSetup.MinSizeMm and <= LabelSetup.MaxSizeMm &&
+    public bool IsValid => Formatting.IsValid && WidthMm is >= LabelSetup.MinSizeMm and <= LabelSetup.MaxSizeMm &&
                            HeightMm is >= LabelSetup.MinSizeMm and <= LabelSetup.MaxSizeMm;
 
     public string? Warning
     {
         get
         {
+            if (!Formatting.IsValid) return L10n.T("Biçim ayarlarını kontrol edin.");
             if (!IsValid) return L10n.T($"Genişlik ve yükseklik {LabelSetup.MinSizeMm:0}–{LabelSetup.MaxSizeMm:0} mm arasında olmalı.");
             if (WidthMm > MaxPrintWidthMm + 0.01)
                 return L10n.T($"Etiket genişliği yazıcının en fazla baskı genişliğini ({MaxPrintWidthMm:0.#} mm) aşıyor; taşan kısım basılmaz.");

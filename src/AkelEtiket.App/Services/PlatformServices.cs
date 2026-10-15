@@ -161,11 +161,22 @@ public static class ShellHelper
 public static class ThemeManager
 {
     public static AppTheme Current { get; private set; } = AppTheme.Dark;
+    public static double UiScale { get; private set; } = 1;
+    private static string _accent = "red";
+    public static void Configure(AppSettings settings)
+    {
+        UiScale = settings.Personalization.UiScale; _accent = settings.Personalization.Accent; Apply(settings.Theme);
+    }
 
     public static event EventHandler? ThemeChanged;
 
     public static void Apply(AppTheme theme)
     {
+        if (theme == AppTheme.System)
+        {
+            object? light = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", 0);
+            theme = light is int n && n != 0 ? AppTheme.Light : AppTheme.Dark;
+        }
         Current = theme;
         var dictionaries = Application.Current.Resources.MergedDictionaries;
         var colors = new ResourceDictionary
@@ -174,6 +185,10 @@ public static class ThemeManager
         };
         if (dictionaries.Count > 0) dictionaries[0] = colors;
         else dictionaries.Add(colors);
+        Color accent = (Color)ColorConverter.ConvertFromString(_accent switch { "blue" => "#2563EB", "teal" => "#087F8C", "purple" => "#6D28D9", _ => "#D7263D" });
+        Color Mix(double fraction) => Color.FromRgb((byte)(accent.R + (255-accent.R)*fraction), (byte)(accent.G + (255-accent.G)*fraction), (byte)(accent.B + (255-accent.B)*fraction));
+        foreach (var (name,color) in new[] { ("Accent",accent), ("AccentHover",Mix(.12)), ("AccentPressed",Color.FromRgb((byte)(accent.R*.85),(byte)(accent.G*.85),(byte)(accent.B*.85))), ("Selection",accent), ("SelectionSoft",Color.FromArgb(51,accent.R,accent.G,accent.B)) })
+        { Application.Current.Resources["Color."+name] = color; Application.Current.Resources["Brush."+name] = new SolidColorBrush(color); }
         foreach (Window window in Application.Current.Windows) ApplyTitleBar(window);
         ThemeChanged?.Invoke(null, EventArgs.Empty);
     }

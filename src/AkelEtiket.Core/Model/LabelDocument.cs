@@ -99,13 +99,16 @@ public sealed class DataSourceLink
 public sealed class LabelDocument : ObservableModel
 {
     /// <summary>Bu sürümün okuyabildiği en yüksek biçim.</summary>
-    public const int CurrentFormatVersion = 2;
+    public const int CurrentFormatVersion = 3;
+    public const int Version2Format = 2;
 
     /// <summary>v1 (AKEL Etiket 1.x) biçimi.</summary>
     public const int Version1Format = 1;
 
     private string _name = "Yeni Etiket";
     private string _description = "";
+    private LabelFormatting? _formatting;
+    public LabelFormatting? Formatting { get => _formatting; set => Set(ref _formatting,value); }
 
     public int FormatVersion { get; set; } = CurrentFormatVersion;
 
@@ -143,10 +146,10 @@ public sealed class LabelDocument : ObservableModel
     /// 1 döner; böylece dosya v1'de uyarısız açılır.
     /// </summary>
     public int GetRequiredFormatVersion() =>
-        Elements.Any(e => e.GroupId is not null || e.VisibleWhen is not null
+        Formatting is not null ? CurrentFormatVersion : Elements.Any(e => e.GroupId is not null || e.VisibleWhen is not null
                           || e is ImageElement { Sharpen: > 0 } or ImageElement { SourceField: not null }
                           || e is BarcodeElement { Symbology: BarcodeType.Gs1DataMatrix or BarcodeType.Gs1QrCode })
-            ? CurrentFormatVersion
+            ? Version2Format
             : Version1Format;
 
     /// <summary>Belgedeki görsellerin kullandığı varlık kimlikleri.</summary>

@@ -5,6 +5,7 @@ using AkelEtiket.DataImport.Internal;
 using ExcelDataReader;
 using ExcelDataReader.Exceptions;
 using ExcelNumberFormat;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.DataImport.Excel;
 
@@ -62,7 +63,7 @@ internal static class XlsImporter
     private static DataSourceTable Build(XlsSheet sheet, string path, ImportOptions options, CancellationToken cancellationToken)
     {
         if (sheet.IsEmpty)
-            throw new DataImportException($"\"{sheet.Name}\" sayfasında veri bulunamadı.") { FilePath = path };
+            throw new DataImportException(L10n.T($"\"{sheet.Name}\" sayfasında veri bulunamadı.")) { FilePath = path };
 
         int firstRow = sheet.FirstRow, lastRow = sheet.LastRow;
         int firstColumn = sheet.FirstColumn, lastColumn = sheet.LastColumn;
@@ -107,12 +108,12 @@ internal static class XlsImporter
 
         if (rows.Count == 0)
         {
-            issues.Add(new ImportIssue(0, null, ImportIssueSeverity.Warning, "Başlık satırından sonra veri satırı yok."));
+            issues.Add(new ImportIssue(0, null, ImportIssueSeverity.Warning, L10n.T("Başlık satırından sonra veri satırı yok.")));
         }
         if (truncated)
         {
             issues.Add(new ImportIssue(0, null, ImportIssueSeverity.Warning,
-                $"Sayfada {options.MaxRows} satırdan fazla veri var; yalnızca ilk {options.MaxRows} satır okundu."));
+                L10n.T($"Sayfada {options.MaxRows} satırdan fazla veri var; yalnızca ilk {options.MaxRows} satır okundu.")));
         }
 
         IntegrityChecks.Run(columns, rows, issues);
@@ -136,7 +137,7 @@ internal static class XlsImporter
         // Dosya belleğe alınır: tanıtıcı hemen bırakılır ve Excel'de açık dosyalar da okunur.
         byte[] bytes = FileAccessHelper.ReadAllBytes(path, ExcelImporter.MaxFileBytes);
         if (bytes.Length == 0)
-            throw new DataImportException("Dosya boş; geçerli bir Excel dosyası değil.") { FilePath = path };
+            throw new DataImportException(L10n.T("Dosya boş; geçerli bir Excel dosyası değil.")) { FilePath = path };
         return bytes;
     }
 
@@ -153,9 +154,9 @@ internal static class XlsImporter
         if (start < bytes.Length && bytes[start] == (byte)'<')
         {
             throw new DataImportException(
-                "Bu .xls dosyası gerçek bir Excel dosyası değil; içinde web sayfası (HTML) ya da XML tablo var (bazı programlar " +
-                "dışa aktarımı böyle kaydeder). Dosyayı Excel'de açıp \"Farklı Kaydet → Excel Çalışma Kitabı (.xlsx)\" ile kaydedin " +
-                "ya da CSV olarak dışa aktarın.") { FilePath = path };
+                L10n.T("Bu .xls dosyası gerçek bir Excel dosyası değil; içinde web sayfası (HTML) ya da XML tablo var (bazı programlar ") +
+                L10n.T("dışa aktarımı böyle kaydeder). Dosyayı Excel'de açıp \"Farklı Kaydet → Excel Çalışma Kitabı (.xlsx)\" ile kaydedin ") +
+                L10n.T("ya da CSV olarak dışa aktarın.")) { FilePath = path };
         }
         return LooksLikeText(span[..Math.Min(span.Length, 8192)]) ? Content.Text : Content.Xls;
     }
@@ -172,7 +173,7 @@ internal static class XlsImporter
     {
         var table = CsvImporter.Import(path, options, cancellationToken);
         var note = new ImportIssue(0, null, ImportIssueSeverity.Info,
-            "Dosyanın uzantısı .xls ama içeriği metin (CSV/sekmeli); metin dosyası olarak okundu.");
+            L10n.T("Dosyanın uzantısı .xls ama içeriği metin (CSV/sekmeli); metin dosyası olarak okundu."));
         return new DataSourceTable(
             table.SourcePath, table.SourceKind, table.SheetName, table.HeaderRowNumber, table.Columns, table.Rows,
             [note, .. table.Issues], table.EncodingName, table.Delimiter, table.SkippedEmptyRows, table.WasTruncated);
@@ -196,13 +197,13 @@ internal static class XlsImporter
         catch (InvalidPasswordException ex)
         {
             throw new DataImportException(
-                "Excel dosyası parola korumalı. Dosyayı Excel'de açıp parolayı kaldırarak yeniden kaydedin.", ex) { FilePath = path };
+                L10n.T("Excel dosyası parola korumalı. Dosyayı Excel'de açıp parolayı kaldırarak yeniden kaydedin."), ex) { FilePath = path };
         }
         catch (Exception ex)
         {
             throw new DataImportException(
-                "Eski Excel (.xls) dosyası açılamadı. Dosya bozuk, parola korumalı ya da geçerli bir .xls dosyası değil. " +
-                "Dosyayı Excel'de açıp \"Farklı Kaydet → Excel Çalışma Kitabı (.xlsx)\" ile yeniden kaydetmeyi deneyin.",
+                L10n.T("Eski Excel (.xls) dosyası açılamadı. Dosya bozuk, parola korumalı ya da geçerli bir .xls dosyası değil. ") +
+                L10n.T("Dosyayı Excel'de açıp \"Farklı Kaydet → Excel Çalışma Kitabı (.xlsx)\" ile yeniden kaydetmeyi deneyin."),
                 ex) { FilePath = path };
         }
     }
@@ -222,7 +223,7 @@ internal static class XlsImporter
     {
         var names = SheetNames(reader);
         if (names.Count == 0)
-            throw new DataImportException("Excel dosyasında çalışma sayfası yok.") { FilePath = path };
+            throw new DataImportException(L10n.T("Excel dosyasında çalışma sayfası yok.")) { FilePath = path };
         reader.Reset();
 
         if (!string.IsNullOrWhiteSpace(sheetName))
@@ -233,7 +234,7 @@ internal static class XlsImporter
             if (index < 0)
             {
                 throw new DataImportException(
-                    $"\"{wanted}\" adlı sayfa bulunamadı. Dosyadaki sayfalar: {string.Join(", ", names)}.") { FilePath = path };
+                    L10n.T($"\"{wanted}\" adlı sayfa bulunamadı. Dosyadaki sayfalar: {string.Join(", ", names)}.")) { FilePath = path };
             }
             for (int i = 0; i < index; i++) reader.NextResult();
             return XlsSheet.Load(reader, cancellationToken);
@@ -249,18 +250,18 @@ internal static class XlsImporter
             firstWithData ??= sheet;
         }
         while (reader.NextResult());
-        return firstWithData ?? throw new DataImportException("Excel dosyasında veri içeren bir sayfa bulunamadı.") { FilePath = path };
+        return firstWithData ?? throw new DataImportException(L10n.T("Excel dosyasında veri içeren bir sayfa bulunamadı.")) { FilePath = path };
     }
 
     private static int FindHeaderRow(XlsSheet sheet, int? requested, NumberFormatCache formats, string path)
     {
         if (requested is not int row) return sheet.FirstRow;
         if (row < 1)
-            throw new DataImportException("Başlık satırı 1 veya daha büyük olmalı.") { FilePath = path };
+            throw new DataImportException(L10n.T("Başlık satırı 1 veya daha büyük olmalı.")) { FilePath = path };
         if (row > sheet.LastRow)
         {
             throw new DataImportException(
-                $"Başlık satırı ({row}) sayfadaki son dolu satırdan ({sheet.LastRow}) sonra geliyor.") { FilePath = path };
+                L10n.T($"Başlık satırı ({row}) sayfadaki son dolu satırdan ({sheet.LastRow}) sonra geliyor.")) { FilePath = path };
         }
         // İstenen satır boşsa sonraki ilk dolu satır başlık olur.
         for (int r = Math.Max(row, sheet.FirstRow); r <= sheet.LastRow; r++)
@@ -268,7 +269,7 @@ internal static class XlsImporter
             for (int c = sheet.FirstColumn; c <= sheet.LastColumn; c++)
                 if (!string.IsNullOrWhiteSpace(ReadCell(sheet.Get(r, c), r, null, null, trim: true, formats))) return r;
         }
-        throw new DataImportException($"Belirtilen başlık satırında ({row}) veya sonrasında veri bulunamadı.") { FilePath = path };
+        throw new DataImportException(L10n.T($"Belirtilen başlık satırında ({row}) veya sonrasında veri bulunamadı.")) { FilePath = path };
     }
 
     // ───────────────────────── Hücreler ─────────────────────────

@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using AkelEtiket.Core.Imaging;
 using AkelEtiket.PrintEngine.Interop;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.PrintEngine;
 
@@ -76,12 +77,12 @@ public sealed class DriverPrintService
         var report = new PrintReport { Method = PrintMethod.WindowsDriver, PrinterName = printerName ?? "" };
         if (string.IsNullOrWhiteSpace(printerName))
         {
-            error = "Yazıcı seçilmedi.";
+            error = L10n.T("Yazıcı seçilmedi.");
             return null;
         }
         if (!TryCreateDc(report, printerName, media, out IntPtr hdc, out var caps))
         {
-            error = report.Errors.FirstOrDefault() ?? "Yazıcı aygıt bağlamı oluşturulamadı.";
+            error = report.Errors.FirstOrDefault() ?? L10n.T("Yazıcı aygıt bağlamı oluşturulamadı.");
             return null;
         }
         GdiNative.DeleteDC(hdc);
@@ -112,11 +113,11 @@ public sealed class DriverPrintService
         bool toFile = !string.IsNullOrWhiteSpace(OutputFilePath);
         if (string.IsNullOrWhiteSpace(printerName))
         {
-            report.Errors.Add("Yazıcı seçilmedi. Ayarlar'dan yazıcıyı seçin.");
+            report.Errors.Add(L10n.T("Yazıcı seçilmedi. Ayarlar'dan yazıcıyı seçin."));
             return report;
         }
         report.Errors.AddRange(media.Validate());
-        if (pageCount <= 0) report.Errors.Add("Yazdırılacak etiket yok.");
+        if (pageCount <= 0) report.Errors.Add(L10n.T("Yazdırılacak etiket yok."));
         if (report.Errors.Count > 0) return report;
 
         var status = PrinterDiscovery.GetStatus(printerName);
@@ -130,10 +131,10 @@ public sealed class DriverPrintService
         {
             if (!AllowPrintWhenOffline)
             {
-                report.Errors.Add($"Yazıcı hazır değil: {printer.StatusText}. {TsplPrintService.Advice(printer)}");
+                report.Errors.Add(L10n.T($"Yazıcı hazır değil: {printer.StatusText}. {TsplPrintService.Advice(printer)}"));
                 return report;
             }
-            report.Warnings.Add($"Yazıcı hazır görünmüyor ({printer.StatusText}); ayar gereği yine de gönderildi.");
+            report.Warnings.Add(L10n.T($"Yazıcı hazır görünmüyor ({printer.StatusText}); ayar gereği yine de gönderildi."));
         }
 
         var sequence = new List<int>();
@@ -156,7 +157,7 @@ public sealed class DriverPrintService
 
         report.JobIds.Add(jobId);
         if (toFile) report.OutputFile = OutputFilePath;
-        progress?.Report(new PrintProgress { Done = sequence.Count, Total = sequence.Count, Stage = "Kuyruk durumu bekleniyor" });
+        progress?.Report(new PrintProgress { Done = sequence.Count, Total = sequence.Count, Stage = L10n.T("Kuyruk durumu bekleniyor") });
         try
         {
             var result = await SpoolerMonitor.WaitForJobAsync(printerName, jobId, QueueWaitTimeout, null, cancellationToken)
@@ -172,13 +173,13 @@ public sealed class DriverPrintService
         catch (OperationCanceledException)
         {
             report.QueueOutcome = SpoolOutcome.TimedOut;
-            report.QueueMessage = "Kuyruk takibi iptal edildi; işin durumunu Windows yazıcı kuyruğundan kontrol edin.";
+            report.QueueMessage = L10n.T("Kuyruk takibi iptal edildi; işin durumunu Windows yazıcı kuyruğundan kontrol edin.");
         }
 
         if (toFile && report.QueueOutcome is SpoolOutcome.LeftQueue or SpoolOutcome.Printed &&
             !await WaitForFileAsync(OutputFilePath!, TimeSpan.FromSeconds(15)).ConfigureAwait(false))
         {
-            report.Errors.Add($"Çıktı dosyası oluşturulmadı: {OutputFilePath}");
+            report.Errors.Add(L10n.T($"Çıktı dosyası oluşturulmadı: {OutputFilePath}"));
         }
         return report;
     }
@@ -193,7 +194,7 @@ public sealed class DriverPrintService
             LastPageInfo = caps;
             if ((GdiNative.GetDeviceCaps(hdc, GdiNative.RASTERCAPS) & GdiNative.RC_STRETCHDIB) == 0)
             {
-                report.Errors.Add("Yazıcı sürücüsü bit eşlem çizimini desteklemiyor; TSPL baskı yöntemini kullanın.");
+                report.Errors.Add(L10n.T("Yazıcı sürücüsü bit eşlem çizimini desteklemiyor; TSPL baskı yöntemini kullanın."));
                 return 0;
             }
             AddPageWarnings(report, media, caps);
@@ -210,7 +211,7 @@ public sealed class DriverPrintService
             int jobId = GdiNative.StartDoc(hdc, ref docInfo);
             if (jobId <= 0)
             {
-                report.Errors.Add(PrintEngineException.FromWin32("Yazdırma işi başlatılamadı", Marshal.GetLastPInvokeError(), printerName).Message);
+                report.Errors.Add(PrintEngineException.FromWin32(L10n.T("Yazdırma işi başlatılamadı"), Marshal.GetLastPInvokeError(), printerName).Message);
                 return 0;
             }
 
@@ -224,7 +225,7 @@ public sealed class DriverPrintService
                     if (cancellationToken.IsCancellationRequested)
                     {
                         report.Canceled = true;
-                        report.Warnings.Add("İptal edildi: yazdırma işi silindi, sayfalar gönderilmedi.");
+                        report.Warnings.Add(L10n.T("İptal edildi: yazdırma işi silindi, sayfalar gönderilmedi."));
                         return 0;
                     }
 
@@ -234,7 +235,7 @@ public sealed class DriverPrintService
                         try
                         {
                             cached = renderPage(pageIndex, caps.RenderDotsPerMmX, caps.RenderDotsPerMmY)
-                                     ?? throw new InvalidOperationException("Etiket görüntüsü üretilemedi.");
+                                     ?? throw new InvalidOperationException(L10n.T("Etiket görüntüsü üretilemedi."));
                         }
                         catch (OperationCanceledException)
                         {
@@ -243,7 +244,7 @@ public sealed class DriverPrintService
                         }
                         catch (Exception ex)
                         {
-                            report.Errors.Add($"{pageIndex + 1}. etiket oluşturulamadı: {ex.Message}");
+                            report.Errors.Add(L10n.T($"{pageIndex + 1}. etiket oluşturulamadı: {ex.Message}"));
                             return 0;
                         }
                         cachedIndex = pageIndex;
@@ -255,26 +256,26 @@ public sealed class DriverPrintService
 
                     if (GdiNative.StartPage(hdc) <= 0)
                     {
-                        report.Errors.Add(PrintEngineException.FromWin32("Sayfa başlatılamadı", Marshal.GetLastPInvokeError(), printerName).Message);
+                        report.Errors.Add(PrintEngineException.FromWin32(L10n.T("Sayfa başlatılamadı"), Marshal.GetLastPInvokeError(), printerName).Message);
                         return 0;
                     }
                     if (!DrawMono(hdc, cached, caps, out int drawError))
                     {
-                        report.Errors.Add(PrintEngineException.FromWin32("Etiket görüntüsü sürücüye çizilemedi", drawError, printerName).Message);
+                        report.Errors.Add(PrintEngineException.FromWin32(L10n.T("Etiket görüntüsü sürücüye çizilemedi"), drawError, printerName).Message);
                         return 0;
                     }
                     if (GdiNative.EndPage(hdc) <= 0)
                     {
-                        report.Errors.Add(PrintEngineException.FromWin32("Sayfa tamamlanamadı", Marshal.GetLastPInvokeError(), printerName).Message);
+                        report.Errors.Add(PrintEngineException.FromWin32(L10n.T("Sayfa tamamlanamadı"), Marshal.GetLastPInvokeError(), printerName).Message);
                         return 0;
                     }
-                    progress?.Report(new PrintProgress { Done = position + 1, Total = sequence.Count, Stage = "Sürücüye gönderiliyor" });
+                    progress?.Report(new PrintProgress { Done = position + 1, Total = sequence.Count, Stage = L10n.T("Sürücüye gönderiliyor") });
                 }
 
                 docOpen = false;
                 if (GdiNative.EndDoc(hdc) <= 0)
                 {
-                    report.Errors.Add(PrintEngineException.FromWin32("Yazdırma işi tamamlanamadı", Marshal.GetLastPInvokeError(), printerName).Message);
+                    report.Errors.Add(PrintEngineException.FromWin32(L10n.T("Yazdırma işi tamamlanamadı"), Marshal.GetLastPInvokeError(), printerName).Message);
                     return 0;
                 }
                 report.Spooled = true;
@@ -307,7 +308,7 @@ public sealed class DriverPrintService
         }
         if (hdc == IntPtr.Zero)
         {
-            report.Errors.Add(PrintEngineException.FromWin32("Yazıcı aygıt bağlamı oluşturulamadı", Marshal.GetLastPInvokeError(), printerName).Message);
+            report.Errors.Add(PrintEngineException.FromWin32(L10n.T("Yazıcı aygıt bağlamı oluşturulamadı"), Marshal.GetLastPInvokeError(), printerName).Message);
             return false;
         }
 
@@ -323,7 +324,7 @@ public sealed class DriverPrintService
         };
         if (caps.DpiX <= 0 || caps.DpiY <= 0)
         {
-            report.Errors.Add("Yazıcı sürücüsü çözünürlük bilgisi vermedi.");
+            report.Errors.Add(L10n.T("Yazıcı sürücüsü çözünürlük bilgisi vermedi."));
             GdiNative.DeleteDC(hdc);
             hdc = IntPtr.Zero;
             return false;
@@ -350,7 +351,7 @@ public sealed class DriverPrintService
         paperId = FindMatchingPaper(printerName, media) ?? GdiNative.DMPAPER_USER;
         if (!NativeMethods.TryOpen(printerName, out var handle, out int openError))
         {
-            report.Errors.Add(PrintEngineException.FromWin32("Yazıcı açılamadı", openError, printerName).Message);
+            report.Errors.Add(PrintEngineException.FromWin32(L10n.T("Yazıcı açılamadı"), openError, printerName).Message);
             return null;
         }
         using (handle)
@@ -358,7 +359,7 @@ public sealed class DriverPrintService
             int size = GdiNative.DocumentProperties(IntPtr.Zero, handle, printerName, IntPtr.Zero, IntPtr.Zero, 0);
             if (size < GdiNative.MinimumDevModeSize)
             {
-                report.Errors.Add(PrintEngineException.FromWin32("Yazıcı sürücüsü ayarları okunamadı", Marshal.GetLastPInvokeError(), printerName).Message);
+                report.Errors.Add(PrintEngineException.FromWin32(L10n.T("Yazıcı sürücüsü ayarları okunamadı"), Marshal.GetLastPInvokeError(), printerName).Message);
                 return null;
             }
             IntPtr input = Marshal.AllocHGlobal(size);
@@ -367,7 +368,7 @@ public sealed class DriverPrintService
             {
                 if (GdiNative.DocumentProperties(IntPtr.Zero, handle, printerName, input, IntPtr.Zero, GdiNative.DM_OUT_BUFFER) < 0)
                 {
-                    report.Errors.Add(PrintEngineException.FromWin32("Yazıcı sürücüsü ayarları okunamadı", Marshal.GetLastPInvokeError(), printerName).Message);
+                    report.Errors.Add(PrintEngineException.FromWin32(L10n.T("Yazıcı sürücüsü ayarları okunamadı"), Marshal.GetLastPInvokeError(), printerName).Message);
                     return null;
                 }
                 ApplyPaper(input, media, (short)paperId);
@@ -497,16 +498,16 @@ public sealed class DriverPrintService
         if (!caps.PageMatches(media))
         {
             report.Warnings.Add(
-                $"Sürücü sayfayı {caps.PhysicalWidthMm.ToString("0.#", tr)} × {caps.PhysicalHeightMm.ToString("0.#", tr)} mm olarak kurdu " +
-                $"(istenen {media.WidthMm.ToString("0.#", tr)} × {media.HeightMm.ToString("0.#", tr)} mm). Sürücü bu özel kağıt boyutunu desteklemiyor; " +
-                "yazıcı tercihlerinden etiket boyutunu ayarlayın veya TSPL baskı yöntemini kullanın. Görüntü yine de ölçeklenmeden basılır.");
+                L10n.T($"Sürücü sayfayı {caps.PhysicalWidthMm.ToString("0.#", tr)} × {caps.PhysicalHeightMm.ToString("0.#", tr)} mm olarak kurdu ") +
+                L10n.T($"(istenen {media.WidthMm.ToString("0.#", tr)} × {media.HeightMm.ToString("0.#", tr)} mm). Sürücü bu özel kağıt boyutunu desteklemiyor; ") +
+                L10n.T("yazıcı tercihlerinden etiket boyutunu ayarlayın veya TSPL baskı yöntemini kullanın. Görüntü yine de ölçeklenmeden basılır."));
         }
         if (caps.OffsetX > 0 || caps.OffsetY > 0)
         {
             double leftMm = caps.OffsetX * 25.4 / caps.DpiX, topMm = caps.OffsetY * 25.4 / caps.DpiY;
             report.Warnings.Add(
-                $"Sürücü kağıdın solundan {leftMm.ToString("0.#", tr)} mm ve üstünden {topMm.ToString("0.#", tr)} mm'yi yazdırılamaz alan olarak bildiriyor; " +
-                "bu bölgedeki içerik basılmaz (TSPL yönteminde bu sınır yoktur).");
+                L10n.T($"Sürücü kağıdın solundan {leftMm.ToString("0.#", tr)} mm ve üstünden {topMm.ToString("0.#", tr)} mm'yi yazdırılamaz alan olarak bildiriyor; ") +
+                L10n.T("bu bölgedeki içerik basılmaz (TSPL yönteminde bu sınır yoktur)."));
         }
     }
 

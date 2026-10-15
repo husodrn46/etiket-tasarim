@@ -1,6 +1,7 @@
 using AkelEtiket.Core;
 using AkelEtiket.Core.Model;
 using SkiaSharp;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Rendering;
 
@@ -19,13 +20,13 @@ internal static class TextElementRenderer
         bool overflow = text.Length > 0 && !layout.FitsIn(boxWidth, boxHeight);
         string? fontWarning = null;
         if (!font.IsExactFamily)
-            fontWarning = $"\"{element.FontFamily}\" yazı tipi bu bilgisayarda yok; yerine {font.Typeface.FamilyName} kullanıldı.";
+            fontWarning = L10n.T($"\"{element.FontFamily}\" yazı tipi bu bilgisayarda yok; yerine {font.Typeface.FamilyName} kullanıldı.");
         else if (text.Length > 0)
         {
             using var probe = font.CreateFont(10);
             string missing = new(text.Where(c => !char.IsWhiteSpace(c) && !char.IsControl(c) && !probe.ContainsGlyph(c)).Distinct().Take(8).ToArray());
             if (missing.Length > 0)
-                fontWarning = $"\"{font.Typeface.FamilyName}\" yazı tipinde şu karakterler yok: {missing}";
+                fontWarning = L10n.T($"\"{font.Typeface.FamilyName}\" yazı tipinde şu karakterler yok: {missing}");
         }
 
         var info = new TextRenderInfo
@@ -80,7 +81,7 @@ internal static class TextElementRenderer
         }
 
         string? problem = overflow
-            ? "Metin kutuya sığmıyor; taşan kısım basılmaz. Kutuyu büyütün veya \"Kutuya sığdır\" seçeneğini açın."
+            ? L10n.T("Metin kutuya sığmıyor; taşan kısım basılmaz. Kutuyu büyütün veya \"Kutuya sığdır\" seçeneğini açın.")
             : null;
         return (Draw, info, problem, fontWarning);
     }

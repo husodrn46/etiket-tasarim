@@ -7,6 +7,7 @@ using AkelEtiket.Design.Workspace;
 using AkelEtiket.Editor.Documents;
 using AkelEtiket.Editor.Services;
 using AkelEtiket.Editor.ViewModels;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.Ai;
 
@@ -96,7 +97,7 @@ public sealed class DesktopLiveDocumentHost : ILiveDocumentHost
             var session = Require(sessionNumber);
             if (!string.IsNullOrWhiteSpace(expectedVersion) && expectedVersion.Trim() != session.Version)
                 throw new ToolException(ToolErrorCodes.VersionConflict,
-                    $"Açık tasarım siz okuduktan sonra değişti (beklenen {expectedVersion}, güncel {session.Version}). get_design ile yeniden okuyun.",
+                    L10n.T($"Açık tasarım siz okuduktan sonra değişti (beklenen {expectedVersion}, güncel {session.Version}). get_design ile yeniden okuyun."),
                     new { current_version = session.Version });
             var copy = ModelJson.Clone(session.Document);
             var assets = DesignService.CopyAssets(session.Assets);
@@ -137,7 +138,7 @@ public sealed class DesktopLiveDocumentHost : ILiveDocumentHost
         var session = _main.Session;
         if (session.SessionNumber != sessionNumber)
             throw new ToolException(ToolErrorCodes.NotFound,
-                $"acik:{sessionNumber} artık açık değil (kullanıcı başka bir belge açtı). list_designs ile güncel listeyi alın.");
+                L10n.T($"acik:{sessionNumber} artık açık değil (kullanıcı başka bir belge açtı). list_designs ile güncel listeyi alın."));
         return session;
     }
 }

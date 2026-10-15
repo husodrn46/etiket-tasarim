@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.BarcodeEngine;
 
@@ -110,12 +111,12 @@ public static class Gs1
         string text = (input ?? "").Trim();
         if (text.Length == 0)
         {
-            errors.Add($"{symbologyName} içeriği boş.");
+            errors.Add(L10n.T($"{symbologyName} içeriği boş."));
             return new Gs1ParseResult(elements, errors);
         }
         if (!text.StartsWith('('))
         {
-            errors.Add($"{symbologyName} içeriği parantezli AI biçiminde olmalı, ör. (01)08691234567890(10)ABC123");
+            errors.Add(L10n.T($"{symbologyName} içeriği parantezli AI biçiminde olmalı, ör. (01)08691234567890(10)ABC123"));
             return new Gs1ParseResult(elements, errors);
         }
 
@@ -131,24 +132,24 @@ public static class Gs1
             string value = match.Groups[2].Value;
             if (!Table.TryGetValue(ai, out var def))
             {
-                errors.Add($"({ai}) bilinen bir GS1 Uygulama Tanımlayıcısı değil.");
+                errors.Add(L10n.T($"({ai}) bilinen bir GS1 Uygulama Tanımlayıcısı değil."));
                 continue;
             }
             ValidateValue(def, value, errors);
             elements.Add(new Gs1Element(ai, value, def));
         }
         if (consumed != text.Length)
-            errors.Add($"Ayrıştırılamayan kısım: \"{text[consumed..]}\"");
+            errors.Add(L10n.T($"Ayrıştırılamayan kısım: \"{text[consumed..]}\""));
         if (elements.Count == 0 && errors.Count == 0)
-            errors.Add("Hiç AI bulunamadı.");
+            errors.Add(L10n.T("Hiç AI bulunamadı."));
 
         var duplicates = elements.GroupBy(e => e.Ai).Where(g => g.Count() > 1).Select(g => g.Key).ToList();
-        foreach (var dup in duplicates) errors.Add($"({dup}) birden fazla kez kullanılmış.");
+        foreach (var dup in duplicates) errors.Add(L10n.T($"({dup}) birden fazla kez kullanılmış."));
 
         int dataLength = elements.Sum(e => e.Ai.Length + e.Value.Length) +
                          elements.Take(elements.Count - 1).Count(e => RequiresSeparator(e.Ai));
         if (dataLength > maxDataLength)
-            errors.Add($"{symbologyName} içeriği en fazla {maxDataLength} veri karakteri olabilir (şu an {dataLength}).");
+            errors.Add(L10n.T($"{symbologyName} içeriği en fazla {maxDataLength} veri karakteri olabilir (şu an {dataLength})."));
 
         return new Gs1ParseResult(elements, errors);
     }
@@ -159,13 +160,13 @@ public static class Gs1
         if (value.Length < def.MinLength || value.Length > def.MaxLength)
         {
             errors.Add(def.MinLength == def.MaxLength
-                ? $"{label}: {def.MinLength} karakter olmalı (girilen {value.Length})."
-                : $"{label}: {def.MinLength}–{def.MaxLength} karakter olmalı (girilen {value.Length}).");
+                ? L10n.T($"{label}: {def.MinLength} karakter olmalı (girilen {value.Length}).")
+                : L10n.T($"{label}: {def.MinLength}–{def.MaxLength} karakter olmalı (girilen {value.Length})."));
             return;
         }
         if (def.Numeric && !CheckDigits.IsAllDigits(value))
         {
-            errors.Add($"{label}: yalnızca rakam içermeli.");
+            errors.Add(L10n.T($"{label}: yalnızca rakam içermeli."));
             return;
         }
         if (!def.Numeric)
@@ -174,7 +175,7 @@ public static class Gs1
             {
                 if (Cset82.IndexOf(c) < 0)
                 {
-                    errors.Add($"{label}: '{c}' karakteri GS1'de kullanılamaz (Türkçe harf ve boşluk desteklenmez).");
+                    errors.Add(L10n.T($"{label}: '{c}' karakteri GS1'de kullanılamaz (Türkçe harf ve boşluk desteklenmez)."));
                     return;
                 }
             }
@@ -182,10 +183,10 @@ public static class Gs1
         if (def.HasCheckDigit && !CheckDigits.IsValidGs1(value))
         {
             int expected = CheckDigits.Gs1Mod10(value.AsSpan(0, value.Length - 1));
-            errors.Add($"{label}: kontrol basamağı hatalı, son hane {expected} olmalı ({value[..^1]}{expected}).");
+            errors.Add(L10n.T($"{label}: kontrol basamağı hatalı, son hane {expected} olmalı ({value[..^1]}{expected})."));
         }
         if (def.IsDate && !IsValidGs1Date(value))
-            errors.Add($"{label}: tarih YYAAGG biçiminde ve geçerli olmalı (gün 00 olabilir).");
+            errors.Add(L10n.T($"{label}: tarih YYAAGG biçiminde ve geçerli olmalı (gün 00 olabilir)."));
     }
 
     private static bool IsValidGs1Date(string yymmdd)
@@ -205,60 +206,60 @@ public static class Gs1
         {
             new("00", "SSCC", true, 18, 18, HasCheckDigit: true),
             new("01", "GTIN", true, 14, 14, HasCheckDigit: true),
-            new("02", "İçerik GTIN", true, 14, 14, HasCheckDigit: true),
+            new("02", L10n.T("İçerik GTIN"), true, 14, 14, HasCheckDigit: true),
             new("10", "Parti/Lot No", false, 1, 20),
-            new("11", "Üretim Tarihi", true, 6, 6, IsDate: true),
+            new("11", L10n.T("Üretim Tarihi"), true, 6, 6, IsDate: true),
             new("12", "Vade Tarihi", true, 6, 6, IsDate: true),
             new("13", "Ambalaj Tarihi", true, 6, 6, IsDate: true),
-            new("15", "Tavsiye Edilen Tüketim Tarihi", true, 6, 6, IsDate: true),
-            new("16", "Satış Son Tarihi", true, 6, 6, IsDate: true),
+            new("15", L10n.T("Tavsiye Edilen Tüketim Tarihi"), true, 6, 6, IsDate: true),
+            new("16", L10n.T("Satış Son Tarihi"), true, 6, 6, IsDate: true),
             new("17", "Son Kullanma Tarihi", true, 6, 6, IsDate: true),
             new("20", "Varyant", true, 2, 2),
             new("21", "Seri No", false, 1, 20),
-            new("22", "Tüketici Ürün Varyantı", false, 1, 20),
-            new("240", "Ek Ürün Kimliği", false, 1, 30),
-            new("241", "Müşteri Parça No", false, 1, 30),
-            new("250", "İkincil Seri No", false, 1, 30),
-            new("30", "Değişken Adet", true, 1, 8),
+            new("22", L10n.T("Tüketici Ürün Varyantı"), false, 1, 20),
+            new("240", L10n.T("Ek Ürün Kimliği"), false, 1, 30),
+            new("241", L10n.T("Müşteri Parça No"), false, 1, 30),
+            new("250", L10n.T("İkincil Seri No"), false, 1, 30),
+            new("30", L10n.T("Değişken Adet"), true, 1, 8),
             new("37", "Adet", true, 1, 8),
-            new("400", "Sipariş No", false, 1, 30),
+            new("400", L10n.T("Sipariş No"), false, 1, 30),
             new("401", "GINC", false, 1, 30),
             new("402", "GSIN", true, 17, 17, HasCheckDigit: true),
             new("403", "Rota Kodu", false, 1, 30),
             new("410", "Teslim Yeri GLN", true, 13, 13, HasCheckDigit: true),
             new("411", "Fatura Yeri GLN", true, 13, 13, HasCheckDigit: true),
-            new("412", "Tedarikçi GLN", true, 13, 13, HasCheckDigit: true),
+            new("412", L10n.T("Tedarikçi GLN"), true, 13, 13, HasCheckDigit: true),
             new("413", "Nihai Teslim GLN", true, 13, 13, HasCheckDigit: true),
             new("414", "Konum GLN", true, 13, 13, HasCheckDigit: true),
-            new("415", "Ödeme Yeri GLN", true, 13, 13, HasCheckDigit: true),
+            new("415", L10n.T("Ödeme Yeri GLN"), true, 13, 13, HasCheckDigit: true),
             new("420", "Teslim Posta Kodu", false, 1, 20),
-            new("422", "Menşe Ülke", true, 3, 3),
+            new("422", L10n.T("Menşe Ülke"), true, 3, 3),
             new("7003", "Son Kullanma Tarih/Saat", true, 10, 10),
             new("8004", "GIAI", false, 1, 30),
-            new("8005", "Birim Fiyat", true, 6, 6),
+            new("8005", L10n.T("Birim Fiyat"), true, 6, 6),
             new("90", "Dahili Bilgi", false, 1, 30),
         };
         // Ölçü AI'ları 310n…369n: n = ondalık basamak sayısı (0–5), değer 6 hane.
         string[] measureTitles =
         [
-            "310:Net Ağırlık (kg)", "311:Uzunluk (m)", "312:Genişlik (m)", "313:Yükseklik (m)", "314:Alan (m²)",
-            "315:Net Hacim (l)", "316:Net Hacim (m³)", "320:Net Ağırlık (lb)", "330:Brüt Ağırlık (kg)",
-            "331:Lojistik Uzunluk (m)", "332:Lojistik Genişlik (m)", "333:Lojistik Yükseklik (m)",
+            L10n.T("310:Net Ağırlık (kg)"), "311:Uzunluk (m)", L10n.T("312:Genişlik (m)"), L10n.T("313:Yükseklik (m)"), "314:Alan (m²)",
+            "315:Net Hacim (l)", "316:Net Hacim (m³)", L10n.T("320:Net Ağırlık (lb)"), L10n.T("330:Brüt Ağırlık (kg)"),
+            "331:Lojistik Uzunluk (m)", L10n.T("332:Lojistik Genişlik (m)"), L10n.T("333:Lojistik Yükseklik (m)"),
             "335:Lojistik Hacim (l)", "336:Lojistik Hacim (m³)",
         ];
         foreach (var entry in measureTitles)
         {
             var parts = entry.Split(':');
             for (int n = 0; n <= 5; n++)
-                list.Add(new Gs1AiDefinition(parts[0] + n, $"{parts[1]}, {n} ondalık", true, 6, 6));
+                list.Add(new Gs1AiDefinition(parts[0] + n, L10n.T($"{parts[1]}, {n} ondalık"), true, 6, 6));
         }
         for (int n = 0; n <= 9; n++)
         {
-            list.Add(new Gs1AiDefinition("390" + n, $"Tutar, {n} ondalık", true, 1, 15));
-            list.Add(new Gs1AiDefinition("392" + n, $"Fiyat, {n} ondalık", true, 1, 15));
+            list.Add(new Gs1AiDefinition("390" + n, L10n.T($"Tutar, {n} ondalık"), true, 1, 15));
+            list.Add(new Gs1AiDefinition("392" + n, L10n.T($"Fiyat, {n} ondalık"), true, 1, 15));
         }
         for (int n = 91; n <= 99; n++)
-            list.Add(new Gs1AiDefinition(n.ToString(CultureInfo.InvariantCulture), "Firma İçi Bilgi", false, 1, 90));
+            list.Add(new Gs1AiDefinition(n.ToString(CultureInfo.InvariantCulture), L10n.T("Firma İçi Bilgi"), false, 1, 90));
         return list.ToDictionary(d => d.Ai);
     }
 }

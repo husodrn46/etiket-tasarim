@@ -56,8 +56,8 @@ public partial class MainWindow : ThemedWindow
 
     private void ApplyTheme()
     {
-        ThemeManager.Apply(_vm.Settings.Theme);
-        ThemeGlyph.Text = (string)FindResource(_vm.Settings.Theme == AppTheme.Dark ? "Glyph.Sun" : "Glyph.Moon");
+        ThemeManager.Configure(_vm.Settings);
+        ThemeGlyph.Text = (string)FindResource(ThemeManager.Current == AppTheme.Dark ? "Glyph.Sun" : "Glyph.Moon");
         Surface.InvalidateVisual();
         TopRuler.InvalidateVisual();
         LeftRuler.InvalidateVisual();

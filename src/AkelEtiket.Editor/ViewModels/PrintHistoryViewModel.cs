@@ -22,10 +22,31 @@ public sealed partial class PrintHistoryViewModel : ObservableObject
     private static readonly CultureInfo Turkish = CultureInfo.GetCultureInfo("tr-TR");
     private readonly PrintHistoryStore _store;
     private List<PrintHistoryEntry> _all = [];
-
-    public PrintHistoryViewModel(PrintHistoryStore store)
+    private readonly HashSet<string> _favorites;
+    private readonly Func<List<string>,bool>? _saveFavorites;
+    public bool IsSelectedFavorite => SelectedEntry is { } e && _favorites.Contains(e.Id);
+    public string FavoriteAction => IsSelectedFavorite ? L10n.T("Favoriden çıkar") : L10n.T("Favoriye ekle");
+    [ObservableProperty] public partial bool OnlyFavorites { get; set; }
+    partial void OnOnlyFavoritesChanged(bool value) => ApplyFilter();
+    [RelayCommand] private void ToggleFavorite()
     {
-        _store = store;
+        if (SelectedEntry is not { } entry) return;
+        var next = new HashSet<string>(_favorites, StringComparer.Ordinal);
+        if (!next.Remove(entry.Id)) next.Add(entry.Id);
+        try
+        {
+            _store.SetPinnedSnapshots(_all.Where(e => next.Contains(e.Id) || _favorites.Contains(e.Id)).Select(e => e.SnapshotFile));
+            if (_saveFavorites is not null && !_saveFavorites(next.ToList())) return;
+            _favorites.Clear(); _favorites.UnionWith(next);
+            _store.SetPinnedSnapshots(_all.Where(e => next.Contains(e.Id)).Select(e => e.SnapshotFile));
+            OnPropertyChanged(nameof(FavoriteAction)); OnPropertyChanged(nameof(IsSelectedFavorite)); ApplyFilter();
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { Problem = ex.Message; }
+    }
+
+    public PrintHistoryViewModel(PrintHistoryStore store, IEnumerable<string>? favorites = null, Func<List<string>,bool>? saveFavorites = null)
+    {
+        _store = store; _favorites = new(favorites ?? [], StringComparer.Ordinal); _saveFavorites = saveFavorites;
         Reload();
     }
 
@@ -38,6 +59,7 @@ public sealed partial class PrintHistoryViewModel : ObservableObject
     [NotifyPropertyChangedFor(nameof(Details), nameof(HasSelection))]
     [NotifyCanExecuteChangedFor(nameof(ReprintCommand), nameof(ResumeCommand))]
     public partial PrintHistoryEntry? SelectedEntry { get; set; }
+    partial void OnSelectedEntryChanged(PrintHistoryEntry? value) { OnPropertyChanged(nameof(FavoriteAction)); OnPropertyChanged(nameof(IsSelectedFavorite)); }
 
     [ObservableProperty]
     public partial DateTime? FromDate { get; set; }
@@ -98,7 +120,7 @@ public sealed partial class PrintHistoryViewModel : ObservableObject
         FromDate = null;
         ToDate = null;
         TemplateFilter = "";
-        OnlyIncomplete = false;
+        OnlyIncomplete = false; OnlyFavorites = false;
     }
 
     /// <summary>Süzgeçlere uyan kayıtlar (en yeni önce).</summary>
@@ -122,7 +144,7 @@ public sealed partial class PrintHistoryViewModel : ObservableObject
     {
         string? selected = SelectedEntry?.Id;
         Entries.Clear();
-        foreach (var entry in Filter(_all, FromDate, ToDate, TemplateFilter, OnlyIncomplete)) Entries.Add(entry);
+        foreach (var entry in Filter(_all, FromDate, ToDate, TemplateFilter, OnlyIncomplete).Where(e => !OnlyFavorites || _favorites.Contains(e.Id))) Entries.Add(entry);
         SelectedEntry = Entries.FirstOrDefault(e => e.Id == selected) ?? Entries.FirstOrDefault();
         CountText = Entries.Count == _all.Count ? L10n.T($"{_all.Count} kayıt") : L10n.T($"{Entries.Count} / {_all.Count} kayıt");
     }
@@ -130,6 +152,16 @@ public sealed partial class PrintHistoryViewModel : ObservableObject
     private bool CanReprint() => SelectedEntry is { } e && (e.TemplatePath is not null || e.SnapshotFile is not null);
 
     private bool CanResume() => CanReprint() && SelectedEntry!.CanResume;
+
+    private bool CanOpenJob(PrintHistoryEntry? entry) => entry is not null && (entry.TemplatePath is not null || entry.SnapshotFile is not null);
+
+    [RelayCommand(CanExecute = nameof(CanOpenJob))]
+    private void OpenJob(PrintHistoryEntry? entry)
+    {
+        if (!CanOpenJob(entry)) return;
+        SelectedEntry = entry;
+        Reprint();
+    }
 
     [RelayCommand(CanExecute = nameof(CanReprint))]
     private void Reprint()

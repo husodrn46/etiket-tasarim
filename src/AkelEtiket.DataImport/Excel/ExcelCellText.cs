@@ -1,5 +1,6 @@
 using System.Globalization;
 using AkelEtiket.DataImport.Internal;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.DataImport.Excel;
 
@@ -31,7 +32,7 @@ internal static class ExcelCellText
     }
 
     public static ImportIssue ErrorValueIssue(int row, string? column, string errorText) =>
-        new(row, column, ImportIssueSeverity.Warning, $"Hücrede Excel hata değeri var ({errorText}); boş kabul edildi.");
+        new(row, column, ImportIssueSeverity.Warning, L10n.T($"Hücrede Excel hata değeri var ({errorText}); boş kabul edildi."));
 
     /// <summary>Sayı hücresini metne çevirir.</summary>
     /// <param name="format">Hücrenin sayı biçimi ("" = Genel).</param>
@@ -59,8 +60,8 @@ internal static class ExcelCellText
         {
             string digits = LargeIntegerText(number);
             issues?.Add(new ImportIssue(row, column, ImportIssueSeverity.Error,
-                $"15 haneden uzun sayı ({digits}). Excel sayıları en fazla 15 anlamlı basamakla saklar; son haneler bozulmuş olabilir. " +
-                "Bu sütunu Excel'de 'Metin' olarak biçimlendirip değerleri yeniden girin."));
+                L10n.T($"15 haneden uzun sayı ({digits}). Excel sayıları en fazla 15 anlamlı basamakla saklar; son haneler bozulmuş olabilir. ") +
+                L10n.T("Bu sütunu Excel'de 'Metin' olarak biçimlendirip değerleri yeniden girin.")));
             return digits;
         }
 

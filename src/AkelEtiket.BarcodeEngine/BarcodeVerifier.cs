@@ -1,6 +1,7 @@
 using AkelEtiket.Core.Imaging;
 using AkelEtiket.Core.Model;
 using ZXing;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.BarcodeEngine;
 
@@ -52,7 +53,7 @@ public static class BarcodeVerifier
                      ?? (BarcodeElement.IsTwoDimensional(type) ? TryDecode(gray, w, h, type, expectedText, pure: true) : null);
         if (result?.Text is not { } decoded)
             return new BarcodeVerificationResult(false, null,
-                "Barkod çözülemedi. Barkodu büyütün, modül genişliğini artırın veya üstüne binen nesneleri kaldırın.");
+                L10n.T("Barkod çözülemedi. Barkodu büyütün, modül genişliğini artırın veya üstüne binen nesneleri kaldırın."));
         string? symbology = result.ResultMetadata is { } meta && meta.TryGetValue(ResultMetadataType.SYMBOLOGY_IDENTIFIER, out var id)
             ? id?.ToString()
             : null;
@@ -63,7 +64,7 @@ public static class BarcodeVerifier
             string required = type == BarcodeType.Gs1DataMatrix ? "]d2" : "]Q3";
             if (symbology != required)
                 return new BarcodeVerificationResult(false, decoded,
-                    $"Barkod okundu ama GS1 işareti (başta FNC1) bulunamadı (okuyucu: {symbology ?? "?"}, beklenen {required}).")
+                    L10n.T($"Barkod okundu ama GS1 işareti (başta FNC1) bulunamadı (okuyucu: {symbology ?? "?"}, beklenen {required})."))
                 {
                     SymbologyIdentifier = symbology,
                 };
@@ -72,13 +73,13 @@ public static class BarcodeVerifier
         }
 
         if (Matches(type, decoded, expectedText))
-            return new BarcodeVerificationResult(true, decoded, "Okunabilirlik kontrolü başarılı: barkod çözüldü ve içerik eşleşti.")
+            return new BarcodeVerificationResult(true, decoded, L10n.T("Okunabilirlik kontrolü başarılı: barkod çözüldü ve içerik eşleşti."))
             {
                 SymbologyIdentifier = symbology,
             };
 
         return new BarcodeVerificationResult(false, decoded,
-            $"Çözülen içerik beklenenden farklı: \"{Printable(decoded)}\" (beklenen \"{Printable(expectedText)}\").")
+            L10n.T($"Çözülen içerik beklenenden farklı: \"{Printable(decoded)}\" (beklenen \"{Printable(expectedText)}\")."))
         {
             SymbologyIdentifier = symbology,
         };

@@ -139,3 +139,8 @@ See the AI settings for connection details; never publish connection keys.
 Use **? → Create support package** for diagnostics. The package is saved locally and is not uploaded.
 Review it before sharing, especially if you included an open design. In a bug report, include app version,
 UI language, regional settings, printer model/method, label size and the relevant report text.
+
+## Personalization, favorites, regional formats and starter packs
+
+See the [workflow guide](WORKFLOWS.md) for appearance settings, favorite templates/jobs, format-3 labels,
+starter pack recipes and reusable import profiles. These source features require a new build.

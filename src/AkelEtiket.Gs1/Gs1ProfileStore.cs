@@ -2,6 +2,7 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using AkelEtiket.Core;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Gs1;
 
@@ -52,19 +53,19 @@ public sealed class Gs1ProfileStore
         try
         {
             var profile = JsonSerializer.Deserialize<Gs1CompanyProfile>(File.ReadAllText(FilePath), JsonOptions)
-                          ?? throw new JsonException("Dosya boş.");
+                          ?? throw new JsonException(L10n.T("Dosya boş."));
             profile.Normalize();
             return profile;
         }
         catch (JsonException ex)
         {
             string backup = BackupCorruptFile();
-            LastLoadProblem = $"GS1 firma profili okunamadı ({ex.Message}). Dosyanın kopyası saklandı: {backup}. Varsayılan profil kullanılıyor.";
+            LastLoadProblem = L10n.T($"GS1 firma profili okunamadı ({ex.Message}). Dosyanın kopyası saklandı: {backup}. Varsayılan profil kullanılıyor.");
             return CreateDefault();
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            throw new Gs1Exception("GS1 firma profili okunamadı: " + ex.Message, ex);
+            throw new Gs1Exception(L10n.T("GS1 firma profili okunamadı: ") + ex.Message, ex);
         }
     }
 
@@ -83,7 +84,7 @@ public sealed class Gs1ProfileStore
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            throw new Gs1Exception("GS1 firma profili kaydedilemedi: " + ex.Message, ex);
+            throw new Gs1Exception(L10n.T("GS1 firma profili kaydedilemedi: ") + ex.Message, ex);
         }
     }
 
@@ -99,7 +100,7 @@ public sealed class Gs1ProfileStore
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            return "(kopyalanamadı)";
+            return L10n.T("(kopyalanamadı)");
         }
     }
 }

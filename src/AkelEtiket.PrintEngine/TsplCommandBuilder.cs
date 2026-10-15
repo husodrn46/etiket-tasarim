@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Text;
 using AkelEtiket.Core.Imaging;
 using AkelEtiket.Core.Model;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.PrintEngine;
 
@@ -118,13 +119,13 @@ public static class TsplCommandBuilder
         var warnings = new List<string>();
         var tr = CultureInfo.GetCultureInfo("tr-TR");
         if (media.WidthMm > settings.MaxPrintWidthMm + 0.01)
-            warnings.Add($"Etiket genişliği ({media.WidthMm.ToString("0.##", tr)} mm) yazıcının azami baskı genişliğini " +
-                         $"({settings.MaxPrintWidthMm.ToString("0.##", tr)} mm) aşıyor; taşan kısım basılmaz.");
+            warnings.Add(L10n.T($"Etiket genişliği ({media.WidthMm.ToString("0.##", tr)} mm) yazıcının azami baskı genişliğini ") +
+                         L10n.T($"({settings.MaxPrintWidthMm.ToString("0.##", tr)} mm) aşıyor; taşan kısım basılmaz."));
         int expectedW = media.WidthDots(settings.SafeDotsPerMm);
         int expectedH = media.HeightDots(settings.SafeDotsPerMm);
         if (Math.Abs(bitmapWidthDots - expectedW) > 2 || Math.Abs(bitmapHeightDots - expectedH) > 2)
-            warnings.Add($"Etiket görüntüsü ({bitmapWidthDots}×{bitmapHeightDots} nokta) medya ölçüsüyle ({expectedW}×{expectedH} nokta) " +
-                         "uyuşmuyor; yazıcı çözünürlüğü ayarını kontrol edin.");
+            warnings.Add(L10n.T($"Etiket görüntüsü ({bitmapWidthDots}×{bitmapHeightDots} nokta) medya ölçüsüyle ({expectedW}×{expectedH} nokta) ") +
+                         L10n.T("uyuşmuyor; yazıcı çözünürlüğü ayarını kontrol edin."));
         return warnings;
     }
 
@@ -159,13 +160,13 @@ public static class TsplCommandBuilder
         if (maxWidth > 0 && x + width > maxWidth)
         {
             int clipped = maxWidth - x;
-            warnings?.Add($"Etiket görüntüsü yazıcının azami baskı genişliğini ({maxWidth} nokta) aşıyor; " +
-                          $"sağdaki {width - Math.Max(0, clipped)} nokta basılmayacak.");
+            warnings?.Add(L10n.T($"Etiket görüntüsü yazıcının azami baskı genişliğini ({maxWidth} nokta) aşıyor; ") +
+                          L10n.T($"sağdaki {width - Math.Max(0, clipped)} nokta basılmayacak."));
             width = clipped;
         }
         if (width <= 0 || height <= 0)
         {
-            warnings?.Add("Ofset etiket ölçüsünden büyük; etiket boş basılacak.");
+            warnings?.Add(L10n.T("Ofset etiket ölçüsünden büyük; etiket boş basılacak."));
             return (null, 0, 0);
         }
         bool needsCrop = srcX != 0 || srcY != 0 || width != label.Width || height != label.Height;

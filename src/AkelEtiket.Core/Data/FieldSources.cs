@@ -160,6 +160,7 @@ public sealed class BuiltInFieldSource : IFieldValueSource, IDateFieldSource
 public sealed class CompositeFieldSource : IFieldValueSource, IDateFieldSource
 {
     private readonly IFieldValueSource[] _sources;
+    public IReadOnlyList<IFieldValueSource> Sources => _sources;
 
     public CompositeFieldSource(params IFieldValueSource?[] sources) =>
         _sources = sources.Where(s => s is not null).Cast<IFieldValueSource>().ToArray();

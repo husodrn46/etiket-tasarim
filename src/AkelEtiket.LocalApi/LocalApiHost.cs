@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ModelContextProtocol.Protocol;
 using ModelContextProtocol.Server;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.LocalApi;
 
@@ -81,8 +82,8 @@ public sealed class LocalApiHost : IAsyncDisposable
     public static async Task<LocalApiHost> StartAsync(LocalApiOptions options, CancellationToken cancellationToken = default)
     {
         var settings = options.Settings();
-        if (!settings.Enabled) throw new LocalApiException("Yapay zekâ bağlantısı kapalı (Ayarlar → Yapay Zekâ).");
-        if (settings.Token.Length < 32) throw new LocalApiException("Bağlantı anahtarı oluşturulmamış.");
+        if (!settings.Enabled) throw new LocalApiException(L10n.T("Yapay zekâ bağlantısı kapalı (Ayarlar → Yapay Zekâ)."));
+        if (settings.Token.Length < 32) throw new LocalApiException(L10n.T("Bağlantı anahtarı oluşturulmamış."));
 
         int firstPort = options.PortOverride ?? settings.Port;
         int attempts = options.PortOverride == 0 ? 1 : Math.Max(1, options.PortAttempts);
@@ -100,7 +101,7 @@ public sealed class LocalApiHost : IAsyncDisposable
                 last = ex;
             }
         }
-        throw new LocalApiException($"Yerel API başlatılamadı: {firstPort}–{firstPort + attempts - 1} portları kullanımda. ({last?.Message})", last);
+        throw new LocalApiException(L10n.T($"Yerel API başlatılamadı: {firstPort}–{firstPort + attempts - 1} portları kullanımda. ({last?.Message})"), last);
     }
 
     private static async Task<LocalApiHost> StartOnPortAsync(LocalApiOptions options, int port, CancellationToken cancellationToken)
@@ -121,7 +122,7 @@ public sealed class LocalApiHost : IAsyncDisposable
             builder.Services
                 .AddMcpServer(o =>
                 {
-                    o.ServerInfo = new Implementation { Name = "akel-etiket", Title = "Etiket Tasarım", Version = options.ProductVersion };
+                    o.ServerInfo = new Implementation { Name = "akel-etiket", Title = L10n.T("Etiket Tasarım"), Version = options.ProductVersion };
                     o.ServerInstructions = options.ServerInstructions;
                 })
                 .WithHttpTransport()
@@ -147,7 +148,7 @@ public sealed class LocalApiHost : IAsyncDisposable
         app.MapPost("/api/host/handover", () =>
         {
             if (options.HostKind != ApiHostKind.Worker || options.HandoverRequested is null)
-                return Results.Json(new { ok = false, message = "Bu süreç görevi devredemez." }, JsonOptions, statusCode: 409);
+                return Results.Json(new { ok = false, message = L10n.T("Bu süreç görevi devredemez.") }, JsonOptions, statusCode: 409);
             _ = Task.Run(() =>
             {
                 Thread.Sleep(200);
@@ -160,7 +161,7 @@ public sealed class LocalApiHost : IAsyncDisposable
         await app.StartAsync(cancellationToken).ConfigureAwait(false);
         if (port == 0)
         {
-            var address = app.Urls.FirstOrDefault() ?? throw new LocalApiException("Port alınamadı.");
+            var address = app.Urls.FirstOrDefault() ?? throw new LocalApiException(L10n.T("Port alınamadı."));
             self.Port = new Uri(address).Port;
         }
         return self;
@@ -195,18 +196,18 @@ public sealed class LocalApiHost : IAsyncDisposable
         string host = request.Host.Value ?? "";
         if (!IsAllowedHost(host, Port))
         {
-            await Reject(context, 400, "Geçersiz Host başlığı.");
+            await Reject(context, 400, L10n.T("Geçersiz Host başlığı."));
             return;
         }
         if (request.Headers.Origin.Count > 0 && !string.IsNullOrEmpty(request.Headers.Origin.ToString()))
         {
-            await Reject(context, 403, "Tarayıcı kaynaklı isteklere izin verilmez.");
+            await Reject(context, 403, L10n.T("Tarayıcı kaynaklı isteklere izin verilmez."));
             return;
         }
         var settings = _options.Settings();
         if (!settings.Enabled)
         {
-            await Reject(context, 503, "Yapay zekâ bağlantısı kapalı (Etiket Tasarım → Ayarlar → Yapay Zekâ).");
+            await Reject(context, 503, L10n.T("Yapay zekâ bağlantısı kapalı (Etiket Tasarım → Ayarlar → Yapay Zekâ)."));
             return;
         }
         string auth = request.Headers.Authorization.ToString();
@@ -214,7 +215,7 @@ public sealed class LocalApiHost : IAsyncDisposable
         if (!auth.StartsWith(prefix, StringComparison.OrdinalIgnoreCase) || !TokenEquals(auth[prefix.Length..].Trim(), settings.Token))
         {
             context.Response.Headers.WWWAuthenticate = "Bearer";
-            await Reject(context, 401, "Bağlantı anahtarı eksik ya da hatalı.");
+            await Reject(context, 401, L10n.T("Bağlantı anahtarı eksik ya da hatalı."));
             return;
         }
         await next(context);
@@ -249,7 +250,7 @@ public sealed class LocalApiHost : IAsyncDisposable
         {
             args = JsonDocument.Parse("{}").RootElement.Clone();
             if (context.Request.ContentLength is > 0)
-                return Results.Json(new { is_error = true, error_code = ToolErrorCodes.InvalidArgument, text = "İstek gövdesi geçerli JSON değil." }, JsonOptions, statusCode: 400);
+                return Results.Json(new { is_error = true, error_code = ToolErrorCodes.InvalidArgument, text = L10n.T("İstek gövdesi geçerli JSON değil.") }, JsonOptions, statusCode: 400);
         }
         string client = context.Request.Headers[ClientHeader].ToString();
         if (string.IsNullOrWhiteSpace(client)) client = "Yerel API istemcisi";

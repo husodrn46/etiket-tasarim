@@ -1,4 +1,5 @@
 using System.Text;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.DataImport;
 
@@ -44,6 +45,16 @@ public sealed record DelimiterChoice(string DisplayName, char? Delimiter)
 /// <summary>Arayüzde gösterilecek hazır kodlama ve ayırıcı seçenekleri.</summary>
 public static class ImportChoices
 {
+    /// <summary>Resolve stable web names and display names written by older versions, independently of UI language.</summary>
+    public static Encoding? ResolveEncoding(string? name)
+    {
+        if (string.IsNullOrWhiteSpace(name)) return null;
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        string stable=name.Split('(')[0].Trim().ToUpperInvariant();
+        int code=stable switch { "UTF-8"=>65001,"UTF-16 LE"=>1200,"UTF-16 BE"=>1201,"UTF-32 LE"=>12000,"UTF-32 BE"=>12001,"WINDOWS-1254"=>1254,"ISO-8859-9"=>28599,"DOS-857"=>857,_=>0 };
+        try { return code==0 ? Encoding.GetEncoding(name) : Encoding.GetEncoding(code); }
+        catch (ArgumentException) { return null; }
+    }
     /// <summary>İlk öğe "Otomatik" (Encoding = null).</summary>
     public static IReadOnlyList<EncodingChoice> Encodings { get; } = CreateEncodings();
 
@@ -54,10 +65,10 @@ public static class ImportChoices
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         return
         [
-            new("Otomatik algıla", null),
+            new(L10n.T("Otomatik algıla"), null),
             new("UTF-8", new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)),
-            new("Windows-1254 (Türkçe)", Encoding.GetEncoding(1254)),
-            new("ISO-8859-9 (Türkçe)", Encoding.GetEncoding(28599)),
+            new(L10n.T("Windows-1254 (Türkçe)"), Encoding.GetEncoding(1254)),
+            new(L10n.T("ISO-8859-9 (Türkçe)"), Encoding.GetEncoding(28599)),
             new("UTF-16 LE", Encoding.Unicode),
             new("UTF-16 BE", Encoding.BigEndianUnicode),
         ];
@@ -66,11 +77,11 @@ public static class ImportChoices
     /// <summary>İlk öğe "Otomatik" (Delimiter = null).</summary>
     public static IReadOnlyList<DelimiterChoice> Delimiters { get; } =
     [
-        new("Otomatik algıla", null),
-        new("Virgül ( , )", ','),
-        new("Noktalı virgül ( ; )", ';'),
-        new("Sekme", '\t'),
-        new("Dikey çizgi ( | )", '|'),
+        new(L10n.T("Otomatik algıla"), null),
+        new(L10n.T("Virgül ( , )"), ','),
+        new(L10n.T("Noktalı virgül ( ; )"), ';'),
+        new(L10n.T("Sekme"), '\t'),
+        new(L10n.T("Dikey çizgi ( | )"), '|'),
     ];
 
     /// <summary>Ayırıcının Türkçe adı ("Noktalı virgül ( ; )" gibi).</summary>

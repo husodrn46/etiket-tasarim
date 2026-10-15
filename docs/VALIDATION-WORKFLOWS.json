@@ -1,0 +1,169 @@
+{
+  "date": "2026-10-15",
+  "baseCommit": "21665c5",
+  "branch": "codex/personalization-and-workflows",
+  "environment": "macOS; .NET SDK 10.0.402",
+  "solutionBuild": {
+    "result": "passed",
+    "warnings": 0,
+    "errors": 0,
+    "windowsCrossCompilation": true
+  },
+  "tests": {
+    "passed": 979,
+    "failed": 0,
+    "newWorkflowCases": 35,
+    "projects": [
+      {
+        "project": "AkelEtiket.Tests",
+        "passed": 277,
+        "filter": "FullyQualifiedName!~InAppAssistant_WithoutConsent_SendsNothing&FullyQualifiedName!~InAppAssistant_WorksInDraft_AndProducesProposal&FullyQualifiedName!~SecretProtector_RoundTripsAndRejectsGarbage"
+      },
+      {
+        "project": "AkelEtiket.Core.Tests",
+        "passed": 203,
+        "filter": ""
+      },
+      {
+        "project": "AkelEtiket.DataImport.Tests",
+        "passed": 83,
+        "filter": "FullyQualifiedName!~ExclusivelyLockedFile_GivesTurkishLockMessage"
+      },
+      {
+        "project": "AkelEtiket.Rendering.Tests",
+        "passed": 49,
+        "filter": ""
+      },
+      {
+        "project": "AkelEtiket.Design.Tests",
+        "passed": 35,
+        "filter": ""
+      },
+      {
+        "project": "AkelEtiket.Gs1.Tests",
+        "passed": 78,
+        "filter": ""
+      },
+      {
+        "project": "AkelEtiket.PrintEngine.Tests",
+        "passed": 58,
+        "filter": "FullyQualifiedName!~WindowsPrintingTests"
+      },
+      {
+        "project": "AkelEtiket.ImageProcessor.Tests",
+        "passed": 107,
+        "filter": ""
+      },
+      {
+        "project": "AkelEtiket.Assistant.Tests",
+        "passed": 81,
+        "filter": ""
+      },
+      {
+        "project": "AkelEtiket.LocalApi.Tests",
+        "passed": 8,
+        "filter": "FullyQualifiedName!~HostHandoverTests&FullyQualifiedName!~McpEndToEndTests"
+      }
+    ]
+  },
+  "historyConcurrency": {
+    "processes": 4,
+    "writesPerProcess": 80,
+    "expectedRecords": 320,
+    "validRecords": 320,
+    "uniqueRecords": 320,
+    "exitCodes": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "localization": {
+    "keysPerLanguage": 1969,
+    "catalogParityAndFormatTests": "passed",
+    "missingAuthoredLiteralKeys": 0,
+    "rawExcelBooleansAndGeneratedHeadersInvariant": true,
+    "legacyEncodingResolutionAcrossLanguages": "passed"
+  },
+  "starterPacks": {
+    "packs": 4,
+    "templates": 8,
+    "languagesTested": [
+      "tr",
+      "en"
+    ],
+    "renderWithCsv": "passed",
+    "doesNotOverwrite": "passed",
+    "sampleAndRecipeFilesInPayload": 12
+  },
+  "compatibility": {
+    "oldSettings": "defaulted without migration writes",
+    "legacyLabelFormatting": "unchanged unless opted in",
+    "regionalLabelFormatVersion": 3,
+    "unformattedLabelFormatVersions": [
+      1,
+      2
+    ],
+    "previewPrintTextAndPixelsMatch": "passed",
+    "barcodeSourcesUnchanged": "passed",
+    "portableBackupsExcludeNewMachinePreferences": true
+  },
+  "candidate": {
+    "version": "2.0.0",
+    "provisionalProductName": true,
+    "sourceLicenseChosen": false,
+    "files": 553,
+    "payloadBytes": 202257082,
+    "installer": {
+      "file": "Etiket-Tasarim-Kurulum-2.0.0-aday.exe",
+      "sha256": "9681db19f3058550f6a6f2e617d0fdd084e333025bcc17d21c36014103313c9a",
+      "bytes": 60937743
+    },
+    "portable": {
+      "file": "Etiket-Tasarim-2.0.0-win-x64-aday.zip",
+      "sha256": "64c3161a46837e99f820cf877a6bb3090f8365b5a9c3ad7c586516d02659c0be",
+      "bytes": 84795566
+    },
+    "windowsInstallationTested": false,
+    "physicalPrinterTested": false,
+    "published": false
+  },
+  "payloadVerification": {
+    "payloadFiles": 553,
+    "hashMismatches": [],
+    "packs": 12,
+    "workflowDocs": true,
+    "englishResources": true
+  },
+  "payloadKnownPatternPrivacyScan": {
+    "files": 553,
+    "knownPatternFindings": [],
+    "zipHashesVerified": true
+  },
+  "thirdPartyLicenseFiles": {
+    "packages": 68,
+    "missing": 0
+  },
+  "notRun": [
+    "Windows installation/uninstallation and Inno Setup compilation",
+    "WPF layout, DPI, keyboard/accessibility, Windows system theme behavior",
+    "Windows DPAPI tests (three Editor cases)",
+    "Windows spooler/printer integration",
+    "LocalApi host handover and MCP executable end-to-end tests requiring Windows apphosts",
+    "Windows-specific exclusive file locking case",
+    "Physical printer, media calibration and barcode scanner acceptance"
+  ],
+  "remoteActions": {
+    "targetRepository": "husodrn46/etiket-tasarim",
+    "targetVisibility": "public",
+    "requestedPullRequest": "single draft",
+    "releasePublished": false,
+    "originalRepositoryModified": false
+  },
+  "remainingDecisions": [
+    "Final product name",
+    "Source license remains undecided; no new license granted"
+  ],
+  "evidenceNote": "Full test logs/TRX and binaries retained in the local workspace. Public report includes counts, filters and hashes only. Known-pattern scans are not a guarantee that arbitrary private content is absent. SOURCE-MANIFEST hashes describe the working source snapshot; four existing Turkish CSV files use CRLF checkout rules and differ from LF Git blobs."
+}

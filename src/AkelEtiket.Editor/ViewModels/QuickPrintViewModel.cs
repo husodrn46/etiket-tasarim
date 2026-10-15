@@ -12,10 +12,10 @@ using L10n = AkelEtiket.Core.Localization.UiText;
 namespace AkelEtiket.Editor.ViewModels;
 
 /// <summary>Hızlı Baskı'daki şablon seçeneği.</summary>
-public sealed class QuickTemplateChoice(TemplateInfo info)
+public sealed class QuickTemplateChoice(TemplateInfo info, bool favorite = false)
 {
     public TemplateInfo Info { get; } = info;
-    public string Name => Info.Name;
+    public string Name => (favorite ? "★ " : "") + Info.Name;
     public string SizeText => Info.SizeText;
     public byte[]? PreviewPng => Info.PreviewPng;
     public bool UsesData => Info.HasFieldPlaceholders;
@@ -35,8 +35,8 @@ public sealed partial class QuickPrintViewModel : ObservableObject
     {
         _main = main;
         Products = products;
-        foreach (var template in main.Templates.Library.List().Where(t => t.Problem is null))
-            Templates.Add(new QuickTemplateChoice(template));
+        foreach (var template in main.Templates.Library.List().Where(t => t.Problem is null).OrderByDescending(t => main.Settings.FavoriteTemplatePaths.Contains(t.FilePath, StringComparer.OrdinalIgnoreCase)))
+            Templates.Add(new QuickTemplateChoice(template, main.Settings.FavoriteTemplatePaths.Contains(template.FilePath, StringComparer.OrdinalIgnoreCase)));
         SelectedTemplate = Templates.FirstOrDefault(t => t.Info.FilePath == main.Settings.LastQuickTemplatePath)
             ?? Templates.FirstOrDefault(t => t.UsesData) ?? Templates.FirstOrDefault();
         Products.PropertyChanged += (_, e) =>

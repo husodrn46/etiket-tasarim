@@ -19,10 +19,15 @@ public class ThemedWindow : Window
         ShowInTaskbar = false;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
         ThemeManager.ThemeChanged += OnThemeChanged;
+        Loaded += (_, _) => ApplyUiScale();
         Closed += (_, _) => ThemeManager.ThemeChanged -= OnThemeChanged;
     }
 
-    private void OnThemeChanged(object? sender, EventArgs e) => ThemeManager.ApplyTitleBar(this);
+    private void OnThemeChanged(object? sender, EventArgs e) { ThemeManager.ApplyTitleBar(this); ApplyUiScale(); }
+    private void ApplyUiScale()
+    {
+        if (Content is FrameworkElement root) root.LayoutTransform = new ScaleTransform(ThemeManager.UiScale, ThemeManager.UiScale);
+    }
 
     protected override void OnSourceInitialized(EventArgs e)
     {

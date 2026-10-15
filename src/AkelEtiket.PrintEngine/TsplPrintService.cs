@@ -1,3 +1,4 @@
+using L10n = AkelEtiket.Core.Localization.UiText;
 namespace AkelEtiket.PrintEngine;
 
 /// <summary>Yazıcı/kuyruk erişimi (testlerde sahte uygulamayla değiştirilir).</summary>
@@ -78,12 +79,12 @@ public sealed class TsplPrintService
             var report = new PrintReport { Method = PrintMethod.TsplRaw, PrinterName = settings.PrinterName };
             if (string.IsNullOrWhiteSpace(settings.PrinterName))
             {
-                report.Errors.Add("Yazıcı seçilmedi. Ayarlar'dan etiket yazıcısını seçin.");
+                report.Errors.Add(L10n.T("Yazıcı seçilmedi. Ayarlar'dan etiket yazıcısını seçin."));
                 return report;
             }
             if (data.Length == 0)
             {
-                report.Errors.Add("Gönderilecek veri boş.");
+                report.Errors.Add(L10n.T("Gönderilecek veri boş."));
                 return report;
             }
             if (!CheckPrinter(report, settings, duringPrint: false)) return report;
@@ -127,7 +128,7 @@ public sealed class TsplPrintService
         report.Errors.AddRange(media.Validate());
         if (report.Errors.Count > 0) return report;
 
-        progress?.Report(new PrintProgress { Done = 0, Total = Math.Max(0, totalLabelCount), Stage = "Yazıcı denetleniyor" });
+        progress?.Report(new PrintProgress { Done = 0, Total = Math.Max(0, totalLabelCount), Stage = L10n.T("Yazıcı denetleniyor") });
         if (!CheckPrinter(report, settings, duringPrint: false)) return report;
         if (cancellationToken.IsCancellationRequested)
         {
@@ -167,12 +168,12 @@ public sealed class TsplPrintService
                 }
                 catch (Exception ex) when (ex is not PrintEngineException)
                 {
-                    report.Errors.Add($"{done + 1}. etiket oluşturulamadı: {ex.Message}");
+                    report.Errors.Add(L10n.T($"{done + 1}. etiket oluşturulamadı: {ex.Message}"));
                     break;
                 }
                 if (page?.Bitmap is null)
                 {
-                    report.Errors.Add($"{done + 1}. etiketin görüntüsü boş.");
+                    report.Errors.Add(L10n.T($"{done + 1}. etiketin görüntüsü boş."));
                     break;
                 }
 
@@ -194,7 +195,7 @@ public sealed class TsplPrintService
                     // Parçalar arasında yazıcı yeniden denetlenir (baskı sırasında çevrimdışı olabilir).
                     if (jobNumber > 0 && !CheckPrinter(report, settings, duringPrint: true)) break;
                     jobNumber++;
-                    string name = total > maxPerJob ? $"{DocumentName} — bölüm {jobNumber}" : DocumentName;
+                    string name = total > maxPerJob ? L10n.T($"{DocumentName} — bölüm {jobNumber}") : DocumentName;
                     job = _backend.StartJob(settings.PrinterName, name);
                     report.JobIds.Add(job.JobId);
                     job.Write(setup);
@@ -204,7 +205,7 @@ public sealed class TsplPrintService
                 job.Write(data);
                 labelsInJob++;
                 done++;
-                progress?.Report(new PrintProgress { Done = done, Total = Math.Max(total, done), Stage = "Yazıcı kuyruğuna gönderiliyor" });
+                progress?.Report(new PrintProgress { Done = done, Total = Math.Max(total, done), Stage = L10n.T("Yazıcı kuyruğuna gönderiliyor") });
 
                 if (labelsInJob >= maxPerJob)
                 {
@@ -252,16 +253,16 @@ public sealed class TsplPrintService
         }
 
         if (report.Canceled && total > 0)
-            report.Warnings.Add($"İptal edildi: {report.LabelsSpooled} etiket görüntüsü gönderildi, kalanlar gönderilmedi.");
+            report.Warnings.Add(L10n.T($"İptal edildi: {report.LabelsSpooled} etiket görüntüsü gönderildi, kalanlar gönderilmedi."));
         if (!report.DataGenerated && report.Errors.Count == 0 && !report.Canceled)
-            report.Errors.Add("Yazdırılacak etiket yok.");
+            report.Errors.Add(L10n.T("Yazdırılacak etiket yok."));
 
         if (completedJobs.Count > 0)
         {
-            progress?.Report(new PrintProgress { Done = done, Total = Math.Max(total, done), Stage = "Kuyruk durumu bekleniyor" });
+            progress?.Report(new PrintProgress { Done = done, Total = Math.Max(total, done), Stage = L10n.T("Kuyruk durumu bekleniyor") });
             await WaitForQueueAsync(report, settings.PrinterName, completedJobs, CancellationToken.None).ConfigureAwait(false);
         }
-        progress?.Report(new PrintProgress { Done = done, Total = Math.Max(total, done), Stage = report.Success ? "Tamamlandı" : "Bitti" });
+        progress?.Report(new PrintProgress { Done = done, Total = Math.Max(total, done), Stage = report.Success ? L10n.T("Tamamlandı") : "Bitti" });
         return report;
     }
 
@@ -289,7 +290,7 @@ public sealed class TsplPrintService
         catch (OperationCanceledException)
         {
             report.QueueOutcome = SpoolOutcome.TimedOut;
-            report.QueueMessage = "Kuyruk takibi iptal edildi; işlerin durumunu Windows yazıcı kuyruğundan kontrol edin.";
+            report.QueueMessage = L10n.T("Kuyruk takibi iptal edildi; işlerin durumunu Windows yazıcı kuyruğundan kontrol edin.");
             return;
         }
 
@@ -321,34 +322,34 @@ public sealed class TsplPrintService
         var printer = status.Printer!;
         if (!duringPrint && !printer.IsLikelyTsplPrinter)
         {
-            report.Warnings.Add($"'{printer.Name}' yazıcısının sürücüsü ({printer.DriverName}) TSPL destekli görünmüyor. " +
-                                "TSPL komutları bu yazıcıda anlamsız metin olarak basılabilir; doğru yazıcıyı seçtiğinizden emin olun.");
+            report.Warnings.Add(L10n.T($"'{printer.Name}' yazıcısının sürücüsü ({printer.DriverName}) TSPL destekli görünmüyor. ") +
+                                L10n.T("TSPL komutları bu yazıcıda anlamsız metin olarak basılabilir; doğru yazıcıyı seçtiğinizden emin olun."));
         }
         if (printer.IsReady) return true;
         if (settings.AllowPrintWhenOffline)
         {
-            AddWarnings(report, [$"Yazıcı hazır görünmüyor ({printer.StatusText}); ayar gereği yine de gönderildi."]);
+            AddWarnings(report, [L10n.T($"Yazıcı hazır görünmüyor ({printer.StatusText}); ayar gereği yine de gönderildi.")]);
             return true;
         }
         report.Errors.Add(duringPrint
-            ? $"Yazıcı baskı sırasında hazır durumdan çıktı: {printer.StatusText}. {Advice(printer)}"
-            : $"Yazıcı hazır değil: {printer.StatusText}. {Advice(printer)}");
+            ? L10n.T($"Yazıcı baskı sırasında hazır durumdan çıktı: {printer.StatusText}. {Advice(printer)}")
+            : L10n.T($"Yazıcı hazır değil: {printer.StatusText}. {Advice(printer)}"));
         return false;
     }
 
     internal static string Advice(PrinterInfo printer)
     {
         if (printer.UsbConnected == false)
-            return "Yazıcının açık ve USB kablosunun takılı olduğunu kontrol edin; kabloyu farklı bir USB yuvasına taktıysanız Windows yeni bir yazıcı kopyası oluşturmuş olabilir.";
+            return L10n.T("Yazıcının açık ve USB kablosunun takılı olduğunu kontrol edin; kabloyu farklı bir USB yuvasına taktıysanız Windows yeni bir yazıcı kopyası oluşturmuş olabilir.");
         if (printer.IsWorkOffline)
-            return "Windows'ta yazıcı kuyruğunu açıp Yazıcı menüsünden 'Yazıcıyı Çevrimdışı Kullan' seçeneğini kaldırın.";
+            return L10n.T("Windows'ta yazıcı kuyruğunu açıp Yazıcı menüsünden 'Yazıcıyı Çevrimdışı Kullan' seçeneğini kaldırın.");
         if (printer.IsOffline)
-            return "Yazıcının açık ve bağlı olduğunu kontrol edin.";
+            return L10n.T("Yazıcının açık ve bağlı olduğunu kontrol edin.");
         if (printer.Status.HasFlag(PrinterStatusFlags.Paused))
-            return "Windows yazıcı kuyruğunu açıp 'Yazdırmayı Sürdür' seçeneğini kullanın.";
+            return L10n.T("Windows yazıcı kuyruğunu açıp 'Yazdırmayı Sürdür' seçeneğini kullanın.");
         if (printer.Status.HasFlag(PrinterStatusFlags.PaperOut))
             return "Etiket rulosunu kontrol edin.";
-        return "Yazıcının ışıklarını ve Windows yazıcı kuyruğunu kontrol edin.";
+        return L10n.T("Yazıcının ışıklarını ve Windows yazıcı kuyruğunu kontrol edin.");
     }
 
     private static void AddWarnings(PrintReport report, IEnumerable<string> warnings)

@@ -31,7 +31,7 @@ public sealed partial class MainViewModel
     [RelayCommand]
     private async Task OpenPrintHistory()
     {
-        var history = new PrintHistoryViewModel(PrintingServices.History);
+        var history = new PrintHistoryViewModel(PrintingServices.History, Settings.FavoritePrintJobIds, ids => UpdatePreferences(s => s.FavoritePrintJobIds = ids));
         Dialogs.ShowDialog(history);
         if (history.Request is { } request) await ReprintFromHistoryAsync(request.Entry, request.ResumeOnly);
     }
@@ -114,7 +114,7 @@ public sealed partial class MainViewModel
             {
                 SheetName = entry.DataSheet,
                 Delimiter = entry.DataDelimiter is { Length: 1 } delimiter ? delimiter[0] : null,
-                Encoding = ImportChoices.Encodings.FirstOrDefault(c => c.Encoding is not null && c.DisplayName == entry.DataEncoding)?.Encoding,
+                Encoding = ImportChoices.ResolveEncoding(entry.DataEncoding),
             };
             try
             {

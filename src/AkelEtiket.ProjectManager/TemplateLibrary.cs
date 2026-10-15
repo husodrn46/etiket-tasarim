@@ -1,3 +1,4 @@
+using L10n = AkelEtiket.Core.Localization.UiText;
 namespace AkelEtiket.ProjectManager;
 
 /// <summary>Şablon galerisi kaydı.</summary>
@@ -117,7 +118,7 @@ public sealed class TemplateLibrary
         EnsureFolder();
         string path = GetPathForName(name);
         if (File.Exists(path) && !overwrite)
-            throw new ProjectFileException($"\"{SanitizeName(name)}\" adında bir şablon zaten var.");
+            throw new ProjectFileException(L10n.T($"\"{SanitizeName(name)}\" adında bir şablon zaten var."));
         // Şablon kaydı açık projenin dosya yolunu değiştirmemeli.
         string? originalPath = project.FilePath;
         string originalName = project.Document.Name;
@@ -151,7 +152,7 @@ public sealed class TemplateLibrary
     {
         string target = GetPathForName(newName);
         if (string.Equals(target, template.FilePath, StringComparison.OrdinalIgnoreCase)) return target;
-        if (File.Exists(target)) throw new ProjectFileException($"\"{SanitizeName(newName)}\" adında bir şablon zaten var.");
+        if (File.Exists(target)) throw new ProjectFileException(L10n.T($"\"{SanitizeName(newName)}\" adında bir şablon zaten var."));
         var loaded = ProjectFile.Load(template.FilePath).Project;
         loaded.Document.Name = SanitizeName(newName);
         ProjectFile.Save(loaded, target, ProjectFile.ReadPreview(template.FilePath));

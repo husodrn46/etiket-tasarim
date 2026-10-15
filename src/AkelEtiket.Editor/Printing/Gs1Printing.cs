@@ -1,6 +1,7 @@
 using AkelEtiket.Core.Data;
 using AkelEtiket.Gs1;
 using AkelEtiket.Rendering;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.Printing;
 
@@ -71,7 +72,7 @@ public sealed class SsccPrintTracker
     public void ProductionFailed(string? sscc, string reason)
     {
         if (_session is null || sscc is null) return;
-        _session.VoidOne(sscc, "Etiket üretilemedi: " + reason);
+        _session.VoidOne(sscc, L10n.T("Etiket üretilemedi: ") + reason);
     }
 
     /// <summary>
@@ -84,20 +85,20 @@ public sealed class SsccPrintTracker
         _completed = true;
         try
         {
-            _session.Finish(spooledLabels, "Yazıcı kuyruğuna gönderildi",
-                canceled ? "Baskı iptal edildi, etiket gönderilmedi" : "Etiket yazıcıya gönderilmedi");
+            _session.Finish(spooledLabels, L10n.T("Yazıcı kuyruğuna gönderildi"),
+                canceled ? L10n.T("Baskı iptal edildi, etiket gönderilmedi") : L10n.T("Etiket yazıcıya gönderilmedi"));
         }
         catch (Exception ex) when (ex is Gs1Exception or IOException or UnauthorizedAccessException)
         {
-            return ("SSCC kaydı güncellenemedi: " + ex.Message + " Numaralar ayrılmış durumda kaldı ve tekrar verilmeyecek.", true);
+            return (L10n.T("SSCC kaydı güncellenemedi: ") + ex.Message + L10n.T(" Numaralar ayrılmış durumda kaldı ve tekrar verilmeyecek."), true);
         }
         return (BuildSummary(SentCount, VoidedCount), false);
     }
 
     public static string BuildSummary(int sent, int voided)
     {
-        string text = $"SSCC: {sent} numara yazıcı kuyruğuna gönderildi olarak kaydedildi";
-        if (voided > 0) text += $", {voided} numara kullanılmadı (tekrar verilmeyecek)";
-        return text + ". Fiziksel baskıyı etiketten kontrol edin.";
+        string text = L10n.T($"SSCC: {sent} numara yazıcı kuyruğuna gönderildi olarak kaydedildi");
+        if (voided > 0) text += L10n.T($", {voided} numara kullanılmadı (tekrar verilmeyecek)");
+        return text + L10n.T(". Fiziksel baskıyı etiketten kontrol edin.");
     }
 }

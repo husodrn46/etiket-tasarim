@@ -1,3 +1,4 @@
+using L10n = AkelEtiket.Core.Localization.UiText;
 namespace AkelEtiket.DataImport.Internal;
 
 /// <summary>
@@ -18,27 +19,27 @@ internal static class FileAccessHelper
         }
         catch (Exception ex) when (ex is FileNotFoundException or DirectoryNotFoundException)
         {
-            throw new DataImportException($"Dosya bulunamadı: {path}", ex) { FilePath = path };
+            throw new DataImportException(L10n.T($"Dosya bulunamadı: {path}"), ex) { FilePath = path };
         }
         catch (UnauthorizedAccessException ex)
         {
             throw new DataImportException(
-                $"Dosyaya erişim izni yok: {path}. Dosyanın başka bir kullanıcıya ait olmadığını veya salt korumalı bir klasörde bulunmadığını kontrol edin.",
+                L10n.T($"Dosyaya erişim izni yok: {path}. Dosyanın başka bir kullanıcıya ait olmadığını veya salt korumalı bir klasörde bulunmadığını kontrol edin."),
                 ex) { FilePath = path };
         }
         catch (IOException ex) when ((ex.HResult & 0xFFFF) is ErrorSharingViolation or ErrorLockViolation)
         {
             throw new DataImportException(
-                "Dosya başka bir program tarafından kilitlenmiş, okunamıyor. Dosya Excel'de veya başka bir programda açıksa kapatıp yeniden deneyin.",
+                L10n.T("Dosya başka bir program tarafından kilitlenmiş, okunamıyor. Dosya Excel'de veya başka bir programda açıksa kapatıp yeniden deneyin."),
                 ex) { FilePath = path };
         }
         catch (IOException ex)
         {
-            throw new DataImportException($"Dosya okunamadı: {path}. ({ex.Message})", ex) { FilePath = path };
+            throw new DataImportException(L10n.T($"Dosya okunamadı: {path}. ({ex.Message})"), ex) { FilePath = path };
         }
         catch (Exception ex) when (ex is ArgumentException or NotSupportedException)
         {
-            throw new DataImportException($"Geçersiz dosya yolu: {path}", ex) { FilePath = path };
+            throw new DataImportException(L10n.T($"Geçersiz dosya yolu: {path}"), ex) { FilePath = path };
         }
     }
 
@@ -58,7 +59,7 @@ internal static class FileAccessHelper
         if (length > maxBytes)
         {
             throw new DataImportException(
-                $"Dosya çok büyük ({length / (1024 * 1024)} MB). En fazla {maxBytes / (1024 * 1024)} MB boyutunda dosyalar aktarılabilir.")
+                L10n.T($"Dosya çok büyük ({length / (1024 * 1024)} MB). En fazla {maxBytes / (1024 * 1024)} MB boyutunda dosyalar aktarılabilir."))
             { FilePath = path };
         }
         try
@@ -69,7 +70,7 @@ internal static class FileAccessHelper
         }
         catch (IOException ex)
         {
-            throw new DataImportException($"Dosya okunurken hata oluştu: {path}. ({ex.Message})", ex) { FilePath = path };
+            throw new DataImportException(L10n.T($"Dosya okunurken hata oluştu: {path}. ({ex.Message})"), ex) { FilePath = path };
         }
     }
 }

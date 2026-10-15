@@ -1,4 +1,5 @@
 using AkelEtiket.BarcodeEngine;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Gs1;
 
@@ -67,7 +68,7 @@ public static class Gs1Identifiers
     public static int ComputeCheckDigit(string digitsWithoutCheck)
     {
         if (string.IsNullOrEmpty(digitsWithoutCheck) || !CheckDigits.IsAllDigits(digitsWithoutCheck))
-            throw new ArgumentException("Kontrol basamağı yalnızca rakamlardan hesaplanabilir.", nameof(digitsWithoutCheck));
+            throw new ArgumentException(L10n.T("Kontrol basamağı yalnızca rakamlardan hesaplanabilir."), nameof(digitsWithoutCheck));
         return CheckDigits.Gs1Mod10(digitsWithoutCheck);
     }
 
@@ -85,8 +86,8 @@ public static class Gs1Identifiers
     public static Gs1ValidationResult ValidateGtin(string? input)
     {
         string value = Normalize(input);
-        if (value.Length == 0) return Gs1ValidationResult.Invalid(value, "GTIN boş.");
-        if (!CheckDigits.IsAllDigits(value)) return Gs1ValidationResult.Invalid(value, "GTIN yalnızca rakam içermeli.");
+        if (value.Length == 0) return Gs1ValidationResult.Invalid(value, L10n.T("GTIN boş."));
+        if (!CheckDigits.IsAllDigits(value)) return Gs1ValidationResult.Invalid(value, L10n.T("GTIN yalnızca rakam içermeli."));
         Gs1KeyType? type = value.Length switch
         {
             8 => Gs1KeyType.Gtin8,
@@ -96,7 +97,7 @@ public static class Gs1Identifiers
             _ => null,
         };
         if (type is null)
-            return Gs1ValidationResult.Invalid(value, $"GTIN 8, 12, 13 veya 14 hane olmalı (girilen {value.Length} hane).");
+            return Gs1ValidationResult.Invalid(value, L10n.T($"GTIN 8, 12, 13 veya 14 hane olmalı (girilen {value.Length} hane)."));
         return CheckDigitResult(value, type.Value, "GTIN");
     }
 
@@ -131,17 +132,17 @@ public static class Gs1Identifiers
         string value = Normalize(gcp);
         if (value.Length == 0)
         {
-            error = "Firma öneki girilmedi.";
+            error = L10n.T("Firma öneki girilmedi.");
             return false;
         }
         if (!CheckDigits.IsAllDigits(value))
         {
-            error = "Firma öneki yalnızca rakam içermeli.";
+            error = L10n.T("Firma öneki yalnızca rakam içermeli.");
             return false;
         }
         if (value.Length is < MinGcpLength or > MaxGcpLength)
         {
-            error = $"Firma öneki {MinGcpLength}–{MaxGcpLength} hane olmalı (girilen {value.Length} hane). Uzunluğu GS1 Türkiye üyelik belgenizden kontrol edin.";
+            error = L10n.T($"Firma öneki {MinGcpLength}–{MaxGcpLength} hane olmalı (girilen {value.Length} hane). Uzunluğu GS1 Türkiye üyelik belgenizden kontrol edin.");
             return false;
         }
         error = null;
@@ -154,12 +155,12 @@ public static class Gs1Identifiers
     /// <summary>SSCC oluşturur: uzantı basamağı + firma öneki + sıfır dolgulu seri referansı + kontrol basamağı.</summary>
     public static string BuildSscc(int extensionDigit, string gcp, long serialReference)
     {
-        if (extensionDigit is < 0 or > 9) throw new ArgumentOutOfRangeException(nameof(extensionDigit), "Uzantı basamağı 0–9 olmalı.");
+        if (extensionDigit is < 0 or > 9) throw new ArgumentOutOfRangeException(nameof(extensionDigit), L10n.T("Uzantı basamağı 0–9 olmalı."));
         if (!IsValidGcpFormat(gcp, out string? error)) throw new ArgumentException(error, nameof(gcp));
         string prefix = Normalize(gcp);
         int serialLength = SsccSerialLength(prefix.Length);
         if (serialReference < 0 || serialReference > MaxSerial(serialLength))
-            throw new ArgumentOutOfRangeException(nameof(serialReference), $"Seri referansı 0–{MaxSerial(serialLength)} aralığında olmalı.");
+            throw new ArgumentOutOfRangeException(nameof(serialReference), L10n.T($"Seri referansı 0–{MaxSerial(serialLength)} aralığında olmalı."));
         string body = extensionDigit.ToString(System.Globalization.CultureInfo.InvariantCulture) + prefix +
                       serialReference.ToString(System.Globalization.CultureInfo.InvariantCulture).PadLeft(serialLength, '0');
         return AppendCheckDigit(body);
@@ -184,10 +185,10 @@ public static class Gs1Identifiers
     private static Gs1ValidationResult ValidateFixed(string? input, int length, Gs1KeyType type, string label)
     {
         string value = Normalize(input);
-        if (value.Length == 0) return Gs1ValidationResult.Invalid(value, $"{label} boş.", type);
-        if (!CheckDigits.IsAllDigits(value)) return Gs1ValidationResult.Invalid(value, $"{label} yalnızca rakam içermeli.", type);
+        if (value.Length == 0) return Gs1ValidationResult.Invalid(value, L10n.T($"{label} boş."), type);
+        if (!CheckDigits.IsAllDigits(value)) return Gs1ValidationResult.Invalid(value, L10n.T($"{label} yalnızca rakam içermeli."), type);
         if (value.Length != length)
-            return Gs1ValidationResult.Invalid(value, $"{label} {length} hane olmalı (girilen {value.Length} hane).", type);
+            return Gs1ValidationResult.Invalid(value, L10n.T($"{label} {length} hane olmalı (girilen {value.Length} hane)."), type);
         return CheckDigitResult(value, type, label);
     }
 
@@ -196,7 +197,7 @@ public static class Gs1Identifiers
         int expected = CheckDigits.Gs1Mod10(value.AsSpan(0, value.Length - 1));
         if (expected != value[^1] - '0')
             return Gs1ValidationResult.Invalid(value,
-                $"{label} kontrol basamağı hatalı: son hane {expected} olmalı ({value[..^1]}{expected}).", type);
+                L10n.T($"{label} kontrol basamağı hatalı: son hane {expected} olmalı ({value[..^1]}{expected})."), type);
         return Gs1ValidationResult.Valid(value, type);
     }
 }

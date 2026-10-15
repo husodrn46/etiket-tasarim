@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using AkelEtiket.Core.Assets;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Rendering;
 
@@ -37,17 +38,17 @@ public sealed class FolderImageResolver : IImageSourceResolver
         string text = (value ?? "").Trim().Trim('"');
         if (text.Length == 0)
         {
-            error = "Görsel alanı boş.";
+            error = L10n.T("Görsel alanı boş.");
             return null;
         }
         if (Folders.Count == 0)
         {
-            error = $"\"{text}\" görseli için görsel klasörü tanımlı değil.";
+            error = L10n.T($"\"{text}\" görseli için görsel klasörü tanımlı değil.");
             return null;
         }
         if (text.IndexOfAny(Path.GetInvalidPathChars()) >= 0 || text.Contains("..", StringComparison.Ordinal))
         {
-            error = $"\"{text}\" geçerli bir görsel adı değil.";
+            error = L10n.T($"\"{text}\" geçerli bir görsel adı değil.");
             return null;
         }
 
@@ -69,7 +70,7 @@ public sealed class FolderImageResolver : IImageSourceResolver
                 var info = new FileInfo(full);
                 if (info.Length > MaxBytes)
                 {
-                    error = $"\"{text}\" görseli çok büyük.";
+                    error = L10n.T($"\"{text}\" görseli çok büyük.");
                     return null;
                 }
                 if (_cache.TryGetValue(full, out var cached) && cached.Stamp == info.LastWriteTimeUtc) return cached.Asset;
@@ -80,11 +81,11 @@ public sealed class FolderImageResolver : IImageSourceResolver
             }
             catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
             {
-                error = $"\"{text}\" görseli okunamadı: {ex.Message}";
+                error = L10n.T($"\"{text}\" görseli okunamadı: {ex.Message}");
                 return null;
             }
         }
-        error = $"\"{text}\" görseli bulunamadı (aranan klasörler: {string.Join("; ", Folders)}).";
+        error = L10n.T($"\"{text}\" görseli bulunamadı (aranan klasörler: {string.Join("; ", Folders)}).");
         return null;
     }
 

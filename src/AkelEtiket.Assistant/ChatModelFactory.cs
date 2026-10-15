@@ -1,6 +1,7 @@
 using AkelEtiket.Assistant.Chat;
 using AkelEtiket.Assistant.Providers;
 using AkelEtiket.Core.Automation;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Assistant;
 
@@ -23,8 +24,8 @@ public static class ChatModelFactory
             AssistantProviderKind.Anthropic => new AnthropicChatModel(http, settings, apiKey ?? "", options),
             AssistantProviderKind.OpenAiCompatible => new OpenAiCompatibleChatModel(http, settings, apiKey, options),
             _ => throw new AssistantConfigurationException(
-                "Uygulama içi asistan için bir yapay zekâ sağlayıcısı seçilmedi. Ayarlar → Yapay Zekâ bölümünden Anthropic Claude " +
-                "veya OpenAI uyumlu (yerel) bir model seçebilirsiniz. Dış ajanlar (Claude Desktop, Claude Code) MCP ile yine bağlanabilir."),
+                L10n.T("Uygulama içi asistan için bir yapay zekâ sağlayıcısı seçilmedi. Ayarlar → Yapay Zekâ bölümünden Anthropic Claude ") +
+                L10n.T("veya OpenAI uyumlu (yerel) bir model seçebilirsiniz. Dış ajanlar (Claude Desktop, Claude Code) MCP ile yine bağlanabilir.")),
         };
     }
 

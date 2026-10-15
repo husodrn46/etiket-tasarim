@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Text;
 using AkelEtiket.Core.Model;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.BarcodeEngine;
 
@@ -22,19 +23,19 @@ public static class BarcodeValueGenerator
             BarcodeType.Ean8 => 8,
             BarcodeType.UpcA => 12,
             BarcodeType.Itf14 => 14,
-            _ => throw new ArgumentException("Bu tür için GTIN üretilemez.", nameof(type)),
+            _ => throw new ArgumentException(L10n.T("Bu tür için GTIN üretilemez."), nameof(type)),
         };
         prefix = (prefix ?? "").Trim();
         if (prefix.Length > 0 && !CheckDigits.IsAllDigits(prefix))
-            throw new ArgumentException("Ön ek yalnızca rakam içermeli.", nameof(prefix));
+            throw new ArgumentException(L10n.T("Ön ek yalnızca rakam içermeli."), nameof(prefix));
         int itemDigits = length - 1 - prefix.Length;
         if (itemDigits < 1)
-            throw new ArgumentException($"Ön ek çok uzun; {length - 2} haneden kısa olmalı.", nameof(prefix));
+            throw new ArgumentException(L10n.T($"Ön ek çok uzun; {length - 2} haneden kısa olmalı."), nameof(prefix));
         if (itemNumber < 0)
-            throw new ArgumentOutOfRangeException(nameof(itemNumber), "Ürün numarası negatif olamaz.");
+            throw new ArgumentOutOfRangeException(nameof(itemNumber), L10n.T("Ürün numarası negatif olamaz."));
         string item = itemNumber.ToString(CultureInfo.InvariantCulture);
         if (item.Length > itemDigits)
-            throw new ArgumentOutOfRangeException(nameof(itemNumber), $"Ürün numarası en fazla {itemDigits} hane olabilir.");
+            throw new ArgumentOutOfRangeException(nameof(itemNumber), L10n.T($"Ürün numarası en fazla {itemDigits} hane olabilir."));
         string body = prefix + item.PadLeft(itemDigits, '0');
         return body + (char)('0' + CheckDigits.Gs1Mod10(body));
     }

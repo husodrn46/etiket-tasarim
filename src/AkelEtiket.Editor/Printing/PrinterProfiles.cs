@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 using AkelEtiket.Core;
 using AkelEtiket.Core.Model;
 using AkelEtiket.PrintEngine;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.Printing;
 
@@ -60,19 +61,19 @@ public sealed class PrinterProfile
     {
         get
         {
-            string method = Method == PrintMethod.TsplRaw ? "TSPL" : "Windows sürücüsü";
+            string method = Method == PrintMethod.TsplRaw ? "TSPL" : L10n.T("Windows sürücüsü");
             string media = Media switch
             {
-                MediaType.BlackMark => $"siyah işaret {GapMm:0.##} mm",
-                MediaType.Continuous => "sürekli rulo",
-                _ => $"boşluk {GapMm:0.##} mm",
+                MediaType.BlackMark => L10n.T($"siyah işaret {GapMm:0.##} mm"),
+                MediaType.Continuous => L10n.T("sürekli rulo"),
+                _ => L10n.T($"boşluk {GapMm:0.##} mm"),
             };
             string size = LabelWidthMm is { } w && LabelHeightMm is { } h ? $" · rulo {w:0.##} × {h:0.##} mm" : "";
-            return $"{method} · yoğunluk {Density} · hız {Speed} · {media}{(Rotate180 ? " · 180°" : "")}{size}";
+            return L10n.T($"{method} · yoğunluk {Density} · hız {Speed} · {media}{(Rotate180 ? " · 180°" : "")}{size}");
         }
     }
 
-    public override string ToString() => IsBuiltIn ? Name + " (hazır)" : Name;
+    public override string ToString() => IsBuiltIn ? Name + L10n.T(" (hazır)") : Name;
 }
 
 /// <summary>
@@ -121,8 +122,8 @@ public sealed class PrinterProfileStore
         GapMm = 3,
         GapOffsetMm = 0,
         TearMode = TearMode.Unchanged,
-        Notes = "Başlangıç değerleridir. Yazıcıyı seçin, rulo boşluğunu girin ve kalibrasyon etiketiyle ölçün; " +
-                "yoğunluk, hız ve yönü kendi yazıcınızda doğrulayın.",
+        Notes = L10n.T("Başlangıç değerleridir. Yazıcıyı seçin, rulo boşluğunu girin ve kalibrasyon etiketiyle ölçün; ") +
+                L10n.T("yoğunluk, hız ve yönü kendi yazıcınızda doğrulayın."),
     };
 
     public static IReadOnlyList<PrinterProfile> BuiltIns { get; } = [AkelXp470B];
@@ -168,8 +169,8 @@ public sealed class PrinterProfileStore
     {
         ArgumentNullException.ThrowIfNull(profile);
         string name = (profile.Name ?? "").Trim();
-        if (name.Length == 0) throw new ArgumentException("Profil adı boş olamaz.");
-        if (IsBuiltInName(name)) throw new InvalidOperationException("Hazır profil değiştirilemez; farklı bir adla kaydedin.");
+        if (name.Length == 0) throw new ArgumentException(L10n.T("Profil adı boş olamaz."));
+        if (IsBuiltInName(name)) throw new InvalidOperationException(L10n.T("Hazır profil değiştirilemez; farklı bir adla kaydedin."));
         lock (_lock)
         {
             var file = Load();
@@ -184,16 +185,16 @@ public sealed class PrinterProfileStore
     public void Rename(string oldName, string newName)
     {
         string target = (newName ?? "").Trim();
-        if (target.Length == 0) throw new ArgumentException("Profil adı boş olamaz.");
-        if (IsBuiltInName(oldName) || IsBuiltInName(target)) throw new InvalidOperationException("Hazır profil yeniden adlandırılamaz.");
+        if (target.Length == 0) throw new ArgumentException(L10n.T("Profil adı boş olamaz."));
+        if (IsBuiltInName(oldName) || IsBuiltInName(target)) throw new InvalidOperationException(L10n.T("Hazır profil yeniden adlandırılamaz."));
         lock (_lock)
         {
             var file = Load();
             var profile = file.Profiles.FirstOrDefault(p => string.Equals(p.Name, oldName, StringComparison.OrdinalIgnoreCase))
-                          ?? throw new InvalidOperationException($"\"{oldName}\" profili bulunamadı.");
+                          ?? throw new InvalidOperationException(L10n.T($"\"{oldName}\" profili bulunamadı."));
             if (!string.Equals(oldName, target, StringComparison.OrdinalIgnoreCase) &&
                 file.Profiles.Any(p => string.Equals(p.Name, target, StringComparison.OrdinalIgnoreCase)))
-                throw new InvalidOperationException($"\"{target}\" adında bir profil zaten var.");
+                throw new InvalidOperationException(L10n.T($"\"{target}\" adında bir profil zaten var."));
             profile.Name = target;
             if (string.Equals(file.LastUsed, oldName, StringComparison.OrdinalIgnoreCase)) file.LastUsed = target;
             Persist(file);
@@ -202,7 +203,7 @@ public sealed class PrinterProfileStore
 
     public void Delete(string name)
     {
-        if (IsBuiltInName(name)) throw new InvalidOperationException("Hazır profil silinemez.");
+        if (IsBuiltInName(name)) throw new InvalidOperationException(L10n.T("Hazır profil silinemez."));
         lock (_lock)
         {
             var file = Load();
@@ -233,12 +234,12 @@ public sealed class PrinterProfileStore
                 try
                 {
                     File.Copy(FilePath, backup, overwrite: true);
-                    LoadProblem = $"Yazıcı profilleri okunamadı ({ex.Message}). Bozuk dosya \"{Path.GetFileName(backup)}\" olarak saklandı.";
+                    LoadProblem = L10n.T($"Yazıcı profilleri okunamadı ({ex.Message}). Bozuk dosya \"{Path.GetFileName(backup)}\" olarak saklandı.");
                 }
                 catch (Exception copyError) when (copyError is IOException or UnauthorizedAccessException)
                 {
                     _readFailed = true;
-                    LoadProblem = $"Yazıcı profilleri okunamadı ({ex.Message}); dosya korunuyor, değişiklik kaydedilmeyecek.";
+                    LoadProblem = L10n.T($"Yazıcı profilleri okunamadı ({ex.Message}); dosya korunuyor, değişiklik kaydedilmeyecek.");
                 }
                 _file = null;
             }
@@ -246,7 +247,7 @@ public sealed class PrinterProfileStore
             {
                 // Dosya okunamadı (kilitli/izin): üzerine yazılmasın, bir sonraki erişimde yeniden denenir.
                 _readFailed = true;
-                LoadProblem = "Yazıcı profilleri okunamadı: " + ex.Message;
+                LoadProblem = L10n.T("Yazıcı profilleri okunamadı: ") + ex.Message;
                 var empty = new ProfileFile();
                 return empty;
             }
@@ -259,7 +260,7 @@ public sealed class PrinterProfileStore
 
     private void Persist(ProfileFile file)
     {
-        if (_readFailed) throw new IOException(LoadProblem ?? "Yazıcı profilleri okunamadı; değişiklik kaydedilmedi.");
+        if (_readFailed) throw new IOException(LoadProblem ?? L10n.T("Yazıcı profilleri okunamadı; değişiklik kaydedilmedi."));
         Directory.CreateDirectory(Path.GetDirectoryName(FilePath)!);
         string temp = FilePath + ".tmp";
         File.WriteAllText(temp, JsonSerializer.Serialize(file, Options));

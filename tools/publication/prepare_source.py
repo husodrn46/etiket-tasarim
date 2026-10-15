@@ -11,7 +11,7 @@ import sys
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[2]
-PUBLIC_DOCS = {'docs/GENEL-URUN.md', 'docs/MIMARI.md', 'docs/LISANSLAR.md', 'docs/KULLANIM-GELISTIRMELERI.md', 'docs/VALIDATION-2026-10-15.json', 'docs/USER-GUIDE.md', 'docs/INTERNATIONALIZATION.md', 'docs/VALIDATION-LOCALIZATION.json'}
+PUBLIC_DOCS = {'docs/GENEL-URUN.md', 'docs/MIMARI.md', 'docs/LISANSLAR.md', 'docs/KULLANIM-GELISTIRMELERI.md', 'docs/VALIDATION-2026-10-15.json', 'docs/USER-GUIDE.md', 'docs/INTERNATIONALIZATION.md', 'docs/VALIDATION-LOCALIZATION.json', 'docs/WORKFLOWS.md', 'docs/WORKFLOWS.tr.md', 'docs/VALIDATION-WORKFLOWS.json'}
 GENERATED_REPORTS = {'SOURCE-MANIFEST.json', 'PUBLICATION-CHECK.json'}
 PRIVATE_ASSETS = {'src/AkelEtiket.App/Assets/akel-logo.png', 'src/AkelEtiket.Design/Assets/akel-logo.png'}
 RULES = {
@@ -55,7 +55,7 @@ def main():
         data = source.read_bytes()
         scan(data, name, findings)
         included.append((name, hashlib.sha256(data).hexdigest()))
-    report = {'files': len(included), 'excluded': excluded, 'findings': findings, 'historyIncluded': False, 'published': False}
+    report = {'files': len(included), 'excluded': excluded, 'findings': findings, 'historyIncluded': False, 'published': False, 'hashScope': 'working source snapshot before Git line-ending normalization (.gitattributes)'}
     # Report labels and paths only; never print any matching secret/identifier value.
     print(json.dumps(report, ensure_ascii=False, indent=2))
     if findings: raise SystemExit('Source scan failed. Nothing was copied.')

@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using AkelEtiket.Assistant.Chat;
 using AkelEtiket.Core.Automation;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Assistant.Providers;
 
@@ -32,14 +33,14 @@ public sealed class OpenAiCompatibleChatModel : IChatModel
 
         if (string.IsNullOrWhiteSpace(settings.BaseUrl))
             throw new AssistantConfigurationException(
-                "OpenAI uyumlu sağlayıcı için adres girilmedi (ör. Ollama: http://127.0.0.1:11434/v1, LM Studio: http://127.0.0.1:1234/v1).");
+                L10n.T("OpenAI uyumlu sağlayıcı için adres girilmedi (ör. Ollama: http://127.0.0.1:11434/v1, LM Studio: http://127.0.0.1:1234/v1)."));
         if (string.IsNullOrWhiteSpace(settings.Model))
-            throw new AssistantConfigurationException("OpenAI uyumlu sağlayıcı için model adı girilmedi (ör. qwen2.5 veya llama3.2-vision).");
+            throw new AssistantConfigurationException(L10n.T("OpenAI uyumlu sağlayıcı için model adı girilmedi (ör. qwen2.5 veya llama3.2-vision)."));
 
         string baseUrl = settings.BaseUrl.Trim().TrimEnd('/');
         if (!Uri.TryCreate(baseUrl + "/chat/completions", UriKind.Absolute, out var endpoint) ||
             (endpoint.Scheme != Uri.UriSchemeHttps && endpoint.Scheme != Uri.UriSchemeHttp))
-            throw new AssistantConfigurationException($"Model sunucusu adresi geçersiz: \"{settings.BaseUrl}\".");
+            throw new AssistantConfigurationException(L10n.T($"Model sunucusu adresi geçersiz: \"{settings.BaseUrl}\"."));
         _endpoint = endpoint;
         _displayAddress = baseUrl;
         Model = settings.Model.Trim();
@@ -64,8 +65,8 @@ public sealed class OpenAiCompatibleChatModel : IChatModel
             null,
             ex => new ChatModelException(ChatErrorKind.Network,
                 ProviderHttp.IsConnectionRefused(ex)
-                    ? $"Model sunucusuna bağlanılamadı ({_displayAddress}). Ollama/LM Studio çalışıyor mu, adres doğru mu?"
-                    : $"Model sunucusuna bağlanılamadı ({_displayAddress}). Ayrıntı: {ProviderHttp.ScrubText(ex.Message, _apiKey)}",
+                    ? L10n.T($"Model sunucusuna bağlanılamadı ({_displayAddress}). Ollama/LM Studio çalışıyor mu, adres doğru mu?")
+                    : L10n.T($"Model sunucusuna bağlanılamadı ({_displayAddress}). Ayrıntı: {ProviderHttp.ScrubText(ex.Message, _apiKey)}"),
                 inner: ex),
             _apiKey,
             cancellationToken).ConfigureAwait(false);
@@ -159,12 +160,12 @@ public sealed class OpenAiCompatibleChatModel : IChatModel
         {
             string content = result.IsError ? "HATA: " + result.Text : result.Text;
             if (result.Images.Count > 0 && !_settings.SendPreviewImages)
-                content += "\n[Görsel gönderilmedi: ayarlarda görsel gönderimi kapalı.]";
+                content += L10n.T("\n[Görsel gönderilmedi: ayarlarda görsel gönderimi kapalı.]");
             yield return new JsonObject
             {
                 ["role"] = "tool",
                 ["tool_call_id"] = result.ToolCallId,
-                ["content"] = content.Length > 0 ? content : "(boş sonuç)",
+                ["content"] = content.Length > 0 ? content : L10n.T("(boş sonuç)"),
             };
             if (_settings.SendPreviewImages) followUpImages.AddRange(result.Images);
         }
@@ -172,7 +173,7 @@ public sealed class OpenAiCompatibleChatModel : IChatModel
         var userParts = message.Blocks.Where(b => b is ChatTextBlock or ChatImageBlock).ToList();
         if (followUpImages.Count > 0)
         {
-            userParts.Insert(0, new ChatTextBlock("Araç sonuçlarındaki görseller:"));
+            userParts.Insert(0, new ChatTextBlock(L10n.T("Araç sonuçlarındaki görseller:")));
             userParts.AddRange(followUpImages);
         }
         if (userParts.Count == 0) yield break;
@@ -183,7 +184,7 @@ public sealed class OpenAiCompatibleChatModel : IChatModel
             string text = string.Join("\n\n", userParts.Select(p => p switch
             {
                 ChatTextBlock t => t.Text,
-                _ => "[Görsel gönderilmedi: ayarlarda görsel gönderimi kapalı.]",
+                _ => L10n.T("[Görsel gönderilmedi: ayarlarda görsel gönderimi kapalı.]"),
             }));
             yield return new JsonObject { ["role"] = "user", ["content"] = text };
             yield break;
@@ -219,15 +220,15 @@ public sealed class OpenAiCompatibleChatModel : IChatModel
         try
         {
             root = JsonNode.Parse(body) as JsonObject
-                   ?? throw new ChatModelException(ChatErrorKind.InvalidResponse, "Model sunucusundan anlaşılamayan bir yanıt geldi.");
+                   ?? throw new ChatModelException(ChatErrorKind.InvalidResponse, L10n.T("Model sunucusundan anlaşılamayan bir yanıt geldi."));
         }
         catch (JsonException ex)
         {
-            throw new ChatModelException(ChatErrorKind.InvalidResponse, "Model sunucusundan anlaşılamayan bir yanıt geldi (JSON çözümlenemedi).", inner: ex);
+            throw new ChatModelException(ChatErrorKind.InvalidResponse, L10n.T("Model sunucusundan anlaşılamayan bir yanıt geldi (JSON çözümlenemedi)."), inner: ex);
         }
 
         if (root["choices"] is not JsonArray { Count: > 0 } choices || choices[0] is not JsonObject choice)
-            throw new ChatModelException(ChatErrorKind.InvalidResponse, "Model sunucusunun yanıtında seçenek (choices) yok.");
+            throw new ChatModelException(ChatErrorKind.InvalidResponse, L10n.T("Model sunucusunun yanıtında seçenek (choices) yok."));
 
         var message = choice["message"] as JsonObject ?? new JsonObject();
         var blocks = new List<ChatContentBlock>();

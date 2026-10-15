@@ -13,6 +13,7 @@ using AkelEtiket.LocalApi;
 using AkelEtiket.Rendering;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Editor.Ai;
 
@@ -141,11 +142,11 @@ public sealed partial class AiPanelViewModel : ObservableObject, IAsyncDisposabl
         if (Service.GetNewDesignCopy(request.DesignId) is { } project)
         {
             if (!_main.ConfirmCloseDocument()) return;
-            _main.OpenProjectAsNew(project, $"Yapay zekânın hazırladığı \"{request.Name}\" açıldı (kaydetmek için Ctrl+S).");
+            _main.OpenProjectAsNew(project, L10n.T($"Yapay zekânın hazırladığı \"{request.Name}\" açıldı (kaydetmek için Ctrl+S)."));
             OpenRequests.Remove(request);
             return;
         }
-        Messages.Add(new AssistantMessageViewModel(AssistantMessageKind.Error, $"\"{request.Name}\" artık bulunamıyor."));
+        Messages.Add(new AssistantMessageViewModel(AssistantMessageKind.Error, L10n.T($"\"{request.Name}\" artık bulunamıyor.")));
         OpenRequests.Remove(request);
     }
 
@@ -183,10 +184,10 @@ public sealed partial class AiPanelViewModel : ObservableObject, IAsyncDisposabl
         {
             var a = _settings.Current.Assistant;
             if (a.Kind == AssistantProviderKind.None)
-                return "Uygulama içi asistan için sağlayıcı seçilmedi (Ayarlar → Yapay Zekâ). Dış ajanlar MCP ile bağlanabilir.";
+                return L10n.T("Uygulama içi asistan için sağlayıcı seçilmedi (Ayarlar → Yapay Zekâ). Dış ajanlar MCP ile bağlanabilir.");
             string model = string.IsNullOrWhiteSpace(a.Model) ? ChatModelFactory.DefaultModel(a.Kind) ?? "" : a.Model;
-            string provider = a.Kind == AssistantProviderKind.Anthropic ? "Anthropic Claude" : "OpenAI uyumlu uç nokta";
-            return a.HasValidConsent ? $"{provider} · {model}" : $"{provider} · veri gönderme izni verilmedi (Ayarlar → Yapay Zekâ)";
+            string provider = a.Kind == AssistantProviderKind.Anthropic ? "Anthropic Claude" : L10n.T("OpenAI uyumlu uç nokta");
+            return a.HasValidConsent ? $"{provider} · {model}" : L10n.T($"{provider} · veri gönderme izni verilmedi (Ayarlar → Yapay Zekâ)");
         }
     }
 
@@ -255,13 +256,13 @@ public sealed partial class AiPanelViewModel : ObservableObject, IAsyncDisposabl
             var result = await Service.AcceptProposalAsync(item.Id, CancellationToken.None);
             if (result.Status == ProposalStatus.Accepted)
             {
-                _main.ShowStatus($"Yapay zekâ önerisi uygulandı ({result.ClientName}). Geri almak için Ctrl+Z.");
+                _main.ShowStatus(L10n.T($"Yapay zekâ önerisi uygulandı ({result.ClientName}). Geri almak için Ctrl+Z."));
                 if (result.Conflicts.Count > 0)
-                    Messages.Add(new AssistantMessageViewModel(AssistantMessageKind.Info, "Çakışmalar: " + string.Join(" ", result.Conflicts)));
+                    Messages.Add(new AssistantMessageViewModel(AssistantMessageKind.Info, L10n.T("Çakışmalar: ") + string.Join(" ", result.Conflicts)));
             }
             else
             {
-                Messages.Add(new AssistantMessageViewModel(AssistantMessageKind.Error, "Öneri uygulanamadı: " + result.StatusMessage));
+                Messages.Add(new AssistantMessageViewModel(AssistantMessageKind.Error, L10n.T("Öneri uygulanamadı: ") + result.StatusMessage));
             }
         }
         catch (ToolException ex)
@@ -280,7 +281,7 @@ public sealed partial class AiPanelViewModel : ObservableObject, IAsyncDisposabl
     private void Reject(ProposalItemViewModel? item)
     {
         if (item is null) return;
-        Service.RejectProposal(item.Id, "Kullanıcı reddetti.");
+        Service.RejectProposal(item.Id, L10n.T("Kullanıcı reddetti."));
         RefreshProposals();
     }
 
@@ -296,19 +297,19 @@ public sealed partial class AiPanelViewModel : ObservableObject, IAsyncDisposabl
         if (provider.Kind == AssistantProviderKind.None)
         {
             Messages.Add(new AssistantMessageViewModel(AssistantMessageKind.Info,
-                "Uygulama içi asistan için Ayarlar → Yapay Zekâ bölümünden bir sağlayıcı seçin (Anthropic Claude ya da yerel/OpenAI uyumlu model)."));
+                L10n.T("Uygulama içi asistan için Ayarlar → Yapay Zekâ bölümünden bir sağlayıcı seçin (Anthropic Claude ya da yerel/OpenAI uyumlu model).")));
             return;
         }
         if (!provider.HasValidConsent)
         {
             Messages.Add(new AssistantMessageViewModel(AssistantMessageKind.Info,
-                "Tasarım verilerinin seçilen yapay zekâ sağlayıcısına gönderilmesine henüz izin verilmedi. Ayarlar → Yapay Zekâ bölümünden izin verebilirsiniz."));
+                L10n.T("Tasarım verilerinin seçilen yapay zekâ sağlayıcısına gönderilmesine henüz izin verilmedi. Ayarlar → Yapay Zekâ bölümünden izin verebilirsiniz.")));
             return;
         }
         string? key = SecretProtector.Unprotect(provider.ProtectedApiKey);
         if (provider.Kind == AssistantProviderKind.Anthropic && string.IsNullOrEmpty(key))
         {
-            Messages.Add(new AssistantMessageViewModel(AssistantMessageKind.Info, "Anthropic API anahtarı girilmemiş (Ayarlar → Yapay Zekâ)."));
+            Messages.Add(new AssistantMessageViewModel(AssistantMessageKind.Info, L10n.T("Anthropic API anahtarı girilmemiş (Ayarlar → Yapay Zekâ).")));
             return;
         }
 
@@ -385,14 +386,14 @@ public sealed partial class AiPanelViewModel : ObservableObject, IAsyncDisposabl
         {
             await DiscardQuietlyAsync(draft);
             if (!changed && result.Status == AssistantRunStatus.Completed)
-                Messages.Add(new AssistantMessageViewModel(AssistantMessageKind.Info, "Tasarımda değişiklik yapılmadı."));
+                Messages.Add(new AssistantMessageViewModel(AssistantMessageKind.Info, L10n.T("Tasarımda değişiklik yapılmadı.")));
             return;
         }
         var owner = new ToolCallContext { ClientName = AssistantClientName };
         var proposal = await Service.SubmitDraftAsync(draft.DesignId, result.FinalText, owner, token);
         Messages.Add(new AssistantMessageViewModel(AssistantMessageKind.Info, proposal.Status == ProposalStatus.Accepted
-            ? "Değişiklikler uygulandı (doğrudan mod). Geri almak için Ctrl+Z."
-            : "Öneri hazır: aşağıda önce/sonra görüntüsünü inceleyip kabul edebilir veya reddedebilirsiniz."));
+            ? L10n.T("Değişiklikler uygulandı (doğrudan mod). Geri almak için Ctrl+Z.")
+            : L10n.T("Öneri hazır: aşağıda önce/sonra görüntüsünü inceleyip kabul edebilir veya reddedebilirsiniz.")));
         RefreshProposals();
         LiveHost.Refresh();
     }
@@ -429,14 +430,14 @@ public sealed partial class AiPanelViewModel : ObservableObject, IAsyncDisposabl
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            _main.Dialogs.ShowMessage("Yapay Zekâ Ayarları", "Ayarlar kaydedilemedi: " + ex.Message, MessageKind.Error);
+            _main.Dialogs.ShowMessage(L10n.T("Yapay Zekâ Ayarları"), L10n.T("Ayarlar kaydedilemedi: ") + ex.Message, MessageKind.Error);
             return;
         }
         OnSettingsChanged();
         await Connection.ApplySettingsAsync();
         _main.ShowStatus(settings.Enabled
-            ? "Yapay zekâ ayarları kaydedildi. " + Connection.StatusText
-            : "Yapay zekâ ayarları kaydedildi. Dış ajan bağlantısı kapalı.");
+            ? L10n.T("Yapay zekâ ayarları kaydedildi. ") + Connection.StatusText
+            : L10n.T("Yapay zekâ ayarları kaydedildi. Dış ajan bağlantısı kapalı."));
     }
 
     private void OnAssistantEvent(AssistantEvent e)
@@ -457,13 +458,13 @@ public sealed partial class AiPanelViewModel : ObservableObject, IAsyncDisposabl
 
     private void AddActivity(ApiActivity activity)
     {
-        Activity.Insert(0, $"{activity.Time:HH:mm:ss} · {activity.Client} · {activity.Tool}{(activity.Ok ? "" : " (hata)")}");
+        Activity.Insert(0, $"{activity.Time:HH:mm:ss} · {activity.Client} · {activity.Tool}{(activity.Ok ? "" : L10n.T(" (hata)"))}");
         while (Activity.Count > 50) Activity.RemoveAt(Activity.Count - 1);
     }
 
     private void OnDesignSavedByAi(object? sender, SavedDesignInfo info)
     {
-        _main.ShowStatus($"Yapay zekâ ({info.ClientName}) yeni bir tasarım kaydetti: {Path.GetFileName(info.FilePath)} — Şablonlar panelinde.");
+        _main.ShowStatus(L10n.T($"Yapay zekâ ({info.ClientName}) yeni bir tasarım kaydetti: {Path.GetFileName(info.FilePath)} — Şablonlar panelinde."));
         _main.Templates.Refresh();
     }
 

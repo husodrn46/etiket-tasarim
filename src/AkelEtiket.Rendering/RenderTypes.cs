@@ -2,6 +2,7 @@ using AkelEtiket.BarcodeEngine;
 using AkelEtiket.Core.Data;
 using AkelEtiket.Core.Imaging;
 using AkelEtiket.Core.Model;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Rendering;
 
@@ -21,6 +22,8 @@ public sealed record RenderOptions
 
     /// <summary>Değişken alan değerleri (veri satırı + yerleşik alanlar). Null = tasarım görünümü.</summary>
     public IFieldValueSource? Fields { get; init; }
+
+    public LabelFormatting? Formatting { get; init; }
 
     public RenderMode Mode { get; init; } = RenderMode.Design;
 
@@ -61,13 +64,13 @@ public sealed class ImageRenderInfo
     /// <summary>Uygulanan yöntemin Türkçe adı.</summary>
     public string AppliedMethodText => AppliedMethod switch
     {
-        ImageConversionMethod.Threshold => "Eşik değeri",
-        ImageConversionMethod.Otsu => "Otsu (otomatik eşik)",
+        ImageConversionMethod.Threshold => L10n.T("Eşik değeri"),
+        ImageConversionMethod.Otsu => L10n.T("Otsu (otomatik eşik)"),
         ImageConversionMethod.FloydSteinberg => "Floyd–Steinberg dithering",
-        ImageConversionMethod.Ordered => "Düzenli (Bayer) dithering",
-        ImageConversionMethod.Photo => "Fotoğraf (detay koruyan)",
-        ImageConversionMethod.Logo => "Logo / çizim (keskin kenar)",
-        _ => "Otomatik",
+        ImageConversionMethod.Ordered => L10n.T("Düzenli (Bayer) dithering"),
+        ImageConversionMethod.Photo => L10n.T("Fotoğraf (detay koruyan)"),
+        ImageConversionMethod.Logo => L10n.T("Logo / çizim (keskin kenar)"),
+        _ => L10n.T("Otomatik"),
     };
     public string DetectedKindText { get; init; } = "";
     public int? EffectiveThreshold { get; init; }

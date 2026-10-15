@@ -1,5 +1,6 @@
 using AkelEtiket.Assistant.Chat;
 using AkelEtiket.Design.Tools;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.Assistant;
 
@@ -57,7 +58,7 @@ public sealed class DesignAssistantSession
     /// <summary>Geçmişi temizler (yeni sohbet). Çalışırken çağrılamaz.</summary>
     public void Reset()
     {
-        if (IsRunning) throw new InvalidOperationException("Asistan çalışırken sohbet sıfırlanamaz.");
+        if (IsRunning) throw new InvalidOperationException(L10n.T("Asistan çalışırken sohbet sıfırlanamaz."));
         _history.Clear();
     }
 
@@ -68,9 +69,9 @@ public sealed class DesignAssistantSession
     public async Task<AssistantRunResult> RunAsync(AssistantRequest request, IProgress<AssistantEvent>? progress, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(request);
-        if (string.IsNullOrWhiteSpace(request.UserText)) throw new ArgumentException("İstek metni boş olamaz.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.UserText)) throw new ArgumentException(L10n.T("İstek metni boş olamaz."), nameof(request));
         if (Interlocked.Exchange(ref _running, 1) == 1)
-            throw new InvalidOperationException("Asistan zaten çalışıyor; önceki istek bitmeden yenisi başlatılamaz.");
+            throw new InvalidOperationException(L10n.T("Asistan zaten çalışıyor; önceki istek bitmeden yenisi başlatılamaz."));
         try
         {
             return await RunCoreAsync(request, progress, cancellationToken).ConfigureAwait(false);
@@ -111,7 +112,7 @@ public sealed class DesignAssistantSession
             {
                 if (iterations >= _options.MaxIterations)
                 {
-                    string text = $"Adım sınırına ({_options.MaxIterations}) ulaşıldı; işlem tamamlanmadan durdu. Şu ana kadarki değişiklikler taslakta duruyor ve onayınızı bekliyor.";
+                    string text = L10n.T($"Adım sınırına ({_options.MaxIterations}) ulaşıldı; işlem tamamlanmadan durdu. Şu ana kadarki değişiklikler taslakta duruyor ve onayınızı bekliyor.");
                     return Finish(AssistantRunStatus.MaxIterationsReached, Combine(lastText, text), null);
                 }
 
@@ -140,23 +141,23 @@ public sealed class DesignAssistantSession
                 {
                     case ChatStopReason.Refusal:
                     {
-                        AnswerToolCalls(calls, null, "Sağlayıcı isteği reddettiği için araç çalıştırılmadı.");
+                        AnswerToolCalls(calls, null, L10n.T("Sağlayıcı isteği reddettiği için araç çalıştırılmadı."));
                         string category = string.IsNullOrWhiteSpace(response.RefusalCategory) ? "" : $" (kategori: {response.RefusalCategory})";
-                        string text = $"Sağlayıcı bu isteği güvenlik denetimi nedeniyle yanıtlamadı{category}. İsteği farklı ifade ederek tekrar deneyin.";
+                        string text = L10n.T($"Sağlayıcı bu isteği güvenlik denetimi nedeniyle yanıtlamadı{category}. İsteği farklı ifade ederek tekrar deneyin.");
                         return Finish(AssistantRunStatus.Refused, text, null);
                     }
                     case ChatStopReason.MaxTokens when calls.Count > 0:
                         // Kesilmiş araç çağrılarına güvenilmez; hatayla yanıtlanır, model daha kısa adımlarla devam eder.
                         _history.Add(new ChatMessage(ChatRole.User, calls.Select(c => (ChatContentBlock)new ChatToolResultBlock(
-                            c.Id, "Yanıt uzunluk sınırına ulaştığı için bu araç çalıştırılmadı. Daha kısa adımlarla tekrar dene.", [], true)).ToList()));
+                            c.Id, L10n.T("Yanıt uzunluk sınırına ulaştığı için bu araç çalıştırılmadı. Daha kısa adımlarla tekrar dene."), [], true)).ToList()));
                         continue;
                     case ChatStopReason.MaxTokens:
                         return Finish(AssistantRunStatus.MaxTokensReached,
-                            Combine(lastText, "Yanıt uzunluk sınırına ulaştı; özet yarım kalmış olabilir."), null);
+                            Combine(lastText, L10n.T("Yanıt uzunluk sınırına ulaştı; özet yarım kalmış olabilir.")), null);
                     default:
                         if (calls.Count == 0)
                             return Finish(AssistantRunStatus.Completed,
-                                lastText.Length > 0 ? lastText : "İşlem tamamlandı.", null);
+                                lastText.Length > 0 ? lastText : L10n.T("İşlem tamamlandı."), null);
                         break;
                 }
 
@@ -174,7 +175,7 @@ public sealed class DesignAssistantSession
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
             if (!assistantReplied) RollBack(historyCountBefore, mergedInto);
-            else AnswerToolCalls(PendingCalls(), inFlight, "İşlem kullanıcı tarafından durduruldu; bu araç çalıştırılmadı.");
+            else AnswerToolCalls(PendingCalls(), inFlight, L10n.T("İşlem kullanıcı tarafından durduruldu; bu araç çalıştırılmadı."));
             const string text = "İşlem durduruldu. Şu ana kadarki değişiklikler taslakta duruyor ve onayınızı bekliyor.";
             progress?.Report(new AssistantEvent(AssistantEventKind.Cancelled, iterations, Text: text, Status: AssistantRunStatus.Cancelled));
             return new AssistantRunResult
@@ -189,7 +190,7 @@ public sealed class DesignAssistantSession
         catch (Exception ex) when (ex is ChatModelException or AssistantConsentException or AssistantConfigurationException)
         {
             if (!assistantReplied) RollBack(historyCountBefore, mergedInto);
-            else AnswerToolCalls(PendingCalls(), inFlight, "Bir hata nedeniyle bu araç çalıştırılmadı.");
+            else AnswerToolCalls(PendingCalls(), inFlight, L10n.T("Bir hata nedeniyle bu araç çalıştırılmadı."));
             progress?.Report(new AssistantEvent(AssistantEventKind.Failed, iterations, Text: ex.Message, IsError: true, Status: AssistantRunStatus.Failed));
             return new AssistantRunResult
             {
@@ -226,7 +227,7 @@ public sealed class DesignAssistantSession
         ToolResult result;
         if (!_toolNames.Contains(call.Name))
         {
-            result = new ToolResult { IsError = true, ErrorCode = "UNKNOWN_TOOL", Text = $"Bilinmeyen araç: \"{call.Name}\". Yalnızca listelenen araçları kullan." };
+            result = new ToolResult { IsError = true, ErrorCode = "UNKNOWN_TOOL", Text = L10n.T($"Bilinmeyen araç: \"{call.Name}\". Yalnızca listelenen araçları kullan.") };
         }
         else
         {
@@ -240,7 +241,7 @@ public sealed class DesignAssistantSession
             }
             catch (Exception ex)
             {
-                result = new ToolResult { IsError = true, ErrorCode = "TOOL_FAILED", Text = $"Araç çalıştırılamadı: {ex.Message}" };
+                result = new ToolResult { IsError = true, ErrorCode = "TOOL_FAILED", Text = L10n.T($"Araç çalıştırılamadı: {ex.Message}") };
             }
         }
 
@@ -284,7 +285,7 @@ public sealed class DesignAssistantSession
     internal static string Truncate(string text, int max)
     {
         if (max <= 0 || text.Length <= max) return text;
-        return text[..max] + $"\n\n[Çıktı kısaltıldı: toplam {text.Length} karakterin ilk {max} karakteri gönderildi.]";
+        return text[..max] + L10n.T($"\n\n[Çıktı kısaltıldı: toplam {text.Length} karakterin ilk {max} karakteri gönderildi.]");
     }
 
     private static string Summarize(string text, int max)

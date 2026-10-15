@@ -1,3 +1,4 @@
+using L10n = AkelEtiket.Core.Localization.UiText;
 namespace AkelEtiket.DataImport;
 
 /// <summary>Aktarım sorununun önem derecesi.</summary>
@@ -20,14 +21,14 @@ public sealed record ImportIssue(int RowNumber, string? Column, ImportIssueSever
 {
     /// <summary>"Satır 15, "Barkod"" gibi konum metni.</summary>
     public string Location => RowNumber > 0
-        ? Column is null ? $"Satır {RowNumber}" : $"Satır {RowNumber}, \"{Column}\""
-        : Column is null ? "Dosya" : $"\"{Column}\" sütunu";
+        ? Column is null ? L10n.T($"Satır {RowNumber}") : L10n.T($"Satır {RowNumber}, \"{Column}\"")
+        : Column is null ? "Dosya" : L10n.T($"\"{Column}\" sütunu");
 
     /// <summary>Önem derecesinin Türkçe adı.</summary>
     public string SeverityText => Severity switch
     {
-        ImportIssueSeverity.Error => "Hata",
-        ImportIssueSeverity.Warning => "Uyarı",
+        ImportIssueSeverity.Error => L10n.T("Hata"),
+        ImportIssueSeverity.Warning => L10n.T("Uyarı"),
         _ => "Bilgi",
     };
 

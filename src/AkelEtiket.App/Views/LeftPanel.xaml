@@ -229,17 +229,20 @@
                     </DockPanel>
                     <TextBox Text="{Binding Templates.Query, UpdateSourceTrigger=PropertyChanged, Delay=150}" AutomationProperties.Name="{loc:Text T_eb80a0cb5755}" ToolTip="{loc:Text T_24e4107ec1a2}" Margin="0,10,0,6"/>
                     <ComboBox ItemsSource="{Binding Templates.LocalizedCategories}" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding Templates.Category}"/>
+                    <CheckBox Content="{loc:Text T_4d7eb9a5761f}" IsChecked="{Binding Templates.OnlyFavorites}" Margin="0,8,0,0"/>
                     <TextBlock Text="{Binding Templates.ResultSummary}" Style="{StaticResource Text.Hint}" Margin="0,6,0,0"/>
                     <Button Content="{loc:Text T_6f5697f24c96}" Command="{Binding SaveAsTemplateCommand}" Margin="0,10,0,10" HorizontalAlignment="Stretch" />
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Bottom" Margin="0,8,0,0">
                     <Button Style="{StaticResource Button.Accent}" Content="{loc:Text T_49af6e145635}" Command="{Binding Templates.UseCommand}" CommandParameter="{Binding Templates.SelectedItem}" Margin="0,0,0,6" />
+                    <Button Content="{Binding Templates.FavoriteAction}" Command="{Binding Templates.ToggleFavoriteCommand}" Margin="0,0,0,6"/>
                     <UniformGrid Columns="4">
                         <Button Content="{loc:Text T_ea33b58c1d8e}" Command="{Binding Templates.EditCommand}" CommandParameter="{Binding Templates.SelectedItem}" Margin="0,0,4,0" Padding="4,6" ToolTip="{loc:Text T_91075b416380}" />
                         <Button Content="{loc:Text T_47ba418cd3f5}" Command="{Binding Templates.DuplicateCommand}" CommandParameter="{Binding Templates.SelectedItem}" Margin="0,0,4,0" Padding="4,6" />
                         <Button Content="{loc:Text T_1d97c9fec35a}" Command="{Binding Templates.RenameCommand}" CommandParameter="{Binding Templates.SelectedItem}" Margin="0,0,4,0" Padding="4,6" ToolTip="{loc:Text T_2de7525d280c}" />
                         <Button Content="{loc:Text T_f698e9b40f9f}" Command="{Binding Templates.DeleteCommand}" CommandParameter="{Binding Templates.SelectedItem}" Padding="4,6" />
                     </UniformGrid>
+                    <Button Content="{loc:Text T_9e65500c4291}" Command="{Binding OpenStarterPacksCommand}" Margin="0,6,0,0"/>
                     <Button Content="{loc:Text T_373bf4e53b57}" Command="{Binding Templates.RestoreSamplesCommand}" Margin="0,6,0,0" />
                 </StackPanel>
                 <ListBox ItemsSource="{Binding Templates.Items}" SelectedItem="{Binding Templates.SelectedItem}" MouseDoubleClick="OnTemplateDoubleClick">
@@ -249,15 +252,19 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="72" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <Border Width="64" Height="64" Background="White" CornerRadius="6" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="1">
                                     <Image Source="{Binding PreviewPng, Converter={StaticResource PngToImage}}" Stretch="Uniform" Margin="3"
                                            RenderOptions.BitmapScalingMode="HighQuality" />
                                 </Border>
                                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
                                     <TextBlock Text="{Binding Details}" Style="{StaticResource Text.Hint}" Margin="0,2,0,0" />
                                 </StackPanel>
+                                <Button Grid.Column="2" Content="{loc:Text T_dcc084f9a2e1}" Margin="8,0,0,0" Padding="8,4" VerticalAlignment="Center"
+                                        Visibility="{Binding IsFavorite, Converter={StaticResource BoolToVisibility}}"
+                                        Command="{Binding DataContext.Templates.UseCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}"/>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -269,6 +276,8 @@
                 <StackPanel Margin="16,14,16,16">
                     <TextBlock Text="{loc:Text T_1f6eaed5ee84}" Style="{StaticResource Text.Title}" />
                     <TextBlock Text="{loc:Text T_c67837bfbc7a}" Style="{StaticResource Text.Hint}" Margin="0,4,0,12" />
+                    <TextBlock Text="{loc:Text T_d67e6e963b94}" Style="{StaticResource Text.Label}"/>
+                    <ComboBox ItemsSource="{Binding ImportProfileChoices}" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding SelectedImportProfileId}" Margin="0,4,0,8"/>
                     <Button Style="{StaticResource Button.Accent}" Command="{Binding LoadDataCommand}" Padding="12,9">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Data}" />

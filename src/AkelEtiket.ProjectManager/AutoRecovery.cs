@@ -1,5 +1,6 @@
 using System.Text.Json;
 using AkelEtiket.Core.Serialization;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.ProjectManager;
 
@@ -91,7 +92,7 @@ public sealed class AutoRecoveryService : IDisposable
             {
                 RecoveryFile = project,
                 OriginalPath = info?.OriginalPath,
-                DocumentName = info?.DocumentName ?? "Adsız",
+                DocumentName = info?.DocumentName ?? L10n.T("Adsız"),
                 SavedAt = info?.SavedAt ?? File.GetLastWriteTime(project),
             });
         }

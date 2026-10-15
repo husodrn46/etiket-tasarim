@@ -1,5 +1,6 @@
 using System.Globalization;
 using AkelEtiket.Core.Geometry;
+using L10n = AkelEtiket.Core.Localization.UiText;
 
 namespace AkelEtiket.BarcodeEngine;
 
@@ -104,8 +105,8 @@ public static class BarcodeLayoutEngine
             {
                 Fits = false,
                 MinimumWidthDots = minWidth,
-                Problem = $"Barkod bu genişliğe sığmıyor: en az {Mm(minWidth, options)} mm gerekli " +
-                          $"(okunabilirlik için {Mm(Total(2), options)} mm önerilir).",
+                Problem = L10n.T($"Barkod bu genişliğe sığmıyor: en az {Mm(minWidth, options)} mm gerekli ") +
+                          L10n.T($"(okunabilirlik için {Mm(Total(2), options)} mm önerilir)."),
             };
         }
 
@@ -131,7 +132,7 @@ public static class BarcodeLayoutEngine
                 Fits = false,
                 ModuleDots = n,
                 MinimumWidthDots = minWidth,
-                Problem = "Barkod yüksekliği yetersiz; kutuyu yükseltin veya okunabilir metni kapatın.",
+                Problem = L10n.T("Barkod yüksekliği yetersiz; kutuyu yükseltin veya okunabilir metni kapatın."),
             };
         }
 
@@ -146,7 +147,7 @@ public static class BarcodeLayoutEngine
                 Fits = false,
                 ModuleDots = n,
                 MinimumWidthDots = minWidth,
-                Problem = "Barkod yüksekliği yetersiz; kutuyu yükseltin.",
+                Problem = L10n.T("Barkod yüksekliği yetersiz; kutuyu yükseltin."),
             };
         }
 
@@ -212,19 +213,19 @@ public static class BarcodeLayoutEngine
     {
         double moduleMm = n / options.DotsPerMm;
         if (n == 1)
-            warnings.Add($"Modül genişliği 1 nokta ({Mm(1, options)} mm) çok ince; okuma sorunu olabilir. Barkodu genişletin.");
+            warnings.Add(L10n.T($"Modül genişliği 1 nokta ({Mm(1, options)} mm) çok ince; okuma sorunu olabilir. Barkodu genişletin."));
         if (symbol.IsUpcEanFamily)
         {
             double percent = moduleMm / EanNominalModuleMm * 100;
             if (percent < 80)
-                warnings.Add($"Büyütme %{percent:0} (X = {moduleMm.ToString("0.###", CultureInfo.GetCultureInfo("tr-TR"))} mm). " +
-                             "GS1 en az %80 (0,264 mm) önerir; barkodu genişletin.");
+                warnings.Add(L10n.T($"Büyütme %{percent:0} (X = {moduleMm.ToString("0.###", CultureInfo.GetCultureInfo("tr-TR"))} mm). ") +
+                             L10n.T("GS1 en az %80 (0,264 mm) önerir; barkodu genişletin."));
             else if (percent > 200)
-                warnings.Add($"Büyütme %{percent:0}; GS1 üst sınırı %200'dür.");
+                warnings.Add(L10n.T($"Büyütme %{percent:0}; GS1 üst sınırı %200'dür."));
         }
         double barHeightMm = barHeight / options.DotsPerMm;
         if (barHeightMm < 5)
-            warnings.Add($"Çubuk yüksekliği {barHeightMm.ToString("0.#", CultureInfo.GetCultureInfo("tr-TR"))} mm; en az 6 mm önerilir.");
+            warnings.Add(L10n.T($"Çubuk yüksekliği {barHeightMm.ToString("0.#", CultureInfo.GetCultureInfo("tr-TR"))} mm; en az 6 mm önerilir."));
     }
 
     private static BarcodeLayout LayoutMatrix(MatrixSymbol symbol, int boxW, int boxH, BarcodeLayoutOptions options)
@@ -244,8 +245,8 @@ public static class BarcodeLayoutEngine
             {
                 Fits = false,
                 MinimumWidthDots = minWidth,
-                Problem = $"Barkod bu alana sığmıyor: en az {Mm(unitsW, options)} × {Mm(unitsH + textH + gap, options)} mm gerekli " +
-                          $"(okunabilirlik için {Mm(unitsW * 3, options)} mm önerilir).",
+                Problem = L10n.T($"Barkod bu alana sığmıyor: en az {Mm(unitsW, options)} × {Mm(unitsH + textH + gap, options)} mm gerekli ") +
+                          L10n.T($"(okunabilirlik için {Mm(unitsW * 3, options)} mm önerilir)."),
             };
         }
 
@@ -275,9 +276,9 @@ public static class BarcodeLayoutEngine
 
         var warnings = new List<string>();
         if (n == 1)
-            warnings.Add($"Modül boyutu 1 nokta ({Mm(1, options)} mm) çok küçük; okuma sorunu olabilir. Barkodu büyütün.");
+            warnings.Add(L10n.T($"Modül boyutu 1 nokta ({Mm(1, options)} mm) çok küçük; okuma sorunu olabilir. Barkodu büyütün."));
         else if (n == 2 && symbol.Type is Core.Model.BarcodeType.QrCode or Core.Model.BarcodeType.Gs1QrCode)
-            warnings.Add($"QR modülü 2 nokta ({Mm(2, options)} mm); telefonla okuma için 3 nokta ve üzeri önerilir.");
+            warnings.Add(L10n.T($"QR modülü 2 nokta ({Mm(2, options)} mm); telefonla okuma için 3 nokta ve üzeri önerilir."));
 
         return new BarcodeLayout
         {
