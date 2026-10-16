@@ -74,6 +74,7 @@ internal static class Program
                 var deadline=DateTime.UtcNow.AddSeconds(30);
                 while(!check.IsCompleted&&DateTime.UtcNow<deadline)Pump();
                 Check(check.IsCompletedSuccessfully&&production.CanExport,"Native workspace enables export after complete quality inspection");
+                Check(((ProgressBar)workbench.FindName("ProductionProgress")).Value==100,"Production progress displays the completed read-only job value");
                 CheckVisibleBounds(workbench,(DataGrid)workbench.FindName("FindingsGrid"),"Production findings remain within the client area");
                 Capture(workbench,"production-workspace-english.png");
                 production.Copies=2;Pump();Check(!production.CanExport,"Changed job settings invalidate native export readiness");

@@ -213,8 +213,10 @@ public sealed class ProductionExportTests : IDisposable
         string path = Destination("existing-directory");
         Directory.CreateDirectory(path);
         await File.WriteAllTextAsync(Path.Combine(path, "keep.txt"), "keep");
-        await Assert.ThrowsAnyAsync<IOException>(() => _service.ExportAsync(new(Project(), [Item()], 8, OverwriteExisting: true),
+        var error = await Record.ExceptionAsync(() => _service.ExportAsync(new(Project(), [Item()], 8, OverwriteExisting: true),
             BatchExportFormat.PngZip, path));
+        // Windows reports an existing destination directory as access denied; Unix reports an I/O error.
+        Assert.True(error is IOException or UnauthorizedAccessException, error?.ToString() ?? "Export unexpectedly succeeded.");
         Assert.Equal("keep", await File.ReadAllTextAsync(Path.Combine(path, "keep.txt")));
         Assert.Empty(Directory.GetFiles(_folder));
     }
