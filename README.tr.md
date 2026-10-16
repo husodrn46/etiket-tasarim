@@ -5,6 +5,11 @@
 Windows için çevrimdışı etiket ve barkod tasarım uygulaması. Kaynak kod [MIT lisanslıdır](LICENSE).
 Firma adı, adres, web sitesi, logo ve şablon klasörü ayarlanabilir. Hesap veya abonelik gerekmez.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/workspace-dark.png">
+  <img alt="LabelHarbor: independent label tabs and the native Windows editor" src="docs/images/workspace-light.png">
+</picture>
+
 ## İndir ve kur
 
 [Windows x64 kurulum dosyasını indir](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.1.0/LabelHarbor-Setup-2.1.0.exe)

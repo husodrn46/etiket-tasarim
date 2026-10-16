@@ -5,6 +5,11 @@
 An offline Windows desktop app for designing labels and barcodes. Bring your own company name, logo,
 address, templates and Excel/CSV data. No account or subscription is required. Licensed under the [MIT License](LICENSE).
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/workspace-dark.png">
+  <img alt="LabelHarbor: independent label tabs and the native Windows editor" src="docs/images/workspace-light.png">
+</picture>
+
 ## Download
 
 [Windows x64 installer](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.1.0/LabelHarbor-Setup-2.1.0.exe)

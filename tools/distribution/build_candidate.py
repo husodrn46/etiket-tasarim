@@ -49,6 +49,7 @@ def main():
     docs = payload/'Belgeler'; docs.mkdir(exist_ok=True)
     for name in ['README.md', 'README.tr.md', 'NOTICE']: shutil.copy2(ROOT/name, docs/name)
     for name in ['GENEL-URUN.md','LISANSLAR.md','USER-GUIDE.md','INTERNATIONALIZATION.md','WORKFLOWS.md','WORKFLOWS.tr.md','RELEASE-READINESS.md','DOCUMENTS-AND-MOTION.md']: shutil.copy2(ROOT/'docs'/name, docs/name)
+    shutil.copytree(ROOT/'docs'/'images', docs/'docs'/'images', dirs_exist_ok=True)
     samples = payload/'Örnekler'; samples.mkdir(exist_ok=True)
     for file in (ROOT/'samples').iterdir():
         if file.is_file() and file.suffix in ['.csv','.xlsx','.akelabel','.png']: shutil.copy2(file, samples/file.name)

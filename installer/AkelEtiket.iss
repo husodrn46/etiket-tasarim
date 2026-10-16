@@ -76,6 +76,7 @@ Source: "..\samples\*.akelabel"; DestDir: "{app}\Örnekler"; Flags: ignoreversio
 Source: "..\samples\mcp\*"; DestDir: "{app}\Örnekler\mcp"; Flags: ignoreversion
 Source: "..\README.md"; DestDir: "{app}\Belgeler"; Flags: ignoreversion
 Source: "..\README.tr.md"; DestDir: "{app}\Belgeler"; DestName: "BENİOKU.md"; Flags: ignoreversion
+Source: "..\docs\images\*"; DestDir: "{app}\Belgeler\docs\images"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\docs\DOCUMENTS-AND-MOTION.md"; DestDir: "{app}\Belgeler"; Flags: ignoreversion
 Source: "..\docs\USER-GUIDE.md"; DestDir: "{app}\Belgeler"; Flags: ignoreversion
 Source: "..\docs\INTERNATIONALIZATION.md"; DestDir: "{app}\Belgeler"; Flags: ignoreversion

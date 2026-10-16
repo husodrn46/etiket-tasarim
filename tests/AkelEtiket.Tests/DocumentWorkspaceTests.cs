@@ -97,7 +97,9 @@ public sealed class DocumentWorkspaceTests : IDisposable
     {
         using var main=Create();main.OpenProject(SaveFile("A"),false);var first=main.ActiveDocument!;
         string csv=Path.Combine(_root,"large.csv");await File.WriteAllTextAsync(csv,"SKU,ProductName\n"+string.Join('\n',Enumerable.Range(0,20000).Select(i=>$"SKU-{i},Product {i}")));
-        var import=main.LoadDataFileAsync(csv,null);main.OpenProject(SaveFile("B"),false);var second=main.ActiveDocument!;await import;
+        main.OpenProject(SaveFile("B"),false);var second=main.ActiveDocument!;main.ActiveDocument=first;
+        first.Data.PropertyChanged+=(_,e)=> { if(e.PropertyName==nameof(DataSourceViewModel.IsLoading)&&first.Data.IsLoading)main.ActiveDocument=second; };
+        await main.LoadDataFileAsync(csv,null);
         Assert.Same(second,main.ActiveDocument);Assert.False(second.Data.HasData);Assert.Equal(20000,first.Data.Rows.Count);Assert.DoesNotContain("large.csv",main.StatusMessage);
     }
     [Fact] public async Task SwitchingTabsDuringReprintImportNeverOpensPrintForTheOtherLabel()
@@ -105,8 +107,10 @@ public sealed class DocumentWorkspaceTests : IDisposable
         var dialogs=new WorkspaceDialogs();using var main=Create(dialogs);string a=SaveFile("A");main.OpenProject(a,false);var first=main.ActiveDocument!;
         string csv=Path.Combine(_root,"reprint.csv");await File.WriteAllTextAsync(csv,"SKU\n"+string.Join('\n',Enumerable.Range(0,20000).Select(i=>$"SKU-{i}")));
         var entry=new AkelEtiket.Editor.Printing.PrintHistoryEntry { TemplatePath=a,UseData=true,DataFile=csv,TotalLabels=1,Items=[new() { Row=2,Copies=1 }] };
-        var reprint=main.ReprintFromHistoryAsync(entry,false);main.OpenProject(SaveFile("B"),false);var second=main.ActiveDocument!;
-        Assert.False(await reprint);Assert.Same(second,main.ActiveDocument);Assert.False(second.Data.HasData);Assert.Equal(20000,first.Data.Rows.Count);Assert.Empty(dialogs.Shown);
+        main.OpenProject(SaveFile("B"),false);var second=main.ActiveDocument!;main.ActiveDocument=first;
+        // Switch synchronously at import start, before any disk-speed dependent continuation.
+        first.Data.PropertyChanged+=(_,e)=> { if(e.PropertyName==nameof(DataSourceViewModel.IsLoading)&&first.Data.IsLoading)main.ActiveDocument=second; };
+        Assert.False(await main.ReprintFromHistoryAsync(entry,false));Assert.Same(second,main.ActiveDocument);Assert.False(second.Data.HasData);Assert.Equal(20000,first.Data.Rows.Count);Assert.Empty(dialogs.Shown);
     }
     [Fact] public async Task AiMutationTargetsOriginalInactiveTabBySessionId()
     {
