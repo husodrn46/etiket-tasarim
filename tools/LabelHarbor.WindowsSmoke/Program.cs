@@ -70,7 +70,8 @@ internal static class Program
                 var workbench=new ProductionWindow(production) { Owner=window };workbench.Show();Pump();
                 Check(workbench.Title=="Production workspace","Production workspace title is translated into English");
                 Check(!((Button)workbench.FindName("ExportButton")).IsEnabled,"Production export starts disabled before full inspection");
-                var check=production.CheckQualityCommand.ExecuteAsync(null);
+                // Match a real UI command: AsyncRelayCommand must capture WPF's synchronization context.
+                var check=workbench.Dispatcher.InvokeAsync(()=>production.CheckQualityCommand.ExecuteAsync(null)).Task.Unwrap();
                 var deadline=DateTime.UtcNow.AddSeconds(30);
                 while(!check.IsCompleted&&DateTime.UtcNow<deadline)Pump();
                 Check(check.IsCompletedSuccessfully&&production.CanExport,"Native workspace enables export after complete quality inspection");
