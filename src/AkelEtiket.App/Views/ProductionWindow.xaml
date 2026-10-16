@@ -50,7 +50,7 @@
      </WrapPanel>
      <TextBlock Text="{loc:Text T_df9f7ccd4e51}" FontWeight="SemiBold" Margin="0,0,0,8"/>
     </StackPanel>
-    <DataGrid x:Name="FindingsGrid" ItemsSource="{Binding Findings}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" HeadersVisibility="Column" EnableRowVirtualization="True" RowHeight="Auto" MinRowHeight="28">
+    <DataGrid x:Name="FindingsGrid" ItemsSource="{Binding Findings}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" HeadersVisibility="Column" EnableRowVirtualization="True" MinRowHeight="28">
      <DataGrid.Columns>
       <DataGridTextColumn Header="{loc:Text T_5c8735bbe78c}" Binding="{Binding Severity}" Width="95"/>
       <DataGridTextColumn Header="{loc:Text T_bce3c039c4d7}" Binding="{Binding RowNumber}" Width="55"/>

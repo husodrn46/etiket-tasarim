@@ -9,6 +9,8 @@ public partial class ProductionWindow : ThemedWindow
     public ProductionWindow(ProductionViewModel vm)
     {
         _vm = vm; DataContext = vm; InitializeComponent();
+        // Override the shared fixed row height without the XAML Double converter's "Auto" parsing.
+        FindingsGrid.RowHeight = double.NaN;
         AddHandler(Validation.ErrorEvent, new EventHandler<ValidationErrorEventArgs>((_, e) =>
         {
             if (e.Action == ValidationErrorEventAction.Added) _inputErrors.Add(e.Error); else _inputErrors.Remove(e.Error);
