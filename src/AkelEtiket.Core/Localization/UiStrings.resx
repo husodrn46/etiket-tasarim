@@ -6015,4 +6015,349 @@ Devam edilsin mi?</value>
   <data name="T_d5d587b1db82" xml:space="preserve"><value>Etiketleri ayrı sekmelerde aç</value></data>
   <data name="T_8c080f640c2b" xml:space="preserve"><value>Arayüz animasyonlarını etkinleştir</value></data>
   <data name="T_d2bd22185b97" xml:space="preserve"><value>Windows hareket azaltma ve yüksek karşıtlık ayarları önceliklidir.</value></data>
+  <data xml:space="preserve" name="T_01e7874e80d6">
+    <value>Denetim iptal edildi; yalnızca tamamlanan satırlar sayıldı.</value>
+  </data>
+  <data xml:space="preserve" name="T_0202591232f9">
+    <value>Denetim iptal edildi. Çıktı doğrulanmadı.</value>
+  </data>
+  <data xml:space="preserve" name="T_066ec7963c37">
+    <value>İş çıktı almaya hazır değil. Bulguları düzeltip yeniden denetleyin.</value>
+  </data>
+  <data xml:space="preserve" name="T_077e9be8ad93">
+    <value>Satır görüntüleri {0} piksel bellek sınırını aşıyor; analiz tamamlanmadı.</value>
+  </data>
+  <data xml:space="preserve" name="T_07b3ed4173cb">
+    <value>Bir öğe {0} piksel sınırını aşıyor; analiz tamamlanmadı.</value>
+  </data>
+  <data xml:space="preserve" name="T_0ede71d0043a">
+    <value>İş tarifini kaydet</value>
+  </data>
+  <data xml:space="preserve" name="T_121213987a08">
+    <value>Tarif kaydedildikten sonra veri dosyası değişmiş. Kayıtlı satır numaraları farklı ürünleri seçebilir. Yükleyip seçimi incelemek istiyor musunuz?</value>
+  </data>
+  <data xml:space="preserve" name="T_14286b00ed53">
+    <value>Barkodu büyütün, sessiz bölge bırakın ve üstüne binen öğeleri kaldırın.</value>
+  </data>
+  <data xml:space="preserve" name="T_18faf9e080fb">
+    <value>Çıktıyı değiştir</value>
+  </data>
+  <data xml:space="preserve" name="T_1ab914b744bb">
+    <value>{0} piksel işlem sınırına ulaşıldı; kalan satırlar denetlenmedi.</value>
+  </data>
+  <data xml:space="preserve" name="T_1dd544e42149">
+    <value>Tarifi aç</value>
+  </data>
+  <data xml:space="preserve" name="T_1e90a5c67ce6">
+    <value>Bu ekran seçilen işin tamamını denetler. Sayaç ve SSCC işleri için Yazdır ekranını kullanın.</value>
+  </data>
+  <data xml:space="preserve" name="T_1f92d1cc138f">
+    <value>Veri yüklemesi tamamlandıktan sonra yeniden deneyin.</value>
+  </data>
+  <data xml:space="preserve" name="T_213c1a1d9d54">
+    <value>Üretim çalışma alanı</value>
+  </data>
+  <data xml:space="preserve" name="T_28d7fd792e1f">
+    <value>Gömülü görseli veya veri satırının görsel klasörü bağlantısını kontrol edin.</value>
+  </data>
+  <data xml:space="preserve" name="T_293390c82a9f">
+    <value>Bulgu</value>
+  </data>
+  <data xml:space="preserve" name="T_2e9f1961a1d8">
+    <value>Seçilen işin tamamı denetleniyor…</value>
+  </data>
+  <data xml:space="preserve" name="T_333c97571475">
+    <value>Tarif adı</value>
+  </data>
+  <data xml:space="preserve" name="T_33d050e0a736">
+    <value>Bu etiketin baskı görüntüsü tamamen boş.</value>
+  </data>
+  <data xml:space="preserve" name="T_384ffb161bd1">
+    <value>Önce bir Excel veya CSV dosyası yükleyin ya da veri kullanımını kapatın.</value>
+  </data>
+  <data xml:space="preserve" name="T_38a83bfbac67">
+    <value>Öneri</value>
+  </data>
+  <data xml:space="preserve" name="T_3aa79d50f9e3">
+    <value>Tasarımda {0} öğe sınırı aşıldı; analiz tamamlanmadı.</value>
+  </data>
+  <data xml:space="preserve" name="T_3b1cde5fedf1">
+    <value>Dışa aktarılacak etiket seçilmedi.</value>
+  </data>
+  <data xml:space="preserve" name="T_3bcc2420ab4a">
+    <value>Bir çıktı işi en fazla {0} etiket içerebilir.</value>
+  </data>
+  <data xml:space="preserve" name="T_3e4d50dcb68d">
+    <value>Bu satırın denetimi tamamlanamadı: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_3ea1cff93701">
+    <value>Seçili {0} satır baskı planına alınamadı; satır hatalarını düzeltin veya bu satırların seçimini kaldırın.</value>
+  </data>
+  <data xml:space="preserve" name="T_43850d1a0595">
+    <value>{0} alanı boş; bu etikette boş basılır.</value>
+  </data>
+  <data xml:space="preserve" name="T_442e49954be1">
+    <value>Barkod baskı görüntüsünden doğrulanamadı: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_449a5f8a39be">
+    <value>Bu tasarımın alan belleği sınırı aşıldı; işi sadeleştirin.</value>
+  </data>
+  <data xml:space="preserve" name="T_4583ec0338e1">
+    <value>Tarifi kaydet</value>
+  </data>
+  <data xml:space="preserve" name="T_47338932578d">
+    <value>İş tarifleri dosyası okunamadı; mevcut dosya korundu.</value>
+  </data>
+  <data xml:space="preserve" name="T_47baf5db0de7">
+    <value>Kalite denetimi için hazır. Henüz çıktı doğrulanmadı.</value>
+  </data>
+  <data xml:space="preserve" name="T_4b135ce517ad">
+    <value>Veri sütun adını ve alan eşleştirmesini kontrol edin.</value>
+  </data>
+  <data xml:space="preserve" name="T_4b5b4f2bc73f">
+    <value>Çıktı çözünürlüğü 0 ile 48 nokta/mm arasında olmalıdır.</value>
+  </data>
+  <data xml:space="preserve" name="T_4dd17d1d1f0b">
+    <value>Görünür öğeleri, veri koşullarını ve beyaz renkli nesneleri kontrol edin.</value>
+  </data>
+  <data xml:space="preserve" name="T_4e8043faeb5f">
+    <value>Her çıktı satırının geçerli verisi ve pozitif adedi olmalıdır.</value>
+  </data>
+  <data xml:space="preserve" name="T_518d85553926">
+    <value>Denetlenecek etiket yok. Önce veri satırlarını ve adetleri seçin.</value>
+  </data>
+  <data xml:space="preserve" name="T_527ed681f606">
+    <value>Başlangıç numarası</value>
+  </data>
+  <data xml:space="preserve" name="T_52893e518979">
+    <value>Bu tasarım ayrılan sayaç veya SSCC numarası kullanıyor. Üretim çıktısı için mevcut Yazdır akışını kullanın.</value>
+  </data>
+  <data xml:space="preserve" name="T_53b5879733df">
+    <value>İş ayarları</value>
+  </data>
+  <data xml:space="preserve" name="T_54ea4b81de04">
+    <value>Öğe etiket kenarına {0:0.##} mm'den yakın; yazıcı hizalama payını kontrol edin.</value>
+  </data>
+  <data xml:space="preserve" name="T_55f34e407d52">
+    <value>Barkodun insan tarafından okunan metninde "{0}" yazı tipi yerine yedek yazı tipi kullanıldı.</value>
+  </data>
+  <data xml:space="preserve" name="T_5acecb62e2fd">
+    <value>Alan zorunluysa veriyi tamamlayın; isteğe bağlıysa uyarıyı değerlendirin.</value>
+  </data>
+  <data xml:space="preserve" name="T_5c8735bbe78c">
+    <value>Önem</value>
+  </data>
+  <data xml:space="preserve" name="T_5dfc44fc4d6b">
+    <value>Görseller {0} bayt bellek sınırını aşıyor; analiz tamamlanmadı.</value>
+  </data>
+  <data xml:space="preserve" name="T_5ec522e44b52">
+    <value>İşi daha küçük parçalara bölün veya tasarımı sadeleştirip yeniden denetleyin.</value>
+  </data>
+  <data xml:space="preserve" name="T_5fb7b7978ee9">
+    <value>Denetim tamamlanamadı: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_6069bd03e9e9">
+    <value>Öğeyi döndürülmüş sınırlarıyla birlikte etiketin içine taşıyın.</value>
+  </data>
+  <data xml:space="preserve" name="T_6329b84e01ff">
+    <value>Satır görselleri bellek sınırını aşıyor.</value>
+  </data>
+  <data xml:space="preserve" name="T_6515ebfc5594">
+    <value>Güncel kalite raporu yok</value>
+  </data>
+  <data xml:space="preserve" name="T_6553361be4fb">
+    <value>Hedef bilgisayarda bulunan bir yazı tipi seçin veya gerekli yazı tipini kurun.</value>
+  </data>
+  <data xml:space="preserve" name="T_668d55961067">
+    <value>Bir veri alanı metin bellek sınırını aşıyor.</value>
+  </data>
+  <data xml:space="preserve" name="T_690d1587f5a3">
+    <value>PDF: her etiket bir sayfa</value>
+  </data>
+  <data xml:space="preserve" name="T_6a8cff34d548">
+    <value>{0}: çıktı doğrulanamadı.</value>
+  </data>
+  <data xml:space="preserve" name="T_72278748133a">
+    <value>İptal</value>
+  </data>
+  <data xml:space="preserve" name="T_7322f4fee7af">
+    <value>En fazla 200 yerel iş tarifi kaydedilebilir.</value>
+  </data>
+  <data xml:space="preserve" name="T_74a6d6af4484">
+    <value>Satırın metin veya görsel bellek sınırı aşıldı; analiz tamamlanmadı.</value>
+  </data>
+  <data xml:space="preserve" name="T_776608cd362f">
+    <value>Adet (verisiz iş)</value>
+  </data>
+  <data xml:space="preserve" name="T_78495a221e6d">
+    <value>{0}/{1} kayıt · {2}/{3} etiket · {4} hata · {5} uyarı</value>
+  </data>
+  <data xml:space="preserve" name="T_786c697488a7">
+    <value>Atlanan satır sayısı negatif olamaz.</value>
+  </data>
+  <data xml:space="preserve" name="T_7c171d7350df">
+    <value>Bir öğe {0} karakter sınırını aşıyor; analiz tamamlanmadı.</value>
+  </data>
+  <data xml:space="preserve" name="T_7c1a39d28dbc">
+    <value>Tarif açmak dosyaları yükler; fiziksel baskı başlatmaz.</value>
+  </data>
+  <data xml:space="preserve" name="T_80d839c24335">
+    <value>Baskı çözünürlüğü 1–48 nokta/mm arasında olmalıdır.</value>
+  </data>
+  <data xml:space="preserve" name="T_84bb52df73b2">
+    <value>Veri ve görsel kaynaklarını kontrol edip denetimi yeniden çalıştırın.</value>
+  </data>
+  <data xml:space="preserve" name="T_86ce19b6ce82">
+    <value>{0} etiket sınırına ulaşıldı; kalan etiketler denetlenmedi.</value>
+  </data>
+  <data xml:space="preserve" name="T_87f79867ae31">
+    <value>Üretim çalışma alanı…</value>
+  </data>
+  <data xml:space="preserve" name="T_899b5d5cf006">
+    <value>PNG ZIP: görseller ve adet manifesti</value>
+  </data>
+  <data xml:space="preserve" name="T_8a251353e600">
+    <value>Kaliteyi denetle</value>
+  </data>
+  <data xml:space="preserve" name="T_8a3eb5768665">
+    <value>Bu işin dış görselleri bellek sınırına ulaştı; işi daha küçük parçalara ayırın.</value>
+  </data>
+  <data xml:space="preserve" name="T_8ac7721638d1">
+    <value>İşin tamamı denetlendi. Uyarıları inceleyerek çıktı alabilirsiniz.</value>
+  </data>
+  <data xml:space="preserve" name="T_8b1a559c0732">
+    <value>Etiket satırının veri kaynağı veya kopya adedi geçersiz.</value>
+  </data>
+  <data xml:space="preserve" name="T_8ce94b5e6203">
+    <value>Tarifin etiket dosyası bulunamadı.</value>
+  </data>
+  <data xml:space="preserve" name="T_90b82d66770d">
+    <value>Veri dosyası bulunamadı; tarifi kaydetmeden önce dosyayı yükleyin.</value>
+  </data>
+  <data xml:space="preserve" name="T_9b7df2ced64e">
+    <value>Tarif yükleme iptal edildi.</value>
+  </data>
+  <data xml:space="preserve" name="T_a0775433aaca">
+    <value>Seçili veri satırlarını kullan</value>
+  </data>
+  <data xml:space="preserve" name="T_a18b8d33413f">
+    <value>Tarifler yalnız bu bilgisayarda saklanır. Etiket değerleri ve hesap sırları tarife eklenmez.</value>
+  </data>
+  <data xml:space="preserve" name="T_a1be4811e7dc">
+    <value>Veri dosyası değişti</value>
+  </data>
+  <data xml:space="preserve" name="T_a20e562fc06d">
+    <value>Diğer çıktı uyarıları listede gösterilmiyor.</value>
+  </data>
+  <data xml:space="preserve" name="T_a2e2faa4efb2">
+    <value>Tarifi kaldır</value>
+  </data>
+  <data xml:space="preserve" name="T_a36bdf116319">
+    <value>{0} bulgu sınırına ulaşıldı; rapor ve analiz tamamlanmadı.</value>
+  </data>
+  <data xml:space="preserve" name="T_a3d54c6919ca">
+    <value>Çıktı iptal edildi. Önceki hedef dosya korundu.</value>
+  </data>
+  <data xml:space="preserve" name="T_a4a1c560db2d">
+    <value>Doğrulanan işten çıktı hazırlanıyor…</value>
+  </data>
+  <data xml:space="preserve" name="T_a6e0673a85ce">
+    <value>Etiket görüntüsü {0} piksel sınırını aşıyor; analiz tamamlanmadı.</value>
+  </data>
+  <data xml:space="preserve" name="T_abbbdafe41fa">
+    <value>Bilgi</value>
+  </data>
+  <data xml:space="preserve" name="T_abc0a593f3c7">
+    <value>Veri dosyası yok</value>
+  </data>
+  <data xml:space="preserve" name="T_ac28ae757195">
+    <value>Tarifin yerel kaynakları yükleniyor…</value>
+  </data>
+  <data xml:space="preserve" name="T_ad3555193a6e">
+    <value>İş tarifleri 8 MiB sınırını aşıyor. Önce kullanılmayan tarifleri kaldırın.</value>
+  </data>
+  <data xml:space="preserve" name="T_ad6ba6c77e36">
+    <value>Sayaç veya SSCC içeren işler için mevcut Yazdır ekranını kullanın; üretim alanı numara ayırmaz.</value>
+  </data>
+  <data xml:space="preserve" name="T_b20c9f143b71">
+    <value>Tarifteki bazı satırlar artık yok. Veri seçimini inceleyip tarifi yeniden kaydedin.</value>
+  </data>
+  <data xml:space="preserve" name="T_b6b0f13f686f">
+    <value>Kaynak veya iş ayarı değişti. Çıktı almadan önce kaliteyi yeniden denetleyin.</value>
+  </data>
+  <data xml:space="preserve" name="T_bada1e6582ca">
+    <value>Yerel iş tarifi kaydedildi. Açıldığında yeniden kalite denetimi gerekir.</value>
+  </data>
+  <data xml:space="preserve" name="T_bb38ead16b35">
+    <value>{0} etiket kaydedildi: {1}</value>
+  </data>
+  <data xml:space="preserve" name="T_bbb01a18a5e6">
+    <value>Bu tasarım çıktı belleği sınırını aşıyor. Çözünürlüğü veya büyük öğeleri küçültün.</value>
+  </data>
+  <data xml:space="preserve" name="T_bc46f90a3a92">
+    <value>Bu işin görselleri 64 MiB sınırını aşıyor.</value>
+  </data>
+  <data xml:space="preserve" name="T_bf355f7e36a8">
+    <value>Seçilen çıktı dosyası mevcut. Başarılı işlem sonunda bu dosya değiştirilsin mi?</value>
+  </data>
+  <data xml:space="preserve" name="T_c488576b91c5">
+    <value>Öğe</value>
+  </data>
+  <data xml:space="preserve" name="T_c4a5f8ac984d">
+    <value>Denetim yazılımdaki baskı görüntüsünü kapsar; fiziksel yazıcı ve tarayıcı testinin yerini tutmaz.</value>
+  </data>
+  <data xml:space="preserve" name="T_cbd56bb4a99c">
+    <value>Yerel iş tarifleri</value>
+  </data>
+  <data xml:space="preserve" name="T_cc1dc56295d3">
+    <value>Çıktı dosyası zaten var. Üzerine yazmayı açıkça onaylayın.</value>
+  </data>
+  <data xml:space="preserve" name="T_d17d17c6e9bd">
+    <value>Tarifin veri dosyası bulunamadı.</value>
+  </data>
+  <data xml:space="preserve" name="T_d2ad2eacdd1a">
+    <value>{0} satır sınırına ulaşıldı; kalan satırlar denetlenmedi.</value>
+  </data>
+  <data xml:space="preserve" name="T_d2e193d98b0a">
+    <value>Sayaç veya SSCC kullanan tasarımlar toplu dosya olarak dışa aktarılamaz. Bu numaralar için doğrulanmış baskı akışını kullanın.</value>
+  </data>
+  <data xml:space="preserve" name="T_d52cfbb46639">
+    <value>Üretim çıktısını kaydet</value>
+  </data>
+  <data xml:space="preserve" name="T_df9f7ccd4e51">
+    <value>Baskı öncesi bulgular</value>
+  </data>
+  <data xml:space="preserve" name="T_e0e09d6198b4">
+    <value>Bir üretim işi 1–10.000 etiket içermelidir.</value>
+  </data>
+  <data xml:space="preserve" name="T_e0e9bea3efaa">
+    <value>Bu işin alan belleği sınırı aşıldı; işi daha küçük parçalara ayırın.</value>
+  </data>
+  <data xml:space="preserve" name="T_e5941410d506">
+    <value>Gerekirse öğeyi içeri alın ve hedef yazıcıda kalibrasyon etiketi deneyin.</value>
+  </data>
+  <data xml:space="preserve" name="T_eb5068380429">
+    <value>Yalnız yerel iş tarifi kaldırılsın mı? Etiket ve veri dosyaları korunur.</value>
+  </data>
+  <data xml:space="preserve" name="T_f0070fad640b">
+    <value>Çıktıyı kaydet</value>
+  </data>
+  <data xml:space="preserve" name="T_f12b130b2b52">
+    <value>Metin kutusunu büyütün, yazıyı küçültün veya kutuya sığdırmayı açın.</value>
+  </data>
+  <data xml:space="preserve" name="T_f29029a14607">
+    <value>Tarif açıldı. Kaynakları ve satır seçimini inceleyip kaliteyi denetleyin.</value>
+  </data>
+  <data xml:space="preserve" name="T_f669e49798db">
+    <value>Yükleme sırasında kaynak değişti. Tarif uygulanmadı; yeniden açın.</value>
+  </data>
+  <data xml:space="preserve" name="T_f6df9d7e2bc3">
+    <value>Adet 1–10.000 arasında, başlangıç numarası geçerli bir pozitif sayı olmalıdır.</value>
+  </data>
+  <data xml:space="preserve" name="T_fd542269df99">
+    <value>Önizleme numaralarını üretim etiketi olarak kullanmayın; numaralar baskı sırasında ayrılır.</value>
+  </data>
+  <data xml:space="preserve" name="T_fe765503dc66">
+    <value>İş tarifleri dosyası geçersiz veya daha yeni bir sürüme ait; mevcut dosya korundu.</value>
+  </data>
 </root>
