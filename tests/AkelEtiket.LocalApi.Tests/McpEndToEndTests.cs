@@ -19,6 +19,10 @@ public sealed class McpEndToEndTests : IDisposable
 {
     private readonly string _root = Path.Combine(Path.GetTempPath(), "akel-mcp-e2e", Guid.NewGuid().ToString("N"));
 
+    private static string BuildConfiguration => typeof(McpEndToEndTests).Assembly
+        .GetCustomAttributes(typeof(System.Reflection.AssemblyConfigurationAttribute), false)
+        .OfType<System.Reflection.AssemblyConfigurationAttribute>().Single().Configuration;
+
     private static string RepoRoot
     {
         get
@@ -34,7 +38,7 @@ public sealed class McpEndToEndTests : IDisposable
 
     private static string Exe(string project) => PublishedDir is { } dir
         ? Path.Combine(dir, project + ".exe")
-        : Path.Combine(RepoRoot, "src", project, "bin", "Debug", "net10.0", project + ".exe");
+        : Path.Combine(RepoRoot, "src", project, "bin", BuildConfiguration, "net10.0", project + ".exe");
 
     private string SettingsPath => Path.Combine(_root, "Yerel", "YapayZeka", "ayarlar.json");
     private string DiscoveryPath => Path.Combine(_root, "Yerel", "YapayZeka", "baglanti.json");

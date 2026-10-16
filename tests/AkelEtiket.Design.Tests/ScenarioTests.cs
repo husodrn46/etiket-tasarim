@@ -157,7 +157,14 @@ public sealed class ScenarioTests : IDisposable
         await _host.Call("distribute_elements", new { design_id = id, element_ids = new[] { a, b, c }, direction = "vertical", spacing_mm = 4 });
 
         var again = await _host.Call("inspect_layout", new { design_id = id });
-        var remaining = again["issues"]!.AsArray().Where(i => i!["code"]!.GetValue<string>() is "MISALIGNED" or "NEAR_EDGE" or "BARCODE_OVERLAP").ToList();
+        // Font metrics can incidentally put an unrelated barcode center near a text center.
+        // Verify the requested text alignment and spacing directly, while retaining safety checks.
+        var finalElements = (await _host.Call("get_design", new { design_id = id }))["elements"]!.AsArray();
+        Assert.Equal(Value(finalElements, a, "x"), Value(finalElements, b, "x"), 5);
+        Assert.Equal(Value(finalElements, b, "x"), Value(finalElements, c, "x"), 5);
+        Assert.Equal(4, Value(finalElements, b, "y")-Value(finalElements, a, "y")-Value(finalElements, a, "height"), 5);
+        Assert.Equal(4, Value(finalElements, c, "y")-Value(finalElements, b, "y")-Value(finalElements, b, "height"), 5);
+        var remaining = again["issues"]!.AsArray().Where(i => i!["code"]!.GetValue<string>() is "NEAR_EDGE" or "BARCODE_OVERLAP").ToList();
         Assert.True(remaining.Count == 0, string.Join(Environment.NewLine, remaining.Select(r => r!.ToJsonString())));
         var validation = await _host.Call("validate_design", new { design_id = id });
         Assert.True(validation["ok"]!.GetValue<bool>(), validation.ToJsonString());

@@ -4,7 +4,7 @@
                     xmlns:views="clr-namespace:AkelEtiket.App.Views"
                     xmlns:controls="clr-namespace:AkelEtiket.App.Controls"
                     xmlns:services="clr-namespace:AkelEtiket.App.Services"
-                    Title="{Binding WindowTitle}" Icon="/Assets/AkelEtiket.ico"
+                    Title="{Binding WindowTitle}" Icon="/Etiket Tasarim;component/Assets/AkelEtiket.ico"
                     MinWidth="1080" MinHeight="660" Width="1440" Height="900"
                     WindowStartupLocation="CenterScreen" AllowDrop="True">
     <Grid>
@@ -19,7 +19,7 @@
         <Border Background="{DynamicResource Brush.Toolbar}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,0,1">
             <WrapPanel Margin="12,5,10,5">
                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
-                    <Image Source="/Assets/AkelEtiket-256.png" Width="26" Height="26" RenderOptions.BitmapScalingMode="HighQuality" />
+                    <Image Source="/Etiket Tasarim;component/Assets/AkelEtiket-256.png" Width="26" Height="26" RenderOptions.BitmapScalingMode="HighQuality" />
                     <TextBlock Text="{loc:Text T_a03425caed30}" FontWeight="SemiBold" FontSize="14.5" Margin="9,0,14,0" VerticalAlignment="Center" />
                     <Separator Style="{StaticResource Separator.Vertical}" />
 

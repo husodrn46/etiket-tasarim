@@ -88,8 +88,12 @@ public sealed partial class MainViewModel
         return tab;
     }
 
-    private static bool SameProjectPath(string? left,string? right) => !string.IsNullOrWhiteSpace(left) && !string.IsNullOrWhiteSpace(right) &&
-        string.Equals(Path.GetFullPath(left),Path.GetFullPath(right),StringComparison.OrdinalIgnoreCase);
+    private static bool SameProjectPath(string? left,string? right)
+    {
+        if(string.IsNullOrWhiteSpace(left)||string.IsNullOrWhiteSpace(right)) return false;
+        try { return string.Equals(Path.GetFullPath(left),Path.GetFullPath(right),StringComparison.OrdinalIgnoreCase); }
+        catch(Exception ex) when(ex is ArgumentException or NotSupportedException or PathTooLongException) { return false; }
+    }
 
     [RelayCommand] private void ActivateDocument(DocumentTabViewModel? tab)
     {

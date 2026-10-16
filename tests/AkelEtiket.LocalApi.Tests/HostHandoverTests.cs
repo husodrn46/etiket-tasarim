@@ -35,13 +35,17 @@ public sealed class HostHandoverTests : IDisposable
         }
     }
 
+    private static string BuildConfiguration => typeof(HostHandoverTests).Assembly
+        .GetCustomAttributes(typeof(System.Reflection.AssemblyConfigurationAttribute), false)
+        .OfType<System.Reflection.AssemblyConfigurationAttribute>().Single().Configuration;
+
     private static string WorkerExe
     {
         get
         {
             var dir = new DirectoryInfo(AppContext.BaseDirectory);
             while (dir is not null && !File.Exists(Path.Combine(dir.FullName, "AkelEtiket.sln"))) dir = dir.Parent;
-            return Path.Combine(dir!.FullName, "src", "AkelEtiket.Worker", "bin", "Debug", "net10.0", "AkelEtiket.Worker.exe");
+            return Path.Combine(dir!.FullName, "src", "AkelEtiket.Worker", "bin", BuildConfiguration, "net10.0", "AkelEtiket.Worker.exe");
         }
     }
 

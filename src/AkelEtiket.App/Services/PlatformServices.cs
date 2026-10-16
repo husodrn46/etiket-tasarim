@@ -182,7 +182,7 @@ public static class ThemeManager
         var dictionaries = Application.Current.Resources.MergedDictionaries;
         var colors = new ResourceDictionary
         {
-            Source = new Uri(theme == AppTheme.Dark ? "Themes/Colors.Dark.xaml" : "Themes/Colors.Light.xaml", UriKind.Relative),
+            Source = new Uri(theme == AppTheme.Dark ? "/Etiket Tasarim;component/Themes/Colors.Dark.xaml" : "/Etiket Tasarim;component/Themes/Colors.Light.xaml", UriKind.Relative),
         };
         if (dictionaries.Count > 0) dictionaries[0] = colors;
         else dictionaries.Add(colors);

@@ -31,7 +31,6 @@ internal static class Program
         string root=Path.Combine(Path.GetTempPath(),"LabelHarborSmoke-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(root);
         Environment.SetEnvironmentVariable("ETIKET_VERI",root);
         CultureInfo.DefaultThreadCurrentUICulture=CultureInfo.GetCultureInfo("en");
-        Application.ResourceAssembly=typeof(AkelEtiket.App.App).Assembly;
         var app=new AkelEtiket.App.App();app.InitializeComponent();app.ShutdownMode=ShutdownMode.OnExplicitShutdown;
         bool success=false;
         try

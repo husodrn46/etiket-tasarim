@@ -27,7 +27,11 @@ public partial class MainWindow : ThemedWindow
         WindowStartupLocation = WindowStartupLocation.CenterScreen;
         RestorePlacement();
 
-        vm.FitRequested += (_, _) => Dispatcher.BeginInvoke(FitToWindow, DispatcherPriority.Loaded);
+        vm.FitRequested += (_, _) =>
+        {
+            var owner=vm.ActiveDocument;
+            Dispatcher.BeginInvoke(()=>{ if(vm.ActiveDocument==owner) FitToWindow(); },DispatcherPriority.Loaded);
+        };
         vm.ThemeChanged += (_, _) => ApplyTheme();
         vm.FocusContentEditorRequested += (_, _) => Properties.FocusContentEditor();
         vm.PropertyChanged += OnViewModelPropertyChanged;
