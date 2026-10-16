@@ -100,6 +100,14 @@ public sealed class DocumentWorkspaceTests : IDisposable
         var import=main.LoadDataFileAsync(csv,null);main.OpenProject(SaveFile("B"),false);var second=main.ActiveDocument!;await import;
         Assert.Same(second,main.ActiveDocument);Assert.False(second.Data.HasData);Assert.Equal(20000,first.Data.Rows.Count);Assert.DoesNotContain("large.csv",main.StatusMessage);
     }
+    [Fact] public async Task SwitchingTabsDuringReprintImportNeverOpensPrintForTheOtherLabel()
+    {
+        var dialogs=new WorkspaceDialogs();using var main=Create(dialogs);string a=SaveFile("A");main.OpenProject(a,false);var first=main.ActiveDocument!;
+        string csv=Path.Combine(_root,"reprint.csv");await File.WriteAllTextAsync(csv,"SKU\n"+string.Join('\n',Enumerable.Range(0,20000).Select(i=>$"SKU-{i}")));
+        var entry=new AkelEtiket.Editor.Printing.PrintHistoryEntry { TemplatePath=a,UseData=true,DataFile=csv,TotalLabels=1,Items=[new() { Row=2,Copies=1 }] };
+        var reprint=main.ReprintFromHistoryAsync(entry,false);main.OpenProject(SaveFile("B"),false);var second=main.ActiveDocument!;
+        Assert.False(await reprint);Assert.Same(second,main.ActiveDocument);Assert.False(second.Data.HasData);Assert.Equal(20000,first.Data.Rows.Count);Assert.Empty(dialogs.Shown);
+    }
     [Fact] public async Task AiMutationTargetsOriginalInactiveTabBySessionId()
     {
         using var main=Create();main.OpenProject(SaveFile("A"),false);var first=main.ActiveDocument!;main.OpenProject(SaveFile("B"),false);var second=main.ActiveDocument!;
@@ -141,13 +149,14 @@ public sealed class DocumentWorkspaceTests : IDisposable
         public Queue<string?> SavePaths { get; }=[];
         public List<string> SaveQuestions { get; }=[];
         public List<string> Messages { get; }=[];
+        public List<object> Shown { get; }=[];
         public string? ShowOpenFileDialog(string title,string filter,string? initialDirectory=null)=>null;
         public string? ShowSaveFileDialog(string title,string filter,string defaultFileName,string? initialDirectory=null)=>SavePaths.TryDequeue(out var p)?p:null;
         public void ShowMessage(string title,string message,MessageKind kind=MessageKind.Info)=>Messages.Add(message);
         public bool Confirm(string title,string message,string confirmText="Evet",string cancelText="Hayır")=>true;
         public SaveChangesChoice AskSaveChanges(string documentName) { SaveQuestions.Add(documentName);return Choices.TryDequeue(out var c)?c:SaveChangesChoice.Discard; }
         public string? Prompt(string title,string message,string defaultValue="")=>defaultValue;
-        public bool ShowDialog(object viewModel)=>viewModel is LabelSetupViewModel;
+        public bool ShowDialog(object viewModel) { Shown.Add(viewModel);return viewModel is LabelSetupViewModel; }
     }
     private sealed class Clipboard : IClipboardService
     {

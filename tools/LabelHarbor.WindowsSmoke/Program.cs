@@ -31,7 +31,9 @@ internal static class Program
         string root=Path.Combine(Path.GetTempPath(),"LabelHarborSmoke-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(root);
         Environment.SetEnvironmentVariable("ETIKET_VERI",root);
         CultureInfo.DefaultThreadCurrentUICulture=CultureInfo.GetCultureInfo("en");
-        var app=new AkelEtiket.App.App();app.InitializeComponent();app.ShutdownMode=ShutdownMode.OnExplicitShutdown;
+        var app=new Application { ShutdownMode=ShutdownMode.OnExplicitShutdown };
+        foreach(string dictionary in new[] { "Colors.Dark", "Icons", "Controls", "Converters" })
+            app.Resources.MergedDictionaries.Add(new ResourceDictionary { Source=new Uri("/Etiket Tasarim;component/Themes/"+dictionary+".xaml",UriKind.Relative) });
         bool success=false;
         try
         {
@@ -39,6 +41,8 @@ internal static class Program
             using var vm=new MainViewModel(new AppServices { Dialogs=dialogs,Clipboard=new ClipboardStub(),Dispatcher=new WpfDispatcher(Dispatcher.CurrentDispatcher),ImageFactory=new WpfLayerImageFactory(),SettingsStore=new JsonSettingsStore<AppSettings>(Path.Combine(root,"settings.json")),InitialSettings=settings,RecoveryFolder=Path.Combine(root,"recovery") });
             var window=new MainWindow(vm) { Width=1440,Height=900,WindowState=WindowState.Normal };
             app.MainWindow=window;window.Show();Pump();
+            Check(ThemeManager.Current==AppTheme.Light,"Light theme is applied to the native window");
+            Check(app.Windows.Count==1,"Smoke runner opens only its isolated test window");
             var tabs=(ListBox)window.FindName("DocumentTabs");
             string a=Save(root,"Retail label"),b=Save(root,"Warehouse label");vm.OpenProject(a,true);Pump();var first=vm.ActiveDocument!;
             vm.AddTextCommand.Execute(null);vm.Zoom=2.5;vm.OpenProject(b,true);Pump();var second=vm.ActiveDocument!;
@@ -46,11 +50,11 @@ internal static class Program
             tabs.SelectedItem=first;Pump();Check(ReferenceEquals(vm.Session,first.Session)&&Math.Abs(vm.Zoom-2.5)<.001,"Tab selection restores its document and zoom");
             dialogs.Choice=SaveChangesChoice.Cancel;vm.CloseDocumentCommand.Execute(first);Pump();Check(vm.Documents.Count==2&&!first.IsDisposed,"Cancel close preserves every tab");
             vm.PinDocumentCommand.Execute(first);vm.DuplicateDocumentCommand.Execute(null);Pump();Check(vm.Documents.Count==3&&vm.Session.IsDirty,"Duplicate opens an independent unsaved label");
-            Capture(window,"light-tabs-1440.png");
+            Capture(window,"light-tabs.png");
             CheckVisibleBounds(window,tabs,"Tabs remain within the client area");
             var focus=(Button)window.FindName("ToggleFocusMode");Invoke(focus);Pump();Check(vm.IsFocusMode&&((Grid)window.FindName("MainGrid")).ColumnDefinitions[4].ActualWidth==0,"Focus mode hides the inspector");
-            Capture(window,"light-focus-1440.png");Invoke(focus);Pump();
-            vm.Settings.Theme=AppTheme.Dark;ThemeManager.Configure(vm.Settings);Pump();Capture(window,"dark-tabs-1440.png");
+            Capture(window,"light-focus.png");Invoke(focus);Pump();
+            vm.Settings.Theme=AppTheme.Dark;ThemeManager.Configure(vm.Settings);Pump();Check(ThemeManager.Current==AppTheme.Dark,"Dark theme is applied to the native window");Capture(window,"dark-tabs.png");
             window.Width=1080;window.Height=720;vm.Settings.Personalization.UiScale=1.25;ThemeManager.Configure(vm.Settings);Pump();
             CheckVisibleBounds(window,tabs,"Scaled document strip remains within the client area");Capture(window,"dark-compact-scale125.png");
             vm.Settings.Personalization.EnableAnimations=false;ThemeManager.Configure(vm.Settings);Motion.Pulse(tabs);Check(!Motion.IsEnabled&&!tabs.HasAnimatedProperties,"Reduced motion resolves immediately without animation clocks");
@@ -60,7 +64,7 @@ internal static class Program
             Motion.Configure(false);Check(!tabs.HasAnimatedProperties,"Disabling motion clears running clocks");
             Capture(window,"dark-capture200.png",2);
             dialogs.Choice=SaveChangesChoice.Discard;window.Close();Check(!window.IsVisible,"Close resolves all document decisions and closes the native window");
-            Checks.Add(new { name="Capture environment",dpi=VisualTreeHelper.GetDpi(tabs).PixelsPerInchX,capture200="Raster capture scale only; not a physical monitor DPI test",clientAnimation=SystemParameters.ClientAreaAnimation,highContrast=SystemParameters.HighContrast });
+            Checks.Add(new { name="Capture environment",dpi=VisualTreeHelper.GetDpi(tabs).PixelsPerInchX,actualWindowWidth=window.ActualWidth,actualWindowHeight=window.ActualHeight,capture200="Raster capture scale only; not a physical monitor DPI test",clientAnimation=SystemParameters.ClientAreaAnimation,highContrast=SystemParameters.HighContrast });
             success=true;return 0;
         }
         catch(Exception ex) { File.WriteAllText(Path.Combine(_output,"error.txt"),ex.ToString());Console.Error.WriteLine(ex);return 1; }

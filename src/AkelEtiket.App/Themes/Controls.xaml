@@ -362,6 +362,7 @@
 
     <!-- ───────────── Onay kutusu ───────────── -->
     <Style TargetType="CheckBox">
+        <Setter Property="services:Motion.Interactive" Value="True"/>
         <Setter Property="Foreground" Value="{DynamicResource Brush.Text}" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Margin" Value="0,3" />
@@ -400,6 +401,7 @@
     </Style>
 
     <Style TargetType="RadioButton">
+        <Setter Property="services:Motion.Interactive" Value="True"/>
         <Setter Property="Foreground" Value="{DynamicResource Brush.Text}" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Margin" Value="0,3" />
@@ -687,6 +689,7 @@
 
     <!-- ───────────── İpucu ve menüler ───────────── -->
     <Style TargetType="ToolTip">
+        <Setter Property="services:Motion.Reveal" Value="True"/>
         <Setter Property="Background" Value="{DynamicResource Brush.Panel2}" />
         <Setter Property="Foreground" Value="{DynamicResource Brush.Text}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Brush.BorderStrong}" />
@@ -709,6 +712,7 @@
     </Style>
 
     <Style TargetType="ContextMenu">
+        <Setter Property="services:Motion.Reveal" Value="True"/>
         <Setter Property="Background" Value="{DynamicResource Brush.Panel2}" />
         <Setter Property="Foreground" Value="{DynamicResource Brush.Text}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Brush.BorderStrong}" />

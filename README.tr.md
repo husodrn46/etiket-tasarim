@@ -7,16 +7,23 @@ Firma adı, adres, web sitesi, logo ve şablon klasörü ayarlanabilir. Hesap ve
 
 ## İndir ve kur
 
-[Windows x64 kurulum dosyasını indir](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.0.0-preview.2/LabelHarbor-Setup-2.0.0-preview.2.exe)
-· [Taşınabilir ZIP](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.0.0-preview.2/LabelHarbor-2.0.0-preview.2-win-x64.zip)
-· [Ön sürüm ve doğrulama bilgileri](https://github.com/husodrn46/etiket-tasarim/releases/tag/v2.0.0-preview.2)
+[Windows x64 kurulum dosyasını indir](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.1.0/LabelHarbor-Setup-2.1.0.exe)
+· [Taşınabilir ZIP](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.1.0/LabelHarbor-2.1.0-win-x64.zip)
+· [Ön sürüm ve doğrulama bilgileri](https://github.com/husodrn46/etiket-tasarim/releases/tag/v2.1.0)
 
 Windows 10/11 64-bit içindir; .NET çalışma zamanı pakete dahildir. Kurulum dosyasını çalıştırın veya ZIP'i
 bir klasöre çıkarıp `Etiket Tasarim.exe` dosyasını açın. Ardından aşağıdaki başlangıç adımlarını izleyin.
 
-Bu bir **ön sürümdür**. Kişiselleştirme, favoriler, bölgesel etiket biçimleri, hazır paketler,
-aktarım profilleri ve İngilizce/Türkçe arayüz içerir. Windows kurulum/arayüz ve gerçek yazıcı kabulü henüz
-tamamlanmadı. [Yayın doğrulama kapsamı](docs/RELEASE-READINESS.md).
+2.1.0; bağımsız belge sekmeleri, tümünü kaydetme, sabitleme/kopyalama, odak modu ve isteğe bağlı
+arayüz animasyonları ekler. İngilizce/Türkçe arayüz, kişiselleştirme, favoriler, bölgesel etiket biçimleri,
+hazır paketler ve aktarım profilleri dahildir. [Doğrulama kapsamı](docs/RELEASE-READINESS.md), otomatik
+kontrolleri ve elle yapılacak yazıcı/DPI denemelerini açıklar.
+
+## Birden fazla etiketle çalışma
+
+Dosyaları ayrı sekmelerde açın; veri ve geri alma geçmişi birbirinden ayrı kalır. Ctrl+Alt+S tümünü kaydeder;
+Ctrl+Tab sekme değiştirir, Ctrl+W kapatır, Ctrl+Shift+D etiketi kopyalar, Ctrl+Shift+F odak modunu açar.
+[Sekme ve animasyon rehberi](docs/DOCUMENTS-AND-MOTION.md).
 
 ## Başlangıç
 
@@ -52,7 +59,7 @@ ayar, logo, ürün, şablon, GS1 veya SSCC kayıtları otomatik alınmaz. `.akel
 
 ## Günlük kullanım iyileştirmeleri
 
-Bu bölümdeki yenilikler `v2.0.0-preview.2` indirme paketine dahildir.
+Bu bölümdeki yenilikler `v2.1.0` indirme paketine dahildir.
 
 - İlk açılışta firma, logo, yazıcı ve etiket ölçüsü için üç adımlı kurulum; **? → İlk kurulum** ile yeniden açılır.
 - Şablon galerisinde arama, kategori ve firma şablonlarında görsel önizleme; kargo ve demirbaş tasarımları.
@@ -114,11 +121,11 @@ Dil seçimi ürün/firma bilgilerini, barkodları, kayıtlı tasarımları ve ve
 Ölçüler bölgesel ondalık ayarına göre gösterilir. Düşük seviyeli bazı tanı ve isteğe bağlı AI mesajları Türkçe kalabilir.
 
 [İngilizce kullanım rehberi](docs/USER-GUIDE.md) · [Dil altyapısı ve uyumluluk](docs/INTERNATIONALIZATION.md).
-Bu değişiklikler `v2.0.0-preview.2` indirme paketine dahildir.
+Bu değişiklikler `v2.1.0` indirme paketine dahildir.
 
 ## Kişiselleştirme ve hazır iş akışları
 
 Vurgu rengi, arayüz ölçeği, yeni metin yazı tipi, başlangıç şablonu ve panel düzeni seçilebilir. Şablon/baskı
 favorileri, etiket bazında tarih/sayı/para biçimleri, aktarım önerileri ve tekrar kullanılabilen profiller eklendi.
-Dört paket sekiz tasarım, kurgusal CSV ve iki dilli tarif sunar. Bu özellikler `v2.0.0-preview.2` paketine dahildir.
+Dört paket sekiz tasarım, kurgusal CSV ve iki dilli tarif sunar. Bu özellikler `v2.1.0` paketine dahildir.
 [Türkçe kullanım](docs/WORKFLOWS.tr.md) · [English guide](docs/WORKFLOWS.md).

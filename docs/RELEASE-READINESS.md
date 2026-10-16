@@ -1,46 +1,29 @@
-# LabelHarbor 2.0.0-preview.2
+# LabelHarbor 2.1.0 validation scope
 
-[Download / İndir](https://github.com/husodrn46/etiket-tasarim/releases/tag/v2.0.0-preview.2)
-
-LabelHarbor is the chosen product name. Project-owned source code uses the MIT License. Source attribution stays in NOTICE. Dependencies retain their
-own license terms; full notices accompany the installer and portable ZIP. No paid service or account was added.
+The release adds independent document tabs, save-all/duplicate/pin commands, focus mode and short native WPF feedback transitions. English and Turkish guides are in [Documents and motion](DOCUMENTS-AND-MOTION.md). Source code is MIT licensed; dependency terms and full notices accompany each package.
 
 ## Compatibility
 
-The existing `Etiket Tasarim.exe` filename, internal namespaces, installer identities, data folders,
-`ETIKET_VERI` and `.akelabel` extension remain stable. The Windows shortcut and visible product name are
-LabelHarbor. Existing labels, settings, counters, templates and other company installations are not renamed,
-imported or deleted. This release's opt-in regional formatting uses label format 3; older labels keep their
-minimum required format. Test upgrades and removal on Windows before relying on them for production.
+The `Etiket Tasarim.exe` filename, installer identities, data folders, `ETIKET_VERI` and `.akelabel` extension stay stable. Existing labels and settings are preserved. Other company installations are not imported or modified. No new label format is required by tabs or motion. The preceding opt-in regional formats still use format 3; older labels retain their minimum required format.
 
-Assembly/file versions remain numeric `2.0.0.0`. The visible application version and installer display
-version include `2.0.0-preview.2`. The installer uses a numeric version resource separately from that display.
+Assembly/file versions are numeric `2.1.0.0`; the visible app and installer version is `2.1.0`. Packages are unsigned, so Windows may display an unknown-publisher warning.
 
-## What has been checked
+## Evidence
 
-The preceding workflow change passed 979 selected headless tests across ten projects. The branding branch
-reruns the same suites and the four-process/320-record history check. Exact final results and binary hashes
-are attached to the release as VALIDATION.json and SHA256SUMS.txt. Historical docs/VALIDATION-*.json files
-remain evidence of their original commits, not proof of this build.
+Release attachments `VALIDATION.json` and `SHA256SUMS.txt` are the source of truth for the exact source revisions, package hashes, automated results and remaining limits. Historical `docs/VALIDATION-*.json` files describe their original builds.
 
-The local builder produces self-contained Windows x64 apphosts, verifies dependency merging, includes the
-MIT file, dependency notices, English satellite resources and all pack data/guides. The verifier checks ZIP
-CRC/file hashes, runtime versions, installer hash, package-owned uninstall paths and known private-data
-patterns. It does not execute Windows or prove physical printing. Packages are unsigned previews.
+The Mac checks cover ten headless test projects, independent document sessions, async import/reprint isolation, save cancellation/collisions, recovery, duplicate/pin behavior, settings persistence and four processes writing 320 history records. Windows CI runs the full solution tests, including Windows-only DPAPI/native/local-MCP cases. Hardware-dependent probes may return early when a device is absent; their test counters do not prove physical printing.
 
-## Still pending
+The native WPF smoke runner opens isolated windows, switches real tab controls, invokes focus mode through UI Automation, checks cancellation and reduced motion, and captures English light/dark/settings layouts. Results record actual window size and DPI. A 2x raster capture is a capture scale, not a physical 200% monitor DPI test.
 
-Windows installation/upgrade/uninstall, WPF layout and DPI, keyboard/accessibility, DPAPI, spooler/native
-integration, and physical media/barcode-scanner acceptance remain pending. The user deferred these to
-16 October 2026; no execution time or automatic test run was scheduled. The current source includes an
-interactive Windows acceptance helper; hardware checks must be performed on the actual printer.
+The package verifier checks hashes, ZIP CRC, bundled runtime, dependency merge, notices, known private-data patterns and package-owned uninstall paths. Windows package acceptance additionally downloads exact hash-pinned installer/ZIP assets, installs a prior preview, upgrades, starts the packaged app, rolls back, reinstalls, starts the portable app and checks uninstall preservation of settings/user/unknown files. Only a successful results file confirms execution of those steps.
+
+## Practical limits
+
+Physical printer/media calibration, printed barcode scanning, real monitor DPI changes, the interactive installer wizard and a full keyboard/screen-reader review require hands-on checks. Automated installation checks use silent mode on a clean Windows test user. Try a small print before a production batch. No signing certificate, paid service, account or API key was added.
 
 ## Türkçe
 
-Ürün adı LabelHarbor, kaynak lisansı MIT olarak seçildi. Bağımlılıklar kendi lisanslarını korur.
-İndirme paketleri İngilizce/Türkçe arayüzü ve yeni kullanım özelliklerini içerir. Veri yolları, eski EXE adı
-ve `.akelabel` uyumluluğu korunur. Sürüm bilgisi `2.0.0-preview.2` gösterir; dört sayılı dosya sürümü ayrıdır.
+Sekmeler; tasarım, geri alma, seçim, veri, yakınlaştırma ve kurtarma durumunu ayrı tutar. Kayıt iptalinde belgeler korunur. Odak modu ve animasyon ayarı eklenmiştir; Windows hareket azaltma ve yüksek karşıtlık tercihleri önceliklidir. Eski veri yolları ve dosya uyumluluğu korunur.
 
-Yerel derleme, otomatik test, dosya bütünlüğü ve bilinen özel veri kalıpları kontrol edilir. Windows kurulum,
-arayüz ve gerçek yazıcı testleri 16 Ekim'e bırakılmıştır. Bu nedenle yayın ön sürüm olarak sunulur; tamamlanmış
-Windows kabulü veya üretime hazır kararlı sürüm olarak tanıtılmaz. Sonuç ve özetler sürüm eklerindedir.
+Kesin test sayıları, kaynak kimlikleri ve paket özetleri sürümün `VALIDATION.json` ve `SHA256SUMS.txt` eklerindedir. Windows otomatik testleri ile fiziksel yazıcı kabulü ayrı değerlendirilir. Sessiz kurulum/yükseltme/geri dönüş/kaldırma ve gerçek WPF pencere kontrolleri otomatik sınanabilir; gerçek yazıcı, tarayıcı, monitör DPI geçişleri ve etkileşimli kurulum sihirbazı ayrıca denenmelidir. Paketler imzasızdır.

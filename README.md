@@ -7,15 +7,22 @@ address, templates and Excel/CSV data. No account or subscription is required. L
 
 ## Download
 
-[Windows x64 installer](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.0.0-preview.2/LabelHarbor-Setup-2.0.0-preview.2.exe)
-· [Portable ZIP](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.0.0-preview.2/LabelHarbor-2.0.0-preview.2-win-x64.zip)
-· [Preview release and checksums](https://github.com/husodrn46/etiket-tasarim/releases/tag/v2.0.0-preview.2)
+[Windows x64 installer](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.1.0/LabelHarbor-Setup-2.1.0.exe)
+· [Portable ZIP](https://github.com/husodrn46/etiket-tasarim/releases/download/v2.1.0/LabelHarbor-2.1.0-win-x64.zip)
+· [Release and checksums](https://github.com/husodrn46/etiket-tasarim/releases/tag/v2.1.0)
 
 For Windows 10/11 x64; the .NET runtime is included. Install or extract the ZIP and open `Etiket Tasarim.exe`.
 
-**Preview status:** `v2.0.0-preview.2` includes the English/Turkish interface, personalization, favorites,
-regional label formats, starter packs and reusable import profiles. Windows installation, WPF interaction
-and physical printer acceptance are still pending. See [release readiness](docs/RELEASE-READINESS.md).
+Version 2.1.0 adds independent document tabs, save all, pin/duplicate commands, focus mode and optional
+interface animations. English/Turkish UI, personalization, favorites, regional label formats, starter packs
+and import profiles are included. See [validation scope](docs/RELEASE-READINESS.md) for automated evidence
+and hands-on printer/DPI checks.
+
+## Work with several labels
+
+Open several files in tabs, keep their data and undo history separate, and save all with Ctrl+Alt+S.
+Use Ctrl+Tab to switch, Ctrl+W to close, Ctrl+Shift+D to duplicate a label and Ctrl+Shift+F for focus mode.
+[Read the tab and motion guide](docs/DOCUMENTS-AND-MOTION.md).
 
 ## Get started
 

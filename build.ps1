@@ -16,7 +16,7 @@
 #>
 param(
     [string]$Configuration = "Release",
-    [string]$Version = "2.0.0-preview.2",
+    [string]$Version = "2.1.0",
     [switch]$SkipTests,
     [switch]$SkipInstaller
 )

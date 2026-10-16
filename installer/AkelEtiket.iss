@@ -6,14 +6,14 @@
 ; ─────────────────────────────────────────────────────────────────────────────
 
 #ifndef AppVersion
-  #define AppVersion "2.0.0-preview.2"
+  #define AppVersion "2.1.0"
 #endif
 #ifndef PublishDir
   #define PublishDir "..\artifacts\publish\Etiket-Tasarim-win-x64"
 #endif
 
 #ifndef AppNumericVersion
-  #define AppNumericVersion "2.0.0"
+  #define AppNumericVersion "2.1.0"
 #endif
 #define AppName "LabelHarbor"
 #define AppExe "Etiket Tasarim.exe"
@@ -76,6 +76,7 @@ Source: "..\samples\*.akelabel"; DestDir: "{app}\Örnekler"; Flags: ignoreversio
 Source: "..\samples\mcp\*"; DestDir: "{app}\Örnekler\mcp"; Flags: ignoreversion
 Source: "..\README.md"; DestDir: "{app}\Belgeler"; Flags: ignoreversion
 Source: "..\README.tr.md"; DestDir: "{app}\Belgeler"; DestName: "BENİOKU.md"; Flags: ignoreversion
+Source: "..\docs\DOCUMENTS-AND-MOTION.md"; DestDir: "{app}\Belgeler"; Flags: ignoreversion
 Source: "..\docs\USER-GUIDE.md"; DestDir: "{app}\Belgeler"; Flags: ignoreversion
 Source: "..\docs\INTERNATIONALIZATION.md"; DestDir: "{app}\Belgeler"; Flags: ignoreversion
 Source: "..\samples\sample-*.csv"; DestDir: "{app}\Örnekler"; Flags: ignoreversion

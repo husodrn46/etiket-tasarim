@@ -30,9 +30,19 @@ jobs:
       - name: Build native WPF smoke runner
         if: always()
         run: dotnet build tools/LabelHarbor.WindowsSmoke -c Release -p:UseSharedCompilation=false -m:1
+      - name: Configure test desktop
+        run: |
+          if (Get-Command Set-DisplayResolution -ErrorAction SilentlyContinue) {
+            Set-DisplayResolution -Width 1920 -Height 1080 -Force
+          }
       - name: Exercise native WPF windows and capture results
         if: always()
         run: dotnet run --project tools/LabelHarbor.WindowsSmoke -c Release --no-build -- windows-results/ui
+      - name: Validate exact installer and portable release assets
+        if: ${{ hashFiles('tools/distribution/release-candidate.json') != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: ./tools/distribution/validate_release_package.ps1 -Manifest tools/distribution/release-candidate.json
       - name: Upload evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

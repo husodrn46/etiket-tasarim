@@ -149,7 +149,7 @@
 
         <Border Grid.Row="1" Background="{DynamicResource Brush.Toolbar}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,0,1">
             <DockPanel Margin="8,4">
-                <Button DockPanel.Dock="Right" Style="{StaticResource Button.Icon}" Command="{Binding ToggleFocusModeCommand}" ToolTip="{loc:Text T_5d0fba1a8f03}" AutomationProperties.AutomationId="ToggleFocusMode"><TextBlock Text="⛶" FontSize="20"/></Button>
+                <Button x:Name="ToggleFocusMode" DockPanel.Dock="Right" Style="{StaticResource Button.Icon}" Command="{Binding ToggleFocusModeCommand}" ToolTip="{loc:Text T_5d0fba1a8f03}" AutomationProperties.AutomationId="ToggleFocusMode"><TextBlock Text="⛶" FontSize="20"/></Button>
                 <Button DockPanel.Dock="Right" Style="{StaticResource Button.Icon}" Command="{Binding NewCommand}" ToolTip="{loc:Text T_a2b993762f59}" AutomationProperties.AutomationId="NewDocumentTab"><TextBlock Text="+" FontSize="20"/></Button>
                 <ListBox x:Name="DocumentTabs" ItemsSource="{Binding Documents}" SelectedItem="{Binding ActiveDocument, Mode=TwoWay}"
                          Background="Transparent" BorderThickness="0" Padding="0" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled"

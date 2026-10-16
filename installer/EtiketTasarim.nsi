@@ -1,5 +1,5 @@
 ; -*- coding: utf-8 -*-
-; Local cross-platform installer candidate. LabelHarbor MIT preview distribution.
+; Local cross-platform installer candidate. LabelHarbor MIT distribution.
 Unicode true
 !include "MUI2.nsh"
 !include "x64.nsh"
@@ -14,14 +14,14 @@ Unicode true
   !error "UNINSTALL_LIST is required"
 !endif
 !ifndef APP_VERSION
-  !define APP_VERSION "2.0.0"
+  !define APP_VERSION "2.1.0"
 !endif
 !define APP_NAME "LabelHarbor"
 !ifndef APP_DISPLAY_VERSION
   !define APP_DISPLAY_VERSION "${APP_VERSION}"
 !endif
 !define APP_EXE "Etiket Tasarim.exe"
-Name "${APP_NAME} (preview)"
+Name "${APP_NAME} ${APP_DISPLAY_VERSION}"
 OutFile "${OUTPUT}"
 InstallDir "$LOCALAPPDATA\Programs\Etiket Tasarim"
 InstallDirRegKey HKCU "Software\EtiketTasarim" "InstallDir"
@@ -29,11 +29,11 @@ RequestExecutionLevel user
 SetCompressor /SOLID lzma
 VIProductVersion "${APP_VERSION}.0"
 VIAddVersionKey /LANG=1033 "ProductName" "${APP_NAME}"
-VIAddVersionKey /LANG=1033 "FileDescription" "Label design application installer preview"
+VIAddVersionKey /LANG=1033 "FileDescription" "Label design application installer"
 VIAddVersionKey /LANG=1033 "FileVersion" "${APP_DISPLAY_VERSION}"
 VIAddVersionKey /LANG=1033 "LegalCopyright" "Source and dependency notices are included."
 VIAddVersionKey /LANG=1055 "ProductName" "${APP_NAME}"
-VIAddVersionKey /LANG=1055 "FileDescription" "${APP_NAME} kurulum adayı"
+VIAddVersionKey /LANG=1055 "FileDescription" "${APP_NAME} kurulumu"
 VIAddVersionKey /LANG=1055 "FileVersion" "${APP_DISPLAY_VERSION}"
 VIAddVersionKey /LANG=1055 "LegalCopyright" "Kaynak ve bağımlılık atıfları paket içinde yer alır."
 !define MUI_LANGDLL_REGISTRY_ROOT "HKCU"

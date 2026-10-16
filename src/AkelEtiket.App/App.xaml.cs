@@ -20,7 +20,7 @@ public partial class App : Application
 
     public static string Version =>
         Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0]
-        ?? "2.0.0-preview.2";
+        ?? "2.1.0";
 
     protected override void OnStartup(StartupEventArgs e)
     {

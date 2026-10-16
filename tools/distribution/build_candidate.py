@@ -17,7 +17,7 @@ def main():
     parser.add_argument('--makensis', type=Path, required=True)
     parser.add_argument('--cache', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--version', default='2.0.0-preview.2')
+    parser.add_argument('--version', default='2.1.0')
     parser.add_argument('--reuse-stage', type=Path, help='Explicitly reuse already published stages for local checks.')
     args = parser.parse_args()
     if not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?", args.version): raise SystemExit('Invalid version.')

@@ -187,8 +187,7 @@ public static class ThemeManager
         if (dictionaries.Count > 0) dictionaries[0] = colors;
         else dictionaries.Add(colors);
         Color accent = (Color)ColorConverter.ConvertFromString(_accent switch { "blue" => "#2563EB", "teal" => "#087F8C", "purple" => "#6D28D9", _ => "#D7263D" });
-        Color Mix(double fraction) => Color.FromRgb((byte)(accent.R + (255-accent.R)*fraction), (byte)(accent.G + (255-accent.G)*fraction), (byte)(accent.B + (255-accent.B)*fraction));
-        foreach (var (name,color) in new[] { ("Accent",accent), ("AccentHover",Mix(.12)), ("AccentPressed",Color.FromRgb((byte)(accent.R*.85),(byte)(accent.G*.85),(byte)(accent.B*.85))), ("Selection",accent), ("SelectionSoft",Color.FromArgb(51,accent.R,accent.G,accent.B)) })
+        foreach (var (name,color) in new[] { ("Accent",accent), ("AccentHover",Color.FromRgb((byte)(accent.R*.94),(byte)(accent.G*.94),(byte)(accent.B*.94))), ("AccentPressed",Color.FromRgb((byte)(accent.R*.85),(byte)(accent.G*.85),(byte)(accent.B*.85))), ("Selection",accent), ("SelectionSoft",Color.FromArgb(51,accent.R,accent.G,accent.B)) })
         { Application.Current.Resources["Color."+name] = color; Application.Current.Resources["Brush."+name] = new SolidColorBrush(color); }
         foreach (Window window in Application.Current.Windows) ApplyTitleBar(window);
         ThemeChanged?.Invoke(null, EventArgs.Empty);

@@ -50,7 +50,7 @@ public sealed class AppServices
     public Action<string>? OpenFolder { get; init; }
 
     /// <summary>Uygulama sürümü.</summary>
-    public string AppVersion { get; init; } = "2.0.0";
+    public string AppVersion { get; init; } = "2.1.0";
 
     /// <summary>Bu açılışta v1'in ayarları devralındı (<see cref="LegacySettingsImport"/>).</summary>
     public bool ImportedLegacySettings { get; init; }
