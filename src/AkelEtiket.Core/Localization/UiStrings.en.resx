@@ -5993,4 +5993,26 @@ Continue?</value>
   <data name="T_c16118d5ee79" xml:space="preserve">
     <value>{{{0}}}: the value is not a date; date arithmetic could not be performed.</value>
   </data>
+  <data name="T_0512c90535d3" xml:space="preserve"><value>Unsaved label</value></data>
+  <data name="T_0edc44072f4e" xml:space="preserve"><value>Found {0} unsaved labels. Open recoverable labels in separate tabs?</value></data>
+  <data name="T_31aa6b339799" xml:space="preserve"><value>You can open up to {0} labels. Save and close a tab first.</value></data>
+  <data name="T_3e9bbf46b3af" xml:space="preserve"><value>Close other tabs</value></data>
+  <data name="T_4f6e81e80c0e" xml:space="preserve"><value>File is open in another tab</value></data>
+  <data name="T_65bab452ca1b" xml:space="preserve"><value>{0} labels open</value></data>
+  <data name="T_676211c597d9" xml:space="preserve"><value>Modified</value></data>
+  <data name="T_74be31c75f01" xml:space="preserve"><value>Open labels</value></data>
+  <data name="T_952c93deb519" xml:space="preserve"><value>Unpin tab</value></data>
+  <data name="T_a90834375e7b" xml:space="preserve"><value>{0} copy</value></data>
+  <data name="T_ab1506d24a2e" xml:space="preserve"><value>This file is being edited in another tab. Choose a different file name.</value></data>
+  <data name="T_bb57a54fb8e4" xml:space="preserve"><value>Recovered labels are open. Please save them.</value></data>
+  <data name="T_bf66e15d3d1a" xml:space="preserve"><value>All labels saved.</value></data>
+  <data name="T_c3e68af6b064" xml:space="preserve"><value>Pin tab</value></data>
+  <data name="T_cb4e0573de15" xml:space="preserve"><value>Close tab</value></data>
+  <data name="T_d3add5b6208a" xml:space="preserve"><value>Save all labels</value></data>
+  <data name="T_ddb224367cd8" xml:space="preserve"><value>Duplicate label in a new tab</value></data>
+  <data name="T_5d0fba1a8f03" xml:space="preserve"><value>Focus mode (Ctrl+Shift+F)</value></data>
+  <data name="T_fab9f754c02a" xml:space="preserve"><value>Close tab (Ctrl+W)</value></data>
+  <data name="T_d5d587b1db82" xml:space="preserve"><value>Open labels in separate tabs</value></data>
+  <data name="T_8c080f640c2b" xml:space="preserve"><value>Enable interface animations</value></data>
+  <data name="T_d2bd22185b97" xml:space="preserve"><value>Windows reduced motion and high contrast settings take precedence.</value></data>
 </root>

@@ -412,6 +412,15 @@ public sealed partial class DocumentSession : ObservableObject, IDisposable
         SelectByIds(selectedIds);
     }
 
+    /// <summary>A recovered document or unsaved template copy has no saved baseline yet.</summary>
+    public void MarkUnsaved()
+    {
+        _savedState = "";
+        UpdateDirty();
+        OnPropertyChanged(nameof(Title));
+        Changed?.Invoke(this,EventArgs.Empty);
+    }
+
     /// <summary>Kaydedildikten sonra çağrılır.</summary>
     public void MarkSaved()
     {

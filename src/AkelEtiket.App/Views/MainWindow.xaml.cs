@@ -31,6 +31,8 @@ public partial class MainWindow : ThemedWindow
         vm.ThemeChanged += (_, _) => ApplyTheme();
         vm.FocusContentEditorRequested += (_, _) => Properties.FocusContentEditor();
         vm.PropertyChanged += OnViewModelPropertyChanged;
+        vm.DocumentChanging += OnDocumentChanging;
+        vm.DocumentChanged += OnDocumentChanged;
         Loaded += (_, _) =>
         {
             ApplyTheme();
@@ -44,8 +46,57 @@ public partial class MainWindow : ThemedWindow
         _recoveryTimer.Start();
     }
 
+    private void OnDocumentChanging(object? sender, DocumentTabChangeEventArgs e)
+    {
+        CommitFocusedEditor();
+        Surface.CancelDrag();
+        if(e.Previous is { } previous)
+        {
+            previous.HorizontalOffset=CanvasScroll.HorizontalOffset;
+            previous.VerticalOffset=CanvasScroll.VerticalOffset;
+            previous.HasViewPosition=true;
+        }
+    }
+
+    private void OnDocumentChanged(object? sender, DocumentTabChangeEventArgs e)
+    {
+        Dispatcher.BeginInvoke(() =>
+        {
+            if(_vm.ActiveDocument != e.Current) return;
+            CanvasScroll.UpdateLayout();
+            if(e.Current.HasViewPosition)
+            {
+                CanvasScroll.ScrollToHorizontalOffset(e.Current.HorizontalOffset);
+                CanvasScroll.ScrollToVerticalOffset(e.Current.VerticalOffset);
+            }
+            else FitToWindow();
+            DocumentTabs.ScrollIntoView(e.Current);
+            Motion.Pulse(WorkspaceHost);
+        },DispatcherPriority.Loaded);
+    }
+
+    private void OnDocumentMenuOpened(object sender, RoutedEventArgs e)
+    {
+        if(sender is not ContextMenu menu || menu.PlacementTarget is not FrameworkElement { DataContext: DocumentTabViewModel tab }) return;
+        menu.Items.Clear();
+        menu.Items.Add(new MenuItem { Header=tab.IsPinned?L10n.T("Sabitlemeyi kaldır"):L10n.T("Sekmeyi sabitle"), Command=_vm.PinDocumentCommand, CommandParameter=tab });
+        menu.Items.Add(new MenuItem { Header=L10n.T("Diğer sekmeleri kapat"), Command=_vm.CloseOtherDocumentsCommand, CommandParameter=tab });
+        menu.Items.Add(new Separator());
+        menu.Items.Add(new MenuItem { Header=L10n.T("Sekmeyi kapat"),Command=_vm.CloseDocumentCommand,CommandParameter=tab,InputGestureText="Ctrl+W" });
+    }
+
     private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
+        if(e.PropertyName == nameof(MainViewModel.StatusMessage)) Motion.Pulse(StatusText);
+        if(e.PropertyName == nameof(MainViewModel.IsFocusMode))
+        {
+            bool focus=_vm.IsFocusMode;
+            MainGrid.ColumnDefinitions[0].Width=new GridLength(focus?0:76);
+            MainGrid.ColumnDefinitions[3].Width=new GridLength(focus?0:1);
+            MainGrid.ColumnDefinitions[4].Width=new GridLength(focus?0:310);
+            NavigationRail.Visibility=focus?Visibility.Collapsed:Visibility.Visible;
+            Motion.Pulse(WorkspaceHost);
+        }
         if (e.PropertyName == nameof(MainViewModel.Settings))
         {
             UpdateRulerVisibility();
@@ -149,6 +200,9 @@ public partial class MainWindow : ThemedWindow
     private void OnMoreFileClick(object sender, RoutedEventArgs e)
     {
         var menu = new ContextMenu { PlacementTarget = MoreFileButton, Placement = PlacementMode.Bottom };
+        menu.Items.Add(new MenuItem { Header=L10n.T("Tüm etiketleri kaydet"),Command=_vm.SaveAllCommand,InputGestureText="Ctrl+Alt+S" });
+        menu.Items.Add(new MenuItem { Header=L10n.T("Etiketi yeni sekmede kopyala"),Command=_vm.DuplicateDocumentCommand,InputGestureText="Ctrl+Shift+D" });
+        menu.Items.Add(new Separator());
         menu.Items.Add(new MenuItem { Header = L10n.T("Farklı kaydet…"), Command = _vm.SaveDocumentAsCommand, InputGestureText = "Ctrl+Shift+S" });
         menu.Items.Add(new MenuItem { Header = L10n.T("Şablon olarak kaydet…"), Command = _vm.SaveAsTemplateCommand });
         menu.Items.Add(new Separator());
@@ -198,6 +252,12 @@ public partial class MainWindow : ThemedWindow
             {
                 Key.N => _vm.NewCommand,
                 Key.O => _vm.OpenCommand,
+                Key.Tab when shift => _vm.PreviousDocumentCommand,
+                Key.Tab => _vm.NextDocumentCommand,
+                Key.W => _vm.CloseDocumentCommand,
+                Key.S when Keyboard.Modifiers.HasFlag(ModifierKeys.Alt) => _vm.SaveAllCommand,
+                Key.D when shift => _vm.DuplicateDocumentCommand,
+                Key.F when shift => _vm.ToggleFocusModeCommand,
                 Key.S when shift => _vm.SaveDocumentAsCommand,
                 Key.S => _vm.SaveDocumentCommand,
                 Key.P when shift => _vm.OpenQuickPrintCommand,
@@ -343,7 +403,8 @@ public partial class MainWindow : ThemedWindow
     protected override void OnClosing(CancelEventArgs e)
     {
         base.OnClosing(e);
-        if (!_vm.ConfirmCloseDocument())
+        CommitFocusedEditor();
+        if (!_vm.ConfirmCloseAllDocuments())
         {
             e.Cancel = true;
             return;

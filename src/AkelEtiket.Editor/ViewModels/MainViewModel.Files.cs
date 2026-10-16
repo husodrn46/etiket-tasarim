@@ -16,7 +16,7 @@ public sealed partial class MainViewModel
     [RelayCommand]
     private void New()
     {
-        if (!ConfirmCloseDocument()) return;
+        if (!CanOpenNewDocument()) return;
         var setup = new LabelSetupViewModel(L10n.T("Yeni etiket"), new LabelSetup
         {
             WidthMm = Settings.DefaultLabelWidthMm,
@@ -26,7 +26,7 @@ public sealed partial class MainViewModel
         var project = LabelProject.CreateBlank(setup.WidthMm, setup.HeightMm);
         setup.ApplyTo(project.Document.Label);
         project.Document.Formatting = setup.Formatting.ToModel();
-        Session = CreateSession(project);
+        if (OpenDocument(project) is null) return;
         _recoveryDirty = true;
         RequestFit();
         SetStatus(L10n.T($"Yeni {setup.WidthMm:0.#} × {setup.HeightMm:0.#} mm etiket oluşturuldu."));
@@ -45,9 +45,9 @@ public sealed partial class MainViewModel
     [RelayCommand]
     private void Open()
     {
-        if (!ConfirmCloseDocument()) return;
-        string? path = Dialogs.ShowOpenFileDialog(L10n.T("Proje aç"), ProjectFile.FileFilter, Settings.LastProjectFolder);
-        if (path is not null) OpenProject(path, askToSave: false);
+        if (!CanOpenNewDocument()) return;
+        var paths = Dialogs.ShowOpenFilesDialog(L10n.T("Proje aç"), ProjectFile.FileFilter, Settings.LastProjectFolder);
+        foreach (var path in paths) if (!OpenProject(path,askToSave:false)) break;
     }
 
     [RelayCommand]
@@ -67,11 +67,13 @@ public sealed partial class MainViewModel
     /// <summary>Projeyi açar; uyarıları gösterir, son kullanılanlara ekler.</summary>
     public bool OpenProject(string path, bool askToSave)
     {
-        if (askToSave && !ConfirmCloseDocument()) return false;
+        var existing = Documents.FirstOrDefault(t => SameProjectPath(t.Session.Project.FilePath,path));
+        if (existing is not null) { ActiveDocument = existing; return true; }
+        if (askToSave && !CanOpenNewDocument()) return false;
         try
         {
             var result = ProjectFile.Load(path);
-            Session = CreateSession(result.Project);
+            if (OpenDocument(result.Project) is null) return false;
             AddRecent(path);
             Settings.LastProjectFolder = Path.GetDirectoryName(path);
             RequestFit();
@@ -92,7 +94,7 @@ public sealed partial class MainViewModel
     public void OpenProjectAsNew(LabelProject project, string statusText)
     {
         project.FilePath = null;
-        Session = CreateSession(project);
+        if (OpenDocument(project) is null) return;
         _recoveryDirty = true;
         RequestFit();
         SetStatus(statusText);
@@ -146,6 +148,11 @@ public sealed partial class MainViewModel
 
     private bool SaveTo(string path)
     {
+        if (Documents.Any(t => t != ActiveDocument && SameProjectPath(t.Session.Project.FilePath,path)))
+        {
+            Dialogs.ShowMessage(L10n.T("Dosya başka sekmede açık"),L10n.T("Bu dosya başka bir sekmede düzenleniyor. Farklı bir dosya adı seçin."),MessageKind.Warning);
+            return false;
+        }
         try
         {
             UpdateDataSourceLink();
@@ -248,17 +255,22 @@ public sealed partial class MainViewModel
         string? path = Dialogs.ShowOpenFileDialog(L10n.T("Veri kaynağı seç (Excel/CSV)"), DataImporter.OpenFileFilter, Settings.LastDataFolder);
         if (path is not null)
         {
+            var owner=ActiveDocument;
             await LoadDataFileAsync(path, SelectedImportProfile?.ToImportOptions());
-            if (SelectedImportProfile is not null && Data.Table?.SourcePath == Path.GetFullPath(path)) OpenColumnMappingCommand.Execute(null);
+            if (owner == ActiveDocument && SelectedImportProfile is not null && Data.Table?.SourcePath == Path.GetFullPath(path)) OpenColumnMappingCommand.Execute(null);
         }
     }
 
     public async Task LoadDataFileAsync(string path, ImportOptions? options)
     {
+        var owner=ActiveDocument;
+        var data=Data;
         try
         {
             SetStatus(L10n.T($"Veri okunuyor: {Path.GetFileName(path)}…"));
-            await Data.LoadAsync(path, options);
+            await data.LoadAsync(path, options);
+            if (owner?.IsDisposed == true) return;
+            if (owner != ActiveDocument) { if (owner is not null) owner.Status=data.Summary; return; }
             Settings.LastDataFolder = Path.GetDirectoryName(path);
             ActivePanel = LeftPanel.Data;
             IsPanelOpen = true;
@@ -270,6 +282,7 @@ public sealed partial class MainViewModel
         }
         catch (DataImportException ex)
         {
+            if (owner?.IsDisposed == true || owner != ActiveDocument) return;
             SetStatus(L10n.T("Veri okunamadı."));
             Dialogs.ShowMessage(L10n.T("Veri kaynağı okunamadı"), ex.Message, MessageKind.Error);
         }

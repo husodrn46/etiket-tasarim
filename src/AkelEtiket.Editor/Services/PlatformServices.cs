@@ -18,6 +18,11 @@ public enum SaveChangesChoice
 public interface IDialogService
 {
     string? ShowOpenFileDialog(string title, string filter, string? initialDirectory = null);
+    IReadOnlyList<string> ShowOpenFilesDialog(string title, string filter, string? initialDirectory = null)
+    {
+        string? path=ShowOpenFileDialog(title,filter,initialDirectory);
+        return path is null ? [] : [path];
+    }
     string? ShowSaveFileDialog(string title, string filter, string defaultFileName, string? initialDirectory = null);
     void ShowMessage(string title, string message, MessageKind kind = MessageKind.Info);
     bool Confirm(string title, string message, string confirmText = "Evet", string cancelText = "Hayır");

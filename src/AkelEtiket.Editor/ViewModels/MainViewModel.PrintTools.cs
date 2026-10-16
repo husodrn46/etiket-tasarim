@@ -86,9 +86,12 @@ public sealed partial class MainViewModel
                            string.Equals(Session.Project.FilePath, template, StringComparison.OrdinalIgnoreCase);
         if (!alreadyOpen)
         {
-            if (!ConfirmCloseDocument()) return false;
+            if (!CanOpenNewDocument()) return false;
             if (!OpenForReprint(useSnapshot ? snapshot! : template!, asCopy: useSnapshot)) return false;
         }
+
+        var owner = ActiveDocument!;
+        var ownerData = owner.Data;
 
         // 2) Veri ve satır seçimi
         long startNumber = entry.StartNumber;
@@ -119,7 +122,9 @@ public sealed partial class MainViewModel
             try
             {
                 SetStatus(L10n.T($"Veri okunuyor: {Path.GetFileName(entry.DataFile)}…"));
-                await Data.LoadAsync(entry.DataFile, options);
+                await ownerData.LoadAsync(entry.DataFile, options);
+                // A tab switch during import must never open a print dialog for another label.
+                if (owner.IsDisposed || ActiveDocument != owner) return false;
             }
             catch (DataImportException ex)
             {
@@ -190,7 +195,7 @@ public sealed partial class MainViewModel
         {
             var result = ProjectFile.Load(path);
             if (asCopy) result.Project.FilePath = null;
-            Session = CreateSession(result.Project);
+            if (OpenDocument(result.Project) is null) return false;
             if (asCopy)
             {
                 _recoveryDirty = true;

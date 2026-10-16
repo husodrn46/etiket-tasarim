@@ -3,6 +3,8 @@ namespace AkelEtiket.Editor.Services;
 /// <summary>Local appearance and new-document preferences. Never applied to existing label contents.</summary>
 public sealed class PersonalizationSettings
 {
+    public bool OpenDocumentsInTabs { get; set; } = true;
+    public bool EnableAnimations { get; set; } = true;
     public string Accent { get; set; } = "red";
     public double UiScale { get; set; } = 1;
     public string DefaultFontFamily { get; set; } = "Arial";

@@ -3,11 +3,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:views="clr-namespace:AkelEtiket.App.Views"
                     xmlns:controls="clr-namespace:AkelEtiket.App.Controls"
+                    xmlns:services="clr-namespace:AkelEtiket.App.Services"
                     Title="{Binding WindowTitle}" Icon="/Assets/AkelEtiket.ico"
                     MinWidth="1080" MinHeight="660" Width="1440" Height="900"
                     WindowStartupLocation="CenterScreen" AllowDrop="True">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -15,7 +17,7 @@
 
         <!-- ───────────── Üst araç çubuğu ───────────── -->
         <Border Background="{DynamicResource Brush.Toolbar}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,0,1">
-            <DockPanel Height="52" Margin="12,0,10,0" LastChildFill="True">
+            <WrapPanel Margin="12,5,10,5">
                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
                     <Image Source="/Assets/AkelEtiket-256.png" Width="26" Height="26" RenderOptions.BitmapScalingMode="HighQuality" />
                     <TextBlock Text="{loc:Text T_a03425caed30}" FontWeight="SemiBold" FontSize="14.5" Margin="9,0,14,0" VerticalAlignment="Center" />
@@ -142,21 +144,63 @@
                     </Button>
                 </StackPanel>
                 <Border />
+            </WrapPanel>
+        </Border>
+
+        <Border Grid.Row="1" Background="{DynamicResource Brush.Toolbar}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,0,1">
+            <DockPanel Margin="8,4">
+                <Button DockPanel.Dock="Right" Style="{StaticResource Button.Icon}" Command="{Binding ToggleFocusModeCommand}" ToolTip="{loc:Text T_5d0fba1a8f03}" AutomationProperties.AutomationId="ToggleFocusMode"><TextBlock Text="⛶" FontSize="20"/></Button>
+                <Button DockPanel.Dock="Right" Style="{StaticResource Button.Icon}" Command="{Binding NewCommand}" ToolTip="{loc:Text T_a2b993762f59}" AutomationProperties.AutomationId="NewDocumentTab"><TextBlock Text="+" FontSize="20"/></Button>
+                <ListBox x:Name="DocumentTabs" ItemsSource="{Binding Documents}" SelectedItem="{Binding ActiveDocument, Mode=TwoWay}"
+                         Background="Transparent" BorderThickness="0" Padding="0" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                         ScrollViewer.CanContentScroll="False" AutomationProperties.AutomationId="DocumentTabs" AutomationProperties.Name="{loc:Text T_74be31c75f01}">
+                    <ListBox.ItemsPanel><ItemsPanelTemplate><StackPanel Orientation="Horizontal"/></ItemsPanelTemplate></ListBox.ItemsPanel>
+                    <ListBox.ItemContainerStyle><Style TargetType="ListBoxItem">
+                        <Setter Property="Foreground" Value="{DynamicResource Brush.TextSecondary}"/>
+                        <Setter Property="Padding" Value="0"/><Setter Property="Margin" Value="0,0,4,0"/>
+                        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                        <Setter Property="AutomationProperties.Name" Value="{Binding Name}"/>
+                        <Setter Property="AutomationProperties.HelpText" Value="{Binding Description}"/>
+                        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ListBoxItem">
+                            <Border x:Name="Tab" Background="Transparent" CornerRadius="6" BorderThickness="1" BorderBrush="Transparent" Padding="10,2,3,2">
+                                <ContentPresenter/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Tab" Property="Background" Value="{DynamicResource Brush.Hover}"/></Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Foreground" Value="{DynamicResource Brush.Text}"/>
+                                    <Setter TargetName="Tab" Property="Background" Value="{DynamicResource Brush.Panel}"/>
+                                    <Setter TargetName="Tab" Property="BorderBrush" Value="{DynamicResource Brush.Selection}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate></Setter.Value></Setter>
+                    </Style></ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate><DataTemplate>
+                        <Grid ToolTip="{Binding Description}" Tag="{Binding DataContext, RelativeSource={RelativeSource AncestorType=Window}}">
+                            <Grid.ContextMenu><ContextMenu Opened="OnDocumentMenuOpened"/></Grid.ContextMenu>
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Caption}" MaxWidth="180" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                            <Ellipse Grid.Column="1" Fill="{DynamicResource Brush.Accent}" Width="5" Height="5" Margin="7,0,3,0" Visibility="{Binding IsDirty, Converter={StaticResource BoolToVisibility}}"/>
+                            <Button Grid.Column="2" Style="{StaticResource Button.Icon}" Width="25" Height="28" MinHeight="28" Margin="5,0,0,0" ToolTip="{loc:Text T_fab9f754c02a}"
+                                    Command="{Binding DataContext.CloseDocumentCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}" AutomationProperties.Name="{loc:Text T_fab9f754c02a}"><TextBlock Text="×" FontSize="17"/></Button>
+                        </Grid>
+                    </DataTemplate></ListBox.ItemTemplate>
+                </ListBox>
             </DockPanel>
         </Border>
 
         <!-- ───────────── Ana alan ───────────── -->
-        <Grid Grid.Row="1">
+        <Grid x:Name="MainGrid" Grid.Row="2" ClipToBounds="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="76" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="340" />
+                <ColumnDefinition Width="310" />
             </Grid.ColumnDefinitions>
 
             <!-- Sol gezinme şeridi -->
-            <Border Background="{DynamicResource Brush.Toolbar}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,1,0">
+            <Border x:Name="NavigationRail" Background="{DynamicResource Brush.Toolbar}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,1,0">
                 <StackPanel Margin="0,8,0,0">
                     <RadioButton Style="{StaticResource Radio.Rail}" GroupName="Rail" Click="OnRailClick" ToolTip="{loc:Text T_06455df7d342}"
                                  IsChecked="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter=Text}">
@@ -219,11 +263,15 @@
             </Border>
 
             <!-- Sol panel -->
-            <views:LeftPanel x:Name="LeftPanelHost" Grid.Column="1" Width="300"
-                             Visibility="{Binding IsPanelOpen, Converter={StaticResource BoolToVisibility}}" />
+            <views:LeftPanel x:Name="LeftPanelHost" Grid.Column="1" Width="270" services:Motion.Reveal="True">
+                <views:LeftPanel.Style><Style TargetType="views:LeftPanel"><Style.Triggers>
+                    <DataTrigger Binding="{Binding IsPanelOpen}" Value="False"><Setter Property="Visibility" Value="Collapsed"/></DataTrigger>
+                    <DataTrigger Binding="{Binding IsFocusMode}" Value="True"><Setter Property="Visibility" Value="Collapsed"/></DataTrigger>
+                </Style.Triggers></Style></views:LeftPanel.Style>
+            </views:LeftPanel>
 
             <!-- Tuval -->
-            <Grid Grid.Column="2" Background="{DynamicResource Brush.Workspace}">
+            <Grid x:Name="WorkspaceHost" Grid.Column="2" Background="{DynamicResource Brush.Workspace}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -253,20 +301,20 @@
             <Rectangle Grid.Column="3" Width="1" Fill="{DynamicResource Brush.Border}" />
 
             <!-- Özellikler / Yapay Zekâ -->
-            <views:PropertiesPanel x:Name="Properties" Grid.Column="4"
+            <views:PropertiesPanel services:Motion.Reveal="True" x:Name="Properties" Grid.Column="4"
                                    Visibility="{Binding IsAiPanelOpen, Converter={StaticResource BoolToVisibility}, ConverterParameter=Invert}" />
-            <views:AiPanel x:Name="AiPanelHost" Grid.Column="4" DataContext="{Binding Ai}"
+            <views:AiPanel services:Motion.Reveal="True" x:Name="AiPanelHost" Grid.Column="4" DataContext="{Binding Ai}"
                            Visibility="{Binding DataContext.IsAiPanelOpen, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibility}}" />
         </Grid>
 
         <!-- ───────────── Durum çubuğu ───────────── -->
-        <Border Grid.Row="2" Background="{DynamicResource Brush.Toolbar}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,1,0,0">
+        <Border Grid.Row="3" Background="{DynamicResource Brush.Toolbar}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,1,0,0">
             <DockPanel Height="27" Margin="14,0">
                 <TextBlock DockPanel.Dock="Right" Text="{Binding ZoomText}" Foreground="{DynamicResource Brush.TextSecondary}" FontSize="12" VerticalAlignment="Center" />
                 <TextBlock DockPanel.Dock="Right" Text="{Binding LabelSizeText}" Foreground="{DynamicResource Brush.TextSecondary}" FontSize="12" Margin="0,0,22,0" VerticalAlignment="Center" />
                 <TextBlock DockPanel.Dock="Right" Text="{Binding CursorText}" Foreground="{DynamicResource Brush.TextSecondary}" FontSize="12" Margin="0,0,22,0" VerticalAlignment="Center" MinWidth="130" />
                 <TextBlock DockPanel.Dock="Right" Text="{Binding SelectionText}" Foreground="{DynamicResource Brush.TextSecondary}" FontSize="12" Margin="0,0,22,0" VerticalAlignment="Center" />
-                <TextBlock Text="{Binding StatusMessage}" FontSize="12" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                <TextBlock x:Name="StatusText" Text="{Binding StatusMessage}" FontSize="12" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
             </DockPanel>
         </Border>
     </Grid>

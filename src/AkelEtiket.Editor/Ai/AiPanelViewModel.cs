@@ -141,7 +141,7 @@ public sealed partial class AiPanelViewModel : ObservableObject, IAsyncDisposabl
         }
         if (Service.GetNewDesignCopy(request.DesignId) is { } project)
         {
-            if (!_main.ConfirmCloseDocument()) return;
+            if (!_main.CanOpenNewDocument()) return;
             _main.OpenProjectAsNew(project, L10n.T($"Yapay zekânın hazırladığı \"{request.Name}\" açıldı (kaydetmek için Ctrl+S)."));
             OpenRequests.Remove(request);
             return;

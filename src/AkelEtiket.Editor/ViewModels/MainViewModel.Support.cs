@@ -43,7 +43,7 @@ public sealed partial class BackupsViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanOpen))]
     private void Open()
     {
-        if (Selected is null || !_main.ConfirmCloseDocument()) return;
+        if (Selected is null || !_main.CanOpenNewDocument()) return;
         try
         {
             var result = ProjectFile.Load(Selected.Path);

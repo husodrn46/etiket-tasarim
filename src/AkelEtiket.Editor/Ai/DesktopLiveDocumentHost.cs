@@ -52,7 +52,7 @@ public sealed class DesktopLiveDocumentHost : ILiveDocumentHost
 {
     private readonly MainViewModel _main;
     private readonly IUiDispatcher _dispatcher;
-    private volatile LiveDocumentInfo? _info;
+    private volatile IReadOnlyList<LiveDocumentInfo> _documents = [];
 
     public DesktopLiveDocumentHost(MainViewModel main, IUiDispatcher dispatcher)
     {
@@ -69,8 +69,7 @@ public sealed class DesktopLiveDocumentHost : ILiveDocumentHost
     /// <summary>Açık belge özetini yeniler; arayüz iş parçacığından çağrılmalı (oturum/seçim/kayıt değişince).</summary>
     public void Refresh()
     {
-        var session = _main.Session;
-        _info = Describe(session);
+        _documents = _main.Documents.Where(t => !t.IsDisposed).Select(t => Describe(t.Session)).ToArray();
     }
 
     private static LiveDocumentInfo Describe(DocumentSession session) => new(
@@ -81,7 +80,7 @@ public sealed class DesktopLiveDocumentHost : ILiveDocumentHost
         session.IsDirty,
         session.SelectedElements.Select(e => e.Id).ToList());
 
-    public IReadOnlyList<LiveDocumentInfo> GetOpenDocuments() => _info is { } info ? [info] : [];
+    public IReadOnlyList<LiveDocumentInfo> GetOpenDocuments() => _documents;
 
     public Task<LiveSnapshot> SnapshotAsync(int sessionNumber, CancellationToken cancellationToken) =>
         _dispatcher.InvokeAsync(() =>
@@ -135,8 +134,8 @@ public sealed class DesktopLiveDocumentHost : ILiveDocumentHost
 
     private DocumentSession Require(int sessionNumber)
     {
-        var session = _main.Session;
-        if (session.SessionNumber != sessionNumber)
+        var session = _main.Documents.FirstOrDefault(t => !t.IsDisposed && t.Session.SessionNumber == sessionNumber)?.Session;
+        if (session is null)
             throw new ToolException(ToolErrorCodes.NotFound,
                 L10n.T($"acik:{sessionNumber} artık açık değil (kullanıcı başka bir belge açtı). list_designs ile güncel listeyi alın."));
         return session;

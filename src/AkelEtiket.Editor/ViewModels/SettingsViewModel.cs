@@ -26,6 +26,8 @@ public sealed partial class SettingsViewModel : ObservableObject
         Accent = settings.Personalization.Accent; UiScale = settings.Personalization.UiScale;
         DefaultFontFamily = settings.Personalization.DefaultFontFamily; StartupTemplatePath = settings.Personalization.StartupTemplatePath ?? "";
         RememberPanelLayout = settings.Personalization.RememberPanelLayout;
+        OpenDocumentsInTabs = settings.Personalization.OpenDocumentsInTabs;
+        EnableAnimations = settings.Personalization.EnableAnimations;
         GridSizeMm = settings.GridSizeMm;
         ShowGrid = settings.ShowGrid;
         SnapToGrid = settings.SnapToGrid;
@@ -60,6 +62,8 @@ public sealed partial class SettingsViewModel : ObservableObject
     [ObservableProperty] public partial string DefaultFontFamily { get; set; }
     [ObservableProperty] public partial string StartupTemplatePath { get; set; }
     [ObservableProperty] public partial bool RememberPanelLayout { get; set; }
+    [ObservableProperty] public partial bool OpenDocumentsInTabs { get; set; }
+    [ObservableProperty] public partial bool EnableAnimations { get; set; }
     [RelayCommand] private void ChooseStartupTemplate()
     {
         string? path = Dialogs?.ShowOpenFileDialog(L10n.T("Başlangıç şablonunu seç"), "Label (*.akelabel)|*.akelabel");
@@ -149,6 +153,8 @@ public sealed partial class SettingsViewModel : ObservableObject
         target.Theme = Theme;
         target.Personalization.Accent = Accent; target.Personalization.UiScale = UiScale;
         target.Personalization.DefaultFontFamily = DefaultFontFamily; target.Personalization.StartupTemplatePath = StartupTemplatePath;
+        target.Personalization.OpenDocumentsInTabs = OpenDocumentsInTabs;
+        target.Personalization.EnableAnimations = EnableAnimations;
         target.Personalization.RememberPanelLayout = RememberPanelLayout; target.Personalization.Normalize();
         target.Company = new CompanyProfile
         {

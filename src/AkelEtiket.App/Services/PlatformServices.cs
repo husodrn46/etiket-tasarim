@@ -165,6 +165,7 @@ public static class ThemeManager
     private static string _accent = "red";
     public static void Configure(AppSettings settings)
     {
+        Motion.Configure(settings.Personalization.EnableAnimations);
         UiScale = settings.Personalization.UiScale; _accent = settings.Personalization.Accent; Apply(settings.Theme);
     }
 

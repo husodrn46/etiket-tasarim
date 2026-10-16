@@ -23,6 +23,13 @@ public sealed class WpfDialogService : IDialogService
         return dialog.ShowDialog(ActiveOwner) == true ? dialog.FileName : null;
     }
 
+    public IReadOnlyList<string> ShowOpenFilesDialog(string title,string filter,string? initialDirectory=null)
+    {
+        var dialog=new OpenFileDialog { Title=title,Filter=L10n.T(filter),CheckFileExists=true,Multiselect=true };
+        if (initialDirectory is not null && Directory.Exists(initialDirectory)) dialog.InitialDirectory=initialDirectory;
+        return dialog.ShowDialog(ActiveOwner)==true ? dialog.FileNames : [];
+    }
+
     public string? ShowSaveFileDialog(string title, string filter, string defaultFileName, string? initialDirectory = null)
     {
         var dialog = new SaveFileDialog { Title = title, Filter = L10n.T(filter), FileName = defaultFileName, OverwritePrompt = true, AddExtension = true };

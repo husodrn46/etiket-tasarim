@@ -162,7 +162,7 @@ public sealed partial class TemplatesViewModel : ObservableObject
     {
         item ??= SelectedItem;
         if (item is null || item.HasProblem) return;
-        if (!_main.ConfirmCloseDocument()) return;
+        if (!_main.CanOpenNewDocument()) return;
         try
         {
             var result = ProjectFile.Load(item.Info.FilePath);

@@ -5993,4 +5993,26 @@ Devam edilsin mi?</value>
   <data name="T_c16118d5ee79" xml:space="preserve">
     <value>{{{0}}}: değer tarih değil; tarih hesabı yapılamadı.</value>
   </data>
+  <data name="T_0512c90535d3" xml:space="preserve"><value>Kaydedilmemiş etiket</value></data>
+  <data name="T_0edc44072f4e" xml:space="preserve"><value>{0} kaydedilmemiş etiket bulundu. Kurtarılabilen etiketler ayrı sekmelerde açılsın mı?</value></data>
+  <data name="T_31aa6b339799" xml:space="preserve"><value>En fazla {0} etiket açık olabilir. Önce bir sekmeyi kaydedip kapatın.</value></data>
+  <data name="T_3e9bbf46b3af" xml:space="preserve"><value>Diğer sekmeleri kapat</value></data>
+  <data name="T_4f6e81e80c0e" xml:space="preserve"><value>Dosya başka sekmede açık</value></data>
+  <data name="T_65bab452ca1b" xml:space="preserve"><value>{0} etiket açık</value></data>
+  <data name="T_676211c597d9" xml:space="preserve"><value>Değiştirildi</value></data>
+  <data name="T_74be31c75f01" xml:space="preserve"><value>Açık etiketler</value></data>
+  <data name="T_952c93deb519" xml:space="preserve"><value>Sabitlemeyi kaldır</value></data>
+  <data name="T_a90834375e7b" xml:space="preserve"><value>{0} kopyası</value></data>
+  <data name="T_ab1506d24a2e" xml:space="preserve"><value>Bu dosya başka bir sekmede düzenleniyor. Farklı bir dosya adı seçin.</value></data>
+  <data name="T_bb57a54fb8e4" xml:space="preserve"><value>Kurtarılan etiketler açıldı. Lütfen kaydedin.</value></data>
+  <data name="T_bf66e15d3d1a" xml:space="preserve"><value>Tüm etiketler kaydedildi.</value></data>
+  <data name="T_c3e68af6b064" xml:space="preserve"><value>Sekmeyi sabitle</value></data>
+  <data name="T_cb4e0573de15" xml:space="preserve"><value>Sekmeyi kapat</value></data>
+  <data name="T_d3add5b6208a" xml:space="preserve"><value>Tüm etiketleri kaydet</value></data>
+  <data name="T_ddb224367cd8" xml:space="preserve"><value>Etiketi yeni sekmede kopyala</value></data>
+  <data name="T_5d0fba1a8f03" xml:space="preserve"><value>Odak modu (Ctrl+Shift+F)</value></data>
+  <data name="T_fab9f754c02a" xml:space="preserve"><value>Sekmeyi kapat (Ctrl+W)</value></data>
+  <data name="T_d5d587b1db82" xml:space="preserve"><value>Etiketleri ayrı sekmelerde aç</value></data>
+  <data name="T_8c080f640c2b" xml:space="preserve"><value>Arayüz animasyonlarını etkinleştir</value></data>
+  <data name="T_d2bd22185b97" xml:space="preserve"><value>Windows hareket azaltma ve yüksek karşıtlık ayarları önceliklidir.</value></data>
 </root>

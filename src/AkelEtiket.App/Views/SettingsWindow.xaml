@@ -24,6 +24,9 @@
         <TextBlock Text="{loc:Text T_f632a3a2aed7}" Style="{StaticResource FieldLabel}"/>
         <TextBox Text="{Binding StartupTemplatePath}" IsReadOnly="True" Margin="0,4,0,6"/>
         <WrapPanel Margin="0,0,0,10"><Button Content="{loc:Text T_4e59932d69f7}" Command="{Binding ChooseStartupTemplateCommand}" Margin="0,0,8,0"/><Button Content="{loc:Text T_e306951c12fe}" Command="{Binding ClearStartupTemplateCommand}"/></WrapPanel>
+        <CheckBox Content="{loc:Text T_d5d587b1db82}" IsChecked="{Binding OpenDocumentsInTabs}" Margin="0,0,0,10"/>
+        <CheckBox Content="{loc:Text T_8c080f640c2b}" IsChecked="{Binding EnableAnimations}" Margin="0,0,0,5"/>
+        <TextBlock Text="{loc:Text T_d2bd22185b97}" Style="{StaticResource Text.Hint}" Margin="0,0,0,10"/>
         <CheckBox Content="{loc:Text T_b470e1c35ee9}" IsChecked="{Binding RememberPanelLayout}" Margin="0,0,0,10"/>
         <TextBlock Text="{loc:Text T_ed9536e4989b}" Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="0,0,0,16"/>
         <TextBlock Text="{loc:Text T_28ed729e7118}" Style="{StaticResource Text.Section}" />

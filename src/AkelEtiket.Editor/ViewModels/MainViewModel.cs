@@ -63,8 +63,13 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
     public const double MaxZoom = 16;
 
     private readonly AppServices _services;
-    private readonly AutoRecoveryService _recovery;
-    private bool _recoveryDirty;
+    private readonly AutoRecoveryService _initialRecovery;
+    private AutoRecoveryService _recovery => ActiveDocument?.Recovery ?? _initialRecovery;
+    private bool _recoveryDirty
+    {
+        get => ActiveDocument?.RecoveryDirty ?? false;
+        set { if (ActiveDocument is not null) ActiveDocument.RecoveryDirty = value; }
+    }
     private bool _disposed;
 
     public MainViewModel(AppServices services)
@@ -72,26 +77,19 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         _services = services ?? throw new ArgumentNullException(nameof(services));
         Settings = services.InitialSettings ?? services.SettingsStore.Load();
         Settings.Normalize();
-        _recovery = new AutoRecoveryService(services.RecoveryFolder);
+        _initialRecovery = new AutoRecoveryService(services.RecoveryFolder);
         if (Settings.Personalization.RememberPanelLayout)
         {
             ActivePanel = Enum.Parse<LeftPanel>(Settings.Personalization.ActivePanel);
             IsPanelOpen = Settings.Personalization.IsPanelOpen; IsAiPanelOpen = Settings.Personalization.IsAiPanelOpen;
         }
         Data = new DataSourceViewModel();
-        Data.PreviewChanged += (_, _) => ApplyPreviewFields();
-        Data.TableChanged += (_, _) =>
-        {
-            UpdateImageResolver();
-            ValidateData();
-        };
-        Data.ReloadFailed += (_, message) => Dialogs.ShowMessage(L10n.T("Veri kaynağı"), message, MessageKind.Error);
         Templates = new TemplatesViewModel(this);
-        Data.MappingRequested += (_, _) => OpenColumnMappingCommand.Execute(null);
         foreach (var path in Settings.Recent.Items) RecentFiles.Add(path);
         // {SAYAC} (belgenin kendi sayacı) açık belgenin adını kullanır.
         Printing.CounterIntegration.DocumentName = () => Session?.Document.Name;
         Session = CreateSession(LabelProject.CreateBlank(Settings.DefaultLabelWidthMm, Settings.DefaultLabelHeightMm));
+        InitializeDocuments();
 
         // Yapay zekâ: tasarım servisi (araçlar), açık belge köprüsü, yerel API bağlantısı ve panel.
         AiSettings = new AiSettingsMonitor();
@@ -146,7 +144,24 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
     internal IDialogService Dialogs => _services.Dialogs;
 
     public AppSettings Settings { get; private set; }
-    public DataSourceViewModel Data { get; }
+    [ObservableProperty]
+    public partial DataSourceViewModel Data { get; private set; }
+
+    partial void OnDataChanged(DataSourceViewModel oldValue, DataSourceViewModel newValue)
+    {
+        if (oldValue is not null)
+        {
+            oldValue.TableChanged -= OnDataTableChanged;
+            oldValue.ReloadFailed -= OnDataReloadFailed;
+            oldValue.MappingRequested -= OnDataMappingRequested;
+        }
+        newValue.TableChanged += OnDataTableChanged;
+        newValue.ReloadFailed += OnDataReloadFailed;
+        newValue.MappingRequested += OnDataMappingRequested;
+    }
+    private void OnDataTableChanged(object? sender, EventArgs e) { UpdateImageResolver(); ValidateData(); }
+    private void OnDataReloadFailed(object? sender, string message) => Dialogs.ShowMessage(L10n.T("Veri kaynağı"), message, MessageKind.Error);
+    private void OnDataMappingRequested(object? sender, EventArgs e) => OpenColumnMappingCommand.Execute(null);
     public TemplatesViewModel Templates { get; }
     public ObservableCollection<string> RecentFiles { get; } = [];
 
@@ -213,7 +228,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
             oldValue.Changed -= OnSessionContentChanged;
             oldValue.SelectionChanged -= OnSelectionChanged;
             oldValue.LabelSetupChanged -= OnLabelSetupChanged;
-            oldValue.Dispose();
+            if (!Documents.Any(t => ReferenceEquals(t.Session,oldValue))) oldValue.Dispose();
         }
         newValue.PropertyChanged += OnSessionPropertyChanged;
         newValue.Changed += OnSessionContentChanged;
@@ -327,7 +342,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
             if (!recovered)
             {
                 var sample = InternationalSamples.CreateForSize(Settings.DefaultLabelWidthMm, Settings.DefaultLabelHeightMm, Settings.Company, L10n.Language);
-                Session = CreateSession(sample);
+                OpenDocument(sample);
                 SetStatus(L10n.T("Hoş geldiniz! Etiketiniz hazır. Tasarımınızı oluşturabilir veya Şablonlar panelinden bir örnek seçebilirsiniz."));
             }
             if (_services.ImportedLegacySettings)
@@ -368,54 +383,49 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
     private bool TryOfferRecovery()
     {
         IReadOnlyList<RecoveryEntry> orphans;
-        try
-        {
-            orphans = _recovery.FindOrphanedSessions();
-        }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
-        {
-            return false;
-        }
+        try { orphans = _recovery.FindOrphanedSessions(); }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { return false; }
         if (orphans.Count == 0) return false;
-        var latest = orphans[0];
         bool restore = Dialogs.Confirm(L10n.T("Otomatik kurtarma"),
-            L10n.T($"Uygulama beklenmedik şekilde kapanmış görünüyor.\n\n\"{latest.DocumentName}\" ({latest.SavedAt:dd.MM.yyyy HH:mm}) ") +
-            L10n.T("belgesinin kaydedilmemiş bir kopyası bulundu. Kurtarılsın mı?"),
-            L10n.T("Kurtar"), L10n.T("Sil"));
+            L10n.T($"{orphans.Count} kaydedilmemiş etiket bulundu. Kurtarılabilen etiketler ayrı sekmelerde açılsın mı?"),
+            L10n.T("Kurtar"),L10n.T("Sil"));
         bool opened = false;
-        if (restore)
+        foreach (var entry in orphans)
         {
+            if (!restore) { _initialRecovery.Discard(entry); continue; }
             try
             {
-                var result = _recovery.Recover(latest);
-                Session = CreateSession(result.Project);
-                Session.History.Clear();
-                _recoveryDirty = true;
+                var result = _initialRecovery.Recover(entry);
+                var tab = OpenDocument(result.Project,forceNewTab:opened);
+                if (tab is null) break; // Unopened recovery files remain available.
+                tab.Session.History.Clear();
+                tab.Session.MarkUnsaved();
+                tab.Recovery.Save(result.Project); // Persist the new copy before discarding its orphan.
+                tab.RecoveryDirty = true;
+                _initialRecovery.Discard(entry);
                 opened = true;
-                SetStatus(L10n.T("Kurtarılan belge açıldı. Lütfen kaydedin."));
             }
-            catch (ProjectFileException ex)
-            {
-                Dialogs.ShowMessage(L10n.T("Kurtarma"), ex.Message, MessageKind.Error);
-            }
+            catch (Exception ex) when (ex is ProjectFileException or IOException or UnauthorizedAccessException)
+            { Dialogs.ShowMessage(L10n.T("Kurtarma"),ex.Message,MessageKind.Error); }
         }
-        foreach (var entry in orphans) _recovery.Discard(entry);
+        if (opened) SetStatus(L10n.T("Kurtarılan etiketler açıldı. Lütfen kaydedin."));
         return opened;
     }
 
     /// <summary>Otomatik kurtarma zamanlayıcısı (arayüz her birkaç saniyede bir çağırır).</summary>
     public void AutoRecoveryTick()
     {
-        if (!_recoveryDirty || Settings.AutoRecoverySeconds <= 0) return;
-        try
+        if (Settings.AutoRecoverySeconds <= 0) return;
+        foreach (var tab in Documents.Where(t => t.RecoveryDirty && !t.IsDisposed).ToArray())
         {
-            if (Session.IsDirty) _recovery.Save(Session.Project);
-            else _recovery.ClearSession();
-            _recoveryDirty = false;
-        }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
-        {
-            SetStatus(L10n.T("Otomatik kurtarma kopyası yazılamadı: ") + ex.Message);
+            try
+            {
+                if (tab.Session.IsDirty) tab.Recovery.Save(tab.Session.Project);
+                else tab.Recovery.ClearSession();
+                tab.RecoveryDirty = false;
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+            { SetStatus(L10n.T("Otomatik kurtarma kopyası yazılamadı: ") + ex.Message); }
         }
     }
 
@@ -466,8 +476,8 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         catch (AggregateException)
         {
         }
-        _recovery.Dispose();
-        Session.Dispose();
+        foreach (var tab in Documents.ToArray()) { tab.Changed -= OnAnyDocumentChanged; tab.Dispose(); }
+        _initialRecovery.Dispose();
     }
 
     // ───────────────────────── Görünüm ─────────────────────────

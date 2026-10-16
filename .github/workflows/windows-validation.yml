@@ -1,0 +1,42 @@
+name: Windows validation
+on:
+  push:
+    branches: [main, feature/document-tabs-and-motion]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: windows-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+      DOTNET_NOLOGO: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
+        with:
+          dotnet-version: 10.0.402
+      - name: Build solution
+        run: dotnet build AkelEtiket.sln -c Release -p:UseSharedCompilation=false -m:1
+      - name: Run Windows tests
+        run: dotnet test AkelEtiket.sln -c Release --no-build --no-restore --logger trx --results-directory windows-results/tests
+      - name: Build native WPF smoke runner
+        if: always()
+        run: dotnet build tools/LabelHarbor.WindowsSmoke -c Release -p:UseSharedCompilation=false -m:1
+      - name: Exercise native WPF windows and capture results
+        if: always()
+        run: dotnet run --project tools/LabelHarbor.WindowsSmoke -c Release --no-build -- windows-results/ui
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: windows-validation-${{ github.sha }}
+          path: windows-results
+          retention-days: 14

@@ -30,7 +30,7 @@ public sealed partial class MainViewModel
     /// </summary>
     public bool StartQuickPrint(string templatePath, ProductRecord? product, IReadOnlyList<string> columns, int copies)
     {
-        if (!ConfirmCloseDocument()) return false;
+        if (!CanOpenNewDocument()) return false;
         LabelProject project;
         try
         {
@@ -42,7 +42,7 @@ public sealed partial class MainViewModel
             return false;
         }
         project.FilePath = null;
-        Session = CreateSession(project);
+        if (OpenDocument(project) is null) return false;
         if (product is not null)
         {
             var values = columns.Select(c => product.Fields.TryGetValue(c, out var v) ? v : "").ToList();

@@ -11,7 +11,7 @@ public class ThemedWindow : Window
     {
         SetResourceReference(BackgroundProperty, "Brush.Window");
         SetResourceReference(ForegroundProperty, "Brush.Text");
-        FontFamily = new FontFamily("Segoe UI");
+        FontFamily = new FontFamily("Segoe UI Variable Text, Segoe UI");
         FontSize = 13;
         UseLayoutRounding = true;
         SnapsToDevicePixels = true;
@@ -19,11 +19,11 @@ public class ThemedWindow : Window
         ShowInTaskbar = false;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
         ThemeManager.ThemeChanged += OnThemeChanged;
-        Loaded += (_, _) => ApplyUiScale();
+        Loaded += (_, _) => { ApplyUiScale(); if(Content is UIElement root) Motion.Pulse(root); };
         Closed += (_, _) => ThemeManager.ThemeChanged -= OnThemeChanged;
     }
 
-    private void OnThemeChanged(object? sender, EventArgs e) { ThemeManager.ApplyTitleBar(this); ApplyUiScale(); }
+    private void OnThemeChanged(object? sender, EventArgs e) { ThemeManager.ApplyTitleBar(this); ApplyUiScale(); if(Content is UIElement root) Motion.Pulse(root); }
     private void ApplyUiScale()
     {
         if (Content is FrameworkElement root) root.LayoutTransform = new ScaleTransform(ThemeManager.UiScale, ThemeManager.UiScale);
