@@ -55,6 +55,7 @@ public sealed class WpfDialogService : IDialogService
     {
         Window window = viewModel switch
         {
+            ProductionViewModel production => new ProductionWindow(production),
             PrintViewModel print => new PrintWindow(print),
             PrintHistoryViewModel history => new PrintHistoryWindow(history),
             CalibrationViewModel calibration => new CalibrationWindow(calibration),

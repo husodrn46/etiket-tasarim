@@ -1,0 +1,65 @@
+<views:ThemedWindow x:Class="AkelEtiket.App.Views.ProductionWindow"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:loc="clr-namespace:AkelEtiket.App.Localization"
+ xmlns:views="clr-namespace:AkelEtiket.App.Views"
+ Title="{loc:Text T_213c1a1d9d54}" Width="1220" Height="780" MinWidth="980" MinHeight="620" ResizeMode="CanResizeWithGrip">
+ <DockPanel Margin="20,14">
+  <StackPanel DockPanel.Dock="Top" Margin="0,0,0,14">
+   <TextBlock Text="{loc:Text T_213c1a1d9d54}" Style="{StaticResource Text.Title}" FontSize="20"/>
+   <TextBlock Text="{Binding SourceSummary}" Margin="0,5,0,4" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
+   <TextBlock Text="{loc:Text T_1e90a5c67ce6}" Style="{StaticResource Text.Hint}" TextWrapping="Wrap"/>
+  </StackPanel>
+  <StackPanel DockPanel.Dock="Bottom" Margin="0,14,0,0">
+   <TextBlock Text="{Binding QualitySummary}" FontWeight="SemiBold"/>
+   <TextBlock Text="{Binding Status}" TextWrapping="Wrap" Margin="0,5,0,8"/>
+   <ProgressBar Value="{Binding Progress}" Minimum="0" Maximum="100" Height="4" Margin="0,0,0,10"/>
+   <DockPanel>
+    <Button DockPanel.Dock="Right" Content="{loc:Text T_7b31a9fc4816}" Click="OnClose" MinWidth="80" Margin="10,0,0,0"/>
+    <Button DockPanel.Dock="Right" Content="{loc:Text T_72278748133a}" Command="{Binding CancelCommand}" MinWidth="80" Margin="10,0,0,0"/>
+    <Button DockPanel.Dock="Right" x:Name="ExportButton" Content="{loc:Text T_f0070fad640b}" Command="{Binding ExportCommand}" MinWidth="125" Margin="10,0,0,0" Style="{StaticResource Button.Accent}"/>
+    <Button DockPanel.Dock="Right" x:Name="CheckQualityButton" Content="{loc:Text T_8a251353e600}" Command="{Binding CheckQualityCommand}" MinWidth="125" Margin="10,0,0,0"/>
+    <TextBlock Text="{Binding PrivacyHint}" Style="{StaticResource Text.Hint}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,16,0"/>
+   </DockPanel>
+  </StackPanel>
+  <Grid>
+   <Grid.ColumnDefinitions><ColumnDefinition Width="230"/><ColumnDefinition Width="18"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+   <DockPanel>
+    <TextBlock DockPanel.Dock="Top" Text="{loc:Text T_cbd56bb4a99c}" FontWeight="SemiBold" Margin="0,0,0,8"/>
+    <StackPanel DockPanel.Dock="Bottom" Margin="0,10,0,0">
+     <Button Content="{loc:Text T_1dd544e42149}" Command="{Binding OpenRecipeCommand}" Margin="0,0,0,6"/>
+     <Button Content="{loc:Text T_4583ec0338e1}" Command="{Binding SaveRecipeCommand}" Margin="0,0,0,6"/>
+     <Button Content="{loc:Text T_a2e2faa4efb2}" Command="{Binding DeleteRecipeCommand}"/>
+     <TextBlock Text="{loc:Text T_7c1a39d28dbc}" Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="0,10,0,0"/>
+    </StackPanel>
+    <ListBox x:Name="RecipeList" ItemsSource="{Binding Recipes}" SelectedItem="{Binding SelectedRecipe}" DisplayMemberPath="Name" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+     <ListBox.ItemContainerStyle><Style TargetType="ListBoxItem"><Setter Property="ToolTip" Value="{Binding Name}"/></Style></ListBox.ItemContainerStyle>
+    </ListBox>
+   </DockPanel>
+   <DockPanel Grid.Column="2">
+    <StackPanel DockPanel.Dock="Top" IsEnabled="{Binding IsIdle}">
+     <TextBlock Text="{loc:Text T_53b5879733df}" FontWeight="SemiBold" Margin="0,0,0,8"/>
+     <WrapPanel>
+      <CheckBox Content="{loc:Text T_a0775433aaca}" IsChecked="{Binding UseData}" VerticalAlignment="Center" Margin="0,0,20,8"/>
+      <StackPanel Orientation="Horizontal" Margin="0,0,18,8"><TextBlock Text="{loc:Text T_776608cd362f}" VerticalAlignment="Center" Margin="0,0,8,0"/><TextBox Text="{Binding Copies, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, NotifyOnValidationError=True}" Width="70"/></StackPanel>
+      <StackPanel Orientation="Horizontal" Margin="0,0,0,8"><TextBlock Text="{loc:Text T_527ed681f606}" VerticalAlignment="Center" Margin="0,0,8,0"/><TextBox Text="{Binding StartNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, NotifyOnValidationError=True}" Width="95"/></StackPanel>
+     </WrapPanel>
+     <WrapPanel Margin="0,2,0,12">
+      <RadioButton Content="{loc:Text T_690d1587f5a3}" IsChecked="{Binding ExportPdf}" GroupName="OutputFormat" Margin="0,0,18,6"/>
+      <RadioButton Content="{loc:Text T_899b5d5cf006}" IsChecked="{Binding ExportPng}" GroupName="OutputFormat" Margin="0,0,0,6"/>
+     </WrapPanel>
+     <TextBlock Text="{loc:Text T_df9f7ccd4e51}" FontWeight="SemiBold" Margin="0,0,0,8"/>
+    </StackPanel>
+    <DataGrid x:Name="FindingsGrid" ItemsSource="{Binding Findings}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" HeadersVisibility="Column" EnableRowVirtualization="True">
+     <DataGrid.Columns>
+      <DataGridTextColumn Header="{loc:Text T_5c8735bbe78c}" Binding="{Binding Severity}" Width="75"/>
+      <DataGridTextColumn Header="{loc:Text T_bce3c039c4d7}" Binding="{Binding RowNumber}" Width="55"/>
+      <DataGridTextColumn Header="{loc:Text T_c488576b91c5}" Binding="{Binding ElementName}" Width="95"/>
+      <DataGridTextColumn Header="{loc:Text T_293390c82a9f}" Binding="{Binding Message}" Width="2*"><DataGridTextColumn.ElementStyle><Style TargetType="TextBlock"><Setter Property="TextWrapping" Value="Wrap"/><Setter Property="Margin" Value="4"/></Style></DataGridTextColumn.ElementStyle></DataGridTextColumn>
+      <DataGridTextColumn Header="{loc:Text T_38a83bfbac67}" Binding="{Binding Recommendation}" Width="*"><DataGridTextColumn.ElementStyle><Style TargetType="TextBlock"><Setter Property="TextWrapping" Value="Wrap"/><Setter Property="Margin" Value="4"/></Style></DataGridTextColumn.ElementStyle></DataGridTextColumn>
+     </DataGrid.Columns>
+    </DataGrid>
+   </DockPanel>
+  </Grid>
+ </DockPanel>
+</views:ThemedWindow>

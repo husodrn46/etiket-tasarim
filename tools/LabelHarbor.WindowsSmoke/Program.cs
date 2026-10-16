@@ -12,6 +12,7 @@ using AkelEtiket.App.Services;
 using AkelEtiket.App.Views;
 using AkelEtiket.Core.Model;
 using AkelEtiket.Editor.Services;
+using AkelEtiket.Editor.Production;
 using AkelEtiket.Editor.ViewModels;
 using AkelEtiket.ProjectManager;
 
@@ -63,6 +64,21 @@ internal static class Program
             Motion.Pulse(tabs);bool allowed=Motion.IsEnabled;Check(!allowed||tabs.HasAnimatedProperties,"Allowed motion creates a short feedback clock");
             Motion.Configure(false);Check(!tabs.HasAnimatedProperties,"Disabling motion clears running clocks");
             Capture(window,"dark-capture200.png",2);
+            vm.OpenProject(a,true,offerLinkedData:false);
+            using(var production=new ProductionViewModel(vm,new ProductionRecipeStore(Path.Combine(root,"recipes.json"))))
+            {
+                var workbench=new ProductionWindow(production) { Owner=window };workbench.Show();Pump();
+                Check(workbench.Title=="Production workspace","Production workspace title is translated into English");
+                Check(!((Button)workbench.FindName("ExportButton")).IsEnabled,"Production export starts disabled before full inspection");
+                var check=production.CheckQualityCommand.ExecuteAsync(null);
+                var deadline=DateTime.UtcNow.AddSeconds(30);
+                while(!check.IsCompleted&&DateTime.UtcNow<deadline)Pump();
+                Check(check.IsCompletedSuccessfully&&production.CanExport,"Native workspace enables export after complete quality inspection");
+                CheckVisibleBounds(workbench,(DataGrid)workbench.FindName("FindingsGrid"),"Production findings remain within the client area");
+                Capture(workbench,"production-workspace-english.png");
+                production.Copies=2;Pump();Check(!production.CanExport,"Changed job settings invalidate native export readiness");
+                workbench.Close();
+            }
             dialogs.Choice=SaveChangesChoice.Discard;window.Close();Check(!window.IsVisible,"Close resolves all document decisions and closes the native window");
             Checks.Add(new { name="Capture environment",dpi=VisualTreeHelper.GetDpi(tabs).PixelsPerInchX,actualWindowWidth=window.ActualWidth,actualWindowHeight=window.ActualHeight,capture200="Raster capture scale only; not a physical monitor DPI test",clientAnimation=SystemParameters.ClientAreaAnimation,highContrast=SystemParameters.HighContrast });
             success=true;return 0;

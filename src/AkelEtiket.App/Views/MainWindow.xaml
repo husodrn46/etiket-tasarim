@@ -130,6 +130,7 @@
                             <TextBlock Text="{loc:Text T_930a0da1ee3b}" Margin="6,0,0,0" VerticalAlignment="Center" />
                         </StackPanel>
                     </Button>
+                    <Button Style="{StaticResource Button.Toolbar}" Command="{Binding OpenProductionCommand}" Content="{loc:Text T_213c1a1d9d54}" ToolTip="Ctrl+Shift+B" Margin="4,0,6,0"/>
                     <Button Style="{StaticResource Button.Toolbar}" Command="{Binding PreviewCommand}" ToolTip="{loc:Text T_9de0257ea86f}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource Text.Glyph}" Text="{StaticResource Glyph.Preview}" />
