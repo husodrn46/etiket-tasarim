@@ -77,6 +77,9 @@ internal static class Program
                 Check(check.IsCompletedSuccessfully&&production.CanExport,"Native workspace enables export after complete quality inspection");
                 Check(((ProgressBar)workbench.FindName("ProductionProgress")).Value==100,"Production progress displays the completed read-only job value");
                 CheckVisibleBounds(workbench,(DataGrid)workbench.FindName("FindingsGrid"),"Production findings remain within the client area");
+                var findings=(DataGrid)workbench.FindName("FindingsGrid");findings.UpdateLayout();
+                var findingRow=findings.ItemContainerGenerator.ContainerFromIndex(0) as DataGridRow;
+                Check(findingRow is not null&&findingRow.ActualHeight>28,"Long production findings wrap into fully visible rows");
                 Capture(workbench,"production-workspace-english.png");
                 production.Copies=2;Pump();Check(!production.CanExport,"Changed job settings invalidate native export readiness");
                 workbench.Close();
