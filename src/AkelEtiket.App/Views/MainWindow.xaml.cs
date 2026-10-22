@@ -213,6 +213,7 @@ public partial class MainWindow : ThemedWindow
         menu.Items.Add(new MenuItem { Header = L10n.T("PNG olarak dışa aktar…"), Command = _vm.ExportPngCommand, InputGestureText = "Ctrl+E" });
         menu.Items.Add(new MenuItem { Header = L10n.T("PDF olarak kaydet…"), Command = _vm.ExportPdfCommand });
         menu.Items.Add(new Separator());
+        menu.Items.Add(new MenuItem { Header = L10n.T("Üretim çalışma alanı…"), Command = _vm.OpenProductionCommand });
         menu.Items.Add(new MenuItem { Header = L10n.T("Baskı geçmişi…"), Command = _vm.OpenPrintHistoryCommand });
         menu.Items.Add(new MenuItem { Header = L10n.T("Sayaçlar…"), Command = _vm.OpenCountersCommand });
         menu.Items.Add(new Separator());
@@ -264,6 +265,7 @@ public partial class MainWindow : ThemedWindow
                 Key.F when shift => _vm.ToggleFocusModeCommand,
                 Key.S when shift => _vm.SaveDocumentAsCommand,
                 Key.S => _vm.SaveDocumentCommand,
+                Key.B when shift => _vm.OpenProductionCommand,
                 Key.P when shift => _vm.OpenQuickPrintCommand,
                 Key.P => _vm.PrintCommand,
                 Key.E => _vm.ExportPngCommand,

@@ -31,6 +31,10 @@ Use Ctrl+Tab to switch, Ctrl+W to close, Ctrl+Shift+D to duplicate a label and C
 
 ## Get started
 
+The development branch adds a [production workspace](docs/PRODUCTION-WORKSPACE.md) with local job recipes,
+whole-job quality checks and batch PDF/PNG output. It is not included in the 2.1.0 downloads above.
+See the [six-stage product roadmap](docs/ROADMAP-3.0.md).
+
 1. Open the app and complete the setup wizard. Choose **English**, **Türkçe**, or **System / Otomatik**.
    Restart after changing language. New installations use English unless the system UI language is Turkish;
    existing completed installations keep Turkish until you choose another language.

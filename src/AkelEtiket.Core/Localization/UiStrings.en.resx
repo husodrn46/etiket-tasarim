@@ -6015,4 +6015,349 @@ Continue?</value>
   <data name="T_d5d587b1db82" xml:space="preserve"><value>Open labels in separate tabs</value></data>
   <data name="T_8c080f640c2b" xml:space="preserve"><value>Enable interface animations</value></data>
   <data name="T_d2bd22185b97" xml:space="preserve"><value>Windows reduced motion and high contrast settings take precedence.</value></data>
+  <data xml:space="preserve" name="T_01e7874e80d6">
+    <value>Inspection was cancelled; only completed rows were counted.</value>
+  </data>
+  <data xml:space="preserve" name="T_0202591232f9">
+    <value>Inspection was cancelled. Output has not been verified.</value>
+  </data>
+  <data xml:space="preserve" name="T_066ec7963c37">
+    <value>This job is not ready for export. Resolve the findings and inspect it again.</value>
+  </data>
+  <data xml:space="preserve" name="T_077e9be8ad93">
+    <value>Row images exceed the {0}-pixel memory limit; analysis is incomplete.</value>
+  </data>
+  <data xml:space="preserve" name="T_07b3ed4173cb">
+    <value>An element exceeds the {0}-pixel limit; analysis is incomplete.</value>
+  </data>
+  <data xml:space="preserve" name="T_0ede71d0043a">
+    <value>Save job recipe</value>
+  </data>
+  <data xml:space="preserve" name="T_121213987a08">
+    <value>The data file has changed since this recipe was saved. Stored row numbers may select different products. Load it and review the selection?</value>
+  </data>
+  <data xml:space="preserve" name="T_14286b00ed53">
+    <value>Enlarge the barcode, leave a quiet zone and remove overlapping elements.</value>
+  </data>
+  <data xml:space="preserve" name="T_18faf9e080fb">
+    <value>Replace output</value>
+  </data>
+  <data xml:space="preserve" name="T_1ab914b744bb">
+    <value>The {0}-pixel processing limit was reached; remaining rows were not checked.</value>
+  </data>
+  <data xml:space="preserve" name="T_1dd544e42149">
+    <value>Open recipe</value>
+  </data>
+  <data xml:space="preserve" name="T_1e90a5c67ce6">
+    <value>This workspace checks the entire selected job. Use the Print screen for counter and SSCC jobs.</value>
+  </data>
+  <data xml:space="preserve" name="T_1f92d1cc138f">
+    <value>Try again after the data has finished loading.</value>
+  </data>
+  <data xml:space="preserve" name="T_213c1a1d9d54">
+    <value>Production workspace</value>
+  </data>
+  <data xml:space="preserve" name="T_28d7fd792e1f">
+    <value>Check the embedded image or the image-folder link for this data row.</value>
+  </data>
+  <data xml:space="preserve" name="T_293390c82a9f">
+    <value>Finding</value>
+  </data>
+  <data xml:space="preserve" name="T_2e9f1961a1d8">
+    <value>Inspecting the entire selected job…</value>
+  </data>
+  <data xml:space="preserve" name="T_333c97571475">
+    <value>Recipe name</value>
+  </data>
+  <data xml:space="preserve" name="T_33d050e0a736">
+    <value>The print image for this label is completely blank.</value>
+  </data>
+  <data xml:space="preserve" name="T_384ffb161bd1">
+    <value>Load an Excel or CSV file first, or turn off data use.</value>
+  </data>
+  <data xml:space="preserve" name="T_38a83bfbac67">
+    <value>Recommendation</value>
+  </data>
+  <data xml:space="preserve" name="T_3aa79d50f9e3">
+    <value>The design exceeds the {0}-element limit; analysis is incomplete.</value>
+  </data>
+  <data xml:space="preserve" name="T_3b1cde5fedf1">
+    <value>No labels were selected for export.</value>
+  </data>
+  <data xml:space="preserve" name="T_3bcc2420ab4a">
+    <value>An export job can contain at most {0} labels.</value>
+  </data>
+  <data xml:space="preserve" name="T_3e4d50dcb68d">
+    <value>Inspection of this row could not be completed: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_3ea1cff93701">
+    <value>{0} selected rows could not be included in the print plan; fix their errors or deselect these rows.</value>
+  </data>
+  <data xml:space="preserve" name="T_43850d1a0595">
+    <value>The {0} field is empty and will print blank on this label.</value>
+  </data>
+  <data xml:space="preserve" name="T_442e49954be1">
+    <value>The barcode could not be verified from the print image: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_449a5f8a39be">
+    <value>This design exceeds the field memory limit; simplify the job.</value>
+  </data>
+  <data xml:space="preserve" name="T_4583ec0338e1">
+    <value>Save recipe</value>
+  </data>
+  <data xml:space="preserve" name="T_47338932578d">
+    <value>The recipe file could not be read; the existing file was preserved.</value>
+  </data>
+  <data xml:space="preserve" name="T_47baf5db0de7">
+    <value>Ready for quality inspection. Output has not yet been verified.</value>
+  </data>
+  <data xml:space="preserve" name="T_4b135ce517ad">
+    <value>Check the data column name and field mapping.</value>
+  </data>
+  <data xml:space="preserve" name="T_4b5b4f2bc73f">
+    <value>Output resolution must be greater than 0 and at most 48 dots/mm.</value>
+  </data>
+  <data xml:space="preserve" name="T_4dd17d1d1f0b">
+    <value>Check visible elements, data conditions and white objects.</value>
+  </data>
+  <data xml:space="preserve" name="T_4e8043faeb5f">
+    <value>Each output item must have valid data and a positive copy count.</value>
+  </data>
+  <data xml:space="preserve" name="T_518d85553926">
+    <value>There are no labels to inspect. Select data rows and quantities first.</value>
+  </data>
+  <data xml:space="preserve" name="T_527ed681f606">
+    <value>Starting number</value>
+  </data>
+  <data xml:space="preserve" name="T_52893e518979">
+    <value>This design uses allocated counter or SSCC numbers. Use the existing Print workflow for production output.</value>
+  </data>
+  <data xml:space="preserve" name="T_53b5879733df">
+    <value>Job settings</value>
+  </data>
+  <data xml:space="preserve" name="T_54ea4b81de04">
+    <value>The element is less than {0:0.##} mm from the label edge; check printer alignment tolerance.</value>
+  </data>
+  <data xml:space="preserve" name="T_55f34e407d52">
+    <value>A fallback font was used instead of "{0}" for the barcode human-readable text.</value>
+  </data>
+  <data xml:space="preserve" name="T_5acecb62e2fd">
+    <value>Complete the value if this field is required; review the warning if it is optional.</value>
+  </data>
+  <data xml:space="preserve" name="T_5c8735bbe78c">
+    <value>Severity</value>
+  </data>
+  <data xml:space="preserve" name="T_5dfc44fc4d6b">
+    <value>Images exceed the {0}-byte memory limit; analysis is incomplete.</value>
+  </data>
+  <data xml:space="preserve" name="T_5ec522e44b52">
+    <value>Split the job into smaller batches or simplify the design, then inspect it again.</value>
+  </data>
+  <data xml:space="preserve" name="T_5fb7b7978ee9">
+    <value>Inspection could not be completed: {0}</value>
+  </data>
+  <data xml:space="preserve" name="T_6069bd03e9e9">
+    <value>Move the element, including its rotated bounds, inside the label.</value>
+  </data>
+  <data xml:space="preserve" name="T_6329b84e01ff">
+    <value>Images for this row exceed the memory limit.</value>
+  </data>
+  <data xml:space="preserve" name="T_6515ebfc5594">
+    <value>No current quality report</value>
+  </data>
+  <data xml:space="preserve" name="T_6553361be4fb">
+    <value>Choose a font available on the target computer or install the required font.</value>
+  </data>
+  <data xml:space="preserve" name="T_668d55961067">
+    <value>A data field exceeds the text memory limit.</value>
+  </data>
+  <data xml:space="preserve" name="T_690d1587f5a3">
+    <value>PDF: one page per label</value>
+  </data>
+  <data xml:space="preserve" name="T_6a8cff34d548">
+    <value>{0}: output verification failed.</value>
+  </data>
+  <data xml:space="preserve" name="T_72278748133a">
+    <value>Cancel</value>
+  </data>
+  <data xml:space="preserve" name="T_7322f4fee7af">
+    <value>You can save up to 200 local job recipes.</value>
+  </data>
+  <data xml:space="preserve" name="T_74a6d6af4484">
+    <value>The text or image memory limit for this row was exceeded; analysis is incomplete.</value>
+  </data>
+  <data xml:space="preserve" name="T_776608cd362f">
+    <value>Copies (without data)</value>
+  </data>
+  <data xml:space="preserve" name="T_78495a221e6d">
+    <value>{0}/{1} records · {2}/{3} labels · {4} errors · {5} warnings</value>
+  </data>
+  <data xml:space="preserve" name="T_786c697488a7">
+    <value>The skipped-row count cannot be negative.</value>
+  </data>
+  <data xml:space="preserve" name="T_7c171d7350df">
+    <value>An element exceeds the {0}-character limit; analysis is incomplete.</value>
+  </data>
+  <data xml:space="preserve" name="T_7c1a39d28dbc">
+    <value>Opening a recipe loads files; it does not start physical printing.</value>
+  </data>
+  <data xml:space="preserve" name="T_80d839c24335">
+    <value>Print resolution must be between 1 and 48 dots/mm.</value>
+  </data>
+  <data xml:space="preserve" name="T_84bb52df73b2">
+    <value>Check data and image sources, then run the inspection again.</value>
+  </data>
+  <data xml:space="preserve" name="T_86ce19b6ce82">
+    <value>The {0}-label limit was reached; remaining labels were not checked.</value>
+  </data>
+  <data xml:space="preserve" name="T_87f79867ae31">
+    <value>Production workspace…</value>
+  </data>
+  <data xml:space="preserve" name="T_899b5d5cf006">
+    <value>PNG ZIP: images and quantity manifest</value>
+  </data>
+  <data xml:space="preserve" name="T_8a251353e600">
+    <value>Check quality</value>
+  </data>
+  <data xml:space="preserve" name="T_8a3eb5768665">
+    <value>External images for this job reached the memory limit; split it into smaller batches.</value>
+  </data>
+  <data xml:space="preserve" name="T_8ac7721638d1">
+    <value>The entire job has been inspected. Review the warnings before exporting.</value>
+  </data>
+  <data xml:space="preserve" name="T_8b1a559c0732">
+    <value>The data source or copy count for this label row is invalid.</value>
+  </data>
+  <data xml:space="preserve" name="T_8ce94b5e6203">
+    <value>The label file referenced by this recipe was not found.</value>
+  </data>
+  <data xml:space="preserve" name="T_90b82d66770d">
+    <value>The data file was not found; load it before saving the recipe.</value>
+  </data>
+  <data xml:space="preserve" name="T_9b7df2ced64e">
+    <value>Recipe loading was cancelled.</value>
+  </data>
+  <data xml:space="preserve" name="T_a0775433aaca">
+    <value>Use selected data rows</value>
+  </data>
+  <data xml:space="preserve" name="T_a18b8d33413f">
+    <value>Recipes are stored only on this computer. Label values and account secrets are not included.</value>
+  </data>
+  <data xml:space="preserve" name="T_a1be4811e7dc">
+    <value>Data file changed</value>
+  </data>
+  <data xml:space="preserve" name="T_a20e562fc06d">
+    <value>Additional export warnings are not shown.</value>
+  </data>
+  <data xml:space="preserve" name="T_a2e2faa4efb2">
+    <value>Remove recipe</value>
+  </data>
+  <data xml:space="preserve" name="T_a36bdf116319">
+    <value>The {0}-finding limit was reached; the report and analysis are incomplete.</value>
+  </data>
+  <data xml:space="preserve" name="T_a3d54c6919ca">
+    <value>Export was cancelled. The previous destination file was preserved.</value>
+  </data>
+  <data xml:space="preserve" name="T_a4a1c560db2d">
+    <value>Preparing output from the verified job…</value>
+  </data>
+  <data xml:space="preserve" name="T_a6e0673a85ce">
+    <value>The label image exceeds the {0}-pixel limit; analysis is incomplete.</value>
+  </data>
+  <data xml:space="preserve" name="T_abbbdafe41fa">
+    <value>Information</value>
+  </data>
+  <data xml:space="preserve" name="T_abc0a593f3c7">
+    <value>No data file</value>
+  </data>
+  <data xml:space="preserve" name="T_ac28ae757195">
+    <value>Loading local recipe sources…</value>
+  </data>
+  <data xml:space="preserve" name="T_ad3555193a6e">
+    <value>Job recipes exceed the 8 MiB limit. Remove unused recipes first.</value>
+  </data>
+  <data xml:space="preserve" name="T_ad6ba6c77e36">
+    <value>Use the existing Print screen for jobs with counters or SSCC; this workspace does not allocate numbers.</value>
+  </data>
+  <data xml:space="preserve" name="T_b20c9f143b71">
+    <value>Some recipe rows no longer exist. Review the data selection and save the recipe again.</value>
+  </data>
+  <data xml:space="preserve" name="T_b6b0f13f686f">
+    <value>The source or job settings changed. Run quality inspection again before exporting.</value>
+  </data>
+  <data xml:space="preserve" name="T_bada1e6582ca">
+    <value>Local job recipe saved. Opening it requires a new quality inspection.</value>
+  </data>
+  <data xml:space="preserve" name="T_bb38ead16b35">
+    <value>Saved {0} labels: {1}</value>
+  </data>
+  <data xml:space="preserve" name="T_bbb01a18a5e6">
+    <value>This design exceeds the export memory limit. Reduce the resolution or the size of large elements.</value>
+  </data>
+  <data xml:space="preserve" name="T_bc46f90a3a92">
+    <value>Images for this job exceed the 64 MiB limit.</value>
+  </data>
+  <data xml:space="preserve" name="T_bf355f7e36a8">
+    <value>The selected output file already exists. Replace it after this operation completes successfully?</value>
+  </data>
+  <data xml:space="preserve" name="T_c488576b91c5">
+    <value>Element</value>
+  </data>
+  <data xml:space="preserve" name="T_c4a5f8ac984d">
+    <value>Inspection covers the software print image; it does not replace a physical printer and scanner test.</value>
+  </data>
+  <data xml:space="preserve" name="T_cbd56bb4a99c">
+    <value>Local job recipes</value>
+  </data>
+  <data xml:space="preserve" name="T_cc1dc56295d3">
+    <value>The output file already exists. Confirm replacement explicitly.</value>
+  </data>
+  <data xml:space="preserve" name="T_d17d17c6e9bd">
+    <value>The data file referenced by this recipe was not found.</value>
+  </data>
+  <data xml:space="preserve" name="T_d2ad2eacdd1a">
+    <value>The {0}-row limit was reached; remaining rows were not checked.</value>
+  </data>
+  <data xml:space="preserve" name="T_d2e193d98b0a">
+    <value>Designs using counters or SSCC cannot be exported as batch files. Use the verified printing workflow for those identifiers.</value>
+  </data>
+  <data xml:space="preserve" name="T_d52cfbb46639">
+    <value>Save production output</value>
+  </data>
+  <data xml:space="preserve" name="T_df9f7ccd4e51">
+    <value>Preflight findings</value>
+  </data>
+  <data xml:space="preserve" name="T_e0e09d6198b4">
+    <value>A production job must contain between 1 and 10,000 labels.</value>
+  </data>
+  <data xml:space="preserve" name="T_e0e9bea3efaa">
+    <value>This job exceeds the field memory limit; split it into smaller batches.</value>
+  </data>
+  <data xml:space="preserve" name="T_e5941410d506">
+    <value>Move the element inward if needed and try a calibration label on the target printer.</value>
+  </data>
+  <data xml:space="preserve" name="T_eb5068380429">
+    <value>Remove only this local recipe? Label and data files will be preserved.</value>
+  </data>
+  <data xml:space="preserve" name="T_f0070fad640b">
+    <value>Save output</value>
+  </data>
+  <data xml:space="preserve" name="T_f12b130b2b52">
+    <value>Enlarge the text box, reduce the font size or enable shrink to fit.</value>
+  </data>
+  <data xml:space="preserve" name="T_f29029a14607">
+    <value>Recipe opened. Review the sources and row selection, then inspect quality.</value>
+  </data>
+  <data xml:space="preserve" name="T_f669e49798db">
+    <value>The source changed while loading. The recipe was not applied; open it again.</value>
+  </data>
+  <data xml:space="preserve" name="T_f6df9d7e2bc3">
+    <value>Copies must be between 1 and 10,000, and the starting number must be a valid positive integer.</value>
+  </data>
+  <data xml:space="preserve" name="T_fd542269df99">
+    <value>Do not use preview numbers on production labels; numbers are allocated during printing.</value>
+  </data>
+  <data xml:space="preserve" name="T_fe765503dc66">
+    <value>The recipe file is invalid or belongs to a newer version; the existing file was preserved.</value>
+  </data>
 </root>

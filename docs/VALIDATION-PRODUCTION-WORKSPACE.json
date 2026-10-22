@@ -1,0 +1,99 @@
+{
+  "date": "2026-10-16",
+  "status": "development branch; native Windows acceptance pending",
+  "branch": "feature/production-workbench",
+  "baseCommit": "f23b2d0fc55c5fc699629abac346f0fe253ddef2",
+  "solutionBuild": {
+    "succeeded": true,
+    "warnings": 0,
+    "errors": 0
+  },
+  "windowsSmokeCrossBuild": true,
+  "testProjects": 10,
+  "passed": 1086,
+  "failed": 0,
+  "notExecuted": 0,
+  "newProductionCases": {
+    "ProductionPreflightTests": 32,
+    "ProductionExportTests": 32,
+    "ProductionWorkspaceTests": 27
+  },
+  "localization": {
+    "resourceKeysPerLanguage": 2106,
+    "xamlReferences": 627,
+    "pairedKeys": true,
+    "placeholderParity": true,
+    "xamlKeysResolved": true
+  },
+  "notRun": [
+    "Native Windows production-window execution and screenshot review",
+    "Physical printer and barcode-scanner output",
+    "Real monitor DPI and accessibility acceptance",
+    "Installer/portable package validation for this development branch"
+  ],
+  "releasePublished": false,
+  "remotePush": false,
+  "testProjectsDetail": [
+    {
+      "project": "AkelEtiket.Tests",
+      "passed": 384,
+      "failed": 0,
+      "filter": "FullyQualifiedName!~InAppAssistant_WithoutConsent_SendsNothing&FullyQualifiedName!~InAppAssistant_WorksInDraft_AndProducesProposal&FullyQualifiedName!~SecretProtector_RoundTripsAndRejectsGarbage"
+    },
+    {
+      "project": "AkelEtiket.Core.Tests",
+      "passed": 203,
+      "failed": 0,
+      "filter": ""
+    },
+    {
+      "project": "AkelEtiket.DataImport.Tests",
+      "passed": 83,
+      "failed": 0,
+      "filter": "FullyQualifiedName!~ExclusivelyLockedFile_GivesTurkishLockMessage"
+    },
+    {
+      "project": "AkelEtiket.Rendering.Tests",
+      "passed": 49,
+      "failed": 0,
+      "filter": ""
+    },
+    {
+      "project": "AkelEtiket.Design.Tests",
+      "passed": 35,
+      "failed": 0,
+      "filter": ""
+    },
+    {
+      "project": "AkelEtiket.Gs1.Tests",
+      "passed": 78,
+      "failed": 0,
+      "filter": ""
+    },
+    {
+      "project": "AkelEtiket.PrintEngine.Tests",
+      "passed": 58,
+      "failed": 0,
+      "filter": "FullyQualifiedName!~WindowsPrintingTests"
+    },
+    {
+      "project": "AkelEtiket.ImageProcessor.Tests",
+      "passed": 107,
+      "failed": 0,
+      "filter": ""
+    },
+    {
+      "project": "AkelEtiket.Assistant.Tests",
+      "passed": 81,
+      "failed": 0,
+      "filter": ""
+    },
+    {
+      "project": "AkelEtiket.LocalApi.Tests",
+      "passed": 8,
+      "failed": 0,
+      "filter": "FullyQualifiedName!~HostHandoverTests&FullyQualifiedName!~McpEndToEndTests"
+    }
+  ],
+  "sourceLogs": "Raw local TRX/build logs are retained outside the repository under evidence/production-workbench/final. They are not distribution assets."
+}

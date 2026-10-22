@@ -65,7 +65,7 @@ public sealed partial class MainViewModel
     }
 
     /// <summary>Projeyi açar; uyarıları gösterir, son kullanılanlara ekler.</summary>
-    public bool OpenProject(string path, bool askToSave)
+    public bool OpenProject(string path, bool askToSave, bool offerLinkedData = true)
     {
         var existing = Documents.FirstOrDefault(t => SameProjectPath(t.Session.Project.FilePath,path));
         if (existing is not null) { ActiveDocument = existing; return true; }
@@ -80,7 +80,7 @@ public sealed partial class MainViewModel
             if (result.Warnings.Count > 0)
                 Dialogs.ShowMessage(L10n.T("Proje açıldı (uyarılar)"), string.Join("\n", result.Warnings), MessageKind.Warning);
             SetStatus(L10n.T($"Açıldı: {Path.GetFileName(path)}"));
-            OfferLinkedDataSource(result.Project.Document);
+            if (offerLinkedData) OfferLinkedDataSource(result.Project.Document);
             return true;
         }
         catch (ProjectFileException ex)

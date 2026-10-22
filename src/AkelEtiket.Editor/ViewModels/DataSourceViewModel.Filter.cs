@@ -226,6 +226,22 @@ public sealed partial class DataSourceViewModel
         OnPropertyChanged(nameof(DeselectVisibleLabel));
     }
 
+    /// <summary>Restore an explicit selection in one notification, without quadratic summary refreshes.</summary>
+    public void ApplyRowSelection(IReadOnlyDictionary<int, int> copiesByRow)
+    {
+        ArgumentNullException.ThrowIfNull(copiesByRow);
+        if (copiesByRow.Any(p => p.Key < 1 || p.Value is < 1 or > 9999)) throw new ArgumentOutOfRangeException(nameof(copiesByRow));
+        using (BeginBulkSelection())
+        {
+            foreach (var row in Rows)
+            {
+                row.IsSelected = copiesByRow.TryGetValue(row.RowNumber, out int count);
+                row.Copies = row.IsSelected ? count : 1;
+            }
+        }
+        if (OnlySelectedRows) RefreshVisibleRows();
+    }
+
     /// <summary>Toplu seçim: satır başına özet yenilenmez, kapsam bitince bir kez yenilenir.</summary>
     private BulkSelectionScope BeginBulkSelection()
     {

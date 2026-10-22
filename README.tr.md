@@ -32,6 +32,10 @@ Ctrl+Tab sekme değiştirir, Ctrl+W kapatır, Ctrl+Shift+D etiketi kopyalar, Ctr
 
 ## Başlangıç
 
+Geliştirme dalında yerel iş tarifleri, tüm işi kapsayan kalite denetimi ve toplu PDF/PNG çıktısı sağlayan
+[üretim çalışma alanı](docs/PRODUCTION-WORKSPACE.md) ekleniyor. Yukarıdaki 2.1.0 paketlerinde henüz yoktur.
+[Altı aşamalı ürün yol haritasına](docs/ROADMAP-3.0.md) bakabilirsiniz.
+
 1. Windows uygulamasını açın. **Ayarlar → Firma Bilgileri** bölümüne kendi bilgilerinizi girin ve logonuzu seçin.
 2. **Firma bilgileriyle yeni örnek şablonlar oluştur** seçeneğini işaretleyip kaydedin. Mevcut şablonlar korunur;
    aynı ad varsa numaralı yeni kopya eklenir. Firma bilgileri bu kopyalara kaydedilir; eski tasarımlar kendiliğinden değişmez.
