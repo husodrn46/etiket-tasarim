@@ -13,9 +13,10 @@ internal static class TextElementRenderer
     {
         var font = fonts.Get(element.FontFamily, element.Bold, element.Italic);
         float requestedSize = (float)(Units.PointsToMm(element.FontSize) * dotsPerMm);
+        float scaleX = (float)(element.CharacterWidth / 100.0);
         var layout = element.AutoShrink
-            ? TextLayoutEngine.LayoutShrinkToFit(text, font, requestedSize, boxWidth, boxHeight, element.WordWrap, element.LineSpacing)
-            : TextLayoutEngine.Layout(text, font, requestedSize, boxWidth, element.WordWrap, element.LineSpacing);
+            ? TextLayoutEngine.LayoutShrinkToFit(text, font, requestedSize, boxWidth, boxHeight, element.WordWrap, element.LineSpacing, scaleX)
+            : TextLayoutEngine.Layout(text, font, requestedSize, boxWidth, element.WordWrap, element.LineSpacing, scaleX);
 
         bool overflow = text.Length > 0 && !layout.FitsIn(boxWidth, boxHeight);
         string? fontWarning = null;
@@ -50,7 +51,7 @@ internal static class TextElementRenderer
 
             canvas.Save();
             canvas.ClipRect(box, SKClipOperation.Intersect, antialias: false);
-            using var skFont = font.CreateFont(layout.FontSize);
+            using var skFont = font.CreateFont(layout.FontSize, layout.ScaleX);
             using var paint = RasterHelpers.FillPaint(element.TextColor == InkColor.Black ? RasterHelpers.Black : RasterHelpers.White, antialias: false);
             float top = element.VerticalAlignment switch
             {

@@ -9,6 +9,9 @@ graph TD
   Editor --> PrintEngine
   Editor --> DataImport
   Editor --> ProjectManager
+  Editor --> BarTender[AkelEtiket.BarTender<br/>.btw okuma ve dönüştürme]
+  BarTender --> Rendering
+  BarTender --> ProjectManager
   Editor --> Gs1
   Editor --> LocalApi
   Editor --> Assistant

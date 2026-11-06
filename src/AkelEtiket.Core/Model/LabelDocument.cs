@@ -99,7 +99,10 @@ public sealed class DataSourceLink
 public sealed class LabelDocument : ObservableModel
 {
     /// <summary>Bu sürümün okuyabildiği en yüksek biçim.</summary>
-    public const int CurrentFormatVersion = 3;
+    public const int CurrentFormatVersion = 4;
+
+    /// <summary>v3: etikete özgü bölgesel biçimler (<see cref="Formatting"/>).</summary>
+    public const int Version3Format = 3;
     public const int Version2Format = 2;
 
     /// <summary>v1 (AKEL Etiket 1.x) biçimi.</summary>
@@ -143,10 +146,11 @@ public sealed class LabelDocument : ObservableModel
 
     /// <summary>
     /// Belgeyi doğru açmak için gereken en düşük biçim sürümü. v2'ye özgü bir özellik (ör. grup) kullanılmıyorsa
-    /// 1 döner; böylece dosya v1'de uyarısız açılır.
+    /// 1 döner; böylece dosya v1'de uyarısız açılır. Karakter genişliği değiştirilmiş yazı v4 ister.
     /// </summary>
     public int GetRequiredFormatVersion() =>
-        Formatting is not null ? CurrentFormatVersion : Elements.Any(e => e.GroupId is not null || e.VisibleWhen is not null
+        Elements.Any(e => e is TextElement { CharacterWidth: not 100 }) ? CurrentFormatVersion :
+        Formatting is not null ? Version3Format : Elements.Any(e => e.GroupId is not null || e.VisibleWhen is not null
                           || e is ImageElement { Sharpen: > 0 } or ImageElement { SourceField: not null }
                           || e is BarcodeElement { Symbology: BarcodeType.Gs1DataMatrix or BarcodeType.Gs1QrCode })
             ? Version2Format

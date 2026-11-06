@@ -11,8 +11,12 @@ public sealed record FontMatch(SKTypeface Typeface, string RequestedFamily, bool
     /// Termal baskı için yumuşatmasız (alias) ve ipuçlu (hinting) yazı: 1-bit çıktıda gövde kalınlıkları
     /// piksel ızgarasına oturur, küçük puntolar daha okunaklı basılır.
     /// </summary>
-    public SKFont CreateFont(float sizeDots) => new(Typeface, sizeDots)
+    public SKFont CreateFont(float sizeDots) => CreateFont(sizeDots, 1f);
+
+    /// <summary>Yatay ölçekli yazı (karakter genişliği): ölçüm ve çizim aynı ölçeği kullanır.</summary>
+    public SKFont CreateFont(float sizeDots, float scaleX) => new(Typeface, sizeDots)
     {
+        ScaleX = scaleX > 0 ? scaleX : 1f,
         Edging = SKFontEdging.Alias,
         Hinting = SKFontHinting.Normal,
         Subpixel = false,

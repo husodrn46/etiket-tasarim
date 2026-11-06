@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- BarTender (.btw) etiketlerini içe aktarma: biçimi okur, LabelHarbor tasarımına çevirir. Dosyaya yazmaz. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AkelEtiket.Core\AkelEtiket.Core.csproj" />
+    <ProjectReference Include="..\AkelEtiket.BarcodeEngine\AkelEtiket.BarcodeEngine.csproj" />
+    <ProjectReference Include="..\AkelEtiket.Rendering\AkelEtiket.Rendering.csproj" />
+    <ProjectReference Include="..\AkelEtiket.ProjectManager\AkelEtiket.ProjectManager.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="AkelEtiket.BarTender.Tests" />
+  </ItemGroup>
+</Project>

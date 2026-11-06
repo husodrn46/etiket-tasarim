@@ -24,6 +24,9 @@ public interface IDialogService
         return path is null ? [] : [path];
     }
     string? ShowSaveFileDialog(string title, string filter, string defaultFileName, string? initialDirectory = null);
+
+    /// <summary>Klasör seçtirir; vazgeçilirse null.</summary>
+    string? ShowFolderDialog(string title, string? initialDirectory = null) => null;
     void ShowMessage(string title, string message, MessageKind kind = MessageKind.Info);
     bool Confirm(string title, string message, string confirmText = "Evet", string cancelText = "Hayır");
     SaveChangesChoice AskSaveChanges(string documentName);

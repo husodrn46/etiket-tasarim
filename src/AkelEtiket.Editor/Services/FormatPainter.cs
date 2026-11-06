@@ -21,6 +21,7 @@ public sealed class ElementStyle
             nameof(TextElement.FontFamily), nameof(TextElement.FontSize), nameof(TextElement.Bold), nameof(TextElement.Italic),
             nameof(TextElement.Underline), nameof(TextElement.HorizontalAlignment), nameof(TextElement.VerticalAlignment),
             nameof(TextElement.WordWrap), nameof(TextElement.AutoShrink), nameof(TextElement.LineSpacing),
+            nameof(TextElement.CharacterWidth),
             nameof(TextElement.TextColor), nameof(TextElement.Background),
         ],
         [typeof(BarcodeElement)] =

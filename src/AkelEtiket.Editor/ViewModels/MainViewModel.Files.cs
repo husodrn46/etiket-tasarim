@@ -46,7 +46,7 @@ public sealed partial class MainViewModel
     private void Open()
     {
         if (!CanOpenNewDocument()) return;
-        var paths = Dialogs.ShowOpenFilesDialog(L10n.T("Proje aç"), ProjectFile.FileFilter, Settings.LastProjectFolder);
+        var paths = Dialogs.ShowOpenFilesDialog(L10n.T("Proje aç"), OpenLabelFilter, Settings.LastProjectFolder);
         foreach (var path in paths) if (!OpenProject(path,askToSave:false)) break;
     }
 
@@ -67,6 +67,8 @@ public sealed partial class MainViewModel
     /// <summary>Projeyi açar; uyarıları gösterir, son kullanılanlara ekler.</summary>
     public bool OpenProject(string path, bool askToSave, bool offerLinkedData = true)
     {
+        if (AkelEtiket.BarTender.BtwReader.IsBtwPath(path))
+            return (!askToSave || CanOpenNewDocument()) && OpenBarTender(path);
         var existing = Documents.FirstOrDefault(t => SameProjectPath(t.Session.Project.FilePath,path));
         if (existing is not null) { ActiveDocument = existing; return true; }
         if (askToSave && !CanOpenNewDocument()) return false;
@@ -297,19 +299,19 @@ public sealed partial class MainViewModel
 
     // ───────────────────────── Sürükle-bırak ─────────────────────────
 
-    /// <summary>Tuvale veya pencereye bırakılan dosyalar: görsel → öğe, .akelabel → aç, xlsx/csv → veri.</summary>
+    /// <summary>Tuvale veya pencereye bırakılan dosyalar: görsel → öğe, .akelabel/.btw → aç, xlsx/csv → veri.</summary>
     public void HandleFileDrop(IReadOnlyList<string> paths, double? xMm, double? yMm)
     {
         // Önce proje, sonra veri, en son görseller: "şablonu aç + veriyi yükle" tek seferde yapılabilir.
         var ordered = paths
-            .OrderBy(p => Path.GetExtension(p).Equals(ProjectFile.Extension, StringComparison.OrdinalIgnoreCase) ? 0
+            .OrderBy(p => Path.GetExtension(p).Equals(ProjectFile.Extension, StringComparison.OrdinalIgnoreCase) || AkelEtiket.BarTender.BtwReader.IsBtwPath(p) ? 0
                 : DataImporter.IsSupportedFile(p) && !ImageLoader.IsSupportedFile(p) ? 1 : 2)
             .ToList();
         int imageIndex = 0;
         foreach (var path in ordered)
         {
             string ext = Path.GetExtension(path).ToLowerInvariant();
-            if (ext == ProjectFile.Extension)
+            if (ext == ProjectFile.Extension || AkelEtiket.BarTender.BtwReader.IsBtwPath(path))
             {
                 if (!OpenProject(path, askToSave: true)) return;
                 continue;

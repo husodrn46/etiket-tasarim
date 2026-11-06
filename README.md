@@ -61,6 +61,8 @@ Four starter packs provide eight templates with fictional data and bilingual rec
 - Excel/XLS/CSV fields, row quantities, product catalog, persistent counters, print history and reprint.
 - Direct TSPL RAW and Windows driver printing; media/printer profiles and calibration tools.
 - Portable `.etiketyedek` backups of company settings, templates and products.
+- Opens BarTender 10.1/2016 labels (`.btw`), one at a time or a whole folder at once; text, EAN-13, borders
+  and logos keep their position. Development branch only. [BarTender import](docs/BARTENDER.md).
 - Optional AI/MCP integration, disabled by default. No new service, account or API key is provisioned.
 
 English sample files: [products](samples/sample-products.csv), [shipping](samples/sample-shipping.csv).

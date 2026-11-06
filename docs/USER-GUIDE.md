@@ -21,6 +21,11 @@ New company templates are separate copies. Changing your company profile does no
 labels. To get English bundled examples after switching from Turkish, restart first, then restore sample
 templates or add company templates. Keep your existing files; translate their text yourself when appropriate.
 
+## Labels from BarTender
+
+**Open** also accepts BarTender 10.1/2016 labels (`.btw`), and **More → Convert BarTender folder…** converts a
+whole folder to `.akelabel` files. See [Importing BarTender labels](BARTENDER.md) for what is kept and what is not.
+
 ## Designing a label
 
 Choose a template or create a blank label with width and height in millimeters. Configure the media as gap,
