@@ -131,18 +131,48 @@ public sealed class LabelPrinterSettings
     private static string Format(double value) => value.ToString("0.##", CultureInfo.GetCultureInfo("tr-TR"));
 }
 
-/// <summary>Etiket medyası (rulo) bilgisi, mm.</summary>
+/// <summary>
+/// Etiket medyası (rulo) bilgisi, mm. <see cref="WidthMm"/> tek etiketin genişliğidir; yan yana rulolarda
+/// (<see cref="Columns"/> &gt; 1) yazıcıya giden sayfa bir satırdır ve genişliği <see cref="PaperWidthMm"/>'dir.
+/// </summary>
 public sealed record LabelMedia(double WidthMm, double HeightMm, double GapMm, double GapOffsetMm, MediaType Type)
 {
+    /// <summary>Rulo üzerinde yan yana etiket sayısı.</summary>
+    public int Columns { get; init; } = 1;
+
+    /// <summary>Yan yana etiketler arasındaki boşluk (mm).</summary>
+    public double ColumnGapMm { get; init; }
+
+    /// <summary>Rulonun sol ve sağ kenar payı (mm).</summary>
+    public double SideMarginMm { get; init; }
+
+    public bool IsMultiAcross => Columns > 1;
+
+    /// <summary>Yazıcıya giden sayfanın (satırın) genişliği.</summary>
+    public double PaperWidthMm => IsMultiAcross ? 2 * SideMarginMm + Columns * WidthMm + (Columns - 1) * ColumnGapMm : WidthMm;
+
+    /// <summary>Yazıcının ve sürücünün gördüğü tek sayfa: yan yana rulolarda bütün satır.</summary>
+    public LabelMedia Paper => IsMultiAcross ? this with { WidthMm = PaperWidthMm, Columns = 1, ColumnGapMm = 0, SideMarginMm = 0 } : this;
+
+    /// <summary>Satırdaki <paramref name="column"/>. etiketin sol kenarı (mm).</summary>
+    public double ColumnLeftMm(int column) => SideMarginMm + column * (WidthMm + ColumnGapMm);
+
     public static LabelMedia FromSetup(LabelSetup setup)
     {
         ArgumentNullException.ThrowIfNull(setup);
-        return new LabelMedia(setup.WidthMm, setup.HeightMm, setup.GapMm, setup.GapOffsetMm, setup.Media);
+        return new LabelMedia(setup.WidthMm, setup.HeightMm, setup.GapMm, setup.GapOffsetMm, setup.Media)
+        {
+            Columns = setup.Columns,
+            ColumnGapMm = setup.ColumnGapMm,
+            SideMarginMm = setup.SideMarginMm,
+        };
     }
 
     public int WidthDots(double dotsPerMm) => Units.MmToDotsRounded(WidthMm, dotsPerMm);
 
     public int HeightDots(double dotsPerMm) => Units.MmToDotsRounded(HeightMm, dotsPerMm);
+
+    public int PaperWidthDots(double dotsPerMm) => Units.MmToDotsRounded(PaperWidthMm, dotsPerMm);
 
     /// <summary>Medya ölçüsü sorunlarını Türkçe listeler.</summary>
     public IReadOnlyList<string> Validate()
@@ -154,6 +184,10 @@ public sealed record LabelMedia(double WidthMm, double HeightMm, double GapMm, d
         if (!double.IsFinite(GapOffsetMm) || GapOffsetMm < 0 || GapOffsetMm > 25.4) problems.Add(L10n.T("Boşluk ofseti 0–25,4 mm arasında olmalı."));
         if (Type == MediaType.Gap && GapMm <= 0)
             problems.Add(L10n.T("Boşluklu etikette boşluk 0 olamaz; sürekli rulo için medya türünü 'Sürekli' seçin."));
+        if (Columns is < 1 or > LabelSetup.MaxColumns)
+            problems.Add(L10n.T($"Yan yana etiket sayısı 1–{LabelSetup.MaxColumns} arasında olmalı."));
+        if (!double.IsFinite(ColumnGapMm) || ColumnGapMm < 0 || !double.IsFinite(SideMarginMm) || SideMarginMm < 0)
+            problems.Add(L10n.T("Yan yana etiket boşluğu ve kenar payı negatif olamaz."));
         return problems;
     }
 }

@@ -195,7 +195,8 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
     public string WindowTitle => $"{Session.Title} – {AkelEtiket.Core.Localization.UiText.T(AkelEtiket.Core.AppIdentity.ProductName)}";
 
     public string LabelSizeText =>
-        $"{Session.Document.Label.WidthMm:0.##} × {Session.Document.Label.HeightMm:0.##} mm • {Settings.Printer.DotsPerMm * 25.4:0.#} DPI";
+        $"{Session.Document.Label.WidthMm:0.##} × {Session.Document.Label.HeightMm:0.##} mm • {Settings.Printer.DotsPerMm * 25.4:0.#} DPI"
+        + (Session.Document.Label.Columns > 1 ? AkelEtiket.Core.Localization.UiText.T($" • {Session.Document.Label.Columns} yan yana") : "");
 
     public double DotsPerMm => Settings.Printer.DotsPerMm;
 

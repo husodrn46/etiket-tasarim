@@ -51,6 +51,32 @@
             <controls:NumberBox Grid.Column="1" Value="{Binding GapMm}" Minimum="0" Maximum="30" Step="0.5" Decimals="2" />
             <TextBlock Grid.Column="2" Text="{loc:Text T_f849ba79bcbe}" Style="{StaticResource Text.Label}" Margin="8,0,0,0" />
         </Grid>
+        <Grid Margin="0,0,0,6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{loc:Text T_fc05bfcd8f79}" Style="{StaticResource Text.Label}" />
+            <controls:NumberBox Grid.Column="1" Value="{Binding Columns}" Minimum="1" Maximum="12" Step="1" Decimals="0" AutomationProperties.AutomationId="LabelColumns" />
+            <TextBlock Grid.Column="2" Text="{loc:Text T_5fd945674020}" Style="{StaticResource Text.Label}" Margin="8,0,0,0" />
+        </Grid>
+        <Grid Margin="0,0,0,6" IsEnabled="{Binding IsMultiAcross}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{loc:Text T_dacc27af6e88}" Style="{StaticResource Text.Label}" />
+            <controls:NumberBox Grid.Column="1" Value="{Binding ColumnGapMm}" Minimum="0" Maximum="30" Step="0.5" Decimals="2" />
+            <TextBlock Grid.Column="2" Text="{loc:Text T_c957b036b8d7}" Style="{StaticResource Text.Label}" Margin="12,0,8,0" />
+            <controls:NumberBox Grid.Column="3" Value="{Binding SideMarginMm}" Minimum="0" Maximum="50" Step="0.5" Decimals="2" />
+            <TextBlock Grid.Column="4" Text="{loc:Text T_8fa1dddd5360}" Style="{StaticResource Text.Label}" Margin="8,0,0,0" />
+        </Grid>
+        <TextBlock Text="{Binding RowWidthText}" Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="0,0,0,2" />
+        <TextBlock Text="{loc:Text T_c9780e7af34b}" Style="{StaticResource Text.Hint}" TextWrapping="Wrap" Margin="0,0,0,10" />
         <TextBlock Text="{Binding Warning}" Foreground="{DynamicResource Brush.Warning}" TextWrapping="Wrap"
                    Visibility="{Binding Warning, Converter={StaticResource NullToVisibility}}" />
 

@@ -141,11 +141,59 @@ public sealed class TsplPrintService
         int total = Math.Max(0, totalLabelCount);
         IRawJobWriter? job = null;
         int labelsInJob = 0, jobNumber = 0, done = 0;
-        bool firstLabel = true;
+        bool firstImage = true;
         var completedJobs = new List<int>();
+        // Yan yana rulo: etiketler satırlara dizilir; sayım yine etiket başınadır.
+        var rows = media.IsMultiAcross ? new LabelRowBuilder(media, settings.SafeDotsPerMm) : null;
+
+        void CompleteJob()
+        {
+            if (job is null) return;
+            job.Complete();
+            completedJobs.Add(job.JobId);
+            report.LabelsSpooled += labelsInJob;
+            report.Spooled = true;
+            job.Dispose();
+            job = null;
+            labelsInJob = 0;
+        }
+
+        // Bir görüntüyü (tek etiket ya da satır) gönderir. Yazıcı parçalar arasında hazır değilse false.
+        bool Send(AkelEtiket.Core.Imaging.MonoBitmap image, int copies, int labels, bool canSplit)
+        {
+            if (firstImage)
+            {
+                firstImage = false;
+                AddWarnings(report, TsplCommandBuilder.CheckLabel(media, settings, image.Width, image.Height));
+            }
+            var labelWarnings = new List<string>();
+            byte[] data = TsplCommandBuilder.BuildLabel(image, settings, copies, labelWarnings);
+            AddWarnings(report, labelWarnings);
+            report.BytesGenerated += data.Length;
+
+            if (job is null)
+            {
+                // Parçalar arasında yazıcı yeniden denetlenir (baskı sırasında çevrimdışı olabilir).
+                if (jobNumber > 0 && !CheckPrinter(report, settings, duringPrint: true)) return false;
+                jobNumber++;
+                string name = total > maxPerJob ? L10n.T($"{DocumentName} — bölüm {jobNumber}") : DocumentName;
+                job = _backend.StartJob(settings.PrinterName, name);
+                report.JobIds.Add(job.JobId);
+                job.Write(setup);
+                report.BytesGenerated += setup.Length;
+            }
+
+            job.Write(data);
+            labelsInJob += labels;
+            done += labels;
+            progress?.Report(new PrintProgress { Done = done, Total = Math.Max(total, done), Stage = L10n.T("Yazıcı kuyruğuna gönderiliyor") });
+            if (canSplit && labelsInJob >= maxPerJob) CompleteJob();
+            return true;
+        }
 
         try
         {
+            bool stopped = false;
             using var enumerator = pages.GetEnumerator();
             while (true)
             {
@@ -168,74 +216,48 @@ public sealed class TsplPrintService
                 }
                 catch (Exception ex) when (ex is not PrintEngineException)
                 {
-                    report.Errors.Add(L10n.T($"{done + 1}. etiket oluşturulamadı: {ex.Message}"));
+                    report.Errors.Add(L10n.T($"{report.LabelsGenerated + 1}. etiket oluşturulamadı: {ex.Message}"));
                     break;
                 }
                 if (page?.Bitmap is null)
                 {
-                    report.Errors.Add(L10n.T($"{done + 1}. etiketin görüntüsü boş."));
+                    report.Errors.Add(L10n.T($"{report.LabelsGenerated + 1}. etiketin görüntüsü boş."));
                     break;
                 }
 
-                if (firstLabel)
-                {
-                    firstLabel = false;
-                    AddWarnings(report, TsplCommandBuilder.CheckLabel(media, settings, page.Bitmap.Width, page.Bitmap.Height));
-                }
-                var labelWarnings = new List<string>();
-                byte[] data = TsplCommandBuilder.BuildLabel(page.Bitmap, settings, page.Copies, labelWarnings);
-                AddWarnings(report, labelWarnings);
                 report.DataGenerated = true;
                 report.LabelsGenerated++;
                 report.CopiesTotal += TsplCommandBuilder.ClampCopies(page.Copies);
-                report.BytesGenerated += data.Length;
-
-                if (job is null)
+                if (rows is null)
                 {
-                    // Parçalar arasında yazıcı yeniden denetlenir (baskı sırasında çevrimdışı olabilir).
-                    if (jobNumber > 0 && !CheckPrinter(report, settings, duringPrint: true)) break;
-                    jobNumber++;
-                    string name = total > maxPerJob ? L10n.T($"{DocumentName} — bölüm {jobNumber}") : DocumentName;
-                    job = _backend.StartJob(settings.PrinterName, name);
-                    report.JobIds.Add(job.JobId);
-                    job.Write(setup);
-                    report.BytesGenerated += setup.Length;
+                    if (!Send(page.Bitmap, page.Copies, 1, canSplit: true)) { stopped = true; break; }
+                    continue;
                 }
-
-                job.Write(data);
-                labelsInJob++;
-                done++;
-                progress?.Report(new PrintProgress { Done = done, Total = Math.Max(total, done), Stage = L10n.T("Yazıcı kuyruğuna gönderiliyor") });
-
-                if (labelsInJob >= maxPerJob)
+                foreach (var row in rows.Add(page.Bitmap, page.Copies))
                 {
-                    job.Complete();
-                    completedJobs.Add(job.JobId);
-                    report.LabelsSpooled += labelsInJob;
-                    report.Spooled = true;
-                    job.Dispose();
-                    job = null;
-                    labelsInJob = 0;
+                    // İş yalnızca yarım satır yokken bölünür; bir etiketin kopyaları iki işe dağılmaz.
+                    if (!Send(row.Bitmap, row.Copies, row.CompletedLabels, canSplit: !rows.HasPending)) { stopped = true; break; }
                 }
+                if (stopped) break;
             }
+
+            // Yarım satır (iptal ya da hata dahil) tamamlanır: kopyalarından biri basılan etiket eksiksiz basılır.
+            if (!stopped && rows?.Flush() is { } last) Send(last.Bitmap, last.Copies, last.CompletedLabels, canSplit: false);
 
             if (job is not null)
             {
                 if (labelsInJob > 0)
                 {
                     // İptalde bile parçadaki etiketler eksiksizdir; yarım etiket yoktur.
-                    job.Complete();
-                    completedJobs.Add(job.JobId);
-                    report.LabelsSpooled += labelsInJob;
-                    report.Spooled = true;
+                    CompleteJob();
                 }
                 else
                 {
                     job.Abort();
                     report.JobIds.Remove(job.JobId);
+                    job.Dispose();
+                    job = null;
                 }
-                job.Dispose();
-                job = null;
             }
         }
         catch (PrintEngineException ex)

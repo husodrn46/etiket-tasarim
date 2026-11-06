@@ -55,6 +55,67 @@ public sealed class LabelSetup : ObservableModel
         set => Set(ref _cornerRadiusMm, Clamp(value, 0, 20, 2));
     }
 
+    public const int MaxColumns = 12;
+
+    private int _columns = 1;
+    private double _columnGapMm;
+    private double _sideMarginMm;
+
+    /// <summary>
+    /// Rulo üzerinde yan yana kaç etiket var (v4). 1 = tek sıra. Baskıda etiketler bu sayıda satırlar hâlinde
+    /// birleştirilir; tasarım her zaman tek etikettir. Dosyaya yalnızca 1'den büyükse yazılır.
+    /// </summary>
+    [JsonIgnore]
+    public int Columns
+    {
+        get => _columns;
+        set => Set(ref _columns, Math.Clamp(value, 1, MaxColumns));
+    }
+
+    /// <summary>Yan yana etiketler arasındaki boşluk (mm).</summary>
+    [JsonIgnore]
+    public double ColumnGapMm
+    {
+        get => _columnGapMm;
+        set => Set(ref _columnGapMm, Math.Round(Clamp(value, 0, 30, 0), 2));
+    }
+
+    /// <summary>Rulonun sol ve sağ kenarındaki boş pay (mm); ilk etiket bu kadar içeriden başlar.</summary>
+    [JsonIgnore]
+    public double SideMarginMm
+    {
+        get => _sideMarginMm;
+        set => Set(ref _sideMarginMm, Math.Round(Clamp(value, 0, 50, 0), 2));
+    }
+
+    /// <summary>Bir satırın (rulonun) toplam genişliği: kenar + etiketler + aralar + kenar.</summary>
+    [JsonIgnore]
+    public double RowWidthMm => Columns <= 1 ? WidthMm : 2 * SideMarginMm + Columns * WidthMm + (Columns - 1) * ColumnGapMm;
+
+    [JsonInclude]
+    [JsonPropertyName("columns")]
+    private int? ColumnsJson
+    {
+        get => _columns > 1 ? _columns : null;
+        set => Columns = value ?? 1;
+    }
+
+    [JsonInclude]
+    [JsonPropertyName("columnGapMm")]
+    private double? ColumnGapJson
+    {
+        get => _columns > 1 ? _columnGapMm : null;
+        set => ColumnGapMm = value ?? 0;
+    }
+
+    [JsonInclude]
+    [JsonPropertyName("sideMarginMm")]
+    private double? SideMarginJson
+    {
+        get => _columns > 1 ? _sideMarginMm : null;
+        set => SideMarginMm = value ?? 0;
+    }
+
     public LabelSetup Clone() => new()
     {
         WidthMm = WidthMm,
@@ -63,6 +124,9 @@ public sealed class LabelSetup : ObservableModel
         GapOffsetMm = GapOffsetMm,
         Media = Media,
         CornerRadiusMm = CornerRadiusMm,
+        Columns = Columns,
+        ColumnGapMm = ColumnGapMm,
+        SideMarginMm = SideMarginMm,
     };
 }
 
@@ -146,10 +210,10 @@ public sealed class LabelDocument : ObservableModel
 
     /// <summary>
     /// Belgeyi doğru açmak için gereken en düşük biçim sürümü. v2'ye özgü bir özellik (ör. grup) kullanılmıyorsa
-    /// 1 döner; böylece dosya v1'de uyarısız açılır. Karakter genişliği değiştirilmiş yazı v4 ister.
+    /// 1 döner; böylece dosya v1'de uyarısız açılır. Karakter genişliği değiştirilmiş yazı ve yan yana rulo v4 ister.
     /// </summary>
     public int GetRequiredFormatVersion() =>
-        Elements.Any(e => e is TextElement { CharacterWidth: not 100 }) ? CurrentFormatVersion :
+        Label.Columns > 1 || Elements.Any(e => e is TextElement { CharacterWidth: not 100 }) ? CurrentFormatVersion :
         Formatting is not null ? Version3Format : Elements.Any(e => e.GroupId is not null || e.VisibleWhen is not null
                           || e is ImageElement { Sharpen: > 0 } or ImageElement { SourceField: not null }
                           || e is BarcodeElement { Symbology: BarcodeType.Gs1DataMatrix or BarcodeType.Gs1QrCode })

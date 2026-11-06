@@ -58,12 +58,20 @@ public static class TsplCommandBuilder
         return output.ToArray();
     }
 
-    /// <summary>Kurulum başlığı + tüm etiketler tek veri akışında.</summary>
+    /// <summary>Kurulum başlığı + tüm etiketler tek veri akışında. Yan yana rulolarda etiketler satırlara dizilir.</summary>
     public static byte[] BuildJob(LabelMedia media, LabelPrinterSettings settings, IEnumerable<LabelPage> pages, ICollection<string>? warnings = null)
     {
+        ArgumentNullException.ThrowIfNull(media);
+        ArgumentNullException.ThrowIfNull(settings);
         ArgumentNullException.ThrowIfNull(pages);
         using var output = new MemoryStream();
         output.Write(BuildSetup(media, settings));
+        if (media.IsMultiAcross)
+        {
+            foreach (var row in LabelRowBuilder.Rows(pages, media, settings.SafeDotsPerMm))
+                WriteLabel(output, row.Bitmap, settings, row.Copies, warnings);
+            return output.ToArray();
+        }
         foreach (var page in pages)
         {
             ArgumentNullException.ThrowIfNull(page);
@@ -118,10 +126,10 @@ public static class TsplCommandBuilder
         ArgumentNullException.ThrowIfNull(settings);
         var warnings = new List<string>();
         var tr = CultureInfo.GetCultureInfo("tr-TR");
-        if (media.WidthMm > settings.MaxPrintWidthMm + 0.01)
-            warnings.Add(L10n.T($"Etiket genişliği ({media.WidthMm.ToString("0.##", tr)} mm) yazıcının azami baskı genişliğini ") +
+        if (media.PaperWidthMm > settings.MaxPrintWidthMm + 0.01)
+            warnings.Add(L10n.T($"Etiket genişliği ({media.PaperWidthMm.ToString("0.##", tr)} mm) yazıcının azami baskı genişliğini ") +
                          L10n.T($"({settings.MaxPrintWidthMm.ToString("0.##", tr)} mm) aşıyor; taşan kısım basılmaz."));
-        int expectedW = media.WidthDots(settings.SafeDotsPerMm);
+        int expectedW = media.PaperWidthDots(settings.SafeDotsPerMm);
         int expectedH = media.HeightDots(settings.SafeDotsPerMm);
         if (Math.Abs(bitmapWidthDots - expectedW) > 2 || Math.Abs(bitmapHeightDots - expectedH) > 2)
             warnings.Add(L10n.T($"Etiket görüntüsü ({bitmapWidthDots}×{bitmapHeightDots} nokta) medya ölçüsüyle ({expectedW}×{expectedH} nokta) ") +
@@ -177,7 +185,8 @@ public static class TsplCommandBuilder
 
     private static void AppendSizeAndMedia(StringBuilder sb, LabelMedia media)
     {
-        Line(sb, $"SIZE {Mm(media.WidthMm)} mm,{Mm(media.HeightMm)} mm");
+        // Yan yana rulolarda yazıcı bütün satırı tek etiket gibi görür.
+        Line(sb, $"SIZE {Mm(media.PaperWidthMm)} mm,{Mm(media.HeightMm)} mm");
         switch (media.Type)
         {
             case MediaType.BlackMark:

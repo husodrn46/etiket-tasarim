@@ -26,6 +26,15 @@ templates or add company templates. Keep your existing files; translate their te
 **Open** also accepts BarTender 10.1/2016 labels (`.btw`), and **More → Convert BarTender folder…** converts a
 whole folder to `.akelabel` files. See [Importing BarTender labels](BARTENDER.md) for what is kept and what is not.
 
+## Several labels across a roll
+
+If the roll carries several labels side by side (for example five 20 × 40 mm labels on a 104 mm roll), open
+**Label size** and set **Labels across**, the **gap between** labels and the **side margin**. The dialog shows the
+resulting roll width and warns when it is wider than the printer. You still design one label; when printing,
+labels are placed row by row in order, copies included, and an unfinished last row leaves the remaining labels blank.
+This works for both TSPL and Windows driver printing; with the driver, choose a paper size as wide as the roll.
+Counters and SSCC numbers are allocated per label, as before. Previews and PNG/PDF exports stay single labels.
+
 ## Designing a label
 
 Choose a template or create a blank label with width and height in millimeters. Configure the media as gap,

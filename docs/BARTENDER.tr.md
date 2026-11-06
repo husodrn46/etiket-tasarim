@@ -26,7 +26,7 @@ bağlantıları ve yazıcı komutları çalıştırılmaz.
 
 | BarTender | LabelHarbor |
 |---|---|
-| Şablon ölçüsü | Etiket genişliği ve yüksekliği (tek etiket) |
+| Şablon ölçüsü | Etiket genişliği ve yüksekliği; rulo üzerinde yan yana basılan etiketler bu düzeni korur (aşağıya bakın) |
 | Yazı | Aynı yazı tipi, punto, kalın/italik/altı çizili, döndürme, hizalama ve konum. Karakter genişliği (ör. %94,8) korunur. Sabit genişlikli yazı BarTender'ın kırdığı yerlerden satırlara bölünür. |
 | Yazı çerçevesi | Aynı kalınlıkta, yuvarlak köşeli dikdörtgen |
 | EAN-13 | Aynı veri, çubuk yüksekliği ve konum. Modül genişliği, BarTender'daki gibi dosyada kayıtlı yazıcı çözünürlüğünün tam noktasına yuvarlanır; aynı yazıcıda çubuklar aynı yere düşer. |
@@ -41,8 +41,9 @@ Konumlar BarTender'ın bağlantı noktası (nesnenin dokuz noktasından biri) ve
 - Yazı ve barkodların yalnızca **o anki değeri** aktarılır. Veri kaynakları, seri numaraları, sorular ve
   veritabanı bağlantıları aktarılmaz.
 - EAN-13 dışındaki barkod türleri adından tanınır ama ölçüleri doğrulanmadı; kontrol edin.
-- BarTender aynı rulo üzerinde birden çok etiketi **yan yana** basabilir (ör. 104 mm ruloda 5 × 20 mm).
-  LabelHarbor etiketleri tek tek basar; aktarım notu bu durumu belirtir. Yazıcının medya ayarını kontrol edin.
+- Rulo üzerinde **yan yana** basılan etiketler (ör. 104 mm ruloda 5 × 20 mm) aynı sayı, kenar payı ve arayla
+  aktarılır; değerler BarTender'ın sayfa ayarından alınır. Denenen dosyalarda iki yanda kenar payı var, etiketler
+  arasında boşluk yok; ilk baskıda hizayı kontrol edip gerekirse Etiket ölçüsü penceresinden düzeltin.
 - Yazı tipi yüklü değilse Arial kullanılır ve bu söylenir.
 - LabelHarbor ile BarTender farklı yazı tipi ipuçlama kullandığı için yazı uzunlukları yüzde birkaç farklı olabilir.
 - `.btw` biçimi belgelenmemiştir. Aktarıcı etiket için gereken bölümleri okur ve atladığı her şeyi bildirir.

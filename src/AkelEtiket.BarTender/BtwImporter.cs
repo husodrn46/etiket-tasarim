@@ -124,8 +124,14 @@ public static class BtwImporter
             warnings.Add(L10n.T($"{outside} nesne etiketin tamamen dışında olduğu için aktarılmadı."));
         foreach (string family in missingFonts)
             warnings.Add(L10n.T($"\"{family}\" yazı tipi bu bilgisayarda yok; yerine {FontProvider.FallbackFamily} kullanılacak ve yazılar farklı görünebilir."));
-        if (label.Columns > 1 || label.Rows > 1)
-            warnings.Add(L10n.T($"BarTender bu etiketi rulo üzerinde {label.Columns} × {label.Rows} (yan yana × alt alta) basıyordu. LabelHarbor her etiketi ayrı basar; yazıcının medya ayarını kontrol edin."));
+        if (label.Columns > 1)
+        {
+            // Yan yana rulo: baskıda etiketler satır satır dizilir. Değerler BarTender'ın sayfa kaydından gelir.
+            doc.Label.Columns = label.Columns;
+            doc.Label.SideMarginMm = Math.Round(label.SideMargin * MilToMm, 1);
+            doc.Label.ColumnGapMm = Math.Round(label.ColumnGap * MilToMm, 1);
+            warnings.Add(L10n.T($"BarTender bu etiketi rulo üzerinde {label.Columns} yan yana basıyordu. Yan yana baskı ayarları dosyadan alındı (rulo {doc.Label.RowWidthMm:0.#} mm, kenar payı {doc.Label.SideMarginMm:0.#} mm, ara {doc.Label.ColumnGapMm:0.#} mm); ilk baskıda hizayı kontrol edin."));
+        }
         return new BtwImportResult(project, label, warnings, imported, skipped);
     }
 

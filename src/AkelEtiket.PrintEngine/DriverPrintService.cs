@@ -80,7 +80,7 @@ public sealed class DriverPrintService
             error = L10n.T("Yazıcı seçilmedi.");
             return null;
         }
-        if (!TryCreateDc(report, printerName, media, out IntPtr hdc, out var caps))
+        if (!TryCreateDc(report, printerName, media.Paper, out IntPtr hdc, out var caps))
         {
             error = report.Errors.FirstOrDefault() ?? L10n.T("Yazıcı aygıt bağlamı oluşturulamadı.");
             return null;
@@ -151,13 +151,16 @@ public sealed class DriverPrintService
             return report;
         }
 
+        // Her sürücü sayfası bir satırdır: tek sıralı rulolarda tek etiket, yan yana rulolarda N etiket.
+        var rows = LabelRowBuilder.Chunk(sequence, media.IsMultiAcross ? media.Columns : 1);
+
         // GDI çağrıları tek iş parçacığında, bekleme (await) olmadan yapılır.
-        int jobId = PrintPages(report, printerName, media, sequence, renderPage, progress, cancellationToken);
+        int jobId = PrintPages(report, printerName, media, rows, renderPage, progress, cancellationToken);
         if (jobId <= 0) return report;
 
         report.JobIds.Add(jobId);
         if (toFile) report.OutputFile = OutputFilePath;
-        progress?.Report(new PrintProgress { Done = sequence.Count, Total = sequence.Count, Stage = L10n.T("Kuyruk durumu bekleniyor") });
+        progress?.Report(new PrintProgress { Done = rows.Count, Total = rows.Count, Stage = L10n.T("Kuyruk durumu bekleniyor") });
         try
         {
             var result = await SpoolerMonitor.WaitForJobAsync(printerName, jobId, QueueWaitTimeout, null, cancellationToken)
@@ -185,10 +188,10 @@ public sealed class DriverPrintService
     }
 
     /// <summary>Sayfaları GDI ile basar; başarılıysa iş numarasını, değilse 0 döndürür (hata rapora yazılır).</summary>
-    private int PrintPages(PrintReport report, string printerName, LabelMedia media, List<int> sequence,
+    private int PrintPages(PrintReport report, string printerName, LabelMedia media, IReadOnlyList<int[]> rows,
         Func<int, double, double, MonoBitmap> renderPage, IProgress<PrintProgress>? progress, CancellationToken cancellationToken)
     {
-        if (!TryCreateDc(report, printerName, media, out IntPtr hdc, out var caps)) return 0;
+        if (!TryCreateDc(report, printerName, media.Paper, out IntPtr hdc, out var caps)) return 0;
         try
         {
             LastPageInfo = caps;
@@ -197,7 +200,7 @@ public sealed class DriverPrintService
                 report.Errors.Add(L10n.T("Yazıcı sürücüsü bit eşlem çizimini desteklemiyor; TSPL baskı yöntemini kullanın."));
                 return 0;
             }
-            AddPageWarnings(report, media, caps);
+            AddPageWarnings(report, media.Paper, caps);
             GdiNative.SetStretchBltMode(hdc, GdiNative.COLORONCOLOR);
 
             var docInfo = new GdiNative.DOCINFOW
@@ -220,7 +223,33 @@ public sealed class DriverPrintService
             {
                 int cachedIndex = -1;
                 MonoBitmap? cached = null;
-                for (int position = 0; position < sequence.Count; position++)
+                // Sıralı sayfa dizisinde aynı etiket art arda gelir; her etiket bir kez çizilir.
+                MonoBitmap? Label(int pageIndex)
+                {
+                    if (cached is not null && cachedIndex == pageIndex) return cached;
+                    try
+                    {
+                        cached = renderPage(pageIndex, caps.RenderDotsPerMmX, caps.RenderDotsPerMmY)
+                                 ?? throw new InvalidOperationException(L10n.T("Etiket görüntüsü üretilemedi."));
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        report.Canceled = true;
+                        return null;
+                    }
+                    catch (Exception ex)
+                    {
+                        report.Errors.Add(L10n.T($"{pageIndex + 1}. etiket oluşturulamadı: {ex.Message}"));
+                        return null;
+                    }
+                    cachedIndex = pageIndex;
+                    report.DataGenerated = true;
+                    report.LabelsGenerated++;
+                    report.BytesGenerated += cached.Data.Length;
+                    return cached;
+                }
+
+                for (int position = 0; position < rows.Count; position++)
                 {
                     if (cancellationToken.IsCancellationRequested)
                     {
@@ -229,37 +258,22 @@ public sealed class DriverPrintService
                         return 0;
                     }
 
-                    int pageIndex = sequence[position];
-                    if (cached is null || cachedIndex != pageIndex)
+                    var labels = new List<MonoBitmap>(rows[position].Length);
+                    foreach (int pageIndex in rows[position])
                     {
-                        try
-                        {
-                            cached = renderPage(pageIndex, caps.RenderDotsPerMmX, caps.RenderDotsPerMmY)
-                                     ?? throw new InvalidOperationException(L10n.T("Etiket görüntüsü üretilemedi."));
-                        }
-                        catch (OperationCanceledException)
-                        {
-                            report.Canceled = true;
-                            return 0;
-                        }
-                        catch (Exception ex)
-                        {
-                            report.Errors.Add(L10n.T($"{pageIndex + 1}. etiket oluşturulamadı: {ex.Message}"));
-                            return 0;
-                        }
-                        cachedIndex = pageIndex;
-                        report.DataGenerated = true;
-                        report.LabelsGenerated++;
-                        report.BytesGenerated += cached.Data.Length;
-                        LastPageInfo = caps with { BitmapWidth = cached.Width, BitmapHeight = cached.Height };
+                        var label = Label(pageIndex);
+                        if (label is null) return 0;
+                        labels.Add(label);
                     }
+                    var page = media.IsMultiAcross ? LabelRowBuilder.Compose(labels, media, caps.RenderDotsPerMmX) : labels[0];
+                    LastPageInfo = caps with { BitmapWidth = page.Width, BitmapHeight = page.Height };
 
                     if (GdiNative.StartPage(hdc) <= 0)
                     {
                         report.Errors.Add(PrintEngineException.FromWin32(L10n.T("Sayfa başlatılamadı"), Marshal.GetLastPInvokeError(), printerName).Message);
                         return 0;
                     }
-                    if (!DrawMono(hdc, cached, caps, out int drawError))
+                    if (!DrawMono(hdc, page, caps, out int drawError))
                     {
                         report.Errors.Add(PrintEngineException.FromWin32(L10n.T("Etiket görüntüsü sürücüye çizilemedi"), drawError, printerName).Message);
                         return 0;
@@ -269,7 +283,7 @@ public sealed class DriverPrintService
                         report.Errors.Add(PrintEngineException.FromWin32(L10n.T("Sayfa tamamlanamadı"), Marshal.GetLastPInvokeError(), printerName).Message);
                         return 0;
                     }
-                    progress?.Report(new PrintProgress { Done = position + 1, Total = sequence.Count, Stage = L10n.T("Sürücüye gönderiliyor") });
+                    progress?.Report(new PrintProgress { Done = position + 1, Total = rows.Count, Stage = L10n.T("Sürücüye gönderiliyor") });
                 }
 
                 docOpen = false;

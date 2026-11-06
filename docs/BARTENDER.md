@@ -26,7 +26,7 @@ database connections, printer commands) is executed.
 
 | BarTender | LabelHarbor |
 |---|---|
-| Template size | Label width and height (one label) |
+| Template size | Label width and height; labels printed several across a roll keep that layout (see below) |
 | Text | Text with the same font, size, bold/italic/underline, rotation, alignment and position. Character width (for example 94.8%) is kept. Fixed-width text is broken into lines where BarTender breaks it. |
 | Text border | Rectangle with the same thickness and rounded corners |
 | EAN-13 | EAN-13 with the same data, bar height and position. The module width is rounded to whole dots of the printer resolution stored in the file, as BarTender does, so bars print in the same place on the same printer. |
@@ -42,8 +42,9 @@ Positions follow BarTender's anchor point (one of nine points of the object) and
 - Only the **current value** of text and barcodes is imported. Data sources, serial numbers, prompts and
   database links are not.
 - Barcode types other than EAN-13 are recognized by name, but their size has not been verified; check them.
-- BarTender can print several labels **side by side** on one roll (for example 5 × 20 mm on a 104 mm roll).
-  LabelHarbor prints one label at a time; the import note tells you when this applies. Check the printer's media settings.
+- Labels printed **side by side** on one roll (for example 5 × 20 mm on a 104 mm roll) are imported with the
+  same number across, side margin and gap, taken from BarTender's page setup. The tested files store a margin on
+  each side and no gap between labels; check the alignment on the first print and adjust them under Label size.
 - If a font is not installed, LabelHarbor uses Arial and says so.
 - Text drawn by LabelHarbor and by BarTender can differ in length by a few percent because the two use
   different font hinting.

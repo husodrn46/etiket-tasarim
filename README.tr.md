@@ -52,7 +52,8 @@ satırında hata raporlamasını göstermek için bilerek hatalı kontrol basama
 - mm cinsinden sürükle-bırak tasarım; metin, barkod, QR, görsel, şekil, simgeler, gruplama ve geri alma.
 - 13 barkod türü; ortak 1-bit render motoru, barkod okunabilirlik kontrolü, PNG/PDF çıktı.
 - Excel/XLS/CSV, değişken alanlar, kalıcı sayaç, ürün listesi, baskı geçmişi ve yeniden baskı.
-- TSPL RAW ve Windows sürücüsüyle baskı, kalibrasyon ve yazıcı/rulo profilleri.
+- TSPL RAW ve Windows sürücüsüyle baskı, kalibrasyon ve yazıcı/rulo profilleri. Yan yana birden çok etiketli
+  rulolar satır satır basılır (yalnızca geliştirme dalında).
 - BarTender 10.1/2016 etiketlerini (`.btw`) tek tek ya da klasörce açar; yazı, EAN-13, çerçeve ve logo yerinde
   kalır. Yalnızca geliştirme dalında. [BarTender aktarımı](docs/BARTENDER.tr.md).
 - İsteğe bağlı, varsayılan kapalı AI/MCP altyapısı. Yeni servis, hesap veya API anahtarı kurulmaz.

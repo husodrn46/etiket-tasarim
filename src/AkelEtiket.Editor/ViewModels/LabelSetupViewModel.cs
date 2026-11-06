@@ -24,6 +24,9 @@ public sealed partial class LabelSetupViewModel : ObservableObject
         GapMm = source.GapMm;
         GapOffsetMm = source.GapOffsetMm;
         Media = source.Media;
+        Columns = source.Columns;
+        ColumnGapMm = source.ColumnGapMm;
+        SideMarginMm = source.SideMarginMm;
         SelectedPreset = Presets.FirstOrDefault(p => Math.Abs(p.WidthMm - WidthMm) < 0.01 && Math.Abs(p.HeightMm - HeightMm) < 0.01);
     }
 
@@ -56,8 +59,30 @@ public sealed partial class LabelSetupViewModel : ObservableObject
     public partial LabelPreset? SelectedPreset { get; set; }
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(Warning), nameof(IsValid))]
+    [NotifyPropertyChangedFor(nameof(Warning), nameof(IsValid), nameof(RowWidthText))]
     public partial double WidthMm { get; set; }
+
+    /// <summary>Rulo üzerinde yan yana etiket sayısı (1 = tek sıra).</summary>
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Warning), nameof(RowWidthText), nameof(IsMultiAcross))]
+    public partial int Columns { get; set; }
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Warning), nameof(RowWidthText))]
+    public partial double ColumnGapMm { get; set; }
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Warning), nameof(RowWidthText))]
+    public partial double SideMarginMm { get; set; }
+
+    public bool IsMultiAcross => Columns > 1;
+
+    /// <summary>Yazıcıya giden satırın genişliği (mm).</summary>
+    public double RowWidthMm => Columns <= 1 ? WidthMm : 2 * SideMarginMm + Columns * WidthMm + (Columns - 1) * ColumnGapMm;
+
+    public string RowWidthText => Columns <= 1
+        ? L10n.T("Tek sıra: her etiket ayrı basılır.")
+        : L10n.T($"Rulo genişliği {RowWidthMm:0.##} mm: her baskı satırında {Columns} etiket yan yana.");
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(Warning), nameof(IsValid))]
@@ -91,6 +116,8 @@ public sealed partial class LabelSetupViewModel : ObservableObject
             if (!IsValid) return L10n.T($"Genişlik ve yükseklik {LabelSetup.MinSizeMm:0}–{LabelSetup.MaxSizeMm:0} mm arasında olmalı.");
             if (WidthMm > MaxPrintWidthMm + 0.01)
                 return L10n.T($"Etiket genişliği yazıcının en fazla baskı genişliğini ({MaxPrintWidthMm:0.#} mm) aşıyor; taşan kısım basılmaz.");
+            if (Columns > 1 && RowWidthMm > MaxPrintWidthMm + 0.01)
+                return L10n.T($"Yan yana satır {RowWidthMm:0.##} mm; yazıcının en fazla baskı genişliği {MaxPrintWidthMm:0.#} mm. Kenar payını ya da boşluğu azaltın, yoksa sağdaki etiket kesilir.");
             return null;
         }
     }
@@ -102,5 +129,8 @@ public sealed partial class LabelSetupViewModel : ObservableObject
         target.GapMm = GapMm;
         target.GapOffsetMm = GapOffsetMm;
         target.Media = Media;
+        target.Columns = Columns;
+        target.ColumnGapMm = ColumnGapMm;
+        target.SideMarginMm = SideMarginMm;
     }
 }

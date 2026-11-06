@@ -217,6 +217,50 @@ public class WindowsPrintingTests(ITestOutputHelper output)
         Assert.Null(DriverPrintService.FindMatchingPaper(PdfPrinter, new LabelMedia(77, 33, 3, 0, MediaType.Gap)));
     }
 
+    /// <summary>
+    /// Yan yana rulo, sürücü yolu: her sayfa bir satırdır (kağıt = satır genişliği), 3 etiket 2 sütunda 2 sayfa olur
+    /// ve her etiket bir kez çizilir. "Microsoft Print to PDF" yalnız kendi formlarını kabul ettiği için satır 100 ya da
+    /// 105 × 148 mm seçilir.
+    /// </summary>
+    [Fact]
+    public async Task DriverPrint_MultiAcross_PrintsOneRowPerPage()
+    {
+        if (PrinterDiscovery.GetPrinter(PdfPrinter) is null)
+        {
+            output.WriteLine($"'{PdfPrinter}' yok; test atlandı.");
+            return;
+        }
+        var media = new LabelMedia(48, 148, 3, 0, MediaType.Gap) { Columns = 2, SideMarginMm = 1, ColumnGapMm = 2 };
+        if (DriverPrintService.FindMatchingPaper(PdfPrinter, media.Paper) is null) media = media with { WidthMm = 50.5 };
+        Assert.NotNull(DriverPrintService.FindMatchingPaper(PdfPrinter, media.Paper));
+
+        string path = Path.Combine(Path.GetTempPath(), $"akel-etiket-yan-yana-{Guid.NewGuid():N}.pdf");
+        try
+        {
+            var rendered = new List<int>();
+            var service = new DriverPrintService { OutputFilePath = path, QueueWaitTimeout = TimeSpan.FromSeconds(60) };
+            var report = await service.PrintAsync(PdfPrinter, media, 2, (page, dx, dy) =>
+            {
+                rendered.Add(page);
+                return FramedLabel(media, dx, dy);
+            }, page => page == 0 ? 2 : 1);
+
+            output.WriteLine(report.Summary);
+            Assert.True(report.Success, report.Summary);
+            Assert.Equal([0, 1], rendered);
+            Assert.Equal((2, 2, 3), (report.LabelsGenerated, report.LabelsSpooled, report.CopiesTotal));
+            var info = Assert.IsType<DriverPageInfo>(service.LastPageInfo);
+            Assert.True(info.PageMatches(media.Paper));
+            Assert.Equal(info.PhysicalWidth, info.BitmapWidth);
+            string pdf = Encoding.Latin1.GetString(File.ReadAllBytes(path));
+            Assert.Equal(2, Regex.Matches(pdf, @"/Type\s*/Page[^s]").Count);
+        }
+        finally
+        {
+            try { File.Delete(path); } catch (IOException) { }
+        }
+    }
+
     private static MonoBitmap FramedLabel(LabelMedia media, double dotsPerMmX, double dotsPerMmY)
     {
         var bitmap = new MonoBitmap(Units.MmToDotsRounded(media.WidthMm, dotsPerMmX), Units.MmToDotsRounded(media.HeightMm, dotsPerMmY));

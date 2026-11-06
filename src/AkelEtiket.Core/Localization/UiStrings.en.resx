@@ -6411,9 +6411,6 @@ Continue?</value>
   <data name="T_f66c797e450a" xml:space="preserve">
     <value>Font "{0}" is not installed on this computer; {1} will be used instead and text may look different.</value>
   </data>
-  <data name="T_3bd2da2b8efb" xml:space="preserve">
-    <value>BarTender printed this label {0} × {1} (across × down) on the roll. LabelHarbor prints each label separately; check the printer media settings.</value>
-  </data>
   <data name="T_8ed1d0a357f8" xml:space="preserve">
     <value>The type of barcode "{0}" ({1}) was not recognized; it was imported as Code 128. Please check it.</value>
   </data>
@@ -6559,5 +6556,41 @@ Details are in "{0}".</value>
   </data>
   <data name="T_43645f39ab97" xml:space="preserve">
     <value>This label was made for a {0} dpi printer; LabelHarbor currently draws at {1:0} dpi. Barcode bars are rounded to a different width. If you print on the same printer, choose {2} DPI under Settings → Printer profile → Resolution.</value>
+  </data>
+  <data name="T_43eced416eae" xml:space="preserve">
+    <value>Labels across must be between 1 and {0}.</value>
+  </data>
+  <data name="T_c0d258c1a3c5" xml:space="preserve">
+    <value>The gap between labels and the side margin cannot be negative.</value>
+  </data>
+  <data name="T_c4abf464620d" xml:space="preserve">
+    <value>Single row: each label is printed on its own.</value>
+  </data>
+  <data name="T_8d86574e2357" xml:space="preserve">
+    <value>Roll width {0:0.##} mm: {1} labels side by side in each printed row.</value>
+  </data>
+  <data name="T_013c5095a229" xml:space="preserve">
+    <value>The row is {0:0.##} mm wide; the printer prints at most {1:0.#} mm. Reduce the margin or the gap, or the rightmost label is cut off.</value>
+  </data>
+  <data name="T_3df1356384ab" xml:space="preserve">
+    <value>BarTender printed this label {0} across the roll. The multi-across settings were taken from the file (roll {1:0.#} mm, side margin {2:0.#} mm, gap {3:0.#} mm); check the alignment on the first print.</value>
+  </data>
+  <data name="T_f7f9dab741fa" xml:space="preserve">
+    <value> • {0} across</value>
+  </data>
+  <data name="T_fc05bfcd8f79" xml:space="preserve">
+    <value>Labels across</value>
+  </data>
+  <data name="T_5fd945674020" xml:space="preserve">
+    <value>labels</value>
+  </data>
+  <data name="T_dacc27af6e88" xml:space="preserve">
+    <value>Gap between</value>
+  </data>
+  <data name="T_c957b036b8d7" xml:space="preserve">
+    <value>Side margin</value>
+  </data>
+  <data name="T_c9780e7af34b" xml:space="preserve">
+    <value>If the roll carries several labels side by side (for example 5 × 20 mm on a 104 mm roll), enter how many. You design one label; printing places the labels row by row.</value>
   </data>
 </root>

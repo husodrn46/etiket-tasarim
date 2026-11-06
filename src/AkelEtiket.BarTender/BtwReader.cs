@@ -152,7 +152,7 @@ public static class BtwReader
         {
             var defs = FindClassDefs();
             var records = FindRecords(defs);
-            var (width, height, columns, rows, fromHeader) = ReadLabelSize();
+            var (width, height, columns, rows, fromHeader, pageWidth, sideMargin) = ReadLabelSize();
             var objects = new List<BtwObject>();
             var classes = defs.Select(d => d.Name).ToHashSet(StringComparer.Ordinal);
             foreach (var record in records)
@@ -170,6 +170,8 @@ public static class BtwReader
                 Height = height,
                 Columns = columns,
                 Rows = rows,
+                PageWidth = pageWidth,
+                SideMargin = sideMargin,
                 SizeFromHeader = fromHeader,
                 Objects = objects,
                 Notes = _notes,
@@ -269,8 +271,11 @@ public static class BtwReader
             return null;
         }
 
-        /// <summary>Sayfa kaydı: sayfa G/Y, 3 alan, boşluk X/Y, etiket G/Y, satır, sütun (mil).</summary>
-        private (int Width, int Height, int Columns, int Rows, bool FromHeader) ReadLabelSize()
+        /// <summary>
+        /// Sayfa kaydı (mil): sayfa G/Y, 3 alan, iki kenar payı, etiket G/Y, satır, sütun. Denenen dosyalarda sayfa
+        /// genişliği = 2 × kenar payı + sütun × etiket genişliği (etiketler bitişik).
+        /// </summary>
+        private (int Width, int Height, int Columns, int Rows, bool FromHeader, int PageWidth, int SideMargin) ReadLabelSize()
         {
             ReadOnlySpan<byte> start = [0xFF, 0xFF, 0x00, 0x01, 0x00, 0x00];
             int limit = Math.Min(data.Length, 64 * 1024);
@@ -283,7 +288,8 @@ public static class BtwReader
                 if (w is < 50 or > 60000 || h is < 50 or > 60000) continue;
                 if (w > pageW + 2 || h > pageH + 2) continue;
                 if (rows is < 1 or > 1000 || cols is < 1 or > 1000) continue;
-                return (w, h, cols, rows, false);
+                int margin = I32(data, p + 20);
+                return (w, h, cols, rows, false, pageW, margin is >= 0 and < 5000 ? margin : 0);
             }
             var m = Regex.Match(header, @"<TemplateSize>\s*([\d.,]+)\s*x\s*([\d.,]+)\s*mm", RegexOptions.IgnoreCase);
             if (m.Success
@@ -291,10 +297,10 @@ public static class BtwReader
                 && double.TryParse(m.Groups[2].Value.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out double hm))
             {
                 _notes.Add(L10n.T("Etiket ölçüsü dosya başlığındaki özetten alındı."));
-                return ((int)Math.Round(wm / 0.0254), (int)Math.Round(hm / 0.0254), 1, 1, true);
+                return ((int)Math.Round(wm / 0.0254), (int)Math.Round(hm / 0.0254), 1, 1, true, 0, 0);
             }
             _notes.Add(L10n.T("Etiket ölçüsü okunamadı; 100 × 100 mm varsayıldı. Etiket ölçüsünü kontrol edin."));
-            return (3937, 3937, 1, 1, true);
+            return (3937, 3937, 1, 1, true, 0, 0);
         }
 
         // ───────────── Nesneler ─────────────
