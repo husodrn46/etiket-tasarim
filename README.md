@@ -59,7 +59,8 @@ Four starter packs provide eight templates with fictional data and bilingual rec
 - Drag-and-drop layout in mm; text, images, shapes, symbols, layers, grouping and undo/redo.
 - 13 barcode types, dot-aligned 1-bit rendering, barcode decoding checks, PNG/PDF export.
 - Excel/XLS/CSV fields, row quantities, product catalog, persistent counters, print history and reprint.
-- Direct TSPL RAW and Windows driver printing; media/printer profiles and calibration tools.
+- Direct TSPL RAW and Windows driver printing; media/printer profiles and calibration tools. Rolls with several
+  labels side by side are printed row by row (development branch only).
 - Portable `.etiketyedek` backups of company settings, templates and products.
 - Opens BarTender 10.1/2016 labels (`.btw`), one at a time or a whole folder at once; text, EAN-13, borders
   and logos keep their position. Development branch only. [BarTender import](docs/BARTENDER.md).

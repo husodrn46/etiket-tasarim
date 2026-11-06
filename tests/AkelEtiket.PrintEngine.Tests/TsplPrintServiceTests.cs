@@ -265,4 +265,63 @@ public class TsplPrintServiceTests
         Assert.True(report.Success, report.Summary);
         Assert.Equal("SELFTEST\r\n", System.Text.Encoding.ASCII.GetString(Assert.Single(backend.Jobs).Data.ToArray()));
     }
+
+    // ───────────── Yan yana rulo ─────────────
+
+    private static readonly LabelMedia Roll = new(20, 40, 3, 0, MediaType.Gap) { Columns = 5, SideMarginMm = 2 };
+
+    private static IEnumerable<LabelPage> RollPages(int count, int copies, Action<int>? onRender = null)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            onRender?.Invoke(i);
+            var bitmap = new MonoBitmap(160, 320);
+            bitmap[i, 0] = true;
+            yield return new LabelPage(bitmap, copies);
+        }
+    }
+
+    [Fact]
+    public async Task MultiAcross_SendsRows_ButCountsLabels()
+    {
+        var backend = new FakeBackend();
+        var service = new TsplPrintService(backend) { MaxLabelsPerJob = 5 };
+        var report = await service.PrintAsync(Roll, Settings(), RollPages(12, 5), 12);
+
+        Assert.True(report.Success, report.Summary);
+        Assert.Equal((12, 12, 60), (report.LabelsGenerated, report.LabelsSpooled, report.CopiesTotal));
+        var perJob = backend.Jobs.Select(j => TsplInspector.Parse(j.Data.ToArray())).ToList();
+        Assert.All(perJob, cmds => Assert.StartsWith("104 mm", cmds[0].Arguments));
+        Assert.Equal([5, 5, 2], perJob.Select(cmds => cmds.Count(c => c.Name == "BITMAP")).ToArray());
+        Assert.All(perJob.SelectMany(c => c).Where(c => c.Name == "PRINT"), c => Assert.Equal("1,1", c.Arguments));
+    }
+
+    [Fact]
+    public async Task MultiAcross_SplitsJobsOnlyWhenNoRowIsHalfFull()
+    {
+        // 3 kopya × 10 etiket = 30 kopya = 6 satır; satır sınırı etiket sınırına yalnızca 5. ve 10. etiketten sonra denk gelir.
+        var backend = new FakeBackend();
+        var service = new TsplPrintService(backend) { MaxLabelsPerJob = 2 };
+        var report = await service.PrintAsync(Roll, Settings(), RollPages(10, 3), 10);
+
+        Assert.True(report.Success, report.Summary);
+        Assert.Equal(10, report.LabelsSpooled);
+        Assert.Equal([3, 3], backend.Jobs.Select(j => TsplInspector.Parse(j.Data.ToArray()).Count(c => c.Name == "BITMAP")).ToArray());
+    }
+
+    [Fact]
+    public async Task MultiAcross_CancelPrintsTheHalfRowSoNoLabelIsPartlyPrinted()
+    {
+        var backend = new FakeBackend();
+        using var cts = new CancellationTokenSource();
+        var service = new TsplPrintService(backend);
+        var report = await service.PrintAsync(Roll, Settings(), RollPages(10, 1, i => { if (i == 3) cts.Cancel(); }), 10, null, cts.Token);
+
+        Assert.True(report.Canceled);
+        var job = Assert.Single(backend.Jobs);
+        Assert.True(job.Completed);
+        Assert.Single(TsplInspector.Parse(job.Data.ToArray()), c => c.Name == "BITMAP");
+        Assert.InRange(report.LabelsSpooled, 3, 4);
+        Assert.Equal(report.LabelsGenerated, report.LabelsSpooled);
+    }
 }

@@ -108,6 +108,17 @@ public sealed class BtwLabel
     public int Columns { get; init; } = 1;
     public int Rows { get; init; } = 1;
 
+    /// <summary>BarTender sayfasının (yan yana rulonun) genişliği, mil; okunamadıysa 0.</summary>
+    public int PageWidth { get; init; }
+
+    /// <summary>Sayfanın yan kenar payı, mil.</summary>
+    public int SideMargin { get; init; }
+
+    /// <summary>Yan yana etiketler arası boşluk (mil): sayfa genişliğinden kenar payları ve etiketler çıkınca kalan.</summary>
+    public int ColumnGap => Columns > 1 && PageWidth > 0
+        ? Math.Max(0, (PageWidth - 2 * SideMargin - Columns * Width) / (Columns - 1))
+        : 0;
+
     /// <summary>Etiket ölçüsü dosyanın içinden değil, başlıktaki özetten (veya varsayılandan) alındıysa true.</summary>
     public bool SizeFromHeader { get; init; }
 

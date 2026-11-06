@@ -253,7 +253,7 @@ internal sealed class SyntheticBtw
         var head = new MemoryStream();
         void W(byte[] b) => head.Write(b);
         W([0xFF, 0xFF, 0x00, 0x01, 0x00, 0x00]);
-        foreach (int v in new[] { LabelWidth * Columns, LabelHeight, 0, 0, 0, 79, 79, LabelWidth, LabelHeight, 1, Columns })
+        foreach (int v in new[] { 2 * 79 + LabelWidth * Columns, LabelHeight, 0, 0, 0, 79, 79, LabelWidth, LabelHeight, 1, Columns })
             W(BitConverter.GetBytes(v));
         if (Dpi is { } dpi)
         {

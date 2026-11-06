@@ -34,6 +34,7 @@ public sealed class BtwReaderTests
         var label = BtwReader.Read(file);
 
         Assert.Equal((787, 1575, 5, 300), (label.Width, label.Height, label.Columns, label.PrinterDpi));
+        Assert.Equal((4093, 79, 0), (label.PageWidth, label.SideMargin, label.ColumnGap));
         Assert.Equal("2016 R7", label.Application);
         Assert.Collection(label.Objects,
             o => Assert.IsType<BtwLine>(o),
@@ -105,7 +106,10 @@ public sealed class BtwConverterTests
         Assert.Equal("LV012", doc.Name);
         Assert.Equal(12.47, doc.Label.WidthMm, 2);
         Assert.Equal(35.0, doc.Label.HeightMm, 2);
-        Assert.Contains(result.Warnings, w => w.Contains("5 × 1"));
+        // Yan yana rulo: sayfa kaydındaki kenar payı (79 mil) ve bitişik etiketler.
+        Assert.Equal((5, 2.0, 0.0), (doc.Label.Columns, doc.Label.SideMarginMm, doc.Label.ColumnGapMm));
+        Assert.Equal(66.35, doc.Label.RowWidthMm, 1);
+        Assert.Contains(result.Warnings, w => w.Contains("5 yan yana"));
         Assert.Null(result.Project.FilePath);
     }
 
