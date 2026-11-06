@@ -6360,4 +6360,204 @@ Continue?</value>
   <data xml:space="preserve" name="T_fe765503dc66">
     <value>The recipe file is invalid or belongs to a newer version; the existing file was preserved.</value>
   </data>
+  <data name="T_ece26eee6c42" xml:space="preserve">
+    <value>The file is too large; it was not opened as a BarTender label.</value>
+  </data>
+  <data name="T_31febe1509f7" xml:space="preserve">
+    <value>This file is not a BarTender label (.btw).</value>
+  </data>
+  <data name="T_198dbed7ec0a" xml:space="preserve">
+    <value>The BarTender file header could not be read.</value>
+  </data>
+  <data name="T_e1cc70d65a3d" xml:space="preserve">
+    <value>The design section of the BarTender label was not found. The file may be damaged or from an unsupported version.</value>
+  </data>
+  <data name="T_578781b48082" xml:space="preserve">
+    <value>The design section of the BarTender label is too large.</value>
+  </data>
+  <data name="T_69f6dba176e0" xml:space="preserve">
+    <value>The label size was taken from the summary in the file header.</value>
+  </data>
+  <data name="T_41ecfa3fbefb" xml:space="preserve">
+    <value>The label size could not be read; 100 × 100 mm was assumed. Check the label size.</value>
+  </data>
+  <data name="T_5f36b9db24bc" xml:space="preserve">
+    <value>The rotation/anchor of object "{0}" could not be read; top left and 0° were assumed.</value>
+  </data>
+  <data name="T_a5da706fae93" xml:space="preserve">
+    <value>The content of text "{0}" could not be read; it was skipped.</value>
+  </data>
+  <data name="T_629428f220b9" xml:space="preserve">
+    <value>The font of text "{0}" could not be read; Arial was assumed.</value>
+  </data>
+  <data name="T_2c5e6afb7485" xml:space="preserve">
+    <value>The data of barcode "{0}" could not be read; it was skipped.</value>
+  </data>
+  <data name="T_366568bdd6be" xml:space="preserve">
+    <value>Image "{0}" was not found inside the file; it was skipped.</value>
+  </data>
+  <data name="T_90cf95615234" xml:space="preserve">
+    <value>The size of image "{0}" on the label could not be read; its original size was used.</value>
+  </data>
+  <data name="T_9c46b2808a0c" xml:space="preserve">
+    <value>Object "{0}" was not recognized and was not imported.</value>
+  </data>
+  <data name="T_1b54347c3c59" xml:space="preserve">
+    <value>{0} line object(s) were not imported (BarTender does not print the lines in these files). Add them with Shape → Line if needed.</value>
+  </data>
+  <data name="T_ab3f96d4f87f" xml:space="preserve">
+    <value>{0} object(s) lie completely outside the label and were not imported.</value>
+  </data>
+  <data name="T_f66c797e450a" xml:space="preserve">
+    <value>Font "{0}" is not installed on this computer; {1} will be used instead and text may look different.</value>
+  </data>
+  <data name="T_3bd2da2b8efb" xml:space="preserve">
+    <value>BarTender printed this label {0} × {1} (across × down) on the roll. LabelHarbor prints each label separately; check the printer media settings.</value>
+  </data>
+  <data name="T_8ed1d0a357f8" xml:space="preserve">
+    <value>The type of barcode "{0}" ({1}) was not recognized; it was imported as Code 128. Please check it.</value>
+  </data>
+  <data name="T_cb9dfd648c4a" xml:space="preserve">
+    <value>The size of barcode "{0}" ({1}) is not verified in this version; check its size.</value>
+  </data>
+  <data name="T_6837d8557013" xml:space="preserve">
+    <value>Barcode "{0}" is invalid: {1}</value>
+  </data>
+  <data name="T_5e98717b97b8" xml:space="preserve">
+    <value>Image "{0}" could not be opened and was not imported.</value>
+  </data>
+  <data name="T_7cd019c3aac2" xml:space="preserve">
+    <value>Box "{0}" has chamfered corners; they were imported as rounded corners.</value>
+  </data>
+  <data name="T_9136df66510c" xml:space="preserve">
+    <value>The destination folder cannot be inside the BarTender folder.</value>
+  </data>
+  <data name="T_2445202ab9e6" xml:space="preserve">
+    <value>A file with the same name already exists at the destination; it was not overwritten.</value>
+  </data>
+  <data name="T_81a144de837c" xml:space="preserve">
+    <value>BarTender import report</value>
+  </data>
+  <data name="T_78ff1235515e" xml:space="preserve">
+    <value>Source: {0}</value>
+  </data>
+  <data name="T_34bf4469983c" xml:space="preserve">
+    <value>Destination: {0}</value>
+  </data>
+  <data name="T_d335bdd3fb08" xml:space="preserve">
+    <value>Date: {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="T_145c88721915" xml:space="preserve">
+    <value>Converted: {0}, with notes: {1}, skipped: {2}, failed: {3}</value>
+  </data>
+  <data name="T_89563fad45b2" xml:space="preserve">
+    <value>The operation was stopped before it finished.</value>
+  </data>
+  <data name="T_8be3365cabaa" xml:space="preserve">
+    <value>NOTE</value>
+  </data>
+  <data name="T_a164326e4c0b" xml:space="preserve">
+    <value>SKIPPED</value>
+  </data>
+  <data name="T_1a6b99320832" xml:space="preserve">
+    <value>ERROR</value>
+  </data>
+  <data name="T_4ea12610bc5c" xml:space="preserve">
+    <value>Reading BarTender label: {0}…</value>
+  </data>
+  <data name="T_aef9cabb82d0" xml:space="preserve">
+    <value>BarTender label imported: {0} ({1} objects). It becomes an .akelabel file when you save it.</value>
+  </data>
+  <data name="T_f63451e1d8fb" xml:space="preserve">
+    <value>BarTender label imported</value>
+  </data>
+  <data name="T_8b919ed2fe08" xml:space="preserve">
+    <value>The label is open. Check the following before printing:</value>
+  </data>
+  <data name="T_566f7b367e1c" xml:space="preserve">
+    <value>The BarTender label could not be opened.</value>
+  </data>
+  <data name="T_d95d540ceb3e" xml:space="preserve">
+    <value>BarTender label could not be opened</value>
+  </data>
+  <data name="T_f2a5f7f9231b" xml:space="preserve">
+    <value>Open BarTender label</value>
+  </data>
+  <data name="T_48c0558ce7a1" xml:space="preserve">
+    <value>Choose the folder that contains the BarTender labels</value>
+  </data>
+  <data name="T_da8bb2f0bf17" xml:space="preserve">
+    <value>Convert BarTender folder</value>
+  </data>
+  <data name="T_8d61659c06a7" xml:space="preserve">
+    <value>There are no BarTender labels (.btw) in this folder:
+{0}</value>
+  </data>
+  <data name="T_d502adb558eb" xml:space="preserve">
+    <value>This folder contains the folder where converted labels are saved; choose another folder.</value>
+  </data>
+  <data name="T_4f2df7c165cc" xml:space="preserve">
+    <value>{0} BarTender labels were found.
+
+Each one will be converted to a LabelHarbor label (.akelabel) and saved, keeping the subfolders, to:
+{1}
+
+The original files are not changed; existing files with the same name are not overwritten.</value>
+  </data>
+  <data name="T_b34349abf096" xml:space="preserve">
+    <value>Convert</value>
+  </data>
+  <data name="T_2bbe4b3a1d38" xml:space="preserve">
+    <value>Converting BarTender labels: {0}/{1}…</value>
+  </data>
+  <data name="T_b06829c3b278" xml:space="preserve">
+    <value>BarTender conversion finished: {0} labels saved.</value>
+  </data>
+  <data name="T_9985b6e9e938" xml:space="preserve">
+    <value>Converted: {0}
+To check: {1}
+Already existed (skipped): {2}
+Failed: {3}</value>
+  </data>
+  <data name="T_429726734fe4" xml:space="preserve">
+    <value>
+
+Folder:
+{0}</value>
+  </data>
+  <data name="T_1eb1a436ae7d" xml:space="preserve">
+    <value>
+
+Details are in "{0}".</value>
+  </data>
+  <data name="T_293285c1ffe8" xml:space="preserve">
+    <value>BarTender folder converted</value>
+  </data>
+  <data name="T_fc3571d469a1" xml:space="preserve">
+    <value>BarTender conversion failed.</value>
+  </data>
+  <data name="T_17ac2bf69845" xml:space="preserve">
+    <value>Could not convert: </value>
+  </data>
+  <data name="T_696cd6bd58e9" xml:space="preserve">
+    <value>Open BarTender label…</value>
+  </data>
+  <data name="T_b5eb8d041a00" xml:space="preserve">
+    <value>Convert BarTender folder…</value>
+  </data>
+  <data name="T_34c65728b99e" xml:space="preserve">
+    <value>Label files (*.akelabel;*.btw)|*.akelabel;*.btw|Label project (*.akelabel)|*.akelabel|BarTender label (*.btw)|*.btw</value>
+  </data>
+  <data name="T_b268d28a08b6" xml:space="preserve">
+    <value>BarTender label (*.btw)|*.btw</value>
+  </data>
+  <data name="T_d429091b70aa" xml:space="preserve">
+    <value>Letter width</value>
+  </data>
+  <data name="T_94287c860587" xml:space="preserve">
+    <value>Makes letters narrower (below 100%) or wider (above 100%) without changing their height.</value>
+  </data>
+  <data name="T_43645f39ab97" xml:space="preserve">
+    <value>This label was made for a {0} dpi printer; LabelHarbor currently draws at {1:0} dpi. Barcode bars are rounded to a different width. If you print on the same printer, choose {2} DPI under Settings → Printer profile → Resolution.</value>
+  </data>
 </root>

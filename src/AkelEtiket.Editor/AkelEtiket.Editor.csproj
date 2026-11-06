@@ -11,6 +11,7 @@
     <ProjectReference Include="..\AkelEtiket.PrintEngine\AkelEtiket.PrintEngine.csproj" />
     <ProjectReference Include="..\AkelEtiket.DataImport\AkelEtiket.DataImport.csproj" />
     <ProjectReference Include="..\AkelEtiket.ProjectManager\AkelEtiket.ProjectManager.csproj" />
+    <ProjectReference Include="..\AkelEtiket.BarTender\AkelEtiket.BarTender.csproj" />
     <ProjectReference Include="..\AkelEtiket.Gs1\AkelEtiket.Gs1.csproj" />
     <ProjectReference Include="..\AkelEtiket.Design\AkelEtiket.Design.csproj" />
     <ProjectReference Include="..\AkelEtiket.Assistant\AkelEtiket.Assistant.csproj" />

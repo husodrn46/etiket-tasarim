@@ -95,6 +95,16 @@
                             <TextBlock Text="{loc:Text T_296b7ee4327f}" Style="{StaticResource FieldLabel}" />
                             <controls:NumberBox Grid.Column="1" Value="{Binding Model.LineSpacing}" Minimum="0.5" Maximum="3" Step="0.05" Decimals="2" />
                         </Grid>
+                        <Grid Style="{StaticResource Row}" Margin="0,0,0,8" ToolTip="{loc:Text T_94287c860587}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="92" />
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{loc:Text T_d429091b70aa}" Style="{StaticResource FieldLabel}" />
+                            <controls:NumberBox Grid.Column="1" Value="{Binding Model.CharacterWidth}" Minimum="25" Maximum="400" Step="5" Decimals="0" />
+                            <TextBlock Grid.Column="2" Text="%" Style="{StaticResource Unit}" />
+                        </Grid>
                         <Grid Style="{StaticResource Row}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="92" />

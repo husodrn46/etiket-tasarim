@@ -11,6 +11,7 @@ internal sealed class TextBlockLayout
 {
     public required List<TextLine> Lines { get; init; }
     public required float FontSize { get; init; }
+    public float ScaleX { get; init; } = 1f;
     public required float LineHeight { get; init; }
     public required float Ascent { get; init; }
     public required float Descent { get; init; }
@@ -24,9 +25,9 @@ internal sealed class TextBlockLayout
 /// <summary>Satır kaydırma ve otomatik küçültme (Türkçe metin için tam Unicode, karakter bazında ölçüm).</summary>
 internal static class TextLayoutEngine
 {
-    public static TextBlockLayout Layout(string text, FontMatch font, float sizeDots, float maxWidth, bool wrap, double lineSpacing)
+    public static TextBlockLayout Layout(string text, FontMatch font, float sizeDots, float maxWidth, bool wrap, double lineSpacing, float scaleX = 1f)
     {
-        using var skFont = font.CreateFont(sizeDots);
+        using var skFont = font.CreateFont(sizeDots, scaleX);
         var metrics = skFont.Metrics;
         float ascent = -metrics.Ascent;
         float descent = metrics.Descent;
@@ -46,6 +47,7 @@ internal static class TextLayoutEngine
         {
             Lines = lines,
             FontSize = sizeDots,
+            ScaleX = scaleX,
             LineHeight = lineHeight,
             Ascent = ascent,
             Descent = descent,
@@ -53,17 +55,17 @@ internal static class TextLayoutEngine
     }
 
     /// <summary>Metin kutuya sığana kadar yazı boyutunu küçültür (en az %15'ine kadar).</summary>
-    public static TextBlockLayout LayoutShrinkToFit(string text, FontMatch font, float sizeDots, float boxWidth, float boxHeight, bool wrap, double lineSpacing)
+    public static TextBlockLayout LayoutShrinkToFit(string text, FontMatch font, float sizeDots, float boxWidth, float boxHeight, bool wrap, double lineSpacing, float scaleX = 1f)
     {
-        var layout = Layout(text, font, sizeDots, boxWidth, wrap, lineSpacing);
+        var layout = Layout(text, font, sizeDots, boxWidth, wrap, lineSpacing, scaleX);
         if (layout.FitsIn(boxWidth, boxHeight)) return layout;
         float low = Math.Max(4f, sizeDots * 0.15f), high = sizeDots;
-        TextBlockLayout best = Layout(text, font, low, boxWidth, wrap, lineSpacing);
+        TextBlockLayout best = Layout(text, font, low, boxWidth, wrap, lineSpacing, scaleX);
         if (!best.FitsIn(boxWidth, boxHeight)) return best;
         for (int i = 0; i < 12 && high - low > 0.25f; i++)
         {
             float mid = (low + high) / 2;
-            var candidate = Layout(text, font, mid, boxWidth, wrap, lineSpacing);
+            var candidate = Layout(text, font, mid, boxWidth, wrap, lineSpacing, scaleX);
             if (candidate.FitsIn(boxWidth, boxHeight))
             {
                 best = candidate;

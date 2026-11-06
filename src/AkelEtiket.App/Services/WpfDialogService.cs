@@ -37,6 +37,13 @@ public sealed class WpfDialogService : IDialogService
         return dialog.ShowDialog(ActiveOwner) == true ? dialog.FileName : null;
     }
 
+    public string? ShowFolderDialog(string title, string? initialDirectory = null)
+    {
+        var dialog = new OpenFolderDialog { Title = title };
+        if (initialDirectory is not null && Directory.Exists(initialDirectory)) dialog.InitialDirectory = initialDirectory;
+        return dialog.ShowDialog(ActiveOwner) == true ? dialog.FolderName : null;
+    }
+
     public void ShowMessage(string title, string message, MessageKind kind = MessageKind.Info) =>
         MessageWindow.Show(ActiveOwner, title, message, kind);
 

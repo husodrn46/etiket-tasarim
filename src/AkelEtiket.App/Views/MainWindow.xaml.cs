@@ -210,6 +210,9 @@ public partial class MainWindow : ThemedWindow
         menu.Items.Add(new MenuItem { Header = L10n.T("Farklı kaydet…"), Command = _vm.SaveDocumentAsCommand, InputGestureText = "Ctrl+Shift+S" });
         menu.Items.Add(new MenuItem { Header = L10n.T("Şablon olarak kaydet…"), Command = _vm.SaveAsTemplateCommand });
         menu.Items.Add(new Separator());
+        menu.Items.Add(new MenuItem { Header = L10n.T("BarTender etiketi aç…"), Command = _vm.OpenBarTenderFileCommand });
+        menu.Items.Add(new MenuItem { Header = L10n.T("BarTender klasörünü dönüştür…"), Command = _vm.ConvertBarTenderFolderCommand });
+        menu.Items.Add(new Separator());
         menu.Items.Add(new MenuItem { Header = L10n.T("PNG olarak dışa aktar…"), Command = _vm.ExportPngCommand, InputGestureText = "Ctrl+E" });
         menu.Items.Add(new MenuItem { Header = L10n.T("PDF olarak kaydet…"), Command = _vm.ExportPdfCommand });
         menu.Items.Add(new Separator());

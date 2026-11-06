@@ -6360,4 +6360,204 @@ Devam edilsin mi?</value>
   <data xml:space="preserve" name="T_fe765503dc66">
     <value>İş tarifleri dosyası geçersiz veya daha yeni bir sürüme ait; mevcut dosya korundu.</value>
   </data>
+  <data name="T_ece26eee6c42" xml:space="preserve">
+    <value>Dosya çok büyük; BarTender etiketi olarak açılmadı.</value>
+  </data>
+  <data name="T_31febe1509f7" xml:space="preserve">
+    <value>Bu dosya bir BarTender etiketi (.btw) değil.</value>
+  </data>
+  <data name="T_198dbed7ec0a" xml:space="preserve">
+    <value>BarTender dosya başlığı okunamadı.</value>
+  </data>
+  <data name="T_e1cc70d65a3d" xml:space="preserve">
+    <value>BarTender etiketinin tasarım bölümü bulunamadı. Dosya bozuk ya da desteklenmeyen bir sürüm olabilir.</value>
+  </data>
+  <data name="T_578781b48082" xml:space="preserve">
+    <value>BarTender etiketinin tasarım bölümü çok büyük.</value>
+  </data>
+  <data name="T_69f6dba176e0" xml:space="preserve">
+    <value>Etiket ölçüsü dosya başlığındaki özetten alındı.</value>
+  </data>
+  <data name="T_41ecfa3fbefb" xml:space="preserve">
+    <value>Etiket ölçüsü okunamadı; 100 × 100 mm varsayıldı. Etiket ölçüsünü kontrol edin.</value>
+  </data>
+  <data name="T_5f36b9db24bc" xml:space="preserve">
+    <value>"{0}" nesnesinin döndürme/bağlantı bilgisi okunamadı; sol üst köşe ve 0° varsayıldı.</value>
+  </data>
+  <data name="T_a5da706fae93" xml:space="preserve">
+    <value>"{0}" yazısının içeriği okunamadı; atlandı.</value>
+  </data>
+  <data name="T_629428f220b9" xml:space="preserve">
+    <value>"{0}" yazısının yazı tipi okunamadı; Arial varsayıldı.</value>
+  </data>
+  <data name="T_2c5e6afb7485" xml:space="preserve">
+    <value>"{0}" barkodunun verisi okunamadı; atlandı.</value>
+  </data>
+  <data name="T_366568bdd6be" xml:space="preserve">
+    <value>"{0}" görseli dosyanın içinde bulunamadı; atlandı.</value>
+  </data>
+  <data name="T_90cf95615234" xml:space="preserve">
+    <value>"{0}" görselinin etiket üzerindeki ölçüsü okunamadı; özgün ölçüsü kullanıldı.</value>
+  </data>
+  <data name="T_9c46b2808a0c" xml:space="preserve">
+    <value>"{0}" nesnesi tanınmadı; aktarılmadı.</value>
+  </data>
+  <data name="T_1b54347c3c59" xml:space="preserve">
+    <value>{0} çizgi nesnesi aktarılmadı (BarTender bu dosyalardaki çizgileri basmıyor). Gerekirse Şekil → Çizgi ile ekleyin.</value>
+  </data>
+  <data name="T_ab3f96d4f87f" xml:space="preserve">
+    <value>{0} nesne etiketin tamamen dışında olduğu için aktarılmadı.</value>
+  </data>
+  <data name="T_f66c797e450a" xml:space="preserve">
+    <value>"{0}" yazı tipi bu bilgisayarda yok; yerine {1} kullanılacak ve yazılar farklı görünebilir.</value>
+  </data>
+  <data name="T_3bd2da2b8efb" xml:space="preserve">
+    <value>BarTender bu etiketi rulo üzerinde {0} × {1} (yan yana × alt alta) basıyordu. LabelHarbor her etiketi ayrı basar; yazıcının medya ayarını kontrol edin.</value>
+  </data>
+  <data name="T_8ed1d0a357f8" xml:space="preserve">
+    <value>"{0}" barkodunun türü ({1}) tanınmadı; Code 128 olarak aktarıldı, kontrol edin.</value>
+  </data>
+  <data name="T_cb9dfd648c4a" xml:space="preserve">
+    <value>"{0}" ({1}) barkodunun ölçüsü bu sürümde doğrulanmadı; boyutunu kontrol edin.</value>
+  </data>
+  <data name="T_6837d8557013" xml:space="preserve">
+    <value>"{0}" barkodu geçersiz: {1}</value>
+  </data>
+  <data name="T_5e98717b97b8" xml:space="preserve">
+    <value>"{0}" görseli açılamadı; aktarılmadı.</value>
+  </data>
+  <data name="T_7cd019c3aac2" xml:space="preserve">
+    <value>"{0}" kutusunun köşeleri kesik (pah); LabelHarbor'da yuvarlak köşe olarak aktarıldı.</value>
+  </data>
+  <data name="T_9136df66510c" xml:space="preserve">
+    <value>Hedef klasör, BarTender klasörünün içinde olamaz.</value>
+  </data>
+  <data name="T_2445202ab9e6" xml:space="preserve">
+    <value>Hedefte aynı adlı dosya var; üzerine yazılmadı.</value>
+  </data>
+  <data name="T_81a144de837c" xml:space="preserve">
+    <value>BarTender aktarım raporu</value>
+  </data>
+  <data name="T_78ff1235515e" xml:space="preserve">
+    <value>Kaynak: {0}</value>
+  </data>
+  <data name="T_34bf4469983c" xml:space="preserve">
+    <value>Hedef: {0}</value>
+  </data>
+  <data name="T_d335bdd3fb08" xml:space="preserve">
+    <value>Tarih: {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="T_145c88721915" xml:space="preserve">
+    <value>Dönüştürülen: {0}, notlu: {1}, atlanan: {2}, açılamayan: {3}</value>
+  </data>
+  <data name="T_89563fad45b2" xml:space="preserve">
+    <value>İşlem yarıda bırakıldı.</value>
+  </data>
+  <data name="T_8be3365cabaa" xml:space="preserve">
+    <value>NOT</value>
+  </data>
+  <data name="T_a164326e4c0b" xml:space="preserve">
+    <value>ATLANDI</value>
+  </data>
+  <data name="T_1a6b99320832" xml:space="preserve">
+    <value>HATA</value>
+  </data>
+  <data name="T_4ea12610bc5c" xml:space="preserve">
+    <value>BarTender etiketi okunuyor: {0}…</value>
+  </data>
+  <data name="T_aef9cabb82d0" xml:space="preserve">
+    <value>BarTender etiketi aktarıldı: {0} ({1} nesne). Kaydedince .akelabel olur.</value>
+  </data>
+  <data name="T_f63451e1d8fb" xml:space="preserve">
+    <value>BarTender etiketi aktarıldı</value>
+  </data>
+  <data name="T_8b919ed2fe08" xml:space="preserve">
+    <value>Etiket açıldı. Basmadan önce şunları kontrol edin:</value>
+  </data>
+  <data name="T_566f7b367e1c" xml:space="preserve">
+    <value>BarTender etiketi açılamadı.</value>
+  </data>
+  <data name="T_d95d540ceb3e" xml:space="preserve">
+    <value>BarTender etiketi açılamadı</value>
+  </data>
+  <data name="T_f2a5f7f9231b" xml:space="preserve">
+    <value>BarTender etiketi aç</value>
+  </data>
+  <data name="T_48c0558ce7a1" xml:space="preserve">
+    <value>BarTender etiketlerinin bulunduğu klasörü seçin</value>
+  </data>
+  <data name="T_da8bb2f0bf17" xml:space="preserve">
+    <value>BarTender klasörünü dönüştür</value>
+  </data>
+  <data name="T_8d61659c06a7" xml:space="preserve">
+    <value>Bu klasörde BarTender etiketi (.btw) yok:
+{0}</value>
+  </data>
+  <data name="T_d502adb558eb" xml:space="preserve">
+    <value>Bu klasör, dönüştürülen etiketlerin kaydedildiği klasörün üstünde; başka bir klasör seçin.</value>
+  </data>
+  <data name="T_4f2df7c165cc" xml:space="preserve">
+    <value>{0} BarTender etiketi bulundu.
+
+Her biri LabelHarbor etiketine (.akelabel) çevrilip alt klasörleriyle birlikte şuraya kaydedilecek:
+{1}
+
+Özgün dosyalar değişmez; hedefte aynı adlı dosya varsa üzerine yazılmaz.</value>
+  </data>
+  <data name="T_b34349abf096" xml:space="preserve">
+    <value>Dönüştür</value>
+  </data>
+  <data name="T_2bbe4b3a1d38" xml:space="preserve">
+    <value>BarTender etiketleri dönüştürülüyor: {0}/{1}…</value>
+  </data>
+  <data name="T_b06829c3b278" xml:space="preserve">
+    <value>BarTender dönüştürme bitti: {0} etiket kaydedildi.</value>
+  </data>
+  <data name="T_9985b6e9e938" xml:space="preserve">
+    <value>Dönüştürülen: {0}
+Kontrol edilmesi gereken: {1}
+Zaten vardı (atlandı): {2}
+Açılamayan: {3}</value>
+  </data>
+  <data name="T_429726734fe4" xml:space="preserve">
+    <value>
+
+Klasör:
+{0}</value>
+  </data>
+  <data name="T_1eb1a436ae7d" xml:space="preserve">
+    <value>
+
+Ayrıntılar "{0}" dosyasında.</value>
+  </data>
+  <data name="T_293285c1ffe8" xml:space="preserve">
+    <value>BarTender klasörü dönüştürüldü</value>
+  </data>
+  <data name="T_fc3571d469a1" xml:space="preserve">
+    <value>BarTender dönüştürme yapılamadı.</value>
+  </data>
+  <data name="T_17ac2bf69845" xml:space="preserve">
+    <value>Dönüştürülemedi: </value>
+  </data>
+  <data name="T_696cd6bd58e9" xml:space="preserve">
+    <value>BarTender etiketi aç…</value>
+  </data>
+  <data name="T_b5eb8d041a00" xml:space="preserve">
+    <value>BarTender klasörünü dönüştür…</value>
+  </data>
+  <data name="T_34c65728b99e" xml:space="preserve">
+    <value>Etiket dosyaları (*.akelabel;*.btw)|*.akelabel;*.btw|Etiket projesi (*.akelabel)|*.akelabel|BarTender etiketi (*.btw)|*.btw</value>
+  </data>
+  <data name="T_b268d28a08b6" xml:space="preserve">
+    <value>BarTender etiketi (*.btw)|*.btw</value>
+  </data>
+  <data name="T_d429091b70aa" xml:space="preserve">
+    <value>Harf genişliği</value>
+  </data>
+  <data name="T_94287c860587" xml:space="preserve">
+    <value>Harfleri yükseklik değişmeden daraltır (%100 altı) veya genişletir (%100 üstü).</value>
+  </data>
+  <data name="T_43645f39ab97" xml:space="preserve">
+    <value>Bu etiket {0} dpi yazıcı için hazırlanmış; LabelHarbor şu an {1:0} dpi ile çiziyor. Barkod çubukları farklı inceliğe yuvarlanır. Aynı yazıcıyla basacaksanız Ayarlar → Yazıcı profili → Çözünürlük'ten {2} DPI seçin.</value>
+  </data>
 </root>

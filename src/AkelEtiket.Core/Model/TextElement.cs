@@ -19,6 +19,7 @@ public sealed class TextElement : LabelElement
     private bool _wordWrap = true;
     private bool _autoShrink;
     private double _lineSpacing = 1.0;
+    private double _characterWidth = 100;
     private InkColor _textColor = InkColor.Black;
     private FillStyle _background = FillStyle.None;
 
@@ -102,6 +103,28 @@ public sealed class TextElement : LabelElement
     {
         get => _lineSpacing;
         set => Set(ref _lineSpacing, Clamp(value, 0.5, 3.0, 1.0));
+    }
+
+    public const double MinCharacterWidth = 25;
+    public const double MaxCharacterWidth = 400;
+
+    /// <summary>
+    /// Karakter genişliği (%, v4): 100 = yazı tipinin kendi genişliği. Küçük değer harfleri daraltır, büyük değer
+    /// genişletir; yükseklik değişmez. Dosyaya yalnızca 100'den farklıysa yazılır.
+    /// </summary>
+    [JsonIgnore]
+    public double CharacterWidth
+    {
+        get => _characterWidth;
+        set => Set(ref _characterWidth, Math.Round(Clamp(value, MinCharacterWidth, MaxCharacterWidth, 100), 1));
+    }
+
+    [JsonInclude]
+    [JsonPropertyName("characterWidth")]
+    private double? CharacterWidthJson
+    {
+        get => _characterWidth == 100 ? null : _characterWidth;
+        set => CharacterWidth = value ?? 100;
     }
 
     public InkColor TextColor
