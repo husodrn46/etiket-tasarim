@@ -94,7 +94,9 @@ kuyruğu testleri orada atlanır.
 macOS masaüstü uygulaması `src/AkelEtiket.App.Mac` altında geliştiriliyor (Avalonia; görünüm modelleri, render ve
 dosya biçimi Windows uygulamasıyla ortaktır). Henüz yayımlanmadı. Bugün etiket açıp kaydeder; tasarım tuvali,
 belge sekmeleri, cetveller, kılavuz çizgileri, sol panel (öğeler, şablonlar, veri, katmanlar) ve özellikler
-paneli çalışır. Yapay zekâ paneli ve iletişim pencereleri henüz taşınıyor; macOS'ta baskı yoktur. Çalıştırmak için: `dotnet run --project src/AkelEtiket.App.Mac`. İlerleme
+paneli ve dokuz pencere (etiket ölçüsü, önizleme, ayarlar, ilk kurulum, yardım, hazır paketler, yedekler, sütun
+eşleştirme, ürünler) çalışır. Henüz taşınanlar: yapay zekâ paneli, veri tablosu ile baskı, GS1 ve üretim
+pencereleri. macOS'ta baskı yoktur; etiketler PNG veya PDF olarak dışa aktarılır. Çalıştırmak için: `dotnet run --project src/AkelEtiket.App.Mac`. İlerleme
 [#7](https://github.com/husodrn46/etiket-tasarim/issues/7) numaralı kayıtta izlenir.
 
 ```powershell

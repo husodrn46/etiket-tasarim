@@ -1,0 +1,99 @@
+<views:DialogWindow xmlns:loc="using:AkelEtiket.App.Mac.Localization" x:CompileBindings="False" x:Class="AkelEtiket.App.Mac.Views.LabelSetupWindow"
+                    xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:views="using:AkelEtiket.App.Mac.Views"
+                    xmlns:controls="using:AkelEtiket.App.Mac.Controls"
+                    Title="{Binding Title}" Width="560" Height="820" MinHeight="500" CanResize="True">
+    <ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="24,18,24,18">
+        <TextBlock Text="{Binding Title}" Classes="title" FontSize="18" />
+        <TextBlock Text="{loc:Text T_9cd477a88196}" Classes="hint" Margin="0,4,0,0" />
+
+        <TextBlock Text="{loc:Text T_49fafa879e69}" Classes="section" />
+        <ListBox ItemsSource="{Binding Presets}" SelectedItem="{Binding SelectedPreset}" MaxHeight="210" BorderThickness="1"
+                 BorderBrush="{DynamicResource Brush.Border}" Padding="4">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <TextBlock Text="{loc:Text T_69602884e571}" Classes="section" />
+        <Grid Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{loc:Text T_088cd77aa2ba}" Classes="label" />
+            <controls:NumberBox Grid.Column="1" Value="{Binding WidthMm}" Minimum="5" Maximum="1000" Step="1" Decimals="2" />
+            <TextBlock Grid.Column="2" Text="×" Margin="8,0" VerticalAlignment="Center" />
+            <controls:NumberBox Grid.Column="3" Value="{Binding HeightMm}" Minimum="5" Maximum="1000" Step="1" Decimals="2" />
+            <TextBlock Grid.Column="4" Text="{loc:Text T_8fa1dddd5360}" Classes="label" Margin="8,0,0,0" />
+        </Grid>
+        <Grid Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{loc:Text T_e6794f6a7ca4}" Classes="label" />
+            <ComboBox Grid.Column="1" ItemsSource="{Binding MediaTypes}" DisplayMemberBinding="{Binding Value}" SelectedValueBinding="{Binding Key}" SelectedValue="{Binding Media}" />
+        </Grid>
+        <Grid Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{loc:Text T_5a5e68db76d7}" Classes="label" />
+            <controls:NumberBox Grid.Column="1" Value="{Binding GapMm}" Minimum="0" Maximum="30" Step="0.5" Decimals="2" />
+            <TextBlock Grid.Column="2" Text="{loc:Text T_f849ba79bcbe}" Classes="label" Margin="8,0,0,0" />
+        </Grid>
+        <Grid Margin="0,0,0,6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{loc:Text T_fc05bfcd8f79}" Classes="label" />
+            <controls:NumberBox Grid.Column="1" Value="{Binding Columns}" Minimum="1" Maximum="12" Step="1" Decimals="0" AutomationProperties.AutomationId="LabelColumns" />
+            <TextBlock Grid.Column="2" Text="{loc:Text T_5fd945674020}" Classes="label" Margin="8,0,0,0" />
+        </Grid>
+        <Grid Margin="0,0,0,6" IsEnabled="{Binding IsMultiAcross}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{loc:Text T_dacc27af6e88}" Classes="label" />
+            <controls:NumberBox Grid.Column="1" Value="{Binding ColumnGapMm}" Minimum="0" Maximum="30" Step="0.5" Decimals="2" />
+            <TextBlock Grid.Column="2" Text="{loc:Text T_c957b036b8d7}" Classes="label" Margin="12,0,8,0" />
+            <controls:NumberBox Grid.Column="3" Value="{Binding SideMarginMm}" Minimum="0" Maximum="50" Step="0.5" Decimals="2" />
+            <TextBlock Grid.Column="4" Text="{loc:Text T_8fa1dddd5360}" Classes="label" Margin="8,0,0,0" />
+        </Grid>
+        <TextBlock Text="{Binding RowWidthText}" Classes="hint" TextWrapping="Wrap" Margin="0,0,0,2" />
+        <TextBlock Text="{loc:Text T_c9780e7af34b}" Classes="hint" TextWrapping="Wrap" Margin="0,0,0,10" />
+        <TextBlock Text="{Binding Warning}" Foreground="{DynamicResource Brush.Warning}" TextWrapping="Wrap"
+                   IsVisible="{Binding Warning, Converter={StaticResource NotEmpty}}" />
+
+        <TextBlock Text="{loc:Text T_c1c2b4f6e598}" Classes="section" Margin="0,18,0,8"/>
+        <CheckBox Content="{loc:Text T_124e60394f93}" IsChecked="{Binding Formatting.Enabled}" Margin="0,0,0,10"/>
+        <StackPanel IsEnabled="{Binding Formatting.Enabled}">
+         <TextBlock Text="{loc:Text T_2e3406b35424}"/><ComboBox ItemsSource="{Binding Formatting.Cultures}" SelectedItem="{Binding Formatting.CultureName}" Margin="0,4,0,8"/>
+         <TextBlock Text="{loc:Text T_7d7f4bb7a887}"/><ComboBox ItemsSource="{Binding Formatting.Cultures}" SelectedItem="{Binding Formatting.InputCultureName}" Margin="0,4,0,8"/>
+         <TextBlock Text="{loc:Text T_48928c33c70f}"/><ComboBox ItemsSource="{Binding Formatting.DateFormats}" SelectedItem="{Binding Formatting.DateFormat}" Margin="0,4,0,8"/>
+         <TextBlock Text="{loc:Text T_288a065b0201}"/><ComboBox ItemsSource="{Binding Formatting.NumberFormats}" SelectedItem="{Binding Formatting.NumberFormat}" Margin="0,4,0,8"/>
+         <TextBlock Text="{loc:Text T_3774cd647e7e}"/><ComboBox ItemsSource="{Binding Formatting.Currencies}" SelectedItem="{Binding Formatting.CurrencyCode}" Margin="0,4,0,8"/>
+        </StackPanel>
+        <TextBlock Text="{Binding Formatting.Preview}" TextWrapping="Wrap" Margin="0,8,0,6"/>
+        <TextBlock Text="{loc:Text T_a0c3d649e483}" Classes="hint" TextWrapping="Wrap"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,18,0,0">
+            <Button Content="{loc:Text T_39a8d28c1c6b}" MinWidth="96" IsCancel="True" Margin="0,0,8,0" />
+            <Button Content="{loc:Text T_79c4b04b6ee8}" MinWidth="96" Classes="accent" IsDefault="True" Click="OnOk" IsEnabled="{Binding IsValid}" />
+        </StackPanel>
+    </StackPanel></ScrollViewer>
+</views:DialogWindow>

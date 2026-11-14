@@ -135,6 +135,15 @@ public sealed class PngBytesToImageConverter : IValueConverter
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => BindingOperations.DoNothing;
 }
 
+/// <summary>true → hata rengi çerçeve, aksi halde saydam (önizleme küçük resimleri).</summary>
+public sealed class ErrorFrameConverter : IValueConverter
+{
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        value is true ? AppResources.Find<IBrush>("Brush.Error") : Brushes.Transparent;
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => BindingOperations.DoNothing;
+}
+
 /// <summary>Uygulama kaynaklarından etkin temaya göre değer okur.</summary>
 internal static class AppResources
 {

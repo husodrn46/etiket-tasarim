@@ -1,0 +1,44 @@
+<views:DialogWindow xmlns:loc="using:AkelEtiket.App.Mac.Localization" x:CompileBindings="False" x:Class="AkelEtiket.App.Mac.Views.HelpWindow"
+                    xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:views="using:AkelEtiket.App.Mac.Views"
+                    Title="{loc:Text T_a52123b61b26}" Width="720" Height="680" MinWidth="560" MinHeight="420" CanResize="True">
+    <DockPanel Margin="22,16,22,14">
+        <TextBlock DockPanel.Dock="Top" Text="{loc:Text T_2d067f54ba4b}" Classes="title" FontSize="18" Margin="0,0,0,8" />
+        <DockPanel DockPanel.Dock="Bottom" Margin="0,12,0,0">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button Content="{loc:Text T_56d81fb08bf6}" Margin="0,0,8,0" Click="OnOpenDocs" />
+                <Button Content="{loc:Text T_7b31a9fc4816}" MinWidth="96" IsCancel="True" IsDefault="True" />
+            </StackPanel>
+            <TextBlock Classes="hint" VerticalAlignment="Center" TextWrapping="Wrap"
+                       Text="{loc:Text T_532995393bbe}" />
+        </DockPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock Text="{loc:Text T_e4ac8fe3dc54}" Classes="section" />
+                <ItemsControl ItemsSource="{Binding Shortcuts}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="210" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding Key}" FontFamily="Menlo,Consolas,monospace" FontWeight="SemiBold" />
+                                <TextBlock Grid.Column="1" Text="{Binding Value}" TextWrapping="Wrap" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <TextBlock Text="{loc:Text T_ba3f1d68f96b}" Classes="section" />
+                <ItemsControl ItemsSource="{Binding Tips}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding StringFormat='• {0}'}" TextWrapping="Wrap" Margin="0,2" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</views:DialogWindow>

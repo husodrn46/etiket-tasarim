@@ -1,0 +1,60 @@
+<views:DialogWindow xmlns:loc="using:AkelEtiket.App.Mac.Localization" x:CompileBindings="False" x:Class="AkelEtiket.App.Mac.Views.FirstSetupWindow"
+ xmlns="https://github.com/avaloniaui"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:views="using:AkelEtiket.App.Mac.Views" xmlns:controls="using:AkelEtiket.App.Mac.Controls"
+ Title="{loc:Text T_7efe3d904c19}" Width="820" Height="650" MinWidth="700" MinHeight="560" CanResize="True">
+ <Grid Margin="24">
+  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+  <StackPanel Margin="0,0,0,18"><TextBlock Text="{loc:Text T_4f3d2ac9d6b1}" Classes="title" FontSize="24"/>
+   <TextBlock Text="{loc:Text T_c5a9e8ce4553}"
+    Classes="hint" TextWrapping="Wrap" Margin="0,6,0,0"/></StackPanel>
+  <Grid Grid.Row="1"><Grid.ColumnDefinitions><ColumnDefinition Width="180"/><ColumnDefinition Width="24"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+   <ListBox ItemsSource="{Binding Steps}" SelectedIndex="{Binding StepIndex}" VerticalAlignment="Top" Padding="4" AutomationProperties.Name="{loc:Text T_986a70ece69a}"/>
+   <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
+    <StackPanel>
+     <TextBlock Text="{Binding StepTitle}" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,18"/>
+     <StackPanel IsVisible="{Binding IsCompanyStep}" DataContext="{Binding Profile}">
+      <TextBlock Text="{loc:Text T_527534366db7}" Margin="0,0,0,4"/>
+        <ComboBox ItemsSource="{Binding LanguageChoices}" DisplayMemberBinding="{Binding Value}" SelectedValueBinding="{Binding Key}" SelectedValue="{Binding UiLanguage}" Margin="0,0,0,8" AutomationProperties.AutomationId="InterfaceLanguage"/>
+        <TextBlock Text="{loc:Text T_586cf0ced444}" Classes="hint" TextWrapping="Wrap" Margin="0,0,0,16"/>
+        <TextBlock Text="{loc:Text T_bb32eee2c44c}"/><TextBox AutomationProperties.AutomationId="SetupCompanyName" Text="{Binding CompanyName}" Margin="0,4,0,14"/>
+      <TextBlock Text="{loc:Text T_32c6bebf1cb0}"/><TextBox Text="{Binding CompanyAddress}" AcceptsReturn="True" Height="66" TextWrapping="Wrap" Margin="0,4,0,14"/>
+      <TextBlock Text="{loc:Text T_62fad07e44bf}"/><TextBox Text="{Binding CompanyWebsite}" Margin="0,4,0,14"/>
+      <WrapPanel><Button Content="{loc:Text T_87de99d3b26f}" Command="{Binding ChooseLogoCommand}" Margin="0,0,8,0"/>
+       <Button Content="{loc:Text T_773f6d015f09}" Command="{Binding ClearLogoCommand}"/></WrapPanel>
+      <TextBlock Text="{Binding LogoStatus}" Classes="hint" TextWrapping="Wrap" Margin="0,8,0,0"/>
+     </StackPanel>
+     <StackPanel IsVisible="{Binding IsPrinterStep}">
+      <TextBlock Text="{loc:Text T_ad8426dd3685}"/>
+      <DockPanel Margin="0,4,0,6"><Button DockPanel.Dock="Right" Content="{loc:Text T_63cd725787a8}" Command="{Binding RefreshPrintersCommand}" Margin="8,0,0,0"/>
+       <ComboBox ItemsSource="{Binding Printers}" IsEditable="True" Text="{Binding PrinterName}"/></DockPanel>
+      <TextBlock Text="{Binding PrinterMessage}" TextWrapping="Wrap" Classes="hint" Margin="0,0,0,18"/>
+      <TextBlock Text="{loc:Text T_4cca5298a2fa}"/><ComboBox ItemsSource="{Binding Presets}" SelectedItem="{Binding SelectedPreset}" DisplayMemberBinding="{Binding Name}" Margin="0,6,0,14"/>
+      <TextBlock Text="{loc:Text T_e1d4f7f94769}"/>
+      <WrapPanel Margin="0,6,0,14"><controls:NumberBox Value="{Binding Profile.DefaultWidthMm}" Width="110" Minimum="5" Maximum="1000" Decimals="2"/>
+       <TextBlock Text=" × " VerticalAlignment="Center"/><controls:NumberBox Value="{Binding Profile.DefaultHeightMm}" Width="110" Minimum="5" Maximum="1000" Decimals="2"/></WrapPanel>
+      <TextBlock Text="{loc:Text T_89c9f4a6b483}"/><controls:NumberBox Value="{Binding Profile.MaxPrintWidthMm}" Width="110" HorizontalAlignment="Left" Minimum="20" Maximum="300" Decimals="1" Margin="0,6,0,14"/>
+      <TextBlock Text="{loc:Text T_339daf924864}"/><ComboBox ItemsSource="{Binding Profile.Resolutions}" SelectedItem="{Binding Profile.Resolution}" Margin="0,6,0,14"/>
+      <TextBlock Text="{Binding ValidationProblem}" Foreground="{DynamicResource Brush.Warning}" TextWrapping="Wrap"/>
+     </StackPanel>
+     <StackPanel IsVisible="{Binding IsFinishStep}">
+      <Border BorderBrush="{DynamicResource Brush.Border}" BorderThickness="1" Padding="16" Margin="0,0,0,16"><TextBlock Text="{Binding Summary}" TextWrapping="Wrap" FontSize="16"/></Border>
+      <CheckBox Content="{loc:Text T_cf097eb22ef9}" IsChecked="{Binding AddTemplates}" Margin="0,0,0,12"/>
+      <CheckBox Content="{loc:Text T_3413a2cfe791}" IsChecked="{Binding OpenPreview}" Margin="0,0,0,16"/>
+      <TextBlock Text="{loc:Text T_d151bbfeca12}"
+       Classes="hint" TextWrapping="Wrap"/>
+     </StackPanel>
+    </StackPanel>
+   </ScrollViewer>
+  </Grid>
+  <DockPanel Grid.Row="2" Margin="0,20,0,0">
+   <Button DockPanel.Dock="Left" Content="{loc:Text T_ebc464d8d55b}" IsCancel="True" AutomationProperties.AutomationId="DeferFirstSetup"/>
+   <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+    <Button Content="{loc:Text T_b68a3150ea85}" Command="{Binding PreviousCommand}" MinWidth="90" Margin="0,0,8,0"/>
+    <Button Content="{loc:Text T_b91950d23ded}" Command="{Binding NextCommand}" MinWidth="100" Classes="accent" IsVisible="{Binding IsNotFinishStep}"/>
+    <Button Content="{loc:Text T_d71c8a449c94}" MinWidth="140" Classes="accent" Click="OnSave" AutomationProperties.AutomationId="CompleteFirstSetup"
+     IsVisible="{Binding IsFinishStep}"/>
+   </StackPanel>
+  </DockPanel>
+ </Grid>
+</views:DialogWindow>

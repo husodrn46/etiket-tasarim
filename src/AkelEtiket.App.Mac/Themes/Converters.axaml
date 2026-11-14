@@ -8,6 +8,7 @@
   <c:StateToIconConverter x:Key="StateToIcon" />
   <c:KindToIconConverter x:Key="KindToIcon" />
   <c:PngBytesToImageConverter x:Key="PngBytesToImage" />
+  <c:ErrorFrameConverter x:Key="ErrorFrame" />
   <c:NotEmptyConverter x:Key="NotEmpty" />
   <c:IsEmptyConverter x:Key="IsEmpty" />
   <c:IsPositiveConverter x:Key="IsPositive" />
