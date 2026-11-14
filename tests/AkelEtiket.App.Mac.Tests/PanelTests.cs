@@ -186,4 +186,27 @@ public class PanelTests
             Assert.Fail($"model: {((BarcodeElement)app.Vm.SelectedElement!.Model).Content} | kutu: {box.Text}");
         }
     });
+
+    private sealed class Sample
+    {
+        public Sample? Child { get; set; }
+        public string Name { get; set; } = "ad";
+    }
+
+    [Fact]
+    public void BindingCheck_ReportsMisspelledMembers_ButNotEmptyLinks() => Ui.Run(() =>
+    {
+        BindingErrors.Take();
+        var empty = new TextBlock { DataContext = new Sample() };
+        empty.Bind(TextBlock.TextProperty, new Avalonia.Data.ReflectionBinding("Child.Name"));
+        var wrong = new TextBlock { DataContext = new Sample() };
+        wrong.Bind(TextBlock.TextProperty, new Avalonia.Data.ReflectionBinding("Nmae"));
+        var window = new Window { Content = new StackPanel { Children = { empty, wrong } } };
+        window.Show();
+        Ui.Pump();
+        window.Close();
+
+        string error = Assert.Single(BindingErrors.Take());
+        Assert.Contains("Nmae", error);
+    });
 }

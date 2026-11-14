@@ -44,6 +44,8 @@ public static class TestAppBuilder
 /// <summary>
 /// Çalışma anında çözülen bağlamaların hatalarını toplar. Paneller öğenin somut türüne göre bağlandığı için yanlış
 /// yazılmış bir özellik adı derlemede değil burada ortaya çıkar; testler bu listeyi boş bekler.
+/// Yoldaki bir halkanın henüz boş olması ("Value is null": öğe daha render edilmedi, seçim yok) hata sayılmaz;
+/// bağlama o değer gelince kendiliğinden dolar.
 /// </summary>
 internal sealed class BindingErrors : Avalonia.Logging.ILogSink
 {
@@ -67,6 +69,7 @@ internal sealed class BindingErrors : Avalonia.Logging.ILogSink
             if (close < 0) break;
             message = message[..open] + value + message[(close + 1)..];
         }
+        if (message.EndsWith("Value is null.", StringComparison.Ordinal)) return;
         lock (_errors) _errors.Add($"{source?.GetType().Name}: {message}");
     }
 
