@@ -6716,4 +6716,19 @@ Details are in "{0}".</value>
   <data name="T_497c39fc1822" xml:space="preserve">
     <value>This window is not available in the macOS version yet.</value>
   </data>
+  <data name="T_1a34f67fba96" xml:space="preserve">
+    <value>About {0}</value>
+  </data>
+  <data name="T_d2ff5e70bcd2" xml:space="preserve">
+    <value>Version {0}</value>
+  </data>
+  <data name="T_962d4518110f" xml:space="preserve">
+    <value>Offline label and barcode design application.</value>
+  </data>
+  <data name="T_756c0704e3ae" xml:space="preserve">
+    <value>The source code is MIT licensed; the licenses of third-party components are included with the application.</value>
+  </data>
+  <data name="T_be2e1a247597" xml:space="preserve">
+    <value>Settings…</value>
+  </data>
 </root>

@@ -6,9 +6,12 @@ import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor
 
 
-def collect(root, cache, output):
+WINDOWS_PROJECTS = ('AkelEtiket.App', 'AkelEtiket.Worker', 'AkelEtiket.Mcp')
+
+
+def collect(root, cache, output, projects=WINDOWS_PROJECTS):
     packages = {}
-    for project in ['AkelEtiket.App', 'AkelEtiket.Worker', 'AkelEtiket.Mcp']:
+    for project in projects:
         assets = root / 'src' / project / 'obj/project.assets.json'
         if assets.exists():
             for name, meta in json.loads(assets.read_text())['libraries'].items():
@@ -48,7 +51,7 @@ def collect(root, cache, output):
         repo = repo[len('https://github.com/'):]
         refs = [record['repository']['commit']] if record['repository'].get('commit') else ['v' + record['version'], record['version'], 'v' + record['version'] + '.0']
         for ref in refs:
-            for name in ['LICENSE', 'LICENSE.txt', 'LICENSE.md', 'LICENSE.TXT', 'license.txt', 'COPYING']:
+            for name in ['LICENSE', 'LICENSE.txt', 'LICENSE.md', 'LICENSE.TXT', 'license.txt', 'COPYING', 'licence.md', 'LICENCE', 'LICENCE.md']:
                 url = f'https://raw.githubusercontent.com/{repo}/{ref}/{name}'
                 try:
                     with urllib.request.urlopen(url, timeout=15) as response: data = response.read(256 * 1024)

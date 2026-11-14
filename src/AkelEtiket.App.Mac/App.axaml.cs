@@ -8,7 +8,10 @@ using AkelEtiket.Editor.Services;
 using AkelEtiket.Editor.ViewModels;
 using AkelEtiket.ProjectManager;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Input;
+using Avalonia.Platform.Storage;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 
@@ -71,7 +74,62 @@ public partial class App : Application
         desktop.Exit += (_, _) => _main?.Dispose();
         // Açılış soruları (kurtarma, ilk kurulum) ana pencere göründükten sonra sorulur.
         string[] args = desktop.Args ?? [];
-        window.Opened += (_, _) => Dispatcher.UIThread.Post(() => _main.Initialize(args), DispatcherPriority.Background);
+        window.Opened += (_, _) => Dispatcher.UIThread.Post(() =>
+        {
+            _main.Initialize(args);
+            _initialized = true;
+            OpenFiles(_pendingFiles.ToArray());
+            _pendingFiles.Clear();
+        }, DispatcherPriority.Background);
+
+        // Finder'dan çift tıklanan ya da uygulama simgesine bırakılan etiketler (uygulama açıkken de gelir).
+        if (TryGetFeature(typeof(IActivatableLifetime)) is IActivatableLifetime activatable)
+        {
+            activatable.Activated += (_, e) =>
+            {
+                if (e is FileActivatedEventArgs opened)
+                    OpenFiles(opened.Files.Select(file => file.TryGetLocalPath()).OfType<string>().ToArray());
+                else if (e.Kind == ActivationKind.Reopen)
+                    window.Activate();
+            };
+        }
+        NativeMenu.SetMenu(this, AppMenu(window));
+    }
+
+    private readonly List<string> _pendingFiles = [];
+    private bool _initialized;
+
+    /// <summary>Dosyaları açar; açılış henüz bitmediyse açılıştan hemen sonraya bırakır.</summary>
+    private void OpenFiles(string[] paths)
+    {
+        if (paths.Length == 0 || _main is null) return;
+        if (!_initialized)
+        {
+            _pendingFiles.AddRange(paths);
+            return;
+        }
+        Dispatcher.UIThread.Post(() => _main.HandleFileDrop(paths, null, null));
+    }
+
+    /// <summary>macOS uygulama menüsü: Hakkında ve Ayarlar (Gizle, Çık gibi öğeleri sistem ekler).</summary>
+    private NativeMenu AppMenu(Window owner)
+    {
+        var about = new NativeMenuItem(UiText.T($"{AppIdentity.ProductName} hakkında"));
+        about.Click += (_, _) => MessageWindow.Show(owner, AppIdentity.ProductName,
+            UiText.T($"Sürüm {Version}") + "\n\n" +
+            UiText.T("Çevrimdışı etiket ve barkod tasarım uygulaması.") + "\n" +
+            UiText.T("Kaynak kodu MIT lisanslıdır; üçüncü taraf bileşenlerin lisansları uygulamayla birlikte gelir."),
+            MessageKind.Info);
+        var settings = new NativeMenuItem(UiText.T("Ayarlar…")) { Gesture = new KeyGesture(Key.OemComma, PlatformKeys.Command) };
+        settings.Click += (_, _) =>
+        {
+            if (_main is { } main && main.OpenSettingsCommand.CanExecute(null)) main.OpenSettingsCommand.Execute(null);
+        };
+        var menu = new NativeMenu();
+        menu.Items.Add(about);
+        menu.Items.Add(new NativeMenuItemSeparator());
+        menu.Items.Add(settings);
+        return menu;
     }
 
     private void OnUnhandledException(object? sender, DispatcherUnhandledExceptionEventArgs e)

@@ -32,6 +32,11 @@ jobs:
         env:
           LABELHARBOR_SCREENSHOTS: ${{ github.workspace }}/macos-results/screenshots
         run: dotnet test AkelEtiket.sln -c Release --no-build --no-restore --logger trx --results-directory macos-results/tests
+      # A local, ad hoc signed bundle for trying the app out. It is not notarized and not published.
+      - name: Build the macOS app bundle
+        run: |
+          python3 tools/distribution/build_mac_app.py --output macos-results/app
+          rm -rf macos-results/app/LabelHarbor.app
       - name: Upload evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
