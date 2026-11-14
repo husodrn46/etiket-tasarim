@@ -30,11 +30,59 @@ internal static class TestDataRoot
 /// <summary>Gerçek uygulama sınıfı, gerçek Skia çizimi; yalnızca pencere sistemi penceresizdir.</summary>
 public static class TestAppBuilder
 {
-    public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<App>()
-        .UseSkia()
-        .UseHarfBuzz()
-        .UseInterfaceFont()
-        .UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
+    public static AppBuilder BuildAvaloniaApp()
+    {
+        Avalonia.Logging.Logger.Sink = BindingErrors.Sink;
+        return AppBuilder.Configure<App>()
+            .UseSkia()
+            .UseHarfBuzz()
+            .UseInterfaceFont()
+            .UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
+    }
+}
+
+/// <summary>
+/// Çalışma anında çözülen bağlamaların hatalarını toplar. Paneller öğenin somut türüne göre bağlandığı için yanlış
+/// yazılmış bir özellik adı derlemede değil burada ortaya çıkar; testler bu listeyi boş bekler.
+/// Yoldaki bir halkanın henüz boş olması ("Value is null": öğe daha render edilmedi, seçim yok) hata sayılmaz;
+/// bağlama o değer gelince kendiliğinden dolar.
+/// </summary>
+internal sealed class BindingErrors : Avalonia.Logging.ILogSink
+{
+    public static readonly BindingErrors Sink = new();
+    private readonly List<string> _errors = [];
+
+    public bool IsEnabled(Avalonia.Logging.LogEventLevel level, string area) =>
+        area == Avalonia.Logging.LogArea.Binding && level >= Avalonia.Logging.LogEventLevel.Warning;
+
+    public void Log(Avalonia.Logging.LogEventLevel level, string area, object? source, string messageTemplate) =>
+        Log(level, area, source, messageTemplate, []);
+
+    public void Log(Avalonia.Logging.LogEventLevel level, string area, object? source, string messageTemplate, params object?[] propertyValues)
+    {
+        if (!IsEnabled(level, area)) return;
+        string message = messageTemplate;
+        foreach (object? value in propertyValues)
+        {
+            int open = message.IndexOf('{');
+            int close = open < 0 ? -1 : message.IndexOf('}', open);
+            if (close < 0) break;
+            message = message[..open] + value + message[(close + 1)..];
+        }
+        if (message.EndsWith("Value is null.", StringComparison.Ordinal)) return;
+        lock (_errors) _errors.Add($"{source?.GetType().Name}: {message}");
+    }
+
+    /// <summary>O ana kadar toplanan hataları döndürür ve listeyi boşaltır.</summary>
+    public static IReadOnlyList<string> Take()
+    {
+        lock (Sink._errors)
+        {
+            var taken = Sink._errors.ToList();
+            Sink._errors.Clear();
+            return taken;
+        }
+    }
 }
 
 /// <summary>Testi Avalonia arayüz iş parçacığında çalıştırır.</summary>
@@ -52,6 +100,20 @@ internal static class Ui
         Dispatcher.UIThread.RunJobs();
     }
 
+    /// <summary>Arayüz döngüsünü kısa bir süre çalıştırır: zamanlayıcılar (gecikmeli bağlamalar) da tetiklenir.</summary>
+    public static void Wait(int milliseconds)
+    {
+        var frame = new DispatcherFrame();
+        var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(milliseconds) };
+        timer.Tick += (_, _) =>
+        {
+            timer.Stop();
+            frame.Continue = false;
+        };
+        timer.Start();
+        Dispatcher.UIThread.PushFrame(frame);
+    }
+
     /// <summary>Koşul sağlanana kadar arayüz işlerini çalıştırır (arka planda render edilen katmanlar için).</summary>
     public static void WaitFor(Func<bool> condition, string what, int timeoutMs = 10_000)
     {
@@ -61,7 +123,7 @@ internal static class Ui
             Pump();
             if (condition()) return;
             if (clock.ElapsedMilliseconds > timeoutMs) throw new TimeoutException($"Beklenen durum oluşmadı: {what}");
-            Thread.Sleep(15);
+            Wait(15);
         }
     }
 }

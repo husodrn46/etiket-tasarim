@@ -2,17 +2,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:loc="using:AkelEtiket.App.Mac.Localization"
         xmlns:controls="using:AkelEtiket.App.Mac.Controls"
-        xmlns:converters="using:AkelEtiket.App.Mac.Converters"
+        xmlns:views="using:AkelEtiket.App.Mac.Views"
         xmlns:vm="using:AkelEtiket.Editor.ViewModels"
         x:Class="AkelEtiket.App.Mac.Views.MainWindow"
         x:DataType="vm:MainViewModel"
         Title="{Binding WindowTitle}"
         MinWidth="1080" MinHeight="660" Width="1440" Height="900"
         WindowStartupLocation="CenterScreen">
-  <Window.Resources>
-    <converters:EqualsConverter x:Key="EqualsConverter" />
-  </Window.Resources>
-
   <Grid RowDefinitions="Auto,Auto,*,Auto">
 
     <!-- ───────────── Üst araç çubuğu ───────────── -->
@@ -116,7 +112,7 @@
               </StackPanel>
               <Border HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-6,-10,0" MinWidth="16" Height="16" CornerRadius="8"
                       Background="{DynamicResource Brush.Warning}" Padding="4,0"
-                      IsVisible="{Binding Ai.PendingCount, Converter={x:Static converters:Convert.IsPositive}}"
+                      IsVisible="{Binding Ai.PendingCount, Converter={StaticResource IsPositive}}"
                       ToolTip.Tip="{loc:Text T_d3c7db600d0f}">
                 <TextBlock Text="{Binding Ai.PendingCount}" FontSize="10" FontWeight="Bold" Foreground="Black"
                            HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -250,8 +246,7 @@
       </Border>
 
       <!-- Sol panel -->
-      <Border x:Name="LeftPanelHost" Grid.Column="1" Width="270" Background="{DynamicResource Brush.Panel}"
-              BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,1,0" />
+      <views:LeftPanel x:Name="LeftPanelHost" Grid.Column="1" Width="270" />
 
       <!-- Tuval -->
       <Grid x:Name="WorkspaceHost" Grid.Column="2" Background="{DynamicResource Brush.Workspace}"
@@ -277,7 +272,7 @@
       <Rectangle Grid.Column="3" Width="1" Fill="{DynamicResource Brush.Border}" />
 
       <!-- Özellikler / Yapay Zekâ -->
-      <Border x:Name="PropertiesHost" Grid.Column="4" Background="{DynamicResource Brush.Panel}" />
+      <views:PropertiesPanel x:Name="PropertiesHost" Grid.Column="4" />
     </Grid>
 
     <!-- ───────────── Durum çubuğu ───────────── -->

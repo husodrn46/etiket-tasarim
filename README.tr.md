@@ -93,8 +93,8 @@ kuyruğu testleri orada atlanır.
 
 macOS masaüstü uygulaması `src/AkelEtiket.App.Mac` altında geliştiriliyor (Avalonia; görünüm modelleri, render ve
 dosya biçimi Windows uygulamasıyla ortaktır). Henüz yayımlanmadı. Bugün etiket açıp kaydeder; tasarım tuvali,
-belge sekmeleri, cetveller ve kılavuz çizgileri çalışır. Yan paneller ve pencerelerin çoğu henüz taşınıyor;
-macOS'ta baskı yoktur. Çalıştırmak için: `dotnet run --project src/AkelEtiket.App.Mac`. İlerleme
+belge sekmeleri, cetveller, kılavuz çizgileri, sol panel (öğeler, şablonlar, veri, katmanlar) ve özellikler
+paneli çalışır. Yapay zekâ paneli ve iletişim pencereleri henüz taşınıyor; macOS'ta baskı yoktur. Çalıştırmak için: `dotnet run --project src/AkelEtiket.App.Mac`. İlerleme
 [#7](https://github.com/husodrn46/etiket-tasarim/issues/7) numaralı kayıtta izlenir.
 
 ```powershell

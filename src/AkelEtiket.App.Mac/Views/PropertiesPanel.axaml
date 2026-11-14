@@ -1,0 +1,669 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:AkelEtiket.App.Mac.Localization"
+             xmlns:views="using:AkelEtiket.App.Mac.Views"
+             xmlns:controls="using:AkelEtiket.App.Mac.Controls"
+             xmlns:geo="using:AkelEtiket.Core.Geometry"
+             x:Class="AkelEtiket.App.Mac.Views.PropertiesPanel"
+             x:CompileBindings="False">
+    <!--
+        Sağ panel: seçili öğenin özellikleri. Şablonlar öğenin somut türünün (metin, barkod, görsel, şekil) üyelerine
+        bağlandığı için bağlamalar çalışma anında çözülür; yanlış bir yol PanelTests içinde yakalanır.
+    -->
+    <UserControl.Resources>
+        <!-- ───────── METİN ───────── -->
+        <DataTemplate x:Key="TextTemplate">
+            <StackPanel>
+                <Expander Header="{loc:Text T_e5417667ec53}">
+                    <StackPanel>
+                        <TextBox Tag="ContentEditor" Classes="multiline"
+                                 Text="{Binding Model.Text}" FontSize="13.5" />
+                        <TextBlock Classes="hint" Margin="0,5,0,8" Text="{}{SütunAdı} ile veri bağlayın; {TARIH}, {SAAT}, {SIRA} yerleşik alanlardır." />
+                        <Grid Classes="row">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="8" />
+                                <ColumnDefinition Width="74" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox IsEditable="True" IsTextSearchEnabled="True" ToolTip.Tip="{loc:Text T_5d0b017cd876}"
+                                      ItemsSource="{Binding $parent[UserControl].DataContext.FontFamilies}"
+                                      Text="{Binding Model.FontFamily, Delay=400}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" FontFamily="{Binding}" FontSize="13" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <controls:NumberBox Grid.Column="2" Value="{Binding Model.FontSize}" Minimum="2" Maximum="500" Step="1" Decimals="1" ToolTip.Tip="{loc:Text T_6282f5326f11}" />
+                            <TextBlock Grid.Column="3" Text="{loc:Text T_e75b11da693d}" Classes="unit" />
+                        </Grid>
+                        <WrapPanel Margin="0,0,0,8">
+                            <ToggleButton Classes="icon" IsChecked="{Binding Model.Bold}" ToolTip.Tip="{loc:Text T_cd7dcde22e36}" Margin="0,0,4,0">
+                                <TextBlock Text="{loc:Text T_86be9a55762d}" FontWeight="Bold" FontSize="14" />
+                            </ToggleButton>
+                            <ToggleButton Classes="icon" IsChecked="{Binding Model.Italic}" ToolTip.Tip="{loc:Text T_cde8fa365cbb}" Margin="0,0,4,0">
+                                <TextBlock Text="{loc:Text T_e632b7095b0b}" FontStyle="Italic" FontSize="14" FontFamily="Times New Roman" />
+                            </ToggleButton>
+                            <ToggleButton Classes="icon" IsChecked="{Binding Model.Underline}" ToolTip.Tip="{loc:Text T_e9f00d4e7490}" Margin="0,0,12,0">
+                                <TextBlock Text="{loc:Text T_559aead08264}" TextDecorations="Underline" FontSize="14" />
+                            </ToggleButton>
+                            <RadioButton Classes="segment" GroupName="{Binding Id, StringFormat=h{0}}" ToolTip.Tip="{loc:Text T_87da055900cb}"
+                                         IsChecked="{Binding Model.HorizontalAlignment, Converter={StaticResource EqualsConverter}, ConverterParameter=Left}">
+                                <PathIcon Data="{StaticResource Glyph.TextLeft}" Width="14" Height="14" />
+                            </RadioButton>
+                            <RadioButton Classes="segment" GroupName="{Binding Id, StringFormat=h{0}}" ToolTip.Tip="{loc:Text T_c332ec882f67}"
+                                         IsChecked="{Binding Model.HorizontalAlignment, Converter={StaticResource EqualsConverter}, ConverterParameter=Center}">
+                                <PathIcon Data="{StaticResource Glyph.TextCenter}" Width="14" Height="14" />
+                            </RadioButton>
+                            <RadioButton Classes="segment" GroupName="{Binding Id, StringFormat=h{0}}" ToolTip.Tip="{loc:Text T_ec32ddfdf26a}"
+                                         IsChecked="{Binding Model.HorizontalAlignment, Converter={StaticResource EqualsConverter}, ConverterParameter=Right}">
+                                <PathIcon Data="{StaticResource Glyph.TextRight}" Width="14" Height="14" />
+                            </RadioButton>
+                        </WrapPanel>
+                        <Grid Classes="row">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="92" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{loc:Text T_9bd3c084d7c8}" Classes="label" />
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <RadioButton Classes="segment" GroupName="{Binding Id, StringFormat=v{0}}" Content="{loc:Text T_9d0ccf19ae87}"
+                                             IsChecked="{Binding Model.VerticalAlignment, Converter={StaticResource EqualsConverter}, ConverterParameter=Top}" />
+                                <RadioButton Classes="segment" GroupName="{Binding Id, StringFormat=v{0}}" Content="{loc:Text T_e8d77d452a3b}"
+                                             IsChecked="{Binding Model.VerticalAlignment, Converter={StaticResource EqualsConverter}, ConverterParameter=Middle}" />
+                                <RadioButton Classes="segment" GroupName="{Binding Id, StringFormat=v{0}}" Content="{loc:Text T_c91da2e0203b}"
+                                             IsChecked="{Binding Model.VerticalAlignment, Converter={StaticResource EqualsConverter}, ConverterParameter=Bottom}" />
+                            </StackPanel>
+                        </Grid>
+                        <CheckBox Content="{loc:Text T_ead412c040ad}" IsChecked="{Binding Model.WordWrap}" />
+                        <CheckBox Content="{loc:Text T_caae189681f5}" IsChecked="{Binding Model.AutoShrink}" />
+                        <Grid Classes="row" Margin="0,6,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="92" />
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{loc:Text T_296b7ee4327f}" Classes="label" />
+                            <controls:NumberBox Grid.Column="1" Value="{Binding Model.LineSpacing}" Minimum="0.5" Maximum="3" Step="0.05" Decimals="2" />
+                        </Grid>
+                        <Grid Classes="row" Margin="0,0,0,8" ToolTip.Tip="{loc:Text T_94287c860587}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="92" />
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{loc:Text T_d429091b70aa}" Classes="label" />
+                            <controls:NumberBox Grid.Column="1" Value="{Binding Model.CharacterWidth}" Minimum="25" Maximum="400" Step="5" Decimals="0" />
+                            <TextBlock Grid.Column="2" Text="%" Classes="unit" />
+                        </Grid>
+                        <Grid Classes="row">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="92" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{loc:Text T_8a408daf36a2}" Classes="label" />
+                            <ComboBox Grid.Column="1" ItemsSource="{x:Static views:Choices.InkColors}" DisplayMemberBinding="{Binding Value}" SelectedValueBinding="{Binding Key}"
+                                      SelectedValue="{Binding Model.TextColor}" />
+                        </Grid>
+                        <Grid Classes="row">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="92" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{loc:Text T_184c6c59a9fe}" Classes="label" />
+                            <ComboBox Grid.Column="1" ItemsSource="{x:Static views:Choices.Fills}" DisplayMemberBinding="{Binding Value}" SelectedValueBinding="{Binding Key}"
+                                      SelectedValue="{Binding Model.Background}" />
+                        </Grid>
+                        <TextBlock Classes="hint">
+                            <Run Text="{loc:Text T_1a808a5db984}" />
+                            <Run Text="{Binding RenderResult.Text.EffectiveFontSizePt, StringFormat={}{0:0.#} pt, Mode=OneWay}" />
+                            <Run Text="•" />
+                            <Run Text="{Binding RenderResult.Text.UsedFamily, Mode=OneWay}" />
+                        </TextBlock>
+                    </StackPanel>
+                </Expander>
+            </StackPanel>
+        </DataTemplate>
+
+        <!-- ───────── BARKOD ───────── -->
+        <DataTemplate x:Key="BarcodeTemplate">
+            <StackPanel>
+                <Expander Header="{loc:Text T_8699a582c206}">
+                    <StackPanel>
+                        <ComboBox ItemsSource="{Binding $parent[UserControl].DataContext.AllBarcodeTypes}"
+                                  DisplayMemberBinding="{Binding DisplayName}" SelectedValueBinding="{Binding Type}" SelectedValue="{Binding Model.Symbology}" Margin="0,0,0,8" />
+                        <DockPanel Margin="0,0,0,6">
+                            <Button DockPanel.Dock="Right" Classes="icon" Margin="6,0,0,0" ToolTip.Tip="{loc:Text T_6eaffbd583d1}"
+                                    Command="{Binding $parent[UserControl].DataContext.GenerateBarcodeValueCommand}">
+                                <PathIcon Data="{StaticResource Glyph.Refresh}" Width="14" Height="14" />
+                            </Button>
+                            <TextBox Tag="ContentEditor" Text="{Binding Model.Content, Delay=250}" FontFamily="Menlo,Consolas,monospace" FontSize="13.5" />
+                        </DockPanel>
+                        <TextBlock Classes="hint" Margin="0,0,0,8"
+                                   Text="{loc:Text T_a2254f68c2fb}" />
+                        <!-- GS1 içerik oluşturucu (GS1-128, GS1 DataMatrix, GS1 QR) -->
+                        <Button Margin="0,0,0,8" HorizontalAlignment="Left"
+                                IsVisible="{Binding Model.Symbology, Converter={StaticResource InList}, ConverterParameter='Gs1_128,Gs1DataMatrix,Gs1QrCode'}"
+                                Command="{Binding $parent[UserControl].DataContext.OpenGs1BuilderCommand}"
+                                ToolTip.Tip="{loc:Text T_090a85bf9bfd}">
+                            <StackPanel Orientation="Horizontal">
+                                <PathIcon Data="{StaticResource Glyph.Edit}" Width="14" Height="14" />
+                                <TextBlock Text="{loc:Text T_da5d9dfdf483}" Margin="7,0,0,0" />
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Modül genişliği -->
+                        <Border Classes="card" Padding="10,8" Margin="0,0,0,8"
+                                IsVisible="{Binding BarcodeModuleText, Converter={StaticResource NotEmpty}}">
+                            <DockPanel>
+                                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                                    <Button Classes="icon" ToolTip.Tip="{loc:Text T_376859792c69}"
+                                            Command="{Binding $parent[UserControl].DataContext.BarcodeModuleDownCommand}">
+                                        <TextBlock Text="−" FontSize="16" />
+                                    </Button>
+                                    <Button Classes="icon" ToolTip.Tip="{loc:Text T_adbe51b7d5f5}"
+                                            Command="{Binding $parent[UserControl].DataContext.BarcodeFitCommand}">
+                                        <PathIcon Data="{StaticResource Glyph.Fit}" Width="13" Height="13" />
+                                    </Button>
+                                    <Button Classes="icon" ToolTip.Tip="{loc:Text T_f088e671c53c}"
+                                            Command="{Binding $parent[UserControl].DataContext.BarcodeModuleUpCommand}">
+                                        <TextBlock Text="+" FontSize="16" />
+                                    </Button>
+                                </StackPanel>
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock Text="{loc:Text T_4d7acf540230}" Classes="hint" />
+                                    <TextBlock Text="{Binding BarcodeModuleText}" FontWeight="SemiBold" />
+                                </StackPanel>
+                            </DockPanel>
+                        </Border>
+
+                        <CheckBox Content="{loc:Text T_f0424607a268}" IsChecked="{Binding Model.ShowText}" />
+                        <Grid Classes="row" Margin="0,4,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{loc:Text T_ae24e6b73192}" Classes="label" />
+                            <controls:NumberBox Grid.Column="1" Value="{Binding Model.TextSize}" Minimum="0" Maximum="72" Step="0.5" Decimals="1" ToolTip.Tip="{loc:Text T_ca16d8c6bcfd}" />
+                            <TextBlock Grid.Column="2" Text="{loc:Text T_5559c97206ee}" Classes="unit" />
+                        </Grid>
+                        <CheckBox Content="{loc:Text T_09a76b0d3760}" IsChecked="{Binding Model.QuietZone}"
+                                  ToolTip.Tip="{loc:Text T_d1a6db80dbf7}" />
+
+                        <!-- Code 39 / ITF -->
+                        <StackPanel IsVisible="{Binding Model.Symbology, Converter={StaticResource InList}, ConverterParameter='Code39,Itf,Itf14'}" Margin="0,6,0,0">
+                            <Grid Classes="row">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="40" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{loc:Text T_5572d72b3ebb}" Classes="label" />
+                                <Slider Grid.Column="1" Minimum="2" Maximum="3" SmallChange="0.1" LargeChange="0.25" TickFrequency="0.1" IsSnapToTickEnabled="True"
+                                        Value="{Binding Model.WideToNarrowRatio}" />
+                                <TextBlock Grid.Column="2" Text="{Binding Model.WideToNarrowRatio, StringFormat={}{0:0.0}}" Classes="unit" />
+                            </Grid>
+                        </StackPanel>
+                        <CheckBox Content="{loc:Text T_3c61ab0065b1}" IsChecked="{Binding Model.AppendCheckDigit}"
+                                  IsVisible="{Binding Model.Symbology, Converter={StaticResource InList}, ConverterParameter='Code39,Itf'}" />
+                        <CheckBox Content="{loc:Text T_41b48e380039}" IsChecked="{Binding Model.BearerBars}"
+                                  IsVisible="{Binding Model.Symbology, Converter={StaticResource InList}, ConverterParameter='Itf14'}" />
+
+                        <!-- QR -->
+                        <Grid Classes="row" Margin="0,6,0,8"
+                              IsVisible="{Binding Model.Symbology, Converter={StaticResource InList}, ConverterParameter='QrCode,Gs1QrCode'}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{loc:Text T_87f8f4ea6a8d}" Classes="label" />
+                            <ComboBox Grid.Column="1" ItemsSource="{x:Static views:Choices.QrLevels}" DisplayMemberBinding="{Binding Value}" SelectedValueBinding="{Binding Key}"
+                                      SelectedValue="{Binding Model.QrErrorCorrection}" />
+                        </Grid>
+                        <!-- Data Matrix -->
+                        <Grid Classes="row" Margin="0,6,0,8"
+                              IsVisible="{Binding Model.Symbology, Converter={StaticResource InList}, ConverterParameter='DataMatrix,Gs1DataMatrix'}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{loc:Text T_0c70be7a66c9}" Classes="label" />
+                            <ComboBox Grid.Column="1" ItemsSource="{x:Static views:Choices.DataMatrixShapes}" DisplayMemberBinding="{Binding Value}" SelectedValueBinding="{Binding Key}"
+                                      SelectedValue="{Binding Model.DataMatrixShape}" />
+                        </Grid>
+                        <!-- PDF417 -->
+                        <StackPanel IsVisible="{Binding Model.Symbology, Converter={StaticResource InList}, ConverterParameter='Pdf417'}" Margin="0,6,0,0">
+                            <Grid Classes="row">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{loc:Text T_87f8f4ea6a8d}" Classes="label" />
+                                <ComboBox Grid.Column="1" ItemsSource="{x:Static views:Choices.Pdf417Levels}" DisplayMemberBinding="{Binding Value}" SelectedValueBinding="{Binding Key}"
+                                          SelectedValue="{Binding Model.Pdf417ErrorCorrection}" />
+                            </Grid>
+                            <Grid Classes="row">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120" />
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{loc:Text T_48611b33a0d8}" Classes="label" />
+                                <controls:NumberBox Grid.Column="1" Value="{Binding Model.Pdf417Columns}" Minimum="0" Maximum="30" Step="1" Decimals="0" />
+                                <TextBlock Grid.Column="2" Text="{loc:Text T_ca16d8c6bcfd}" Classes="unit" />
+                            </Grid>
+                        </StackPanel>
+
+                        <Button Margin="0,10,0,0" Command="{Binding $parent[UserControl].DataContext.VerifyBarcodeCommand}"
+                                ToolTip.Tip="{loc:Text T_ae4cf0c1e081}">
+                            <StackPanel Orientation="Horizontal">
+                                <PathIcon Data="{StaticResource Glyph.Success}" Width="14" Height="14" />
+                                <TextBlock Text="{loc:Text T_bb17b0a77160}" Margin="7,0,0,0" />
+                            </StackPanel>
+                        </Button>
+                        <Border Margin="0,8,0,0" Padding="10,8" CornerRadius="8" Background="{DynamicResource Brush.Panel2}"
+                                IsVisible="{Binding VerificationMessage, Converter={StaticResource NotEmpty}}">
+                            <DockPanel>
+                                <PathIcon Data="{Binding VerificationSuccess, Converter={StaticResource StateToIcon}}" Width="15" Height="15" DockPanel.Dock="Left" Margin="0,1,8,0" Foreground="{Binding VerificationSuccess, Converter={StaticResource SeverityToBrush}}" />
+                                <TextBlock Text="{Binding VerificationMessage}" TextWrapping="Wrap" FontSize="12" />
+                            </DockPanel>
+                        </Border>
+                    </StackPanel>
+                </Expander>
+            </StackPanel>
+        </DataTemplate>
+
+        <!-- ───────── GÖRSEL ───────── -->
+        <DataTemplate x:Key="ImageTemplate">
+            <StackPanel>
+                <Expander Header="{loc:Text T_ea7f441e1e93}">
+                    <StackPanel>
+                        <TextBlock Text="{Binding ImageSourceText}" TextWrapping="Wrap" FontSize="12" Margin="0,0,0,8" />
+                        <UniformGrid Columns="2" Margin="0,0,0,10">
+                            <Button Content="{loc:Text T_3154d3e5560f}" Margin="0,0,4,0"
+                                    Command="{Binding $parent[UserControl].DataContext.ReplaceImageCommand}" />
+                            <Button Content="{loc:Text T_fba825c0369c}" Margin="4,0,0,0" ToolTip.Tip="{loc:Text T_f3fd59335c51}"
+                                    Command="{Binding $parent[UserControl].DataContext.RestoreImageAspectCommand}" />
+                        </UniformGrid>
+                    </StackPanel>
+                </Expander>
+                <Expander Header="{loc:Text T_be2977ad7b39}">
+                    <StackPanel>
+                        <ComboBox ItemsSource="{x:Static views:Choices.ImageMethods}" DisplayMemberBinding="{Binding Value}" SelectedValueBinding="{Binding Key}"
+                                  SelectedValue="{Binding Model.Method}" Margin="0,0,0,4" />
+                        <TextBlock Classes="hint" Margin="0,0,0,10">
+                            <Run Text="{loc:Text T_1264dd08f398}" />
+                            <Run Text="{Binding RenderResult.Image.AppliedMethodText, Mode=OneWay}" FontWeight="SemiBold" />
+                        </TextBlock>
+                        <Grid Classes="row">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{loc:Text T_b3e1a6068621}" Classes="label" ToolTip.Tip="{loc:Text T_13ed3649db40}" />
+                            <Slider Grid.Column="1" Minimum="1" Maximum="254" Value="{Binding Model.Threshold, Delay=120}" SmallChange="1" LargeChange="8" />
+                            <TextBlock Grid.Column="2" Text="{Binding Model.Threshold}" Classes="unit" />
+                        </Grid>
+                        <Grid Classes="row">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{loc:Text T_c1fa9a9cd70d}" Classes="label" />
+                            <Slider Grid.Column="1" Minimum="-100" Maximum="100" Value="{Binding Model.Brightness, Delay=120}" SmallChange="1" LargeChange="10" />
+                            <TextBlock Grid.Column="2" Text="{Binding Model.Brightness}" Classes="unit" />
+                        </Grid>
+                        <Grid Classes="row">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{loc:Text T_f857e3bb4870}" Classes="label" />
+                            <Slider Grid.Column="1" Minimum="-100" Maximum="100" Value="{Binding Model.Contrast, Delay=120}" SmallChange="1" LargeChange="10" />
+                            <TextBlock Grid.Column="2" Text="{Binding Model.Contrast}" Classes="unit" />
+                        </Grid>
+                        <Grid Classes="row">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{loc:Text T_f2719fea9076}" Classes="label" ToolTip.Tip="{loc:Text T_dce20ccd9d17}" />
+                            <Slider Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding Model.Sharpen, Delay=120}" SmallChange="1" LargeChange="10" />
+                            <TextBlock Grid.Column="2" Text="{Binding Model.Sharpen}" Classes="unit" />
+                        </Grid>
+                        <CheckBox Content="{loc:Text T_d5dd6a5c70b8}" IsChecked="{Binding Model.Invert}" />
+                    </StackPanel>
+                </Expander>
+                <Expander Header="{loc:Text T_f3d865545b87}">
+                    <StackPanel>
+                        <TextBlock Classes="hint" TextWrapping="Wrap" Margin="0,0,0,6"
+                                   Text="{loc:Text T_bbb47728532e}" />
+                        <ComboBox IsEditable="True" Text="{Binding Model.SourceField, UpdateSourceTrigger=LostFocus}"
+                                  ItemsSource="{Binding $parent[UserControl].DataContext.Data.Columns}" />
+                        <TextBlock Classes="hint" Margin="0,4,0,0" Text="{loc:Text T_9fccc1fd61de}" />
+                    </StackPanel>
+                </Expander>
+                <Expander Header="{loc:Text T_044a0ffdd5f9}">
+                    <StackPanel>
+                        <ComboBox ItemsSource="{x:Static views:Choices.FitModes}" DisplayMemberBinding="{Binding Value}" SelectedValueBinding="{Binding Key}"
+                                  SelectedValue="{Binding Model.FitMode}" Margin="0,0,0,10" />
+                        <Grid Classes="row">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{loc:Text T_365a5948f989}" Classes="label" />
+                            <Slider Grid.Column="1" Minimum="0" Maximum="90" Value="{Binding Model.CropLeft, Converter={StaticResource FractionToPercent}, Delay=120}" />
+                            <TextBlock Grid.Column="2" Text="{Binding Model.CropLeft, Converter={StaticResource FractionToPercent}, StringFormat={}{0:0}}" Classes="unit" />
+                        </Grid>
+                        <Grid Classes="row">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{loc:Text T_1b4a8d9119f0}" Classes="label" />
+                            <Slider Grid.Column="1" Minimum="0" Maximum="90" Value="{Binding Model.CropRight, Converter={StaticResource FractionToPercent}, Delay=120}" />
+                            <TextBlock Grid.Column="2" Text="{Binding Model.CropRight, Converter={StaticResource FractionToPercent}, StringFormat={}{0:0}}" Classes="unit" />
+                        </Grid>
+                        <Grid Classes="row">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{loc:Text T_a5a0bdef956a}" Classes="label" />
+                            <Slider Grid.Column="1" Minimum="0" Maximum="90" Value="{Binding Model.CropTop, Converter={StaticResource FractionToPercent}, Delay=120}" />
+                            <TextBlock Grid.Column="2" Text="{Binding Model.CropTop, Converter={StaticResource FractionToPercent}, StringFormat={}{0:0}}" Classes="unit" />
+                        </Grid>
+                        <Grid Classes="row">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{loc:Text T_be16847168d9}" Classes="label" />
+                            <Slider Grid.Column="1" Minimum="0" Maximum="90" Value="{Binding Model.CropBottom, Converter={StaticResource FractionToPercent}, Delay=120}" />
+                            <TextBlock Grid.Column="2" Text="{Binding Model.CropBottom, Converter={StaticResource FractionToPercent}, StringFormat={}{0:0}}" Classes="unit" />
+                        </Grid>
+                    </StackPanel>
+                </Expander>
+            </StackPanel>
+        </DataTemplate>
+
+        <!-- ───────── ŞEKİL ───────── -->
+        <DataTemplate x:Key="ShapeTemplate">
+            <Expander Header="{loc:Text T_d67100ca5521}">
+                <StackPanel>
+                    <ComboBox ItemsSource="{x:Static views:Choices.ShapeKinds}" DisplayMemberBinding="{Binding Value}" SelectedValueBinding="{Binding Key}"
+                              SelectedValue="{Binding Model.Kind}" Margin="0,0,0,10" />
+                    <Grid Classes="row">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{loc:Text T_1a116abb390d}" Classes="label" />
+                        <controls:NumberBox Grid.Column="1" Value="{Binding Model.StrokeWidth}" Minimum="0" Maximum="50" Step="0.125" Decimals="3" />
+                        <TextBlock Grid.Column="2" Text="{loc:Text T_bbee649c1deb}" Classes="unit" />
+                    </Grid>
+                    <Grid Classes="row">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{loc:Text T_a024bf947423}" Classes="label" />
+                        <ComboBox Grid.Column="1" ItemsSource="{x:Static views:Choices.InkColors}" DisplayMemberBinding="{Binding Value}" SelectedValueBinding="{Binding Key}"
+                                  SelectedValue="{Binding Model.StrokeColor}" />
+                    </Grid>
+                    <Grid Classes="row"
+                          IsVisible="{Binding Model.Kind, Converter={StaticResource InList}, ConverterParameter='Rectangle,Ellipse'}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{loc:Text T_234629522e49}" Classes="label" />
+                        <ComboBox Grid.Column="1" ItemsSource="{x:Static views:Choices.Fills}" DisplayMemberBinding="{Binding Value}" SelectedValueBinding="{Binding Key}"
+                                  SelectedValue="{Binding Model.Fill}" />
+                    </Grid>
+                    <Grid Classes="row"
+                          IsVisible="{Binding Model.Kind, Converter={StaticResource InList}, ConverterParameter='Rectangle'}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{loc:Text T_b33226a5d92c}" Classes="label" />
+                        <controls:NumberBox Grid.Column="1" Value="{Binding Model.CornerRadius}" Minimum="0" Maximum="500" Step="0.5" Decimals="2" />
+                        <TextBlock Grid.Column="2" Text="{loc:Text T_8fa1dddd5360}" Classes="unit" />
+                    </Grid>
+                    <Grid Classes="row"
+                          IsVisible="{Binding Model.Kind, Converter={StaticResource InList}, ConverterParameter='Line'}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{loc:Text T_3639300c0b11}" Classes="label" />
+                        <ComboBox Grid.Column="1" ItemsSource="{x:Static views:Choices.LineOrientations}" DisplayMemberBinding="{Binding Value}" SelectedValueBinding="{Binding Key}"
+                                  SelectedValue="{Binding Model.LineOrientation}" />
+                    </Grid>
+                </StackPanel>
+            </Expander>
+        </DataTemplate>
+
+        <views:ElementTemplateSelector x:Key="ElementTemplateSelector"
+                                       TextTemplate="{StaticResource TextTemplate}"
+                                       BarcodeTemplate="{StaticResource BarcodeTemplate}"
+                                       ImageTemplate="{StaticResource ImageTemplate}"
+                                       ShapeTemplate="{StaticResource ShapeTemplate}" />
+
+    </UserControl.Resources>
+
+    <Border Background="{DynamicResource Brush.Panel}">
+        <Grid>
+            <!-- ───────── Seçim yok: etiket ───────── -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto" IsVisible="{Binding !HasSelection}">
+                <StackPanel Margin="18,16,18,18">
+                    <TextBlock Text="{loc:Text T_bc91fce11d6f}" Classes="title" />
+                    <TextBlock Text="{loc:Text T_d0b4f0efea0f}" Classes="hint" Margin="0,4,0,8" />
+                    <TextBlock Text="{loc:Text T_c3d94cf25c76}" Classes="section" />
+                    <TextBox Text="{Binding Session.Document.Name, UpdateSourceTrigger=LostFocus}" ToolTip.Tip="{loc:Text T_29c06e870544}" />
+                    <TextBox Classes="multiline" MinHeight="48" Margin="0,8,0,0" ToolTip.Tip="{loc:Text T_e4db2a5a5454}"
+                             Text="{Binding Session.Document.Description, UpdateSourceTrigger=LostFocus}" />
+                    <TextBlock Text="{loc:Text T_9befd633efbf}" Classes="section" />
+                    <Border Classes="card">
+                        <StackPanel>
+                            <TextBlock FontSize="18" FontWeight="SemiBold">
+                                <Run Text="{Binding Session.Document.Label.WidthMm, Mode=OneWay, StringFormat={}{0:0.##}}" />
+                                <Run Text="×" />
+                                <Run Text="{Binding Session.Document.Label.HeightMm, Mode=OneWay, StringFormat={}{0:0.##}}" />
+                                <Run Text="{loc:Text T_8fa1dddd5360}" FontSize="13" />
+                            </TextBlock>
+                            <TextBlock Classes="hint" Margin="0,4,0,10">
+                                <Run Text="{loc:Text T_3da7e921e5b6}" />
+                                <Run Text="{Binding Session.Document.Label.GapMm, Mode=OneWay, StringFormat={}{0:0.##} mm}" />
+                                <Run Text="•" />
+                                <Run Text="{Binding Session.Document.Label.Media, Mode=OneWay}" />
+                            </TextBlock>
+                            <Button Content="{loc:Text T_db5270d75483}" Command="{Binding LabelSetupCommand}" />
+                        </StackPanel>
+                    </Border>
+                    <TextBlock Text="{loc:Text T_ba3f1d68f96b}" Classes="section" />
+                    <TextBlock Classes="hint" LineHeight="18"
+                               Text="{loc:Text T_e0588b63724b}" />
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- ───────── Çoklu seçim ───────── -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto" IsVisible="{Binding HasMultipleSelection}">
+                <StackPanel Margin="18,16,18,18">
+                    <TextBlock Text="{Binding SelectionText}" Classes="title" />
+                    <TextBlock Text="{loc:Text T_cc037ebae073}" Classes="section" />
+                    <WrapPanel>
+                        <Button Classes="icon align" Command="{Binding AlignCommand}" CommandParameter="{x:Static geo:AlignMode.Left}" ToolTip.Tip="{loc:Text T_87da055900cb}"><PathIcon Data="{StaticResource Icon.AlignLeft}" /></Button>
+                        <Button Classes="icon align" Command="{Binding AlignCommand}" CommandParameter="{x:Static geo:AlignMode.CenterHorizontal}" ToolTip.Tip="{loc:Text T_2df68e2624fa}"><PathIcon Data="{StaticResource Icon.AlignCenterH}" /></Button>
+                        <Button Classes="icon align" Command="{Binding AlignCommand}" CommandParameter="{x:Static geo:AlignMode.Right}" ToolTip.Tip="{loc:Text T_ec32ddfdf26a}"><PathIcon Data="{StaticResource Icon.AlignRight}" /></Button>
+                        <Button Classes="icon align" Command="{Binding AlignCommand}" CommandParameter="{x:Static geo:AlignMode.Top}" ToolTip.Tip="{loc:Text T_c32718554a60}"><PathIcon Data="{StaticResource Icon.AlignTop}" /></Button>
+                        <Button Classes="icon align" Command="{Binding AlignCommand}" CommandParameter="{x:Static geo:AlignMode.CenterVertical}" ToolTip.Tip="{loc:Text T_4ae0d741608d}"><PathIcon Data="{StaticResource Icon.AlignCenterV}" /></Button>
+                        <Button Classes="icon align" Command="{Binding AlignCommand}" CommandParameter="{x:Static geo:AlignMode.Bottom}" ToolTip.Tip="{loc:Text T_aa325a1495a5}"><PathIcon Data="{StaticResource Icon.AlignBottom}" /></Button>
+                        <Button Classes="icon align" Command="{Binding AlignCommand}" CommandParameter="{x:Static geo:AlignMode.DistributeHorizontal}" ToolTip.Tip="{loc:Text T_b6a09fa8fb6d}"><PathIcon Data="{StaticResource Icon.DistributeH}" /></Button>
+                        <Button Classes="icon align" Command="{Binding AlignCommand}" CommandParameter="{x:Static geo:AlignMode.DistributeVertical}" ToolTip.Tip="{loc:Text T_cf63b554903c}"><PathIcon Data="{StaticResource Icon.DistributeV}" /></Button>
+                    </WrapPanel>
+                    <TextBlock Text="{loc:Text T_7fe0fcf5954c}" Classes="section" />
+                    <UniformGrid Columns="2">
+                        <Button Content="{loc:Text T_f3392de9146a}" Command="{Binding BringToFrontCommand}" Margin="0,0,4,6" />
+                        <Button Content="{loc:Text T_451feb1b6459}" Command="{Binding SendToBackCommand}" Margin="4,0,0,6" />
+                        <Button Content="{loc:Text T_dfbb76f06e9a}" Command="{Binding ToggleLockCommand}" Margin="0,0,4,6" />
+                        <Button Content="{loc:Text T_47ba418cd3f5}" Command="{Binding DuplicateCommand}" Margin="4,0,0,6" />
+                    </UniformGrid>
+                    <Button Content="{loc:Text T_5444ad83f745}" Command="{Binding DeleteCommand}" />
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- ───────── Tek öğe ───────── -->
+            <ScrollViewer x:Name="SingleScroll" VerticalScrollBarVisibility="Auto"
+                          IsVisible="{Binding SelectedElement, Converter={StaticResource NotEmpty}}">
+                <StackPanel Margin="18,14,18,18" DataContext="{Binding SelectedElement}">
+                    <DockPanel Margin="0,0,0,4">
+                        <TextBlock DockPanel.Dock="Left" Text="{Binding Model.KindName}" Classes="title" VerticalAlignment="Center" />
+                        <PathIcon Data="{StaticResource Glyph.Lock}" Width="14" Height="14" DockPanel.Dock="Right" Foreground="{DynamicResource Brush.Warning}" ToolTip.Tip="{loc:Text T_ed211474d7da}" VerticalAlignment="Center" IsVisible="{Binding Model.Locked}" />
+                        <Border />
+                    </DockPanel>
+                    <TextBox Text="{Binding Model.Name, UpdateSourceTrigger=LostFocus}" ToolTip.Tip="{loc:Text T_d56604ae4417}" Margin="0,4,0,0" />
+
+                    <Expander Header="{loc:Text T_1298e583f63d}">
+                        <StackPanel>
+                            <Grid Classes="row">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="22" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="14" />
+                                    <ColumnDefinition Width="22" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{loc:Text T_4b68ab3847fe}" Classes="label" />
+                                <controls:NumberBox Grid.Column="1" Value="{Binding Model.X}" Step="0.5" Decimals="2" Minimum="-1000" Maximum="2000" ToolTip.Tip="{loc:Text T_4ddbf0f624df}" />
+                                <TextBlock Grid.Column="3" Text="{loc:Text T_18f5384d58bc}" Classes="label" />
+                                <controls:NumberBox Grid.Column="4" Value="{Binding Model.Y}" Step="0.5" Decimals="2" Minimum="-1000" Maximum="2000" ToolTip.Tip="{loc:Text T_dbd27c491e85}" />
+                            </Grid>
+                            <Grid Classes="row">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="22" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="14" />
+                                    <ColumnDefinition Width="22" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{loc:Text T_333e0a1e2781}" Classes="label" ToolTip.Tip="{loc:Text T_3e1ccc36249e}" />
+                                <controls:NumberBox Grid.Column="1" Value="{Binding Model.Width}" Step="0.5" Decimals="2" Minimum="0.1" Maximum="2000" ToolTip.Tip="{loc:Text T_907b8ec7ae0f}" />
+                                <TextBlock Grid.Column="3" Text="{loc:Text T_18f5384d58bc}" Classes="label" ToolTip.Tip="{loc:Text T_4e7c4636b6ee}" />
+                                <controls:NumberBox Grid.Column="4" Value="{Binding Model.Height}" Step="0.5" Decimals="2" Minimum="0.1" Maximum="2000" ToolTip.Tip="{loc:Text T_ee72683e9be5}" />
+                            </Grid>
+                            <Grid Classes="row">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{loc:Text T_92d262631b8e}" Classes="label" />
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <controls:NumberBox Width="64" Value="{Binding Model.Rotation}" Step="1" Decimals="1" Minimum="-360" Maximum="720" ToolTip.Tip="{loc:Text T_b5dfaa2e74f9}" />
+                                    <TextBlock Text="°" Classes="unit" Margin="3,0,8,0" />
+                                    <Button Classes="icon" Click="OnRotate90" ToolTip.Tip="{loc:Text T_d58c348d315e}">
+                                        <PathIcon Data="{StaticResource Glyph.Rotate}" Width="14" Height="14" />
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                            <WrapPanel>
+                                <CheckBox Content="{loc:Text T_3f0a3653ae48}" IsChecked="{Binding Model.Locked}" Margin="0,0,18,0" />
+                                <CheckBox Content="{loc:Text T_d30938608bbb}" IsChecked="{Binding Model.Visible}" />
+                            </WrapPanel>
+                        </StackPanel>
+                    </Expander>
+
+                    <Expander Header="{loc:Text T_f55981661328}">
+                        <StackPanel DataContext="{Binding $parent[UserControl].DataContext}">
+                            <WrapPanel Margin="0,0,0,6">
+                                <Button Classes="icon align" Command="{Binding AlignCommand}" CommandParameter="{x:Static geo:AlignMode.Left}" ToolTip.Tip="{loc:Text T_e45403e61cae}"><PathIcon Data="{StaticResource Icon.AlignLeft}" /></Button>
+                                <Button Classes="icon align" Command="{Binding AlignCommand}" CommandParameter="{x:Static geo:AlignMode.CenterHorizontal}" ToolTip.Tip="{loc:Text T_ab9dc54564e0}"><PathIcon Data="{StaticResource Icon.AlignCenterH}" /></Button>
+                                <Button Classes="icon align" Command="{Binding AlignCommand}" CommandParameter="{x:Static geo:AlignMode.Right}" ToolTip.Tip="{loc:Text T_69e46cc0c631}"><PathIcon Data="{StaticResource Icon.AlignRight}" /></Button>
+                                <Button Classes="icon align" Command="{Binding AlignCommand}" CommandParameter="{x:Static geo:AlignMode.Top}" ToolTip.Tip="{loc:Text T_245f0a878376}"><PathIcon Data="{StaticResource Icon.AlignTop}" /></Button>
+                                <Button Classes="icon align" Command="{Binding AlignCommand}" CommandParameter="{x:Static geo:AlignMode.CenterVertical}" ToolTip.Tip="{loc:Text T_57d68a8b4a93}"><PathIcon Data="{StaticResource Icon.AlignCenterV}" /></Button>
+                                <Button Classes="icon align" Command="{Binding AlignCommand}" CommandParameter="{x:Static geo:AlignMode.Bottom}" ToolTip.Tip="{loc:Text T_a35ab11a04f2}"><PathIcon Data="{StaticResource Icon.AlignBottom}" /></Button>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Button Classes="icon" Width="34" Command="{Binding BringToFrontCommand}" ToolTip.Tip="{loc:Text T_38a7461cf7cd}"><PathIcon Data="{StaticResource Icon.BringToFront}" /></Button>
+                                <Button Classes="icon" Width="34" Command="{Binding BringForwardCommand}" ToolTip.Tip="{loc:Text T_0e155665a54b}"><PathIcon Data="{StaticResource Icon.BringForward}" /></Button>
+                                <Button Classes="icon" Width="34" Command="{Binding SendBackwardCommand}" ToolTip.Tip="{loc:Text T_ac12fe881291}"><PathIcon Data="{StaticResource Icon.SendBackward}" /></Button>
+                                <Button Classes="icon" Width="34" Command="{Binding SendToBackCommand}" ToolTip.Tip="{loc:Text T_2b2d7a44c946}"><PathIcon Data="{StaticResource Icon.SendToBack}" /></Button>
+                                <Button Classes="icon" Width="34" Command="{Binding DuplicateCommand}" ToolTip.Tip="{loc:Text T_d0576deda66c}"><PathIcon Data="{StaticResource Glyph.Duplicate}" Width="14" Height="14" /></Button>
+                                <Button Classes="icon" Width="34" Command="{Binding DeleteCommand}" ToolTip.Tip="{loc:Text T_213905768b86}"><PathIcon Data="{StaticResource Glyph.Delete}" Width="14" Height="14" /></Button>
+                            </WrapPanel>
+                        </StackPanel>
+                    </Expander>
+
+                    <Expander Header="{loc:Text T_e46a08b4c986}">
+                        <StackPanel>
+                            <CheckBox Content="{loc:Text T_95c6b3719d6d}" IsChecked="{Binding ConditionEnabled}" Margin="0,0,0,6"
+                                      ToolTip.Tip="{loc:Text T_31e16e46f0e9}" />
+                            <StackPanel IsVisible="{Binding ConditionEnabled}">
+                                <Grid Classes="row">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{loc:Text T_0059bfc57922}" Classes="label" />
+                                    <ComboBox Grid.Column="1" IsEditable="True" Text="{Binding ConditionField, UpdateSourceTrigger=LostFocus}"
+                                              ItemsSource="{Binding $parent[UserControl].DataContext.Data.Columns}"
+                                              ToolTip.Tip="{loc:Text T_7add36aec044}" />
+                                </Grid>
+                                <Grid Classes="row">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{loc:Text T_6bf936ffe8c6}" Classes="label" />
+                                    <ComboBox Grid.Column="1" ItemsSource="{x:Static views:Choices.ConditionOperators}" DisplayMemberBinding="{Binding Value}"
+                                              SelectedValueBinding="{Binding Key}" SelectedValue="{Binding ConditionOperator}" />
+                                </Grid>
+                                <Grid Classes="row" IsVisible="{Binding ConditionNeedsValue}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{loc:Text T_4cfa2b03d54b}" Classes="label" />
+                                    <TextBox Grid.Column="1" Text="{Binding ConditionValue, UpdateSourceTrigger=LostFocus}"
+                                             ToolTip.Tip="{loc:Text T_2f7e7a3c1018}" />
+                                </Grid>
+                                <TextBlock Text="{Binding ConditionStatusText}" Classes="hint" TextWrapping="Wrap" Margin="0,2,0,0"
+                                           IsVisible="{Binding ConditionStatusText, Converter={StaticResource NotEmpty}}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Expander>
+
+                    <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ElementTemplateSelector}" Focusable="False" />
+
+                    <!-- Sorunlar -->
+                    <ItemsControl ItemsSource="{Binding Issues}" Margin="0,8,0,0">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="0,0,0,6" Padding="10,7" CornerRadius="8" Background="{DynamicResource Brush.Panel2}">
+                                    <DockPanel>
+                                        <PathIcon Data="{Binding Severity, Converter={StaticResource StateToIcon}}" Width="14" Height="14" DockPanel.Dock="Left" Margin="0,1,8,0" Foreground="{Binding Severity, Converter={StaticResource SeverityToBrush}}" />
+                                        <TextBlock Text="{Binding Message}" TextWrapping="Wrap" FontSize="12" />
+                                    </DockPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</UserControl>
