@@ -30,7 +30,7 @@ Sürümler ve lisans ifadeleri 13.10.2026'da nuget.org üzerinden, uygulamanın 
 | **ModelContextProtocol** (+ .Core, .AspNetCore) | 2.2.0 | **Apache-2.0** | Resmî C# MCP SDK: yapay zekâ ajanlarına tasarım araçlarını sunar |
 | Microsoft.Extensions.AI.Abstractions | 10.8.3 | MIT | MCP SDK bağımlılığı |
 | Microsoft.Extensions.* (Hosting, Logging, Configuration, DependencyInjection, Options…) | 10.0.10–10.0.12 | MIT | MCP köprüsü ve Worker altyapısı |
-| System.Security.Cryptography.ProtectedData | 10.0.12 | MIT | Yapay zekâ servis anahtarını Windows DPAPI ile şifreli saklama |
+| System.Security.Cryptography.ProtectedData | 10.0.12 | MIT | Yapay zekâ servis anahtarını Windows DPAPI ile şifreli saklama (macOS'ta sistemin Anahtar Zinciri kullanılır, ek paket yok) |
 
 Yalnızca geliştirmede kullanılan araçlar (uygulamayla dağıtılmaz): xUnit (Apache-2.0), Microsoft.NET.Test.Sdk (MIT),
 coverlet (MIT), **Inno Setup** (Inno Setup License — ticari kurulum dosyaları oluşturmak dahil ücretsiz),

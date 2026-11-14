@@ -17,7 +17,7 @@ public class WindowsPrintingTests(ITestOutputHelper output)
     private const string PdfPrinter = "Microsoft Print to PDF";
     private const string MissingPrinter = "AKEL-Etiket-Olmayan-Yazici-7f3c";
 
-    [Fact]
+    [WindowsFact]
     public void GetPrinters_DoesNotThrow_AndDescribesEachPrinter()
     {
         var printers = PrinterDiscovery.GetPrinters();
@@ -32,7 +32,7 @@ public class WindowsPrintingTests(ITestOutputHelper output)
         Assert.Equal(printers.Count, again.Count);
     }
 
-    [Fact]
+    [WindowsFact]
     public void UsbPortQuery_Works()
     {
         var ports = UsbPrinterPorts.GetPresentPortNames();
@@ -44,7 +44,7 @@ public class WindowsPrintingTests(ITestOutputHelper output)
         Assert.False(UsbPrinterPorts.IsConnected("USB999", new HashSet<string>()));
     }
 
-    [Fact]
+    [WindowsFact]
     public void MissingPrinter_IsReportedWithoutExceptions()
     {
         Assert.Null(PrinterDiscovery.GetPrinter(MissingPrinter));
@@ -60,7 +60,7 @@ public class WindowsPrintingTests(ITestOutputHelper output)
         Assert.Contains("bulunamadı", ex.Message);
     }
 
-    [Fact]
+    [WindowsFact]
     public async Task TsplPrint_ToMissingPrinter_ReturnsErrorReport_AndDoesNotCrash()
     {
         var settings = new LabelPrinterSettings { PrinterName = MissingPrinter };
@@ -77,7 +77,7 @@ public class WindowsPrintingTests(ITestOutputHelper output)
         Assert.Contains(raw.Errors, e => e.Contains("bulunamadı"));
     }
 
-    [Fact]
+    [WindowsFact]
     public async Task DriverPrint_ToMissingPrinter_ReturnsErrorReport()
     {
         var report = await new DriverPrintService().PrintAsync(MissingPrinter, new LabelMedia(100, 100, 3, 0, MediaType.Gap), 1,
@@ -86,7 +86,7 @@ public class WindowsPrintingTests(ITestOutputHelper output)
         Assert.Contains(report.Errors, e => e.Contains("bulunamadı"));
     }
 
-    [Fact]
+    [WindowsFact]
     public void GetJob_ForBogusJobId_ReturnsNull()
     {
         if (PrinterDiscovery.GetPrinter(PdfPrinter) is null)
@@ -103,7 +103,7 @@ public class WindowsPrintingTests(ITestOutputHelper output)
     /// listede birebir bulunan 100 × 148 mm (veya 105 × 148 mm A6) kullanılır. PDF MediaBox genişliği
     /// 283,46 pt (= 100 mm) olmalı, etiket aygıt çözünürlüğünde (600 DPI) ölçeklenmeden üretilmelidir.
     /// </summary>
-    [Fact]
+    [WindowsFact]
     public async Task DriverPrint_ToPdf_HasExactPageSize_AndDeviceResolutionBitmap()
     {
         if (PrinterDiscovery.GetPrinter(PdfPrinter) is null)
@@ -151,7 +151,7 @@ public class WindowsPrintingTests(ITestOutputHelper output)
     }
 
     /// <summary>Sürücü özel boyutu reddederse (PDF yazıcısı 100 × 100 mm'yi A4'e çevirir) bu açıkça uyarılır ve görüntü ölçeklenmez.</summary>
-    [Fact]
+    [WindowsFact]
     public async Task DriverPrint_UnsupportedCustomSize_IsReportedHonestly()
     {
         if (PrinterDiscovery.GetPrinter(PdfPrinter) is null)
@@ -185,7 +185,7 @@ public class WindowsPrintingTests(ITestOutputHelper output)
     /// Kullanıcının XP-470B sürücüsü varsa: yazdırma işi OLUŞTURMADAN (yalnızca aygıt bağlamı) 100 × 100 mm sayfanın
     /// 800 × 800 nokta (8 nokta/mm) kurulduğunu doğrular. Yazıcıya hiçbir veri gönderilmez.
     /// </summary>
-    [Fact]
+    [WindowsFact]
     public void Probe_Xp470BDriver_SetsUpExactLabelPage_WithoutPrinting()
     {
         var xp = PrinterDiscovery.GetPrinters().FirstOrDefault(p => p.IsXp470B);
@@ -207,7 +207,7 @@ public class WindowsPrintingTests(ITestOutputHelper output)
         Assert.Equal(jobsBefore, SpoolerMonitor.GetJobs(xp.Name).Count); // iş oluşmadı
     }
 
-    [Fact]
+    [WindowsFact]
     public void FindMatchingPaper_FindsStandardForms()
     {
         Assert.Equal(1000, DriverPrintService.TenthsOfMm(100));
@@ -222,7 +222,7 @@ public class WindowsPrintingTests(ITestOutputHelper output)
     /// ve her etiket bir kez çizilir. "Microsoft Print to PDF" yalnız kendi formlarını kabul ettiği için satır 100 ya da
     /// 105 × 148 mm seçilir.
     /// </summary>
-    [Fact]
+    [WindowsFact]
     public async Task DriverPrint_MultiAcross_PrintsOneRowPerPage()
     {
         if (PrinterDiscovery.GetPrinter(PdfPrinter) is null)

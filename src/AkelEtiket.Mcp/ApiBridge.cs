@@ -4,6 +4,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using AkelEtiket.Core;
 using AkelEtiket.Core.Automation;
 using ModelContextProtocol;
 using ModelContextProtocol.Protocol;
@@ -170,7 +171,7 @@ public sealed class ApiBridge : IDisposable
     {
         string path = Environment.GetEnvironmentVariable(WorkerPathVariable) is { Length: > 0 } custom
             ? custom
-            : Path.Combine(AppContext.BaseDirectory, "AkelEtiket.Worker.exe");
+            : Path.Combine(AppContext.BaseDirectory, AppIdentity.ExecutableFileName("AkelEtiket.Worker"));
         if (!File.Exists(path)) throw new McpException($"Worker bulunamadı: {path}");
         var start = new ProcessStartInfo(path)
         {

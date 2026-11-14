@@ -10,6 +10,16 @@ internal static class FileAccessHelper
     private const int ErrorSharingViolation = 32;
     private const int ErrorLockViolation = 33;
 
+    /// <summary>
+    /// Dosya başka bir işlem tarafından kilitli mi? Windows'ta paylaşım/kilit ihlali kodlarıdır. Unix'te .NET,
+    /// FileShare kilidini flock ile uygular; çakışmada HResult ham errno'dur (EWOULDBLOCK: macOS/BSD 35, Linux 11).
+    /// </summary>
+    private static bool IsLockConflict(IOException ex)
+    {
+        if (OperatingSystem.IsWindows()) return (ex.HResult & 0xFFFF) is ErrorSharingViolation or ErrorLockViolation;
+        return ex.HResult == (OperatingSystem.IsMacOS() || OperatingSystem.IsFreeBSD() ? 35 : 11);
+    }
+
     public static FileStream OpenRead(string path)
     {
         try
@@ -27,7 +37,7 @@ internal static class FileAccessHelper
                 L10n.T($"Dosyaya erişim izni yok: {path}. Dosyanın başka bir kullanıcıya ait olmadığını veya salt korumalı bir klasörde bulunmadığını kontrol edin."),
                 ex) { FilePath = path };
         }
-        catch (IOException ex) when ((ex.HResult & 0xFFFF) is ErrorSharingViolation or ErrorLockViolation)
+        catch (IOException ex) when (IsLockConflict(ex))
         {
             throw new DataImportException(
                 L10n.T("Dosya başka bir program tarafından kilitlenmiş, okunamıyor. Dosya Excel'de veya başka bir programda açıksa kapatıp yeniden deneyin."),

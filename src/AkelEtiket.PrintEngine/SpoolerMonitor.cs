@@ -81,7 +81,7 @@ public static class SpoolerMonitor
     /// <summary>İşin anlık durumu; iş kuyrukta yoksa veya yazıcı bulunamazsa null.</summary>
     public static JobSnapshot? GetJob(string printerName, int jobId)
     {
-        if (string.IsNullOrWhiteSpace(printerName) || jobId <= 0) return null;
+        if (string.IsNullOrWhiteSpace(printerName) || jobId <= 0 || !PrintPlatform.IsSupported) return null;
         if (!NativeMethods.TryOpen(printerName, out var handle, out _)) return null;
         using (handle)
         {
@@ -103,7 +103,7 @@ public static class SpoolerMonitor
     /// <summary>Yazıcının kuyruğundaki işler (bulunamazsa boş liste).</summary>
     public static IReadOnlyList<JobSnapshot> GetJobs(string printerName)
     {
-        if (string.IsNullOrWhiteSpace(printerName)) return [];
+        if (string.IsNullOrWhiteSpace(printerName) || !PrintPlatform.IsSupported) return [];
         if (!NativeMethods.TryOpen(printerName, out var handle, out _)) return [];
         using (handle)
         {
@@ -211,7 +211,7 @@ public static class SpoolerMonitor
     /// <summary>Kuyruktaki işi siler (kullanıcı iptali). Başarılıysa true.</summary>
     public static bool CancelJob(string printerName, int jobId)
     {
-        if (string.IsNullOrWhiteSpace(printerName) || jobId <= 0) return false;
+        if (string.IsNullOrWhiteSpace(printerName) || jobId <= 0 || !PrintPlatform.IsSupported) return false;
         if (!NativeMethods.TryOpen(printerName, out var handle, out _)) return false;
         using (handle)
         {

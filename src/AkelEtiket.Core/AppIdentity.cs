@@ -49,6 +49,9 @@ public static class AppIdentity
     /// <summary>Hata günlükleri.</summary>
     public static string LogFolder => Path.Combine(LocalFolder, "Günlük");
 
+    /// <summary>Yardımcı programın dosya adı: Windows'ta <c>.exe</c> uzantılı, diğer sistemlerde uzantısız.</summary>
+    public static string ExecutableFileName(string baseName) => OperatingSystem.IsWindows() ? baseName + ".exe" : baseName;
+
     /// <summary>Genel sürüm başka kurulumların şablonlarını otomatik almaz.</summary>
     public static string? LegacyTemplatesFolder => null;
 

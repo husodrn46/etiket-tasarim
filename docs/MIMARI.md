@@ -37,7 +37,9 @@ graph TD
 
 İstenen altı modül (Editor, BarcodeEngine, ImageProcessor, PrintEngine, DataImport, ProjectManager) ayrı
 projelerdir; ortak **Core** (tasarım modeli) ve **Rendering** (ekran ve baskının ortak motoru) eklenmiştir.
-Yalnızca `App` WPF'e bağlıdır; görünüm modelleri dahil tüm mantık arayüzsüz test edilebilir.
+Yalnızca `App` WPF'e ve Windows'a bağlıdır; görünüm modelleri dahil tüm mantık arayüzsüz test edilebilir ve düz
+`net10.0` hedefler (macOS'ta da derlenir, testleri çalışır). `PrintEngine` içindeki kuyruk ve sürücü yolları
+Windows'a özeldir; diğer sistemlerde yerel çağrıya gidilmez, `PrintPlatform` anlaşılır bir hata döndürür.
 
 ## Üç katmanın ayrılması: model → render → çıktı
 
@@ -114,7 +116,7 @@ kullanır. Ayrı bir çizim motoru yoktur; önizleme, doğrulama ve baskı ortak
 | Doğrudan mod | Açık belgede değişiklik kopyada denenir, başarılıysa tek açıklamalı geri alma adımı olarak uygulanır; dosyalarda yazmadan önce yedek alınır |
 | Barındırma | Uygulama açıksa API'yi uygulama, kapalıysa Worker barındırır (kilit dosyası + `baglanti.json` keşfi). Uygulama açılınca Worker'dan devralır |
 | Güvenlik | Yalnızca 127.0.0.1, Bearer anahtar (sabit zamanlı karşılaştırma), Host başlığı ve Origin denetimi; izinli klasörler (bağlantı/kavşakla kaçış engelli); kilitli öğe ve dosya silme/üzerine yazma koruması; dış veri "untrusted" işaretli; işlem günlüğü; yapay zekânın baskı aracı yok |
-| Uygulama içi asistan | Sağlayıcıdan bağımsız (`IChatModel`): Anthropic Messages API veya OpenAI uyumlu uç nokta. Açık belgenin taslağında çalışır, sonucu öneri olarak sunar; veri gönderimi için sağlayıcıya özel açık izin; API anahtarı DPAPI ile şifreli |
+| Uygulama içi asistan | Sağlayıcıdan bağımsız (`IChatModel`): Anthropic Messages API veya OpenAI uyumlu uç nokta. Açık belgenin taslağında çalışır, sonucu öneri olarak sunar; veri gönderimi için sağlayıcıya özel açık izin; API anahtarı Windows'ta DPAPI ile, macOS'ta Anahtar Zinciri'nde duran anahtarla (AES-GCM) şifreli |
 
 Bağlantı rehberi: [GENEL-URUN.md](GENEL-URUN.md).
 

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <!-- Editör: arayüzden bağımsız görünüm modelleri (MVVM), seçim, geri al/ileri al, hizalama, toplu baskı akışı -->
   <PropertyGroup>
-    <TargetFramework>net10.0-windows</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\AkelEtiket.Core\AkelEtiket.Core.csproj" />

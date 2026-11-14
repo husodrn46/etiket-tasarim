@@ -423,12 +423,13 @@ public sealed partial class AiPanelViewModel : ObservableObject, IAsyncDisposabl
     {
         var vm = new AiSettingsViewModel(AiSettingsStore.LoadWithToken(), _main.Dialogs);
         if (!_main.Dialogs.ShowDialog(vm)) return;
-        var settings = vm.BuildSettings();
+        AiSettings settings;
         try
         {
+            settings = vm.BuildSettings();
             AiSettingsStore.Save(settings);
         }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or SecretStorageException)
         {
             _main.Dialogs.ShowMessage(L10n.T("Yapay Zekâ Ayarları"), L10n.T("Ayarlar kaydedilemedi: ") + ex.Message, MessageKind.Error);
             return;

@@ -45,7 +45,7 @@ public sealed class HostHandoverTests : IDisposable
         {
             var dir = new DirectoryInfo(AppContext.BaseDirectory);
             while (dir is not null && !File.Exists(Path.Combine(dir.FullName, "AkelEtiket.sln"))) dir = dir.Parent;
-            return Path.Combine(dir!.FullName, "src", "AkelEtiket.Worker", "bin", BuildConfiguration, "net10.0", "AkelEtiket.Worker.exe");
+            return Path.Combine(dir!.FullName, "src", "AkelEtiket.Worker", "bin", BuildConfiguration, "net10.0", AppIdentity.ExecutableFileName("AkelEtiket.Worker"));
         }
     }
 
