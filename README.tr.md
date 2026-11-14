@@ -96,7 +96,18 @@ dosya biçimi Windows uygulamasıyla ortaktır). Henüz yayımlanmadı. Bugün e
 belge sekmeleri, cetveller, kılavuz çizgileri, sol panel (öğeler, şablonlar, veri, katmanlar) ve özellikler
 paneli ve dokuz pencere (etiket ölçüsü, önizleme, ayarlar, ilk kurulum, yardım, hazır paketler, yedekler, sütun
 eşleştirme, ürünler) çalışır. Henüz taşınanlar: yapay zekâ paneli, veri tablosu ile baskı, GS1 ve üretim
-pencereleri. macOS'ta baskı yoktur; etiketler PNG veya PDF olarak dışa aktarılır. Çalıştırmak için: `dotnet run --project src/AkelEtiket.App.Mac`. İlerleme
+pencereleri. macOS'ta baskı yoktur; etiketler PNG veya PDF olarak dışa aktarılır.
+
+Çift tıklanabilir `LabelHarbor.app` (çalışma zamanı içinde, `.akelabel` dosyalarını Finder'dan açar) yerelde şu
+komutla üretilir:
+
+```text
+python3 tools/distribution/build_mac_app.py --output <yeni-boş-klasör>
+```
+
+Paket geçici (ad hoc) imzalıdır; üretildiği Mac'te çalışması için yeterlidir. Apple onayından (notarization)
+geçmemiştir: başka bir Mac'te ilk açılışta Gatekeeper onay ister (uygulamaya sağ tıklayıp Aç deyin). macOS iş
+akışı aynı zip dosyasını her çalışmaya eklenti olarak koyar; sürüm olarak yayımlanan bir şey yoktur. Çalıştırmak için: `dotnet run --project src/AkelEtiket.App.Mac`. İlerleme
 [#7](https://github.com/husodrn46/etiket-tasarim/issues/7) numaralı kayıtta izlenir.
 
 ```powershell

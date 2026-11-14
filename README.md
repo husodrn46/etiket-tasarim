@@ -98,7 +98,17 @@ file format with the Windows app). It is not released yet. Today it opens and sa
 canvas, document tabs, rulers and guides, the left panel (elements, templates, data, layers) and the properties
 panel, and nine dialogs (label size, preview, settings, first setup, help, starter packs, backups, column
 mapping, products). Still being ported: the AI panel, the data table and the printing, GS1 and production
-windows. There is no macOS printing; labels are exported as PNG or PDF. Run it with `dotnet run --project src/AkelEtiket.App.Mac`. Progress is tracked in
+windows. There is no macOS printing; labels are exported as PNG or PDF.
+
+A double-clickable `LabelHarbor.app` (self-contained, opens `.akelabel` files from Finder) is built locally with
+
+```text
+python3 tools/distribution/build_mac_app.py --output <new-empty-folder>
+```
+
+The bundle is signed ad hoc, which is enough for the Mac that built it. It is not notarized: on another Mac,
+Gatekeeper asks for confirmation on first launch (right-click the app and choose Open). The macOS workflow
+attaches the same zip to each run as an artifact; nothing is published as a release. Run it with `dotnet run --project src/AkelEtiket.App.Mac`. Progress is tracked in
 [#7](https://github.com/husodrn46/etiket-tasarim/issues/7).
 
 ```powershell
