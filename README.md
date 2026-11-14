@@ -91,7 +91,12 @@ imported automatically. Review a support package or backup before sharing it: it
 C# / .NET 10, WPF, CommunityToolkit.Mvvm, SkiaSharp, ZXing.Net, ClosedXML, ExcelDataReader and CsvHelper.
 The desktop app requires Windows. Everything below it (model, rendering, barcodes, data import, editor view models,
 local API and MCP) targets plain .NET: the solution builds and its tests run on macOS as well, where the Windows
-print queue tests are skipped. A macOS desktop app and macOS printing do not exist yet; that work is tracked in
+print queue tests are skipped.
+
+A macOS desktop app is being built in `src/AkelEtiket.App.Mac` (Avalonia; it shares the view models, rendering and
+file format with the Windows app). It is not released yet. Today it opens and saves labels and has the design
+canvas, document tabs, rulers and guides; the side panels and most dialogs are still being ported, and there is
+no macOS printing. Run it with `dotnet run --project src/AkelEtiket.App.Mac`. Progress is tracked in
 [#7](https://github.com/husodrn46/etiket-tasarim/issues/7).
 
 ```powershell

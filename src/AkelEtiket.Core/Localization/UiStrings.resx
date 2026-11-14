@@ -6602,4 +6602,118 @@ Ayrıntılar "{0}" dosyasında.</value>
   <data name="T_eb358fd9ad13" xml:space="preserve">
     <value>Bu işletim sisteminde API anahtarı güvenli biçimde saklanamıyor.</value>
   </data>
+  <data name="T_be4542596b23" xml:space="preserve">
+    <value>Kes</value>
+  </data>
+  <data name="T_172b43747c76" xml:space="preserve">
+    <value>Yapıştır</value>
+  </data>
+  <data name="T_7458ff51f859" xml:space="preserve">
+    <value>Biçimi kopyala</value>
+  </data>
+  <data name="T_db43db217732" xml:space="preserve">
+    <value>Biçimi yapıştır</value>
+  </data>
+  <data name="T_fa42a376fcc6" xml:space="preserve">
+    <value>Grupla</value>
+  </data>
+  <data name="T_1f1abe78fb19" xml:space="preserve">
+    <value>Grubu çöz</value>
+  </data>
+  <data name="T_5f052375fa9b" xml:space="preserve">
+    <value>Sola</value>
+  </data>
+  <data name="T_68a654357af7" xml:space="preserve">
+    <value>Sağa</value>
+  </data>
+  <data name="T_9e34fca8ee23" xml:space="preserve">
+    <value>Üste</value>
+  </data>
+  <data name="T_42719229fd62" xml:space="preserve">
+    <value>Alta</value>
+  </data>
+  <data name="T_18c64db1a34f" xml:space="preserve">
+    <value>Yatay eşit dağıt</value>
+  </data>
+  <data name="T_783ba2dd346f" xml:space="preserve">
+    <value>Dikey eşit dağıt</value>
+  </data>
+  <data name="T_c3ca36b9f12e" xml:space="preserve">
+    <value>Görsel ekle…</value>
+  </data>
+  <data name="T_a0f9eb6b1e5e" xml:space="preserve">
+    <value>Etiket ölçüsü…</value>
+  </data>
+  <data name="T_282c499116b1" xml:space="preserve">
+    <value>Pencereye sığdır</value>
+  </data>
+  <data name="T_5ff1b2fd38c6" xml:space="preserve">
+    <value>Kilidi aç</value>
+  </data>
+  <data name="T_150bfd0c994d" xml:space="preserve">
+    <value>Kilitle</value>
+  </data>
+  <data name="T_3a9c117f1254" xml:space="preserve">
+    <value>Hizala</value>
+  </data>
+  <data name="T_bb20e1368e2f" xml:space="preserve">
+    <value>Etikete hizala</value>
+  </data>
+  <data name="T_acf7f0a050c4" xml:space="preserve">
+    <value>{0} döndürüldü</value>
+  </data>
+  <data name="T_1ab933523bda" xml:space="preserve">
+    <value>{0} boyutlandırıldı</value>
+  </data>
+  <data name="T_3a6d92476772" xml:space="preserve">
+    <value>Grup boyutlandırıldı</value>
+  </data>
+  <data name="T_7982bf6d6870" xml:space="preserve">
+    <value>Döndürme: {0:0.#}°</value>
+  </data>
+  <data name="T_99522757cbe8" xml:space="preserve">
+    <value> (barkodlar 90° adımlarla döner)</value>
+  </data>
+  <data name="T_e585a5b81653" xml:space="preserve">
+    <value> (Shift: 15° adım)</value>
+  </data>
+  <data name="T_38719b519676" xml:space="preserve">
+    <value>Kilitli öğe taşınamaz. Kilidi sağ panelden veya sağ tık menüsünden açın.</value>
+  </data>
+  <data name="T_425af11c4039" xml:space="preserve">
+    <value>Konum: X {0:0.0} mm, Y {1:0.0} mm (Shift: eksene kilitle, Alt: yakalamasız)</value>
+  </data>
+  <data name="T_d13d873b38e3" xml:space="preserve">
+    <value>Boyut: {0:0.0} × {1:0.0} mm</value>
+  </data>
+  <data name="T_d92a6721badc" xml:space="preserve">
+    <value> (oran korunuyor; Shift ile serbest)</value>
+  </data>
+  <data name="T_b214777f73e9" xml:space="preserve">
+    <value> (Shift: oranı koru)</value>
+  </data>
+  <data name="T_2af72d77a3c2" xml:space="preserve">
+    <value>Grup: {0:0.0} × {1:0.0} mm</value>
+  </data>
+  <data name="T_8a35e71ad2c8" xml:space="preserve">
+    <value> (serbest)</value>
+  </data>
+  <data name="T_7c24e5bddc1f" xml:space="preserve">
+    <value>Enter: bitir • Shift+Enter: yeni satır • Esc: vazgeç</value>
+  </data>
+  <data name="T_519dbe9c852d" xml:space="preserve">
+    <value>Metni yazın: Enter bitirir, Shift+Enter yeni satır, Esc vazgeçer.</value>
+  </data>
+  <data name="T_7be3f876cb17" xml:space="preserve">
+    <value>Düzenlemeden vazgeçildi.</value>
+  </data>
+  <data name="T_8e14dbee3af3" xml:space="preserve">
+    <value>Kılavuz çizgisi eklemek için tuvale doğru sürükleyin</value>
+  </data>
+  <data name="T_f9491e11b3fa" xml:space="preserve">
+    <value>macOS sürümü</value>
+  </data>
+  <data name="T_497c39fc1822" xml:space="preserve">
+    <value>Bu pencere macOS sürümünde henüz yok.</value>
+  </data>
 </root>

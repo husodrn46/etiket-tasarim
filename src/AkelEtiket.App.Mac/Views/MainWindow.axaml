@@ -1,0 +1,294 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:loc="using:AkelEtiket.App.Mac.Localization"
+        xmlns:controls="using:AkelEtiket.App.Mac.Controls"
+        xmlns:converters="using:AkelEtiket.App.Mac.Converters"
+        xmlns:vm="using:AkelEtiket.Editor.ViewModels"
+        x:Class="AkelEtiket.App.Mac.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="{Binding WindowTitle}"
+        MinWidth="1080" MinHeight="660" Width="1440" Height="900"
+        WindowStartupLocation="CenterScreen">
+  <Window.Resources>
+    <converters:EqualsConverter x:Key="EqualsConverter" />
+  </Window.Resources>
+
+  <Grid RowDefinitions="Auto,Auto,*,Auto">
+
+    <!-- ───────────── Üst araç çubuğu ───────────── -->
+    <Border Background="{DynamicResource Brush.Toolbar}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,0,1">
+      <WrapPanel Margin="12,5,10,5">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+          <Image Source="/Assets/AkelEtiket-256.png" Width="26" Height="26" RenderOptions.BitmapInterpolationMode="HighQuality" />
+          <TextBlock Text="{loc:Text T_a03425caed30}" FontWeight="SemiBold" FontSize="14.5" Margin="9,0,14,0" VerticalAlignment="Center" />
+          <Rectangle Classes="vsep" />
+
+          <Button Classes="toolbar" Command="{Binding NewCommand}" ToolTip.Tip="{loc:Text T_a2b993762f59}">
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <PathIcon Data="{StaticResource Glyph.New}" />
+              <TextBlock Text="{loc:Text T_e17ccb1e9466}" VerticalAlignment="Center" />
+            </StackPanel>
+          </Button>
+          <Button Classes="toolbar" Command="{Binding OpenCommand}" ToolTip.Tip="{loc:Text T_959effc5d14f}">
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <PathIcon Data="{StaticResource Glyph.Open}" />
+              <TextBlock Text="{loc:Text T_dcc084f9a2e1}" VerticalAlignment="Center" />
+            </StackPanel>
+          </Button>
+          <Button x:Name="RecentButton" Classes="icon narrow" ToolTip.Tip="{loc:Text T_23a9eaaf836e}" Click="OnRecentClick">
+            <PathIcon Classes="chevron" Data="{StaticResource Glyph.ChevronDown}" />
+          </Button>
+          <Button Classes="toolbar" Command="{Binding SaveDocumentCommand}" ToolTip.Tip="{loc:Text T_f6aba48e74f7}">
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <PathIcon Data="{StaticResource Glyph.Save}" />
+              <TextBlock Text="{loc:Text T_c1fe2ecdff02}" VerticalAlignment="Center" />
+            </StackPanel>
+          </Button>
+          <Button x:Name="MoreFileButton" Classes="icon narrow" ToolTip.Tip="{loc:Text T_0442143b72bb}" Click="OnMoreFileClick">
+            <PathIcon Classes="chevron" Data="{StaticResource Glyph.ChevronDown}" />
+          </Button>
+          <Rectangle Classes="vsep" />
+          <Button Classes="icon" Command="{Binding UndoCommand}" ToolTip.Tip="{loc:Text T_c1108f42b43e}">
+            <PathIcon Data="{StaticResource Glyph.Undo}" />
+          </Button>
+          <Button x:Name="UndoHistoryButton" Classes="icon narrow" ToolTip.Tip="{loc:Text T_b2c34226a602}" Click="OnUndoHistoryClick">
+            <PathIcon Classes="chevron" Data="{StaticResource Glyph.ChevronDown}" />
+          </Button>
+          <Button Classes="icon" Command="{Binding RedoCommand}" ToolTip.Tip="{loc:Text T_6e015c9cbfb7}">
+            <PathIcon Data="{StaticResource Glyph.Redo}" />
+          </Button>
+          <Rectangle Classes="vsep" />
+          <Button Classes="icon" Command="{Binding CutCommand}" ToolTip.Tip="{loc:Text T_7eb2c3c07b7f}">
+            <PathIcon Data="{StaticResource Glyph.Cut}" />
+          </Button>
+          <Button Classes="icon" Command="{Binding CopyCommand}" ToolTip.Tip="{loc:Text T_0ffadf2bf014}">
+            <PathIcon Data="{StaticResource Glyph.Copy}" />
+          </Button>
+          <Button Classes="icon" Command="{Binding PasteCommand}" ToolTip.Tip="{loc:Text T_88adde4c9867}">
+            <PathIcon Data="{StaticResource Glyph.Paste}" />
+          </Button>
+          <Rectangle Classes="vsep" />
+          <Button Classes="toolbar" Command="{Binding LabelSetupCommand}" ToolTip.Tip="{loc:Text T_68fd79af3412}">
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <PathIcon Data="{StaticResource Glyph.Ruler}" />
+              <TextBlock Text="{Binding LabelSizeText}" VerticalAlignment="Center" />
+            </StackPanel>
+          </Button>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+          <Rectangle Classes="vsep" />
+          <Button Classes="icon" Command="{Binding ZoomOutCommand}" ToolTip.Tip="{loc:Text T_e8cd1d564f1f}">
+            <PathIcon Data="{StaticResource Glyph.ZoomOut}" />
+          </Button>
+          <Button Classes="toolbar" MinWidth="58" Command="{Binding ZoomActualSizeCommand}" ToolTip.Tip="{loc:Text T_dc4bcacfc470}">
+            <TextBlock Text="{Binding ZoomText}" />
+          </Button>
+          <Button Classes="icon" Command="{Binding ZoomInCommand}" ToolTip.Tip="{loc:Text T_4df38779294a}">
+            <PathIcon Data="{StaticResource Glyph.ZoomIn}" />
+          </Button>
+          <Button Classes="icon" Command="{Binding ZoomFitCommand}" ToolTip.Tip="{loc:Text T_19d982d28c61}">
+            <PathIcon Data="{StaticResource Glyph.Fit}" />
+          </Button>
+          <Rectangle Classes="vsep" />
+          <Button Classes="icon" Click="OnToggleGrid" ToolTip.Tip="{loc:Text T_8e99c29e8731}">
+            <PathIcon Data="{StaticResource Icon.Grid}" />
+          </Button>
+          <Button Classes="icon" Command="{Binding ToggleSnapCommand}" ToolTip.Tip="{loc:Text T_9c5816ece93f}">
+            <PathIcon Data="{StaticResource Icon.Magnet}" />
+          </Button>
+          <Button Classes="icon" Command="{Binding ToggleThemeCommand}" ToolTip.Tip="{loc:Text T_8127782e90e5}">
+            <PathIcon x:Name="ThemeIcon" Data="{StaticResource Glyph.Sun}" />
+          </Button>
+          <Button Classes="icon" Command="{Binding OpenSettingsCommand}" ToolTip.Tip="{loc:Text T_80ad54ad05fa}"
+                  AutomationProperties.AutomationId="OpenGeneralSettings" AutomationProperties.Name="{loc:Text T_80ad54ad05fa}">
+            <PathIcon Data="{StaticResource Glyph.Settings}" />
+          </Button>
+          <Button x:Name="HelpButton" Classes="icon" Click="OnHelpClick" ToolTip.Tip="{loc:Text T_3f5d764c85b3}">
+            <PathIcon Data="{StaticResource Glyph.Info}" />
+          </Button>
+          <Rectangle Classes="vsep" />
+          <Button Classes="toolbar" Command="{Binding ToggleAiPanelCommand}" ToolTip.Tip="{loc:Text T_b3e7b95fcf9e}">
+            <Panel>
+              <StackPanel Orientation="Horizontal" Spacing="6">
+                <PathIcon Data="{StaticResource Glyph.Ai}" />
+                <TextBlock Text="{loc:Text T_e65f37b28667}" VerticalAlignment="Center" />
+              </StackPanel>
+              <Border HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-6,-10,0" MinWidth="16" Height="16" CornerRadius="8"
+                      Background="{DynamicResource Brush.Warning}" Padding="4,0"
+                      IsVisible="{Binding Ai.PendingCount, Converter={x:Static converters:Convert.IsPositive}}"
+                      ToolTip.Tip="{loc:Text T_d3c7db600d0f}">
+                <TextBlock Text="{Binding Ai.PendingCount}" FontSize="10" FontWeight="Bold" Foreground="Black"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+              </Border>
+            </Panel>
+          </Button>
+          <Rectangle Classes="vsep" />
+          <Button Classes="toolbar" Command="{Binding OpenQuickPrintCommand}" ToolTip.Tip="{loc:Text T_6d6f82479820}">
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <PathIcon Data="{StaticResource Glyph.Label}" />
+              <TextBlock Text="{loc:Text T_930a0da1ee3b}" VerticalAlignment="Center" />
+            </StackPanel>
+          </Button>
+          <Button Classes="toolbar" Command="{Binding OpenProductionCommand}" Content="{loc:Text T_213c1a1d9d54}" Margin="4,0,6,0" />
+          <Button Classes="toolbar" Command="{Binding PreviewCommand}" ToolTip.Tip="{loc:Text T_9de0257ea86f}">
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <PathIcon Data="{StaticResource Glyph.Preview}" />
+              <TextBlock Text="{loc:Text T_0fa5590881e5}" VerticalAlignment="Center" />
+            </StackPanel>
+          </Button>
+          <Button Classes="accent" Command="{Binding PrintCommand}" Margin="6,0,0,0" Padding="14,6" ToolTip.Tip="{loc:Text T_1659e1146a16}">
+            <StackPanel Orientation="Horizontal" Spacing="7">
+              <PathIcon Data="{StaticResource Glyph.Print}" Foreground="{DynamicResource Brush.AccentText}" />
+              <TextBlock Text="{loc:Text T_9b13de85b6c1}" VerticalAlignment="Center" />
+            </StackPanel>
+          </Button>
+        </StackPanel>
+      </WrapPanel>
+    </Border>
+
+    <!-- ───────────── Belge sekmeleri ───────────── -->
+    <Border Grid.Row="1" Background="{DynamicResource Brush.Toolbar}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,0,1">
+      <DockPanel Margin="8,4">
+        <Button DockPanel.Dock="Right" Classes="icon" Command="{Binding ToggleFocusModeCommand}" ToolTip.Tip="{loc:Text T_5d0fba1a8f03}"
+                AutomationProperties.AutomationId="ToggleFocusMode">
+          <PathIcon Data="{StaticResource Glyph.FocusMode}" />
+        </Button>
+        <Button DockPanel.Dock="Right" Classes="icon" Command="{Binding NewCommand}" ToolTip.Tip="{loc:Text T_a2b993762f59}"
+                AutomationProperties.AutomationId="NewDocumentTab">
+          <PathIcon Data="{StaticResource Glyph.Add}" />
+        </Button>
+        <ListBox x:Name="DocumentTabs" Classes="tabs" ItemsSource="{Binding Documents}" SelectedItem="{Binding ActiveDocument, Mode=TwoWay}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                 AutomationProperties.AutomationId="DocumentTabs" AutomationProperties.Name="{loc:Text T_74be31c75f01}">
+          <ListBox.ItemsPanel>
+            <ItemsPanelTemplate>
+              <StackPanel Orientation="Horizontal" />
+            </ItemsPanelTemplate>
+          </ListBox.ItemsPanel>
+          <ListBox.ItemTemplate>
+            <DataTemplate x:DataType="vm:DocumentTabViewModel">
+              <Grid ColumnDefinitions="Auto,Auto,Auto" Background="Transparent" ToolTip.Tip="{Binding Description}"
+                    ContextRequested="OnDocumentTabContextRequested">
+                <TextBlock Text="{Binding Caption}" MaxWidth="180" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" FontWeight="SemiBold" />
+                <Ellipse Grid.Column="1" Fill="{DynamicResource Brush.Accent}" Width="5" Height="5" Margin="7,0,3,0" IsVisible="{Binding IsDirty}" />
+                <Button Grid.Column="2" Classes="icon" Width="25" Height="28" Margin="5,0,0,0" ToolTip.Tip="{loc:Text T_fab9f754c02a}"
+                        AutomationProperties.Name="{loc:Text T_fab9f754c02a}" Click="OnCloseDocumentTabClick">
+                  <PathIcon Classes="chevron" Data="{StaticResource Glyph.Close}" />
+                </Button>
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </DockPanel>
+    </Border>
+
+    <!-- ───────────── Ana alan ───────────── -->
+    <Grid x:Name="MainGrid" Grid.Row="2" ClipToBounds="True" ColumnDefinitions="76,Auto,*,Auto,310">
+
+      <!-- Sol gezinme şeridi -->
+      <Border x:Name="NavigationRail" Background="{DynamicResource Brush.Toolbar}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,1,0">
+        <StackPanel Margin="0,8,0,0">
+          <RadioButton Classes="rail" GroupName="Rail" Click="OnRailClick" ToolTip.Tip="{loc:Text T_06455df7d342}"
+                       IsChecked="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static vm:LeftPanel.Text}}">
+            <StackPanel Spacing="4">
+              <PathIcon Classes="rail" Data="{StaticResource Glyph.Text}" />
+              <TextBlock Text="{loc:Text T_80422e38652c}" FontSize="11" HorizontalAlignment="Center" />
+            </StackPanel>
+          </RadioButton>
+          <RadioButton Classes="rail" GroupName="Rail" Click="OnRailClick" ToolTip.Tip="{loc:Text T_f79ad7be1269}"
+                       IsChecked="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static vm:LeftPanel.Barcode}}">
+            <StackPanel Spacing="4">
+              <PathIcon Classes="rail" Data="{StaticResource Icon.Barcode}" />
+              <TextBlock Text="{loc:Text T_13be6cbab43a}" FontSize="11" HorizontalAlignment="Center" />
+            </StackPanel>
+          </RadioButton>
+          <RadioButton Classes="rail" GroupName="Rail" Click="OnRailClick" ToolTip.Tip="{loc:Text T_5e47f9009fba}"
+                       IsChecked="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static vm:LeftPanel.QrCode}}">
+            <StackPanel Spacing="4">
+              <PathIcon Classes="rail" Data="{StaticResource Glyph.QrCode}" />
+              <TextBlock Text="{loc:Text T_a449fc303f99}" FontSize="11" HorizontalAlignment="Center" />
+            </StackPanel>
+          </RadioButton>
+          <RadioButton Classes="rail" GroupName="Rail" Click="OnRailClick" ToolTip.Tip="{loc:Text T_1ac4e2987465}"
+                       IsChecked="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static vm:LeftPanel.Image}}">
+            <StackPanel Spacing="4">
+              <PathIcon Classes="rail" Data="{StaticResource Glyph.Image}" />
+              <TextBlock Text="{loc:Text T_5694c05b1a70}" FontSize="11" HorizontalAlignment="Center" />
+            </StackPanel>
+          </RadioButton>
+          <RadioButton Classes="rail" GroupName="Rail" Click="OnRailClick" ToolTip.Tip="{loc:Text T_09a6289e5566}"
+                       IsChecked="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static vm:LeftPanel.Shapes}}">
+            <StackPanel Spacing="4">
+              <PathIcon Classes="rail" Data="{StaticResource Icon.Shapes}" />
+              <TextBlock Text="{loc:Text T_0c70be7a66c9}" FontSize="11" HorizontalAlignment="Center" />
+            </StackPanel>
+          </RadioButton>
+          <Rectangle Height="1" Margin="14,8" Fill="{DynamicResource Brush.Border}" />
+          <RadioButton Classes="rail" GroupName="Rail" Click="OnRailClick" ToolTip.Tip="{loc:Text T_7856aa3c2171}"
+                       IsChecked="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static vm:LeftPanel.Templates}}">
+            <StackPanel Spacing="4">
+              <PathIcon Classes="rail" Data="{StaticResource Glyph.Templates}" />
+              <TextBlock Text="{loc:Text T_7856aa3c2171}" FontSize="11" HorizontalAlignment="Center" />
+            </StackPanel>
+          </RadioButton>
+          <RadioButton Classes="rail" GroupName="Rail" Click="OnRailClick" ToolTip.Tip="{loc:Text T_fe8152c12728}"
+                       IsChecked="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static vm:LeftPanel.Data}}">
+            <StackPanel Spacing="4">
+              <PathIcon Classes="rail" Data="{StaticResource Glyph.Data}" />
+              <TextBlock Text="{loc:Text T_6135a42bf53e}" FontSize="11" HorizontalAlignment="Center" />
+            </StackPanel>
+          </RadioButton>
+          <RadioButton Classes="rail" GroupName="Rail" Click="OnRailClick" ToolTip.Tip="{loc:Text T_20e905dc87dc}"
+                       IsChecked="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static vm:LeftPanel.Layers}}">
+            <StackPanel Spacing="4">
+              <PathIcon Classes="rail" Data="{StaticResource Glyph.Layers}" />
+              <TextBlock Text="{loc:Text T_20e905dc87dc}" FontSize="11" HorizontalAlignment="Center" />
+            </StackPanel>
+          </RadioButton>
+        </StackPanel>
+      </Border>
+
+      <!-- Sol panel -->
+      <Border x:Name="LeftPanelHost" Grid.Column="1" Width="270" Background="{DynamicResource Brush.Panel}"
+              BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,1,0" />
+
+      <!-- Tuval -->
+      <Grid x:Name="WorkspaceHost" Grid.Column="2" Background="{DynamicResource Brush.Workspace}"
+            RowDefinitions="Auto,*" ColumnDefinitions="Auto,*">
+        <Border x:Name="RulerCorner" Width="22" Height="22" Background="{DynamicResource Brush.Ruler}"
+                BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,1,1">
+          <TextBlock Text="{loc:Text T_8fa1dddd5360}" FontSize="8.5" Foreground="{DynamicResource Brush.RulerText}"
+                     HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <controls:RulerControl x:Name="TopRuler" Grid.Column="1" Height="22" Orientation="Horizontal" Surface="{Binding #Surface}" />
+        <controls:RulerControl x:Name="LeftRuler" Grid.Row="1" Width="22" Orientation="Vertical" Surface="{Binding #Surface}" />
+        <ScrollViewer x:Name="CanvasScroll" Grid.Row="1" Grid.Column="1" HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto" Focusable="False" ScrollChanged="OnCanvasScrollChanged">
+          <controls:DesignSurface x:Name="Surface" ViewModel="{Binding}" Zoom="{Binding Zoom}" />
+        </ScrollViewer>
+        <Border Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="14,0,0,14"
+                Background="{DynamicResource Brush.Panel}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="1"
+                CornerRadius="8" Padding="10,5" Opacity="0.92" IsHitTestVisible="False">
+          <TextBlock Text="{loc:Text T_fb345473a47a}" FontSize="11.5" Foreground="{DynamicResource Brush.TextSecondary}" />
+        </Border>
+      </Grid>
+
+      <Rectangle Grid.Column="3" Width="1" Fill="{DynamicResource Brush.Border}" />
+
+      <!-- Özellikler / Yapay Zekâ -->
+      <Border x:Name="PropertiesHost" Grid.Column="4" Background="{DynamicResource Brush.Panel}" />
+    </Grid>
+
+    <!-- ───────────── Durum çubuğu ───────────── -->
+    <Border Grid.Row="3" Background="{DynamicResource Brush.Toolbar}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,1,0,0">
+      <DockPanel Height="27" Margin="14,0">
+        <TextBlock DockPanel.Dock="Right" Classes="status" Text="{Binding ZoomText}" />
+        <TextBlock DockPanel.Dock="Right" Classes="status" Text="{Binding LabelSizeText}" Margin="0,0,22,0" />
+        <TextBlock DockPanel.Dock="Right" Classes="status" Text="{Binding CursorText}" Margin="0,0,22,0" MinWidth="130" />
+        <TextBlock DockPanel.Dock="Right" Classes="status" Text="{Binding SelectionText}" Margin="0,0,22,0" />
+        <TextBlock x:Name="StatusText" Text="{Binding StatusMessage}" FontSize="12" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+      </DockPanel>
+    </Border>
+  </Grid>
+</Window>

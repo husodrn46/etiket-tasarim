@@ -32,7 +32,17 @@ Sürümler ve lisans ifadeleri 13.10.2026'da nuget.org üzerinden, uygulamanın 
 | Microsoft.Extensions.* (Hosting, Logging, Configuration, DependencyInjection, Options…) | 10.0.10–10.0.12 | MIT | MCP köprüsü ve Worker altyapısı |
 | System.Security.Cryptography.ProtectedData | 10.0.12 | MIT | Yapay zekâ servis anahtarını Windows DPAPI ile şifreli saklama (macOS'ta sistemin Anahtar Zinciri kullanılır, ek paket yok) |
 
-Yalnızca geliştirmede kullanılan araçlar (uygulamayla dağıtılmaz): xUnit (Apache-2.0), Microsoft.NET.Test.Sdk (MIT),
+Yalnızca macOS masaüstü uygulamasında (`src/AkelEtiket.App.Mac`; Windows kurulum paketine girmez), 14.11.2026'da
+nuget.org ve kaynak depoları üzerinden doğrulandı:
+
+| Bileşen | Sürüm | Lisans | Kullanım |
+|---|---|---|---|
+| Avalonia (+ Desktop, Native, Skia, HarfBuzz, Themes.Fluent ve bağımlılıkları) | 12.1.6 | MIT | macOS arayüz çatısı; projedeki SkiaSharp 3.119.4 ve HarfBuzzSharp 8.3.1.3 sürümlerini kullanır |
+| MicroCom.Runtime | 0.11.6 | MIT | Avalonia bağımlılığı |
+| Fluent UI System Icons (Microsoft) | 20 birim, regular | MIT | Araç çubuğu simgelerinin çizimleri (`Themes/Icons.axaml` içine gömülü; Windows'taki Segoe Fluent Icons yazı tipinin karşılığı) |
+
+Yalnızca geliştirmede kullanılan araçlar (uygulamayla dağıtılmaz): Avalonia.Headless 12.1.6 (MIT; macOS arayüz testleri),
+xUnit (Apache-2.0), Microsoft.NET.Test.Sdk (MIT),
 coverlet (MIT), **Inno Setup** (Inno Setup License — ticari kurulum dosyaları oluşturmak dahil ücretsiz),
 xlwt 1.3.0 (BSD; yalnızca `tests/AkelEtiket.DataImport.Tests/Fixtures/eski-excel.xls` test dosyasını üretmek için, isteğe bağlı).
 

@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    LabelHarbor — macOS masaüstü uygulaması (Avalonia). Görünüm modelleri, render ve dosya biçimi Windows
+    uygulamasıyla ortaktır (AkelEtiket.Editor); burada yalnızca görünümler, tuval ve platform servisleri bulunur.
+  -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>LabelHarbor</AssemblyName>
+    <RootNamespace>AkelEtiket.App.Mac</RootNamespace>
+    <AssemblyTitle>LabelHarbor</AssemblyTitle>
+    <Description>Çevrimdışı etiket ve barkod tasarım uygulaması</Description>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <InvariantGlobalization>false</InvariantGlobalization>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AkelEtiket.Editor\AkelEtiket.Editor.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Avalonia.Themes.Fluent" />
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="AkelEtiket.App.Mac.Tests" />
+  </ItemGroup>
+</Project>

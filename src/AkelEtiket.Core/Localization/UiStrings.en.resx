@@ -6602,4 +6602,118 @@ Details are in "{0}".</value>
   <data name="T_eb358fd9ad13" xml:space="preserve">
     <value>The API key cannot be stored securely on this operating system.</value>
   </data>
+  <data name="T_be4542596b23" xml:space="preserve">
+    <value>Cut</value>
+  </data>
+  <data name="T_172b43747c76" xml:space="preserve">
+    <value>Paste</value>
+  </data>
+  <data name="T_7458ff51f859" xml:space="preserve">
+    <value>Copy formatting</value>
+  </data>
+  <data name="T_db43db217732" xml:space="preserve">
+    <value>Paste formatting</value>
+  </data>
+  <data name="T_fa42a376fcc6" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="T_1f1abe78fb19" xml:space="preserve">
+    <value>Ungroup</value>
+  </data>
+  <data name="T_5f052375fa9b" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="T_68a654357af7" xml:space="preserve">
+    <value>Right</value>
+  </data>
+  <data name="T_9e34fca8ee23" xml:space="preserve">
+    <value>Top</value>
+  </data>
+  <data name="T_42719229fd62" xml:space="preserve">
+    <value>Bottom</value>
+  </data>
+  <data name="T_18c64db1a34f" xml:space="preserve">
+    <value>Distribute horizontally</value>
+  </data>
+  <data name="T_783ba2dd346f" xml:space="preserve">
+    <value>Distribute vertically</value>
+  </data>
+  <data name="T_c3ca36b9f12e" xml:space="preserve">
+    <value>Add image…</value>
+  </data>
+  <data name="T_a0f9eb6b1e5e" xml:space="preserve">
+    <value>Label size…</value>
+  </data>
+  <data name="T_282c499116b1" xml:space="preserve">
+    <value>Fit to window</value>
+  </data>
+  <data name="T_5ff1b2fd38c6" xml:space="preserve">
+    <value>Unlock</value>
+  </data>
+  <data name="T_150bfd0c994d" xml:space="preserve">
+    <value>Lock</value>
+  </data>
+  <data name="T_3a9c117f1254" xml:space="preserve">
+    <value>Align</value>
+  </data>
+  <data name="T_bb20e1368e2f" xml:space="preserve">
+    <value>Align to label</value>
+  </data>
+  <data name="T_acf7f0a050c4" xml:space="preserve">
+    <value>{0} rotated</value>
+  </data>
+  <data name="T_1ab933523bda" xml:space="preserve">
+    <value>{0} resized</value>
+  </data>
+  <data name="T_3a6d92476772" xml:space="preserve">
+    <value>Group resized</value>
+  </data>
+  <data name="T_7982bf6d6870" xml:space="preserve">
+    <value>Rotation: {0:0.#}°</value>
+  </data>
+  <data name="T_99522757cbe8" xml:space="preserve">
+    <value> (barcodes rotate in 90° steps)</value>
+  </data>
+  <data name="T_e585a5b81653" xml:space="preserve">
+    <value> (Shift: 15° steps)</value>
+  </data>
+  <data name="T_38719b519676" xml:space="preserve">
+    <value>A locked element cannot be moved. Unlock it from the right panel or the context menu.</value>
+  </data>
+  <data name="T_425af11c4039" xml:space="preserve">
+    <value>Position: X {0:0.0} mm, Y {1:0.0} mm (Shift: lock to axis, Alt: no snapping)</value>
+  </data>
+  <data name="T_d13d873b38e3" xml:space="preserve">
+    <value>Size: {0:0.0} × {1:0.0} mm</value>
+  </data>
+  <data name="T_d92a6721badc" xml:space="preserve">
+    <value> (aspect ratio kept; Shift to free)</value>
+  </data>
+  <data name="T_b214777f73e9" xml:space="preserve">
+    <value> (Shift: keep aspect ratio)</value>
+  </data>
+  <data name="T_2af72d77a3c2" xml:space="preserve">
+    <value>Group: {0:0.0} × {1:0.0} mm</value>
+  </data>
+  <data name="T_8a35e71ad2c8" xml:space="preserve">
+    <value> (free)</value>
+  </data>
+  <data name="T_7c24e5bddc1f" xml:space="preserve">
+    <value>Enter: finish • Shift+Enter: new line • Esc: cancel</value>
+  </data>
+  <data name="T_519dbe9c852d" xml:space="preserve">
+    <value>Type the text: Enter finishes, Shift+Enter adds a new line, Esc cancels.</value>
+  </data>
+  <data name="T_7be3f876cb17" xml:space="preserve">
+    <value>Editing cancelled.</value>
+  </data>
+  <data name="T_8e14dbee3af3" xml:space="preserve">
+    <value>Drag toward the canvas to add a guide line</value>
+  </data>
+  <data name="T_f9491e11b3fa" xml:space="preserve">
+    <value>macOS version</value>
+  </data>
+  <data name="T_497c39fc1822" xml:space="preserve">
+    <value>This window is not available in the macOS version yet.</value>
+  </data>
 </root>

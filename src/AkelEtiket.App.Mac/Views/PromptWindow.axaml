@@ -1,0 +1,16 @@
+<views:DialogWindow xmlns="https://github.com/avaloniaui"
+        xmlns:views="using:AkelEtiket.App.Mac.Views"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:loc="using:AkelEtiket.App.Mac.Localization"
+        x:Class="AkelEtiket.App.Mac.Views.PromptWindow"
+        Width="440" SizeToContent="Height">
+  <StackPanel Margin="24,20,24,18">
+    <TextBlock x:Name="TitleText" Classes="title" TextWrapping="Wrap" Margin="0,0,0,8" />
+    <TextBlock x:Name="MessageText" Classes="hint" FontSize="12.5" Margin="0,0,0,10" />
+    <TextBox x:Name="Input" />
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+      <Button Classes="dialog accent" Content="{loc:Text T_79c4b04b6ee8}" IsDefault="True" Click="OnOk" />
+      <Button Classes="dialog" Content="{loc:Text T_39a8d28c1c6b}" IsCancel="True" Click="OnCancel" />
+    </StackPanel>
+  </StackPanel>
+</views:DialogWindow>
