@@ -89,7 +89,10 @@ imported automatically. Review a support package or backup before sharing it: it
 ## Build and validation
 
 C# / .NET 10, WPF, CommunityToolkit.Mvvm, SkiaSharp, ZXing.Net, ClosedXML, ExcelDataReader and CsvHelper.
-The desktop app requires Windows. Many shared libraries and headless tests can run on macOS/Linux.
+The desktop app requires Windows. Everything below it (model, rendering, barcodes, data import, editor view models,
+local API and MCP) targets plain .NET: the solution builds and its tests run on macOS as well, where the Windows
+print queue tests are skipped. A macOS desktop app and macOS printing do not exist yet; that work is tracked in
+[#7](https://github.com/husodrn46/etiket-tasarim/issues/7).
 
 ```powershell
 dotnet restore AkelEtiket.sln

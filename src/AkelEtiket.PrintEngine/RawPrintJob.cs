@@ -51,6 +51,7 @@ public sealed unsafe class RawPrintJob : IRawJobWriter
     {
         if (string.IsNullOrWhiteSpace(printerName))
             throw new PrintEngineException(L10n.T("Yazıcı seçilmedi. Ayarlar'dan etiket yazıcısını seçin."));
+        PrintPlatform.ThrowIfUnsupported();
         if (!NativeMethods.TryOpen(printerName, out var handle, out int openError))
             throw PrintEngineException.FromWin32(L10n.T("Yazıcı açılamadı"), openError, printerName);
 

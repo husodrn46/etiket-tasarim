@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using AkelEtiket.Assistant;
+using AkelEtiket.Core;
 using AkelEtiket.Core.Automation;
 using AkelEtiket.Editor.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -119,7 +120,7 @@ public sealed partial class AiSettingsViewModel : ObservableObject
     };
 
     /// <summary>Bu bilgisayardaki MCP sunucusu (Claude Desktop / Claude Code bunu başlatır).</summary>
-    public string McpExePath => Path.Combine(AppContext.BaseDirectory, "AkelEtiket.Mcp.exe");
+    public string McpExePath => Path.Combine(AppContext.BaseDirectory, AppIdentity.ExecutableFileName("AkelEtiket.Mcp"));
 
     public string ClaudeCodeCommand => $"claude mcp add --scope user akel-etiket -- \"{McpExePath}\"";
 
@@ -173,7 +174,10 @@ public sealed partial class AiSettingsViewModel : ObservableObject
         return null;
     }
 
-    /// <summary>Kaydedilecek ayarları oluşturur (anahtar DPAPI ile şifrelenir; izin yalnızca işaretliyse ve sağlayıcı için verilir).</summary>
+    /// <summary>
+    /// Kaydedilecek ayarları oluşturur (anahtar <see cref="SecretProtector"/> ile şifrelenir; izin yalnızca işaretliyse ve
+    /// sağlayıcı için verilir). Güvenli depoya erişilemezse <see cref="SecretStorageException"/>.
+    /// </summary>
     public AiSettings BuildSettings()
     {
         var result = new AiSettings

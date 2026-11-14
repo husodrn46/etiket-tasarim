@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
+using AkelEtiket.Core;
 using AkelEtiket.Core.Automation;
 using ModelContextProtocol.Client;
 using ModelContextProtocol.Protocol;
@@ -37,8 +38,8 @@ public sealed class McpEndToEndTests : IDisposable
     private static string? PublishedDir => Environment.GetEnvironmentVariable("AKELETIKET2_E2E_DIR") is { Length: > 0 } d ? d : null;
 
     private static string Exe(string project) => PublishedDir is { } dir
-        ? Path.Combine(dir, project + ".exe")
-        : Path.Combine(RepoRoot, "src", project, "bin", BuildConfiguration, "net10.0", project + ".exe");
+        ? Path.Combine(dir, AppIdentity.ExecutableFileName(project))
+        : Path.Combine(RepoRoot, "src", project, "bin", BuildConfiguration, "net10.0", AppIdentity.ExecutableFileName(project));
 
     private string SettingsPath => Path.Combine(_root, "Yerel", "YapayZeka", "ayarlar.json");
     private string DiscoveryPath => Path.Combine(_root, "Yerel", "YapayZeka", "baglanti.json");

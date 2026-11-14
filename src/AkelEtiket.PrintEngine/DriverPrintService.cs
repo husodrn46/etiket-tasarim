@@ -312,6 +312,11 @@ public sealed class DriverPrintService
     {
         hdc = IntPtr.Zero;
         caps = new DriverPageInfo(0, 0, 0, 0, 0, 0);
+        if (!PrintPlatform.IsSupported)
+        {
+            report.Errors.Add(PrintPlatform.UnsupportedMessage);
+            return false;
+        }
         byte[]? devMode = BuildDevMode(report, printerName, media, out int paperId);
         if (devMode is null) return false;
 
@@ -407,6 +412,7 @@ public sealed class DriverPrintService
     /// <summary>Sürücünün kağıt listesinde ölçüsü etiketle ±0,5 mm eşleşen standart form (varsa kimliği).</summary>
     internal static int? FindMatchingPaper(string printerName, LabelMedia media)
     {
+        if (!PrintPlatform.IsSupported) return null;
         int count = GdiNative.DeviceCapabilities(printerName, null, GdiNative.DC_PAPERS, IntPtr.Zero, IntPtr.Zero);
         if (count <= 0 || count > 4096) return null;
         IntPtr ids = Marshal.AllocHGlobal(count * sizeof(short));

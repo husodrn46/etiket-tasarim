@@ -138,7 +138,8 @@ public sealed partial class MainViewModel
             L10n.T($"Açık tasarım ({Path.GetFileName(document)}) da pakete eklensin mi?"), L10n.T("Ekle"), L10n.T("Ekleme"));
         try
         {
-            var printers = PrinterDiscovery.GetPrinters().Select(p => p.Name).ToList();
+            PrinterDiscovery.TryGetPrinters(out var installed, out _);
+            var printers = installed.Select(p => p.Name).ToList();
             string path = SupportBundle.Create(includeDocument ? document : null, printers);
             Services.OpenFolder?.Invoke(Path.GetDirectoryName(path)!);
             Dialogs.ShowMessage(L10n.T("Destek paketi"),

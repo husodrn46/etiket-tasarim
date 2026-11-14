@@ -87,7 +87,10 @@ Bu bölümdeki yenilikler `v2.1.0` indirme paketine dahildir.
 ## Geliştirme
 
 C# / .NET 10, WPF, CommunityToolkit.Mvvm, SkiaSharp, ZXing.Net, ClosedXML, ExcelDataReader ve CsvHelper.
-Masaüstü uygulaması Windows içindir; ortak kütüphanelerin çoğu arayüz olmadan test edilebilir.
+Masaüstü uygulaması Windows içindir. Onun altındaki her şey (model, render, barkod, veri aktarımı, editör görünüm
+modelleri, yerel API ve MCP) düz .NET hedefler: çözüm macOS'ta da derlenir ve testleri çalışır; Windows yazdırma
+kuyruğu testleri orada atlanır. macOS masaüstü uygulaması ve macOS'ta baskı henüz yoktur; bu iş
+[#7](https://github.com/husodrn46/etiket-tasarim/issues/7) numaralı kayıtta izlenir.
 
 ```powershell
 dotnet restore AkelEtiket.sln

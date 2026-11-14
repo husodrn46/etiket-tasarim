@@ -130,6 +130,7 @@ public static class PrinterDiscovery
     /// </summary>
     public static IReadOnlyList<PrinterInfo> GetPrinters()
     {
+        PrintPlatform.ThrowIfUnsupported();
         int flags = NativeMethods.PRINTER_ENUM_LOCAL | NativeMethods.PRINTER_ENUM_CONNECTIONS;
         NativeMethods.EnumPrinters(flags, null, Level2, IntPtr.Zero, 0, out int needed, out _);
         int error = Marshal.GetLastPInvokeError();
@@ -185,6 +186,7 @@ public static class PrinterDiscovery
     public static PrinterInfo? GetPrinter(string printerName)
     {
         if (string.IsNullOrWhiteSpace(printerName)) return null;
+        PrintPlatform.ThrowIfUnsupported();
         if (!NativeMethods.TryOpen(printerName, out var handle, out int error))
         {
             if (IsNotFound(error)) return null;
@@ -250,6 +252,7 @@ public static class PrinterDiscovery
     /// <summary>Windows varsayılan yazıcısının adı (yoksa null).</summary>
     public static unsafe string? GetDefaultPrinterName()
     {
+        if (!PrintPlatform.IsSupported) return null;
         int length = 0;
         NativeMethods.GetDefaultPrinter(null, ref length);
         if (length <= 0) return null;

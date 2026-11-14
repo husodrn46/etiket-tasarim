@@ -8,6 +8,8 @@
     <SatelliteResourceLanguages>tr;en</SatelliteResourceLanguages>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CA1416</NoWarn>
+    <!-- macOS/Linux üzerinde de derlenebilsin: WPF uygulaması yalnızca Windows'ta çalışır, ama başvuru paketleriyle derlenir. -->
+    <EnableWindowsTargeting Condition="!$([MSBuild]::IsOSPlatform('Windows'))">true</EnableWindowsTargeting>
 
     <Company>husodrn46</Company>
     <Product>LabelHarbor</Product>

@@ -6593,4 +6593,13 @@ Ayrıntılar "{0}" dosyasında.</value>
   <data name="T_c9780e7af34b" xml:space="preserve">
     <value>Rulo üzerinde birden çok etiket yan yanaysa (ör. 104 mm ruloda 5 × 20 mm) sayıyı girin. Tasarım tek etikettir; baskıda etiketler satır satır dizilir.</value>
   </data>
+  <data name="T_bd90054cd485" xml:space="preserve">
+    <value>Bu işletim sisteminde yazdırma henüz desteklenmiyor.</value>
+  </data>
+  <data name="T_bb205330f7b1" xml:space="preserve">
+    <value>API anahtarı macOS Anahtar Zinciri'ne kaydedilemedi veya oradan okunamadı.</value>
+  </data>
+  <data name="T_eb358fd9ad13" xml:space="preserve">
+    <value>Bu işletim sisteminde API anahtarı güvenli biçimde saklanamıyor.</value>
+  </data>
 </root>
