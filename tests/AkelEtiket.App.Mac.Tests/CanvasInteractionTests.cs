@@ -230,6 +230,35 @@ public class CanvasInteractionTests
         Assert.InRange(after.Y, anchor.Y - 2, anchor.Y + 2);
     });
 
+    [Fact]
+    public void InterfaceFont_DoesNotClipAccentsOnCapitals() => Ui.Run(() =>
+    {
+        // "Ü" harfinin mürekkebi "U" harfinden daha yukarıda başlamalı: noktalar çizilmiş demektir.
+        static int InkTop(string text)
+        {
+            var window = new Window
+            {
+                Width = 120, Height = 80, Background = Avalonia.Media.Brushes.White,
+                Content = new TextBlock { Text = text, FontSize = 40, Margin = new Thickness(20), Foreground = Avalonia.Media.Brushes.Black },
+            };
+            window.Show();
+            Ui.Pump();
+            using var frame = window.CaptureRenderedFrame()!;
+            using var stream = new MemoryStream();
+            frame.Save(stream, Avalonia.Media.Imaging.PngBitmapEncoderOptions.Default);
+            window.Close();
+            using var bitmap = SkiaSharp.SKBitmap.Decode(stream.ToArray());
+            for (int y = 0; y < bitmap.Height; y++)
+            for (int x = 0; x < bitmap.Width; x++)
+                if (bitmap.GetPixel(x, y).Red < 128) return y;
+            return int.MaxValue;
+        }
+
+        int plain = InkTop("U");
+        int accented = InkTop("Ü");
+        Assert.True(accented < plain - 3, $"Ü üstündeki noktalar çizilmedi (U: {plain}, Ü: {accented}).");
+    });
+
     private static (byte R, byte G, byte B) Pixel(string pngPath, Point p)
     {
         using var skia = SkiaSharp.SKBitmap.Decode(pngPath);
