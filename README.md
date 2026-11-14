@@ -95,8 +95,8 @@ print queue tests are skipped.
 
 A macOS desktop app is being built in `src/AkelEtiket.App.Mac` (Avalonia; it shares the view models, rendering and
 file format with the Windows app). It is not released yet. Today it opens and saves labels and has the design
-canvas, document tabs, rulers and guides; the side panels and most dialogs are still being ported, and there is
-no macOS printing. Run it with `dotnet run --project src/AkelEtiket.App.Mac`. Progress is tracked in
+canvas, document tabs, rulers and guides, the left panel (elements, templates, data, layers) and the properties
+panel; the AI panel and the dialog windows are still being ported, and there is no macOS printing. Run it with `dotnet run --project src/AkelEtiket.App.Mac`. Progress is tracked in
 [#7](https://github.com/husodrn46/etiket-tasarim/issues/7).
 
 ```powershell

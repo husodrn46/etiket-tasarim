@@ -18,6 +18,19 @@ internal static class DialogHost
         return desktop.Windows.LastOrDefault(w => w.IsActive && w.IsVisible) ?? desktop.MainWindow;
     }
 
+    /// <summary>Görünüm modelinin penceresini kalıcı açar. true = onaylandı.</summary>
+    public static bool Show(object viewModel, Window? owner = null)
+    {
+        DialogWindow? window = DialogWindows.Create(viewModel);
+        if (window is null)
+        {
+            // Bu pencere macOS sürümüne henüz taşınmadı: sessizce yutmak yerine açıkça söylenir.
+            MessageWindow.Show(owner, L10n.T("macOS sürümü"), L10n.T("Bu pencere macOS sürümünde henüz yok."), MessageKind.Info);
+            return false;
+        }
+        return ShowModal<bool>(window, owner);
+    }
+
     public static T? ShowModal<T>(DialogWindow dialog, Window? owner)
     {
         owner = owner is { IsVisible: true } ? owner : ActiveWindow();
@@ -118,17 +131,7 @@ public sealed class AvaloniaDialogService : IDialogService
     public string? Prompt(string title, string message, string defaultValue = "") =>
         DialogHost.ShowModal<string?>(new PromptWindow(title, message, defaultValue), ActiveOwner);
 
-    public bool ShowDialog(object viewModel)
-    {
-        DialogWindow? window = DialogWindows.Create(viewModel);
-        if (window is null)
-        {
-            // Bu pencere macOS sürümüne henüz taşınmadı: sessizce yutmak yerine açıkça söylenir.
-            ShowMessage(L10n.T("macOS sürümü"), L10n.T("Bu pencere macOS sürümünde henüz yok."), MessageKind.Info);
-            return false;
-        }
-        return DialogHost.ShowModal<bool>(window, ActiveOwner);
-    }
+    public bool ShowDialog(object viewModel) => DialogHost.Show(viewModel, ActiveOwner);
 }
 
 /// <summary>Görünüm modeline karşılık gelen pencere. Taşınan her pencere buraya eklenir.</summary>

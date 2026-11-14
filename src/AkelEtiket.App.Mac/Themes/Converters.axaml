@@ -1,0 +1,16 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:c="using:AkelEtiket.App.Mac.Converters">
+  <c:EqualsConverter x:Key="EqualsConverter" />
+  <c:InListConverter x:Key="InList" />
+  <c:FractionToPercentConverter x:Key="FractionToPercent" />
+  <c:SeverityToBrushConverter x:Key="SeverityToBrush" />
+  <c:StateToIconConverter x:Key="StateToIcon" />
+  <c:KindToIconConverter x:Key="KindToIcon" />
+  <c:PngBytesToImageConverter x:Key="PngBytesToImage" />
+  <c:NotEmptyConverter x:Key="NotEmpty" />
+  <c:IsEmptyConverter x:Key="IsEmpty" />
+  <c:IsPositiveConverter x:Key="IsPositive" />
+  <c:NotPositiveConverter x:Key="NotPositive" />
+  <c:InverseBoolConverter x:Key="InverseBool" />
+</ResourceDictionary>

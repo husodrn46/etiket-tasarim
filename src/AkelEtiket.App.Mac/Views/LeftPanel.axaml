@@ -1,0 +1,415 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:AkelEtiket.App.Mac.Localization"
+             x:Class="AkelEtiket.App.Mac.Views.LeftPanel"
+             x:CompileBindings="False">
+    <!--
+        Sol panel: öğe ekleme, şablonlar, veri kaynağı ve katmanlar. Liste öğeleri farklı türlerin üyelerine
+        bağlandığı için bağlamalar çalışma anında çözülür; yanlış bir yol PanelTests içinde yakalanır.
+    -->
+    <UserControl.Resources>
+        <!-- Barkod türü kartı -->
+        <DataTemplate x:Key="BarcodeTypeCard">
+            <Button Classes="card" Command="{Binding $parent[UserControl].DataContext.AddBarcodeCommand}"
+                    CommandParameter="{Binding Type}" ToolTip.Tip="{loc:Text T_4615c1fde964}">
+                <StackPanel>
+                    <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold" FontSize="13" />
+                    <TextBlock Text="{Binding Description}" Classes="hint" Margin="0,3,0,0" />
+                    <TextBlock Text="{Binding Example}" FontFamily="Menlo,Consolas,monospace" FontSize="11.5" Foreground="{DynamicResource Brush.Info}" Margin="0,4,0,0"
+                               TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+            </Button>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Border Background="{DynamicResource Brush.Panel}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,1,0">
+        <Grid>
+            <!-- ───────── METİN ───────── -->
+            <ScrollViewer IsVisible="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter=Text}" VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="16,14,16,16">
+                    <TextBlock Text="{loc:Text T_80422e38652c}" Classes="title" />
+                    <TextBlock Text="{loc:Text T_459749e7125d}" Classes="hint" Margin="0,4,0,12" />
+                    <Button Classes="card" Command="{Binding AddTextStyleCommand}" CommandParameter="Baslik">
+                        <TextBlock Text="{loc:Text T_ca3dbfdf6cb1}" FontSize="20" FontWeight="Bold" />
+                    </Button>
+                    <Button Classes="card" Command="{Binding AddTextStyleCommand}" CommandParameter="AltBaslik">
+                        <TextBlock Text="{loc:Text T_ec61779edece}" FontSize="15" FontWeight="SemiBold" />
+                    </Button>
+                    <Button Classes="card" Command="{Binding AddTextStyleCommand}" CommandParameter="Govde">
+                        <TextBlock Text="{loc:Text T_06455df7d342}" FontSize="13" />
+                    </Button>
+                    <Button Classes="card" Command="{Binding AddTextStyleCommand}" CommandParameter="Kucuk">
+                        <TextBlock Text="{loc:Text T_34658ade9050}" FontSize="11" />
+                    </Button>
+
+                    <TextBlock Text="{loc:Text T_b0cfe2154b74}" Classes="section" />
+                    <TextBlock Classes="hint" Margin="0,0,0,8"
+                               Text="{loc:Text T_9f8dd932de3b}" />
+                    <WrapPanel>
+                        <Button Content="{}{TARIH}" Margin="0,0,6,6" Command="{Binding InsertFieldCommand}" CommandParameter="TARIH" ToolTip.Tip="{loc:Text T_300e04bff0de}" />
+                        <Button Content="{}{SAAT}" Margin="0,0,6,6" Command="{Binding InsertFieldCommand}" CommandParameter="SAAT" ToolTip.Tip="{loc:Text T_e9025a1ed686}" />
+                        <Button Content="{}{SIRA:0000}" Margin="0,0,6,6" Command="{Binding InsertFieldCommand}" CommandParameter="SIRA:0000" ToolTip.Tip="{loc:Text T_b0c8114dcd65}" />
+                        <Button Content="{}{TARIH+30}" Margin="0,0,6,6" Command="{Binding InsertFieldCommand}" CommandParameter="TARIH+30" ToolTip.Tip="{loc:Text T_5d83ebf4f387}" />
+                        <Button Content="{}{SAYAC:000000}" Margin="0,0,6,6" Command="{Binding InsertFieldCommand}" CommandParameter="SAYAC:000000" ToolTip.Tip="{loc:Text T_66aab99a1f9c}" />
+                    </WrapPanel>
+                    <TextBlock Classes="hint" Margin="0,0,0,6" TextWrapping="Wrap"
+                               Text="{loc:Text T_3ac40db3ff20}" />
+                    <ItemsControl ItemsSource="{Binding Data.Columns}" Margin="0,4,0,0">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Margin="0,0,6,6" Command="{Binding $parent[UserControl].DataContext.InsertFieldCommand}"
+                                        CommandParameter="{Binding}" ToolTip.Tip="{loc:Text T_8be82d7983e0}">
+                                    <TextBlock>
+                                        <Run Text="{}{" /><Run Text="{Binding .}" /><Run Text="}" />
+                                    </TextBlock>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock Classes="hint" Margin="0,4,0,0"
+                               IsVisible="{Binding !Data.HasData}"
+                               Text="{loc:Text T_a722139f39be}" />
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- ───────── BARKOD ───────── -->
+            <ScrollViewer IsVisible="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter=Barcode}" VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="16,14,16,16">
+                    <TextBlock Text="{loc:Text T_13be6cbab43a}" Classes="title" />
+                    <TextBlock Text="{loc:Text T_e3d915886d27}" Classes="hint" Margin="0,4,0,12" />
+                    <ItemsControl ItemsSource="{Binding LinearBarcodeTypes}" ItemTemplate="{StaticResource BarcodeTypeCard}" />
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- ───────── QR / 2B ───────── -->
+            <ScrollViewer IsVisible="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter=QrCode}" VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="16,14,16,16">
+                    <TextBlock Text="{loc:Text T_ed28d3442ea0}" Classes="title" />
+                    <TextBlock Text="{loc:Text T_0907f493150a}" Classes="hint" Margin="0,4,0,12" />
+                    <ItemsControl ItemsSource="{Binding MatrixBarcodeTypes}" ItemTemplate="{StaticResource BarcodeTypeCard}" />
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- ───────── GÖRSEL ───────── -->
+            <ScrollViewer IsVisible="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter=Image}" VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="16,14,16,16">
+                    <TextBlock Text="{loc:Text T_5694c05b1a70}" Classes="title" />
+                    <Button Classes="accent" Command="{Binding AddImageCommand}" Margin="0,12,0,10" Padding="12,9">
+                        <StackPanel Orientation="Horizontal">
+                            <PathIcon Data="{StaticResource Glyph.Image}" />
+                            <TextBlock Text="{loc:Text T_122a47549d70}" Margin="8,0,0,0" />
+                        </StackPanel>
+                    </Button>
+                    <Border BorderBrush="{DynamicResource Brush.BorderStrong}" BorderThickness="1.5" CornerRadius="10" Padding="14,18" Background="{DynamicResource Brush.Panel2}">
+                        <StackPanel>
+                            <PathIcon Data="{StaticResource Glyph.Image}" Width="26" Height="26" Foreground="{DynamicResource Brush.TextSecondary}" />
+                            <TextBlock Text="{loc:Text T_e2101624fb1d}" TextAlignment="Center"
+                                       Classes="hint" Margin="0,8,0,0" />
+                        </StackPanel>
+                    </Border>
+                    <TextBlock Text="{loc:Text T_b5bb050ab092}" Classes="section" />
+                    <TextBlock Classes="hint" Margin="0,0,0,8"
+                               Text="{loc:Text T_e924b2fe041b}" />
+                    <ItemsControl ItemsSource="{Binding Symbols}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Classes="card shape" Width="76" ToolTip.Tip="{Binding ToolTip}"
+                                        Command="{Binding $parent[UserControl].DataContext.InsertSymbolCommand}"
+                                        CommandParameter="{Binding Key}">
+                                    <StackPanel>
+                                        <Border Width="34" Height="34" Background="White" CornerRadius="4" HorizontalAlignment="Center">
+                                            <Image Source="{Binding PreviewPng, Converter={StaticResource PngBytesToImage}}" Stretch="Uniform" Margin="2"
+                                                   RenderOptions.BitmapInterpolationMode="HighQuality" />
+                                        </Border>
+                                        <TextBlock Text="{Binding ShortName}" FontSize="10" Margin="0,4,0,0" TextAlignment="Center" TextWrapping="Wrap"
+                                                   MaxHeight="28" TextTrimming="CharacterEllipsis" />
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock Text="{loc:Text T_9cf4f251fc80}" Classes="section" />
+                    <TextBlock Classes="hint" Text="{loc:Text T_567bac84e5ff}" />
+                    <TextBlock Text="{loc:Text T_be2977ad7b39}" Classes="section" />
+                    <TextBlock Classes="hint" Text="{loc:Text T_307a221c7ed5}" />
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- ───────── ŞEKİL ───────── -->
+            <ScrollViewer IsVisible="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter=Shapes}" VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="16,14,10,16">
+                    <TextBlock Text="{loc:Text T_36a6fb9dac11}" Classes="title" />
+                    <TextBlock Text="{loc:Text T_a0bc30f18b9d}" Classes="hint" Margin="0,4,0,12" />
+                    <WrapPanel>
+                        <Button Classes="card shape" Command="{Binding AddShapeCommand}" CommandParameter="Rectangle">
+                            <StackPanel>
+                                <PathIcon Width="26" Height="26" Data="{StaticResource Icon.Rectangle}" />
+                                <TextBlock Text="{loc:Text T_d0a7782b0e67}" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button Classes="card shape" Command="{Binding AddShapeCommand}" CommandParameter="RoundRect">
+                            <StackPanel>
+                                <PathIcon Width="26" Height="26" Data="{StaticResource Icon.RoundRect}" />
+                                <TextBlock Text="{loc:Text T_ef891fba0870}" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button Classes="card shape" Command="{Binding AddShapeCommand}" CommandParameter="Circle">
+                            <StackPanel>
+                                <PathIcon Width="26" Height="26" Data="{StaticResource Icon.Circle}" />
+                                <TextBlock Text="{loc:Text T_436afd8b2eb9}" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button Classes="card shape" Command="{Binding AddShapeCommand}" CommandParameter="Ellipse">
+                            <StackPanel>
+                                <PathIcon Width="26" Height="26" Data="{StaticResource Icon.Ellipse}" />
+                                <TextBlock Text="{loc:Text T_220b8926fd40}" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button Classes="card shape" Command="{Binding AddShapeCommand}" CommandParameter="HLine">
+                            <StackPanel>
+                                <PathIcon Width="26" Height="26" Data="{StaticResource Icon.HLine}" />
+                                <TextBlock Text="{loc:Text T_3bdc43dad304}" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button Classes="card shape" Command="{Binding AddShapeCommand}" CommandParameter="VLine">
+                            <StackPanel>
+                                <PathIcon Width="26" Height="26" Data="{StaticResource Icon.VLine}" />
+                                <TextBlock Text="{loc:Text T_082a2d588e00}" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button Classes="card shape" Command="{Binding AddShapeCommand}" CommandParameter="DLine">
+                            <StackPanel>
+                                <PathIcon Width="26" Height="26" Data="{StaticResource Icon.DLine}" />
+                                <TextBlock Text="{loc:Text T_749ef784c3d2}" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button Classes="card shape" Command="{Binding AddShapeCommand}" CommandParameter="FilledRect">
+                            <StackPanel>
+                                <PathIcon Width="26" Height="26" Data="{StaticResource Icon.FilledRect}" />
+                                <TextBlock Text="{loc:Text T_cd814c1c035f}" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button Classes="card shape" Command="{Binding AddShapeCommand}" CommandParameter="Frame">
+                            <StackPanel>
+                                <PathIcon Width="26" Height="26" Data="{StaticResource Icon.Frame}" />
+                                <TextBlock Text="{loc:Text T_afdffe699908}" FontSize="11" Margin="0,6,0,0" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                    </WrapPanel>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- ───────── ŞABLONLAR ───────── -->
+            <DockPanel IsVisible="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter=Templates}" Margin="16,14,16,12">
+                <StackPanel DockPanel.Dock="Top">
+                    <DockPanel>
+                        <Button DockPanel.Dock="Right" Classes="icon" Command="{Binding Templates.RefreshCommand}" ToolTip.Tip="{loc:Text T_63cd725787a8}">
+                            <PathIcon Data="{StaticResource Glyph.Refresh}" Width="14" Height="14" />
+                        </Button>
+                        <Button DockPanel.Dock="Right" Classes="icon" Command="{Binding Templates.OpenFolderCommand}" ToolTip.Tip="{loc:Text T_2a7c046a4bbf}">
+                            <PathIcon Data="{StaticResource Glyph.Folder}" Width="14" Height="14" />
+                        </Button>
+                        <TextBlock Text="{loc:Text T_7856aa3c2171}" Classes="title" VerticalAlignment="Center" />
+                    </DockPanel>
+                    <TextBox Text="{Binding Templates.Query, Delay=150}" AutomationProperties.Name="{loc:Text T_eb80a0cb5755}" ToolTip.Tip="{loc:Text T_24e4107ec1a2}" Margin="0,10,0,6"/>
+                    <ComboBox ItemsSource="{Binding Templates.LocalizedCategories}" DisplayMemberBinding="{Binding Value}" SelectedValueBinding="{Binding Key}" SelectedValue="{Binding Templates.Category}"/>
+                    <CheckBox Content="{loc:Text T_4d7eb9a5761f}" IsChecked="{Binding Templates.OnlyFavorites}" Margin="0,8,0,0"/>
+                    <TextBlock Text="{Binding Templates.ResultSummary}" Classes="hint" Margin="0,6,0,0"/>
+                    <Button Content="{loc:Text T_6f5697f24c96}" Command="{Binding SaveAsTemplateCommand}" Margin="0,10,0,10" HorizontalAlignment="Stretch" />
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Bottom" Margin="0,8,0,0">
+                    <Button Classes="accent" Content="{loc:Text T_49af6e145635}" Command="{Binding Templates.UseCommand}" CommandParameter="{Binding Templates.SelectedItem}" Margin="0,0,0,6" />
+                    <Button Content="{Binding Templates.FavoriteAction}" Command="{Binding Templates.ToggleFavoriteCommand}" Margin="0,0,0,6"/>
+                    <UniformGrid Columns="4">
+                        <Button Content="{loc:Text T_ea33b58c1d8e}" Command="{Binding Templates.EditCommand}" CommandParameter="{Binding Templates.SelectedItem}" Margin="0,0,4,0" Padding="4,6" ToolTip.Tip="{loc:Text T_91075b416380}" />
+                        <Button Content="{loc:Text T_47ba418cd3f5}" Command="{Binding Templates.DuplicateCommand}" CommandParameter="{Binding Templates.SelectedItem}" Margin="0,0,4,0" Padding="4,6" />
+                        <Button Content="{loc:Text T_1d97c9fec35a}" Command="{Binding Templates.RenameCommand}" CommandParameter="{Binding Templates.SelectedItem}" Margin="0,0,4,0" Padding="4,6" ToolTip.Tip="{loc:Text T_2de7525d280c}" />
+                        <Button Content="{loc:Text T_f698e9b40f9f}" Command="{Binding Templates.DeleteCommand}" CommandParameter="{Binding Templates.SelectedItem}" Padding="4,6" />
+                    </UniformGrid>
+                    <Button Content="{loc:Text T_9e65500c4291}" Command="{Binding OpenStarterPacksCommand}" Margin="0,6,0,0"/>
+                    <Button Content="{loc:Text T_373bf4e53b57}" Command="{Binding Templates.RestoreSamplesCommand}" Margin="0,6,0,0" />
+                </StackPanel>
+                <ListBox ItemsSource="{Binding Templates.Items}" SelectedItem="{Binding Templates.SelectedItem}" DoubleTapped="OnTemplateDoubleTapped">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="72" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Border Width="64" Height="64" Background="White" CornerRadius="6" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="1">
+                                    <Image Source="{Binding PreviewPng, Converter={StaticResource PngBytesToImage}}" Stretch="Uniform" Margin="3"
+                                           RenderOptions.BitmapInterpolationMode="HighQuality" />
+                                </Border>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Text="{Binding Details}" Classes="hint" Margin="0,2,0,0" />
+                                </StackPanel>
+                                <Button Grid.Column="2" Content="{loc:Text T_dcc084f9a2e1}" Margin="8,0,0,0" Padding="8,4" VerticalAlignment="Center"
+                                        IsVisible="{Binding IsFavorite}"
+                                        Command="{Binding $parent[ListBox].DataContext.Templates.UseCommand}" CommandParameter="{Binding}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+
+            <!-- ───────── VERİ ───────── -->
+            <ScrollViewer IsVisible="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter=Data}" VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="16,14,16,16">
+                    <TextBlock Text="{loc:Text T_1f6eaed5ee84}" Classes="title" />
+                    <TextBlock Text="{loc:Text T_c67837bfbc7a}" Classes="hint" Margin="0,4,0,12" />
+                    <TextBlock Text="{loc:Text T_d67e6e963b94}" Classes="label"/>
+                    <ComboBox ItemsSource="{Binding ImportProfileChoices}" DisplayMemberBinding="{Binding Value}" SelectedValueBinding="{Binding Key}" SelectedValue="{Binding SelectedImportProfileId}" Margin="0,4,0,8"/>
+                    <Button Classes="accent" Command="{Binding LoadDataCommand}" Padding="12,9">
+                        <StackPanel Orientation="Horizontal">
+                            <PathIcon Data="{StaticResource Glyph.Data}" />
+                            <TextBlock Text="{loc:Text T_ed11198cb7ae}" Margin="8,0,0,0" />
+                        </StackPanel>
+                    </Button>
+
+                    <StackPanel IsVisible="{Binding Data.HasData}">
+                        <Border Classes="card" Margin="0,12,0,0">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Data.Summary}" TextWrapping="Wrap" FontWeight="SemiBold" />
+                                <TextBlock Text="{Binding Data.ValidationSummary}" TextWrapping="Wrap" Margin="0,6,0,0" FontSize="12"
+                                           Foreground="{DynamicResource Brush.TextSecondary}" />
+                            </StackPanel>
+                        </Border>
+
+                        <StackPanel IsVisible="{Binding Data.IsExcel}" Margin="0,10,0,0">
+                            <TextBlock Text="{loc:Text T_6b2c64c33c7d}" Classes="label" Margin="0,0,0,4" />
+                            <ComboBox ItemsSource="{Binding Data.SheetNames}" SelectedItem="{Binding Data.SelectedSheet}" />
+                        </StackPanel>
+                        <Grid IsVisible="{Binding Data.IsCsv}" Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="8" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Text="{loc:Text T_533f1b8bdf28}" Classes="label" Margin="0,0,0,4" />
+                                <ComboBox ItemsSource="{Binding Data.EncodingChoices}" SelectedItem="{Binding Data.SelectedEncoding}" DisplayMemberBinding="{Binding DisplayName}" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="{loc:Text T_d84e4cec0cf5}" Classes="label" Margin="0,0,0,4" />
+                                <ComboBox ItemsSource="{Binding Data.DelimiterChoices}" SelectedItem="{Binding Data.SelectedDelimiter}" DisplayMemberBinding="{Binding DisplayName}" />
+                            </StackPanel>
+                        </Grid>
+
+                        <TextBlock Text="{loc:Text T_82b8884018aa}" Classes="section" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button Classes="icon" Command="{Binding Data.PreviousPreviewCommand}" ToolTip.Tip="{loc:Text T_5a59a76009d6}">
+                                <PathIcon Data="{StaticResource Glyph.ChevronLeft}" Width="12" Height="12" />
+                            </Button>
+                            <TextBlock Grid.Column="1" Text="{Binding Data.PreviewText}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <Button Grid.Column="2" Classes="icon" Command="{Binding Data.NextPreviewCommand}" ToolTip.Tip="{loc:Text T_5b693271b7a2}">
+                                <PathIcon Data="{StaticResource Glyph.ChevronRight}" Width="12" Height="12" />
+                            </Button>
+                        </Grid>
+                        <Button Content="{loc:Text T_47d7b12105b7}" Margin="0,10,0,0" Click="OnOpenDataTable" />
+
+                        <TextBlock Text="{loc:Text T_fe205c7a5f9e}" Classes="section" />
+                        <ComboBox ItemsSource="{Binding Data.Columns}" SelectedItem="{Binding Data.CopiesColumn}" ToolTip.Tip="{loc:Text T_04ecfee5c483}" />
+
+                        <TextBlock Text="{loc:Text T_1c39c043b395}" Classes="section" />
+                        <ItemsControl ItemsSource="{Binding Data.Columns}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Classes="card" Margin="0,0,0,4" Padding="10,6"
+                                            Command="{Binding $parent[UserControl].DataContext.InsertFieldCommand}" CommandParameter="{Binding}"
+                                            ToolTip.Tip="{loc:Text T_a6d58bc760b7}">
+                                        <DockPanel>
+                                            <PathIcon Data="{StaticResource Glyph.Add}" Width="11" Height="11" DockPanel.Dock="Right" />
+                                            <TextBlock Text="{Binding}" FontWeight="SemiBold" />
+                                        </DockPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <TextBlock Text="{loc:Text T_b5a038364a82}" Classes="section"
+                                   IsVisible="{Binding Data.Issues, Converter={StaticResource NotEmpty}}" />
+                        <ScrollViewer MaxHeight="260" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl ItemsSource="{Binding Data.Issues}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding FullText}" TextWrapping="Wrap" FontSize="11.5" Margin="0,0,0,4"
+                                                   Foreground="{Binding Severity, Converter={StaticResource SeverityToBrush}}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                        <Button Content="{loc:Text T_7c45b4a6739b}" Command="{Binding ClearDataCommand}" Margin="0,12,0,0" />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- ───────── KATMANLAR ───────── -->
+            <DockPanel IsVisible="{Binding ActivePanel, Converter={StaticResource EqualsConverter}, ConverterParameter=Layers}" Margin="12,14,12,12">
+                <TextBlock DockPanel.Dock="Top" Text="{loc:Text T_20e905dc87dc}" Classes="title" Margin="4,0,0,4" />
+                <TextBlock DockPanel.Dock="Top" Text="{loc:Text T_fe52071efa3f}" Classes="hint" Margin="4,0,0,10" />
+                <UniformGrid DockPanel.Dock="Bottom" Columns="4" Margin="0,8,0,0">
+                    <Button Command="{Binding BringForwardCommand}" ToolTip.Tip="{loc:Text T_0e155665a54b}" Margin="0,0,4,0">
+                        <PathIcon Data="{StaticResource Icon.BringForward}" />
+                    </Button>
+                    <Button Command="{Binding SendBackwardCommand}" ToolTip.Tip="{loc:Text T_ac12fe881291}" Margin="0,0,4,0">
+                        <PathIcon Data="{StaticResource Icon.SendBackward}" />
+                    </Button>
+                    <Button Command="{Binding DuplicateCommand}" ToolTip.Tip="{loc:Text T_47ba418cd3f5}" Margin="0,0,4,0">
+                        <PathIcon Data="{StaticResource Glyph.Duplicate}" Width="14" Height="14" />
+                    </Button>
+                    <Button Command="{Binding DeleteCommand}" ToolTip.Tip="{loc:Text T_f698e9b40f9f}">
+                        <PathIcon Data="{StaticResource Glyph.Delete}" Width="14" Height="14" />
+                    </Button>
+                </UniformGrid>
+                <ListBox x:Name="LayerList" SelectionMode="Multiple" SelectionChanged="OnLayerSelectionChanged" DoubleTapped="OnLayerDoubleTapped">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="26,*,Auto,Auto,Auto">
+                                <PathIcon Data="{Binding KindKey, Converter={StaticResource KindToIcon}}" Width="15" Height="15"
+                                          HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Text="{Binding DisplayName}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                                <PathIcon Grid.Column="2" Data="{StaticResource Glyph.Warning}" Width="14" Height="14" Margin="4,0"
+                                          Foreground="{DynamicResource Brush.Error}" VerticalAlignment="Center"
+                                          ToolTip.Tip="{Binding StatusText}" IsVisible="{Binding HasErrors}" />
+                                <Button Grid.Column="3" Classes="icon" Width="26" Height="24"
+                                        Command="{Binding $parent[UserControl].DataContext.ToggleVisibilityCommand}" CommandParameter="{Binding}"
+                                        ToolTip.Tip="{loc:Text T_c20882dfd11e}">
+                                    <Panel>
+                                        <PathIcon Data="{StaticResource Glyph.Visible}" Width="13" Height="13" IsVisible="{Binding Model.Visible}" />
+                                        <PathIcon Data="{StaticResource Glyph.Hidden}" Width="13" Height="13" IsVisible="{Binding !Model.Visible}" />
+                                    </Panel>
+                                </Button>
+                                <Button Grid.Column="4" Classes="icon" Width="26" Height="24"
+                                        Command="{Binding $parent[UserControl].DataContext.ToggleElementLockCommand}" CommandParameter="{Binding}"
+                                        ToolTip.Tip="{loc:Text T_399de06e1d61}">
+                                    <Panel>
+                                        <PathIcon Data="{StaticResource Glyph.Unlock}" Width="13" Height="13" Opacity="0.45" IsVisible="{Binding !Model.Locked}" />
+                                        <PathIcon Data="{StaticResource Glyph.Lock}" Width="13" Height="13" IsVisible="{Binding Model.Locked}" />
+                                    </Panel>
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </Grid>
+    </Border>
+</UserControl>

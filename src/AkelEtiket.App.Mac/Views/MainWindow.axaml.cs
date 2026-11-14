@@ -39,6 +39,7 @@ public partial class MainWindow : Window
             Dispatcher.UIThread.Post(() => { if (vm.ActiveDocument == owner) FitToWindow(); }, DispatcherPriority.Loaded);
         };
         vm.ThemeChanged += (_, _) => ApplyTheme();
+        vm.FocusContentEditorRequested += (_, _) => PropertiesHost.FocusContentEditor();
         vm.PropertyChanged += OnViewModelPropertyChanged;
         vm.DocumentChanging += OnDocumentChanging;
         vm.DocumentChanged += OnDocumentChanged;
@@ -153,7 +154,7 @@ public partial class MainWindow : Window
     private void OnRailClick(object? sender, RoutedEventArgs e)
     {
         _vm.IsPanelOpen = true;
-        if (_vm.ActivePanel == LeftPanel.Templates) _vm.Templates.Refresh();
+        if (_vm.ActivePanel == Editor.ViewModels.LeftPanel.Templates) _vm.Templates.Refresh();
     }
 
     private void OnToggleGrid(object? sender, RoutedEventArgs e)
