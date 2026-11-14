@@ -41,6 +41,12 @@ Yalnızca `App` WPF'e ve Windows'a bağlıdır; görünüm modelleri dahil tüm 
 `net10.0` hedefler (macOS'ta da derlenir, testleri çalışır). `PrintEngine` içindeki kuyruk ve sürücü yolları
 Windows'a özeldir; diğer sistemlerde yerel çağrıya gidilmez, `PrintPlatform` anlaşılır bir hata döndürür.
 
+`AkelEtiket.App.Mac` aynı `Editor` katmanının üstündeki ikinci arayüzdür (Avalonia, macOS). Görünüm modeli, render ya
+da dosya biçimi kopyalanmaz; yalnızca görünümler, tuval denetimi ve platform servisleri (`IDialogService`,
+`IClipboardService`, `ILayerImageFactory`, `IUiDispatcher`) yeniden yazılır. Görünüm modelleri diyalogları eşzamanlı
+çağırdığı için Avalonia'nın eşzamansız pencereleri iç içe ileti döngüsüyle beklenir (`UiWait`). Arayüz testleri
+(`AkelEtiket.App.Mac.Tests`) gerçek pencereyi penceresiz platformda açar ve fare/klavye girdisi gönderir.
+
 ## Üç katmanın ayrılması: model → render → çıktı
 
 1. **Tasarım modeli** (`Core.Model`): öğeler yalnızca **mm** cinsinden saklanır (X, Y, genişlik, yükseklik,

@@ -1,0 +1,129 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    Renkler Windows uygulamasıyla aynıdır (src/AkelEtiket.App/Themes/Colors.*.xaml). Koyu/açık tema, Avalonia'nın
+    tema değişkeniyle seçilir; vurgu rengi çalışma anında uygulama kaynaklarına yazılır (ThemeManager).
+  -->
+  <ResourceDictionary.ThemeDictionaries>
+    <ResourceDictionary x:Key="Dark">
+      <Color x:Key="Color.Window">#FF202020</Color>
+      <Color x:Key="Color.Toolbar">#FF202020</Color>
+      <Color x:Key="Color.Panel">#FF2B2B2B</Color>
+      <Color x:Key="Color.Panel2">#FF2F3136</Color>
+      <Color x:Key="Color.Panel3">#FF3A3D43</Color>
+      <Color x:Key="Color.Border">#FF414141</Color>
+      <Color x:Key="Color.BorderStrong">#FF52565F</Color>
+      <Color x:Key="Color.Text">#FFF4F4F4</Color>
+      <Color x:Key="Color.TextSecondary">#FFA8ACB5</Color>
+      <Color x:Key="Color.TextDisabled">#FF686C75</Color>
+      <Color x:Key="Color.Accent">#FFD7263D</Color>
+      <Color x:Key="Color.AccentHover">#FFE5455A</Color>
+      <Color x:Key="Color.AccentPressed">#FFB81D32</Color>
+      <Color x:Key="Color.AccentText">#FFFFFFFF</Color>
+      <Color x:Key="Color.Selection">#FF3B8CFF</Color>
+      <Color x:Key="Color.SelectionSoft">#333B8CFF</Color>
+      <Color x:Key="Color.Workspace">#FF191B1E</Color>
+      <Color x:Key="Color.WorkspaceDim">#B3141518</Color>
+      <Color x:Key="Color.Hover">#14FFFFFF</Color>
+      <Color x:Key="Color.Pressed">#24FFFFFF</Color>
+      <Color x:Key="Color.Error">#FFFF5A5F</Color>
+      <Color x:Key="Color.Warning">#FFF0B429</Color>
+      <Color x:Key="Color.Success">#FF3DD68C</Color>
+      <Color x:Key="Color.Info">#FF5AA9FF</Color>
+      <Color x:Key="Color.Guide">#FF00B4D8</Color>
+      <Color x:Key="Color.Snap">#FFFF2D95</Color>
+      <Color x:Key="Color.Ruler">#FF202226</Color>
+      <Color x:Key="Color.RulerText">#FF8D929B</Color>
+      <Color x:Key="Color.Shadow">#99000000</Color>
+      <SolidColorBrush x:Key="Brush.Window" Color="{StaticResource Color.Window}" />
+      <SolidColorBrush x:Key="Brush.Toolbar" Color="{StaticResource Color.Toolbar}" />
+      <SolidColorBrush x:Key="Brush.Panel" Color="{StaticResource Color.Panel}" />
+      <SolidColorBrush x:Key="Brush.Panel2" Color="{StaticResource Color.Panel2}" />
+      <SolidColorBrush x:Key="Brush.Panel3" Color="{StaticResource Color.Panel3}" />
+      <SolidColorBrush x:Key="Brush.Border" Color="{StaticResource Color.Border}" />
+      <SolidColorBrush x:Key="Brush.BorderStrong" Color="{StaticResource Color.BorderStrong}" />
+      <SolidColorBrush x:Key="Brush.Text" Color="{StaticResource Color.Text}" />
+      <SolidColorBrush x:Key="Brush.TextSecondary" Color="{StaticResource Color.TextSecondary}" />
+      <SolidColorBrush x:Key="Brush.TextDisabled" Color="{StaticResource Color.TextDisabled}" />
+      <SolidColorBrush x:Key="Brush.Accent" Color="{StaticResource Color.Accent}" />
+      <SolidColorBrush x:Key="Brush.AccentHover" Color="{StaticResource Color.AccentHover}" />
+      <SolidColorBrush x:Key="Brush.AccentPressed" Color="{StaticResource Color.AccentPressed}" />
+      <SolidColorBrush x:Key="Brush.AccentText" Color="{StaticResource Color.AccentText}" />
+      <SolidColorBrush x:Key="Brush.Selection" Color="{StaticResource Color.Selection}" />
+      <SolidColorBrush x:Key="Brush.SelectionSoft" Color="{StaticResource Color.SelectionSoft}" />
+      <SolidColorBrush x:Key="Brush.Workspace" Color="{StaticResource Color.Workspace}" />
+      <SolidColorBrush x:Key="Brush.WorkspaceDim" Color="{StaticResource Color.WorkspaceDim}" />
+      <SolidColorBrush x:Key="Brush.Hover" Color="{StaticResource Color.Hover}" />
+      <SolidColorBrush x:Key="Brush.Pressed" Color="{StaticResource Color.Pressed}" />
+      <SolidColorBrush x:Key="Brush.Error" Color="{StaticResource Color.Error}" />
+      <SolidColorBrush x:Key="Brush.Warning" Color="{StaticResource Color.Warning}" />
+      <SolidColorBrush x:Key="Brush.Success" Color="{StaticResource Color.Success}" />
+      <SolidColorBrush x:Key="Brush.Info" Color="{StaticResource Color.Info}" />
+      <SolidColorBrush x:Key="Brush.Guide" Color="{StaticResource Color.Guide}" />
+      <SolidColorBrush x:Key="Brush.Snap" Color="{StaticResource Color.Snap}" />
+      <SolidColorBrush x:Key="Brush.Ruler" Color="{StaticResource Color.Ruler}" />
+      <SolidColorBrush x:Key="Brush.RulerText" Color="{StaticResource Color.RulerText}" />
+      <SolidColorBrush x:Key="Brush.Shadow" Color="{StaticResource Color.Shadow}" />
+    </ResourceDictionary>
+    <ResourceDictionary x:Key="Light">
+      <Color x:Key="Color.Window">#FFF3F3F3</Color>
+      <Color x:Key="Color.Toolbar">#FFF3F3F3</Color>
+      <Color x:Key="Color.Panel">#FFFFFFFF</Color>
+      <Color x:Key="Color.Panel2">#FFF4F5F7</Color>
+      <Color x:Key="Color.Panel3">#FFE7E9EE</Color>
+      <Color x:Key="Color.Border">#FFD8DCE2</Color>
+      <Color x:Key="Color.BorderStrong">#FFC2C7D0</Color>
+      <Color x:Key="Color.Text">#FF202020</Color>
+      <Color x:Key="Color.TextSecondary">#FF5C6370</Color>
+      <Color x:Key="Color.TextDisabled">#FFA3A9B3</Color>
+      <Color x:Key="Color.Accent">#FFC8102E</Color>
+      <Color x:Key="Color.AccentHover">#FFDA2A45</Color>
+      <Color x:Key="Color.AccentPressed">#FFA80D26</Color>
+      <Color x:Key="Color.AccentText">#FFFFFFFF</Color>
+      <Color x:Key="Color.Selection">#FF1A73E8</Color>
+      <Color x:Key="Color.SelectionSoft">#261A73E8</Color>
+      <Color x:Key="Color.Workspace">#FFE7E9ED</Color>
+      <Color x:Key="Color.WorkspaceDim">#B3DCDFE5</Color>
+      <Color x:Key="Color.Hover">#0F000000</Color>
+      <Color x:Key="Color.Pressed">#1F000000</Color>
+      <Color x:Key="Color.Error">#FFD93025</Color>
+      <Color x:Key="Color.Warning">#FFB7791F</Color>
+      <Color x:Key="Color.Success">#FF188038</Color>
+      <Color x:Key="Color.Info">#FF1A73E8</Color>
+      <Color x:Key="Color.Guide">#FF0096C7</Color>
+      <Color x:Key="Color.Snap">#FFE0187F</Color>
+      <Color x:Key="Color.Ruler">#FFF7F8FA</Color>
+      <Color x:Key="Color.RulerText">#FF6B717C</Color>
+      <Color x:Key="Color.Shadow">#40000000</Color>
+      <SolidColorBrush x:Key="Brush.Window" Color="{StaticResource Color.Window}" />
+      <SolidColorBrush x:Key="Brush.Toolbar" Color="{StaticResource Color.Toolbar}" />
+      <SolidColorBrush x:Key="Brush.Panel" Color="{StaticResource Color.Panel}" />
+      <SolidColorBrush x:Key="Brush.Panel2" Color="{StaticResource Color.Panel2}" />
+      <SolidColorBrush x:Key="Brush.Panel3" Color="{StaticResource Color.Panel3}" />
+      <SolidColorBrush x:Key="Brush.Border" Color="{StaticResource Color.Border}" />
+      <SolidColorBrush x:Key="Brush.BorderStrong" Color="{StaticResource Color.BorderStrong}" />
+      <SolidColorBrush x:Key="Brush.Text" Color="{StaticResource Color.Text}" />
+      <SolidColorBrush x:Key="Brush.TextSecondary" Color="{StaticResource Color.TextSecondary}" />
+      <SolidColorBrush x:Key="Brush.TextDisabled" Color="{StaticResource Color.TextDisabled}" />
+      <SolidColorBrush x:Key="Brush.Accent" Color="{StaticResource Color.Accent}" />
+      <SolidColorBrush x:Key="Brush.AccentHover" Color="{StaticResource Color.AccentHover}" />
+      <SolidColorBrush x:Key="Brush.AccentPressed" Color="{StaticResource Color.AccentPressed}" />
+      <SolidColorBrush x:Key="Brush.AccentText" Color="{StaticResource Color.AccentText}" />
+      <SolidColorBrush x:Key="Brush.Selection" Color="{StaticResource Color.Selection}" />
+      <SolidColorBrush x:Key="Brush.SelectionSoft" Color="{StaticResource Color.SelectionSoft}" />
+      <SolidColorBrush x:Key="Brush.Workspace" Color="{StaticResource Color.Workspace}" />
+      <SolidColorBrush x:Key="Brush.WorkspaceDim" Color="{StaticResource Color.WorkspaceDim}" />
+      <SolidColorBrush x:Key="Brush.Hover" Color="{StaticResource Color.Hover}" />
+      <SolidColorBrush x:Key="Brush.Pressed" Color="{StaticResource Color.Pressed}" />
+      <SolidColorBrush x:Key="Brush.Error" Color="{StaticResource Color.Error}" />
+      <SolidColorBrush x:Key="Brush.Warning" Color="{StaticResource Color.Warning}" />
+      <SolidColorBrush x:Key="Brush.Success" Color="{StaticResource Color.Success}" />
+      <SolidColorBrush x:Key="Brush.Info" Color="{StaticResource Color.Info}" />
+      <SolidColorBrush x:Key="Brush.Guide" Color="{StaticResource Color.Guide}" />
+      <SolidColorBrush x:Key="Brush.Snap" Color="{StaticResource Color.Snap}" />
+      <SolidColorBrush x:Key="Brush.Ruler" Color="{StaticResource Color.Ruler}" />
+      <SolidColorBrush x:Key="Brush.RulerText" Color="{StaticResource Color.RulerText}" />
+      <SolidColorBrush x:Key="Brush.Shadow" Color="{StaticResource Color.Shadow}" />
+    </ResourceDictionary>
+  </ResourceDictionary.ThemeDictionaries>
+</ResourceDictionary>

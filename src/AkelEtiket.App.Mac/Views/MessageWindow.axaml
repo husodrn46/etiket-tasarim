@@ -1,0 +1,18 @@
+<views:DialogWindow xmlns="https://github.com/avaloniaui"
+        xmlns:views="using:AkelEtiket.App.Mac.Views"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="AkelEtiket.App.Mac.Views.MessageWindow"
+        Width="480" MaxHeight="640" SizeToContent="Height">
+  <Grid Margin="24,20,24,18" RowDefinitions="*,Auto">
+    <Grid ColumnDefinitions="Auto,*">
+      <PathIcon x:Name="KindIcon" Width="26" Height="26" Margin="0,2,16,0" VerticalAlignment="Top" />
+      <StackPanel Grid.Column="1">
+        <TextBlock x:Name="TitleText" Classes="title" TextWrapping="Wrap" Margin="0,0,0,8" />
+        <ScrollViewer MaxHeight="420" VerticalScrollBarVisibility="Auto">
+          <SelectableTextBlock x:Name="MessageText" TextWrapping="Wrap" FontSize="13" />
+        </ScrollViewer>
+      </StackPanel>
+    </Grid>
+    <StackPanel x:Name="Buttons" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0" />
+  </Grid>
+</views:DialogWindow>

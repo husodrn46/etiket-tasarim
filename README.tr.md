@@ -89,7 +89,12 @@ Bu bölümdeki yenilikler `v2.1.0` indirme paketine dahildir.
 C# / .NET 10, WPF, CommunityToolkit.Mvvm, SkiaSharp, ZXing.Net, ClosedXML, ExcelDataReader ve CsvHelper.
 Masaüstü uygulaması Windows içindir. Onun altındaki her şey (model, render, barkod, veri aktarımı, editör görünüm
 modelleri, yerel API ve MCP) düz .NET hedefler: çözüm macOS'ta da derlenir ve testleri çalışır; Windows yazdırma
-kuyruğu testleri orada atlanır. macOS masaüstü uygulaması ve macOS'ta baskı henüz yoktur; bu iş
+kuyruğu testleri orada atlanır.
+
+macOS masaüstü uygulaması `src/AkelEtiket.App.Mac` altında geliştiriliyor (Avalonia; görünüm modelleri, render ve
+dosya biçimi Windows uygulamasıyla ortaktır). Henüz yayımlanmadı. Bugün etiket açıp kaydeder; tasarım tuvali,
+belge sekmeleri, cetveller ve kılavuz çizgileri çalışır. Yan paneller ve pencerelerin çoğu henüz taşınıyor;
+macOS'ta baskı yoktur. Çalıştırmak için: `dotnet run --project src/AkelEtiket.App.Mac`. İlerleme
 [#7](https://github.com/husodrn46/etiket-tasarim/issues/7) numaralı kayıtta izlenir.
 
 ```powershell

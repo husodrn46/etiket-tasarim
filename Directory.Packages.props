@@ -47,6 +47,17 @@
     <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="10.0.12" />
   </ItemGroup>
 
+  <ItemGroup Label="macOS masaüstü (Avalonia)">
+    <!--
+      MIT. macOS masaüstü uygulamasının arayüz çatısı. 12.1.6 = 14.11.2026'da nuget.org'daki son kararlı sürüm;
+      Avalonia.Skia 12.1.6 bu dosyadaki SkiaSharp 3.119.4 sürümünü ister. Avalonia paketleri birlikte yükseltilir.
+    -->
+    <PackageVersion Include="Avalonia" Version="12.1.6" />
+    <PackageVersion Include="Avalonia.Desktop" Version="12.1.6" />
+    <PackageVersion Include="Avalonia.Themes.Fluent" Version="12.1.6" />
+    <PackageVersion Include="Avalonia.Headless" Version="12.1.6" />
+  </ItemGroup>
+
   <ItemGroup Label="Test">
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageVersion Include="xunit" Version="2.9.3" />

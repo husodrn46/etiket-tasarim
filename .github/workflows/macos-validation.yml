@@ -27,7 +27,10 @@ jobs:
       - name: Build solution
         run: dotnet build AkelEtiket.sln -c Release -p:UseSharedCompilation=false
       # Windows spooler/GDI tests are reported as skipped; everything else must pass on macOS.
+      # The macOS app's UI tests run headless and save window screenshots as evidence.
       - name: Run tests
+        env:
+          LABELHARBOR_SCREENSHOTS: ${{ github.workspace }}/macos-results/screenshots
         run: dotnet test AkelEtiket.sln -c Release --no-build --no-restore --logger trx --results-directory macos-results/tests
       - name: Upload evidence
         if: always()
