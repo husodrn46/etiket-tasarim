@@ -1,0 +1,24 @@
+<views:DialogWindow xmlns:loc="using:AkelEtiket.App.Mac.Localization" x:CompileBindings="False" x:Class="AkelEtiket.App.Mac.Views.BackupsWindow"
+                    xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:views="using:AkelEtiket.App.Mac.Views"
+                    Title="{loc:Text T_2bc4396b93f7}" Width="520" Height="480" MinWidth="420" MinHeight="300" CanResize="True">
+    <DockPanel Margin="22,16,22,14">
+        <StackPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+            <TextBlock Classes="title" FontSize="17">
+                <Run Text="{loc:Text T_78e5fdae705f}" />
+                <Run Text="{Binding DesignName, Mode=OneWay}" />
+            </TextBlock>
+            <TextBlock Classes="hint" TextWrapping="Wrap" Margin="0,4,0,0"
+                       Text="{loc:Text T_213aa2553584}" />
+        </StackPanel>
+        <DockPanel DockPanel.Dock="Bottom" Margin="0,12,0,0">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button Content="{loc:Text T_7b31a9fc4816}" MinWidth="96" IsCancel="True" Margin="0,0,8,0" />
+                <Button Content="{loc:Text T_1b1ab065b3db}" MinWidth="130" Classes="accent" Command="{Binding OpenCommand}" />
+            </StackPanel>
+            <Border />
+        </DockPanel>
+        <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding Selected}" DisplayMemberBinding="{Binding Display}" />
+    </DockPanel>
+</views:DialogWindow>

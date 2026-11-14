@@ -1,0 +1,99 @@
+<views:DialogWindow xmlns:loc="using:AkelEtiket.App.Mac.Localization" x:CompileBindings="False" x:Class="AkelEtiket.App.Mac.Views.PreviewWindow"
+                    xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:views="using:AkelEtiket.App.Mac.Views"
+                    Title="{loc:Text T_a914e95b0c73}" Width="1180" Height="820" MinWidth="820" MinHeight="560" CanResize="True">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="330" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Üst çubuk -->
+        <Border Grid.ColumnSpan="2" Background="{DynamicResource Brush.Toolbar}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,0,1">
+            <DockPanel Height="48" Margin="14,0">
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Classes="icon" Command="{Binding PreviousCommand}" ToolTip.Tip="{loc:Text T_e555bbfbafc3}">
+                        <PathIcon Data="{StaticResource Glyph.ChevronLeft}" Width="12" Height="12" />
+                    </Button>
+                    <TextBlock Text="{Binding PositionText}" VerticalAlignment="Center" Margin="8,0" MinWidth="60" TextAlignment="Center" />
+                    <Button Classes="icon" Command="{Binding NextCommand}" ToolTip.Tip="{loc:Text T_dd4720fa6412}">
+                        <PathIcon Data="{StaticResource Glyph.ChevronRight}" Width="12" Height="12" />
+                    </Button>
+                    <TextBlock Text="{Binding Caption}" VerticalAlignment="Center" Margin="16,0,0,0" Foreground="{DynamicResource Brush.TextSecondary}" />
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="{loc:Text T_1cae9843d949}" Classes="label" />
+                    <Slider x:Name="ZoomSlider" Width="160" Minimum="0.5" Maximum="8" Value="2" ToolTip.Tip="{loc:Text T_c11eb96e73c5}" />
+                    <CheckBox x:Name="ActualSize" Content="{loc:Text T_15de1c011090}" Margin="14,0,0,0" IsCheckedChanged="OnActualSize" />
+                </StackPanel>
+                <Border />
+            </DockPanel>
+        </Border>
+
+        <!-- Etiket görüntüsü -->
+        <ScrollViewer x:Name="ImageScroll" Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                      Background="{DynamicResource Brush.Workspace}">
+            <Border Background="White" Margin="40" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="#40808080" BorderThickness="1">
+                <Image x:Name="LabelImage" Source="{Binding Image}" Stretch="Fill" RenderOptions.BitmapInterpolationMode="None" />
+            </Border>
+        </ScrollViewer>
+
+        <!-- Sağ panel -->
+        <Border Grid.Row="1" Grid.Column="1" Background="{DynamicResource Brush.Panel}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="1,0,0,0">
+            <DockPanel Margin="16,14,16,12">
+                <StackPanel DockPanel.Dock="Top">
+                    <TextBlock Text="{Binding SummaryText}" FontWeight="SemiBold" TextWrapping="Wrap" />
+                    <TextBlock Text="{loc:Text T_b4e49495350f}" Classes="hint" Margin="0,4,0,0" />
+                    <TextBlock Text="{loc:Text T_1a6f38874da7}" Classes="section" />
+                    <TextBlock Text="{loc:Text T_6f1929898d7f}" Classes="hint" IsVisible="{Binding Issues.Count, Converter={StaticResource NotPositive}}" />
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="220"><ItemsControl ItemsSource="{Binding Issues}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" TextWrapping="Wrap" FontSize="12" Margin="0,0,0,5" Foreground="{Binding Converter={StaticResource SeverityToBrush}}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl></ScrollViewer>
+                    <TextBlock Text="{loc:Text T_b41ef904c993}" Classes="section" IsVisible="{Binding Thumbnails.Count, Converter={StaticResource IsPositive}}" />
+                    <TextBlock Text="{Binding ThumbnailStatus}" Classes="hint" />
+                </StackPanel>
+                <ListBox ItemsSource="{Binding Thumbnails}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="OnThumbnailSelected">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Width="88" ToolTip.Tip="{Binding Problem}">
+                                <Border Width="84" Height="84" Background="White" BorderThickness="2" CornerRadius="4"
+                                        BorderBrush="{Binding HasError, Converter={StaticResource ErrorFrame}}">
+                                    <Image Source="{Binding Image}" Stretch="Uniform" RenderOptions.BitmapInterpolationMode="HighQuality" Margin="2" />
+                                </Border>
+                                <TextBlock Text="{Binding Caption}" FontSize="10.5" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" Margin="0,3,0,0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </Border>
+
+        <!-- Alt düğmeler -->
+        <Border Grid.Row="2" Grid.ColumnSpan="2" Background="{DynamicResource Brush.Toolbar}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,1,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="14,10">
+                <Button Content="{loc:Text T_7b31a9fc4816}" MinWidth="90" IsCancel="True" Margin="0,0,8,0" Click="OnClose" />
+                <Button Classes="accent" MinWidth="120" Click="OnPrint">
+                    <StackPanel Orientation="Horizontal">
+                        <PathIcon Data="{StaticResource Glyph.Print}" />
+                        <TextBlock Text="{loc:Text T_d2e7dbfbf899}" Margin="7,0,0,0" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+</views:DialogWindow>

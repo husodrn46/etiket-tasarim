@@ -143,10 +143,13 @@ internal sealed class RecordingDialogs : IDialogService
     public SaveChangesChoice AskSaveChanges(string documentName) => SaveChangesChoice.Discard;
     public string? Prompt(string title, string message, string defaultValue = "") => defaultValue;
 
+    /// <summary>Görünüm modeli için gerçek pencereyi açıp sonucunu döndüren işlev (verilmezse pencere açılmaz, false döner).</summary>
+    public Func<object, bool>? OnShowDialog { get; set; }
+
     public bool ShowDialog(object viewModel)
     {
         RequestedDialogs.Add(viewModel);
-        return false;
+        return OnShowDialog?.Invoke(viewModel) ?? false;
     }
 }
 
@@ -243,10 +246,10 @@ internal sealed class AppHarness : IDisposable
     }
 
     /// <summary>Pencerenin o anki görüntüsünü PNG olarak kaydeder (inceleme ve CI kanıtı için).</summary>
-    public string Screenshot(string name)
+    public string Screenshot(string name, TopLevel? window = null)
     {
         Ui.Pump();
-        using var frame = Window.CaptureRenderedFrame() ?? throw new InvalidOperationException("Pencere çizilemedi.");
+        using var frame = (window ?? Window).CaptureRenderedFrame() ?? throw new InvalidOperationException("Pencere çizilemedi.");
         string folder = Environment.GetEnvironmentVariable("LABELHARBOR_SCREENSHOTS") is { Length: > 0 } custom
             ? custom
             : Path.Combine(AppContext.BaseDirectory, "screenshots");

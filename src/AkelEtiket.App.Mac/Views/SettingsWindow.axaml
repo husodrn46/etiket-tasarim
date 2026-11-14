@@ -1,0 +1,165 @@
+<views:DialogWindow xmlns:loc="using:AkelEtiket.App.Mac.Localization" x:CompileBindings="False" x:Class="AkelEtiket.App.Mac.Views.SettingsWindow"
+                    xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:views="using:AkelEtiket.App.Mac.Views"
+                    xmlns:controls="using:AkelEtiket.App.Mac.Controls"
+                    Title="{loc:Text T_80ad54ad05fa}" AutomationProperties.AutomationId="GeneralSettingsWindow" Width="680" Height="800" MinHeight="450" CanResize="True">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <StackPanel Margin="24,18,24,18">
+        <TextBlock Text="{loc:Text T_80ad54ad05fa}" Classes="title" FontSize="18" />
+
+        <TextBlock Text="{loc:Text T_527534366db7}" Margin="0,0,0,4"/>
+        <ComboBox ItemsSource="{Binding LanguageChoices}" DisplayMemberBinding="{Binding Value}" SelectedValueBinding="{Binding Key}" SelectedValue="{Binding UiLanguage}" Margin="0,0,0,8" AutomationProperties.AutomationId="InterfaceLanguage"/>
+        <TextBlock Text="{loc:Text T_586cf0ced444}" Classes="hint" TextWrapping="Wrap" Margin="0,0,0,16"/>
+        <TextBlock Text="{loc:Text T_992cd3dcd7d6}" Classes="section"/>
+        <TextBlock Text="{loc:Text T_858e76097487}" Classes="label"/>
+        <ComboBox ItemsSource="{Binding AccentChoices}" DisplayMemberBinding="{Binding Value}" SelectedValueBinding="{Binding Key}" SelectedValue="{Binding Accent}" Margin="0,4,0,10"/>
+        <TextBlock Text="{loc:Text T_10774630715a}" Classes="label"/>
+        <ComboBox ItemsSource="{Binding ScaleChoices}" SelectedItem="{Binding UiScale}" Margin="0,4,0,10">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding StringFormat={}{0:P0}}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock Text="{loc:Text T_97c062f9333d}" Classes="label"/>
+        <ComboBox IsEditable="True" ItemsSource="{Binding FontChoices}" Text="{Binding DefaultFontFamily}" Margin="0,4,0,10"/>
+        <TextBlock Text="{loc:Text T_f632a3a2aed7}" Classes="label"/>
+        <TextBox Text="{Binding StartupTemplatePath}" IsReadOnly="True" Margin="0,4,0,6"/>
+        <WrapPanel Margin="0,0,0,10"><Button Content="{loc:Text T_4e59932d69f7}" Command="{Binding ChooseStartupTemplateCommand}" Margin="0,0,8,0"/><Button Content="{loc:Text T_e306951c12fe}" Command="{Binding ClearStartupTemplateCommand}"/></WrapPanel>
+        <CheckBox Content="{loc:Text T_d5d587b1db82}" IsChecked="{Binding OpenDocumentsInTabs}" Margin="0,0,0,10"/>
+        <CheckBox Content="{loc:Text T_8c080f640c2b}" IsChecked="{Binding EnableAnimations}" Margin="0,0,0,5"/>
+        <TextBlock Text="{loc:Text T_d2bd22185b97}" Classes="hint" Margin="0,0,0,10"/>
+        <CheckBox Content="{loc:Text T_b470e1c35ee9}" IsChecked="{Binding RememberPanelLayout}" Margin="0,0,0,10"/>
+        <TextBlock Text="{loc:Text T_ed9536e4989b}" Classes="hint" TextWrapping="Wrap" Margin="0,0,0,16"/>
+        <TextBlock Text="{loc:Text T_28ed729e7118}" Classes="section" />
+        <TextBlock Text="{loc:Text T_bb32eee2c44c}" Classes="label" />
+        <TextBox AutomationProperties.AutomationId="CompanyNameInput" Text="{Binding CompanyName}" Margin="0,0,0,8" MaxLength="160" />
+        <TextBlock Text="{loc:Text T_32c6bebf1cb0}" Classes="label" />
+        <TextBox AutomationProperties.AutomationId="CompanyAddressInput" Text="{Binding CompanyAddress}" Margin="0,0,0,8" AcceptsReturn="True" Height="54" MaxLength="600" />
+        <TextBlock Text="{loc:Text T_f2a8803138ad}" Classes="label" />
+        <TextBox AutomationProperties.AutomationId="CompanyWebsiteInput" Text="{Binding CompanyWebsite}" Margin="0,0,0,8" MaxLength="300" />
+        <StackPanel Orientation="Horizontal">
+            <Button Content="{loc:Text T_87de99d3b26f}" Command="{Binding ChooseLogoCommand}" Margin="0,0,8,0" />
+            <Button Content="{loc:Text T_773f6d015f09}" Command="{Binding ClearLogoCommand}" />
+        </StackPanel>
+        <TextBlock Text="{Binding LogoStatus}" Classes="hint" />
+        <CheckBox AutomationProperties.AutomationId="CreateCompanyTemplates" Content="{loc:Text T_7bfa9b4dc86a}" IsChecked="{Binding CreateCompanyTemplates}" Margin="0,8,0,0" />
+        <TextBlock Text="{loc:Text T_74d7707ff3d0}" Classes="hint" TextWrapping="Wrap" />
+
+        <TextBlock Text="{loc:Text T_7e1f3a1bb475}" Classes="section" />
+        <Grid Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{loc:Text T_d5df3708bc68}" Classes="label" />
+            <ComboBox Grid.Column="1" ItemsSource="{Binding ThemeChoices}" DisplayMemberBinding="{Binding Value}" SelectedValueBinding="{Binding Key}" SelectedValue="{Binding Theme}" />
+        </Grid>
+        <Grid Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190" />
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{loc:Text T_91e9e783f6b4}" Classes="label" />
+            <ComboBox Grid.Column="1" ItemsSource="{Binding GridChoices}" SelectedItem="{Binding GridSizeMm}" />
+            <TextBlock Grid.Column="2" Text="{loc:Text T_8fa1dddd5360}" Classes="label" Margin="8,0,0,0" />
+        </Grid>
+        <WrapPanel>
+            <CheckBox Content="{loc:Text T_cbb0dd201b6c}" IsChecked="{Binding ShowGrid}" Margin="0,0,20,0" />
+            <CheckBox Content="{loc:Text T_42711dcdf4ff}" IsChecked="{Binding SnapToGrid}" Margin="0,0,20,0" />
+            <CheckBox Content="{loc:Text T_8231cc7a4476}" IsChecked="{Binding SnapToObjects}" Margin="0,0,20,0" />
+            <CheckBox Content="{loc:Text T_18fc0056f547}" IsChecked="{Binding ShowRulers}" />
+        </WrapPanel>
+
+        <TextBlock Text="{loc:Text T_64778cbb2f5e}" Classes="section" />
+        <Grid Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{loc:Text T_339daf924864}" Classes="label" />
+            <ComboBox Grid.Column="1" ItemsSource="{Binding Resolutions}" SelectedItem="{Binding Resolution}" />
+        </Grid>
+        <Grid Margin="0,0,0,4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190" />
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{loc:Text T_e5a8f1d52eb8}" Classes="label" />
+            <controls:NumberBox Grid.Column="1" Value="{Binding MaxPrintWidthMm}" Minimum="20" Maximum="300" Step="1" Decimals="1" />
+            <TextBlock Grid.Column="2" Text="{loc:Text T_7663a9a55c99}" Classes="label" Margin="8,0,0,0" />
+        </Grid>
+        <CheckBox Content="{loc:Text T_8a4b4a7f2111}" IsChecked="{Binding VerifyBarcodes}" Margin="0,6,0,0" />
+
+        <TextBlock Text="{loc:Text T_f4ac9214a63c}" Classes="section" />
+        <Grid Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190" />
+                <ColumnDefinition Width="90" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="90" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{loc:Text T_472a7956e059}" Classes="label" />
+            <controls:NumberBox Grid.Column="1" Value="{Binding DefaultWidthMm}" Minimum="5" Maximum="1000" Decimals="1" />
+            <TextBlock Grid.Column="2" Text="×" Margin="8,0" VerticalAlignment="Center" />
+            <controls:NumberBox Grid.Column="3" Value="{Binding DefaultHeightMm}" Minimum="5" Maximum="1000" Decimals="1" />
+            <TextBlock Grid.Column="4" Text="{loc:Text T_8fa1dddd5360}" Classes="label" Margin="8,0,0,0" />
+        </Grid>
+        <Grid Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190" />
+                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{loc:Text T_5d681cdfe49c}" Classes="label" ToolTip.Tip="{loc:Text T_2220eff09654}" />
+            <TextBox Grid.Column="1" Text="{Binding Gs1Prefix}" />
+            <TextBlock Grid.Column="2" Text="{loc:Text T_7b791e1cee4f}" Classes="label" TextWrapping="Wrap" Margin="8,0,0,0" />
+        </Grid>
+        <Grid Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{loc:Text T_fce8396ddb89}" Classes="label" />
+            <Button Grid.Column="1" Content="{loc:Text T_b74c06f7f8a5}" Command="{Binding OpenGs1ProfileCommand}" />
+            <TextBlock Grid.Column="2" Text="{loc:Text T_f2baa71d6954}" Classes="label" Margin="8,0,0,0" />
+        </Grid>
+
+        <TextBlock Text="{loc:Text T_a20d1881f1f9}" Classes="section" />
+        <Grid Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{loc:Text T_931d40166f2b}" Classes="label" />
+            <TextBox Grid.Column="1" Text="{Binding TemplatesFolder}" />
+            <Button Grid.Column="2" Content="{loc:Text T_dfd12ee38484}" Margin="6,0,0,0" Click="OnBrowseTemplates" />
+        </Grid>
+        <Grid Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190" />
+                <ColumnDefinition Width="90" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{loc:Text T_02caeb350578}" Classes="label" />
+            <controls:NumberBox Grid.Column="1" Value="{Binding AutoRecoverySeconds}" Minimum="0" Maximum="3600" Step="10" Decimals="0" />
+            <TextBlock Grid.Column="2" Text="{loc:Text T_7ac8c79fd8cf}" Classes="label" Margin="8,0,0,0" />
+        </Grid>
+        <TextBlock Classes="hint">
+            <Run Text="{loc:Text T_24ee22fca982}" />
+            <Run Text="{Binding SettingsFolder, Mode=OneWay}" />
+        </TextBlock>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="{loc:Text T_39a8d28c1c6b}" MinWidth="96" IsCancel="True" Margin="0,0,8,0" />
+            <Button AutomationProperties.AutomationId="SaveGeneralSettings" Content="{loc:Text T_c1fe2ecdff02}" MinWidth="96" Classes="accent" IsDefault="True" Click="OnSave" />
+        </StackPanel>
+    </StackPanel>
+    </ScrollViewer>
+</views:DialogWindow>

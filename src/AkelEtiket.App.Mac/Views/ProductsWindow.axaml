@@ -1,0 +1,36 @@
+<views:DialogWindow xmlns:loc="using:AkelEtiket.App.Mac.Localization" x:CompileBindings="False" x:Class="AkelEtiket.App.Mac.Views.ProductsWindow"
+                    xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:views="using:AkelEtiket.App.Mac.Views"
+                    Title="{loc:Text T_3f7032d603d5}" Width="860" Height="640" MinWidth="620" MinHeight="420" CanResize="True">
+    <DockPanel Margin="22,16,22,14">
+        <StackPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+            <TextBlock Text="{loc:Text T_3f7032d603d5}" Classes="title" FontSize="18" />
+            <TextBlock Classes="hint" Margin="0,4,0,0" TextWrapping="Wrap"
+                       Text="{loc:Text T_c08599b46e21}" />
+        </StackPanel>
+        <DockPanel DockPanel.Dock="Top" Margin="0,0,0,8">
+            <Button DockPanel.Dock="Right" Content="{loc:Text T_2507e7d789e0}" Command="{Binding ImportCommand}" Margin="8,0,0,0" />
+            <TextBox Text="{Binding Query, Delay=200}" ToolTip.Tip="{loc:Text T_e1d1400ea547}" />
+        </DockPanel>
+        <TextBlock DockPanel.Dock="Top" Text="{Binding Summary}" Classes="hint" Margin="0,0,0,8" TextWrapping="Wrap" />
+        <DockPanel DockPanel.Dock="Bottom" Margin="0,12,0,0">
+            <Button DockPanel.Dock="Right" Content="{loc:Text T_7b31a9fc4816}" MinWidth="96" IsCancel="True" IsDefault="True" />
+            <Border />
+        </DockPanel>
+        <ListBox ItemsSource="{Binding Results}" SelectedItem="{Binding SelectedProduct}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="2,3">
+                        <TextBlock>
+                            <Run Text="{Binding Key, Mode=OneWay}" FontFamily="Menlo,Consolas,monospace" FontWeight="SemiBold" />
+                            <Run Text="  " />
+                            <Run Text="{Binding Name, Mode=OneWay}" />
+                        </TextBlock>
+                        <TextBlock Text="{Binding Details}" FontSize="11.5" Foreground="{DynamicResource Brush.TextSecondary}" TextTrimming="CharacterEllipsis" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
+</views:DialogWindow>

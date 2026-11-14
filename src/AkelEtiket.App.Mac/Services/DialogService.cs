@@ -1,5 +1,6 @@
 using AkelEtiket.App.Mac.Views;
 using AkelEtiket.Editor.Services;
+using AkelEtiket.Editor.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -139,6 +140,15 @@ internal static class DialogWindows
 {
     public static DialogWindow? Create(object viewModel) => viewModel switch
     {
+        LabelSetupViewModel setup => new LabelSetupWindow(setup),
+        PreviewViewModel preview => new PreviewWindow(preview),
+        SettingsViewModel settings => new SettingsWindow(settings),
+        FirstSetupViewModel first => new FirstSetupWindow(first),
+        HelpViewModel help => new HelpWindow(help),
+        StarterPacksViewModel packs => new StarterPacksWindow(packs),
+        BackupsViewModel backups => new BackupsWindow(backups),
+        ColumnMappingViewModel mapping => new ColumnMappingWindow(mapping),
+        ProductsViewModel products => new ProductsWindow(products),
         _ => null,
     };
 }
