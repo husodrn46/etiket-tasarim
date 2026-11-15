@@ -9,14 +9,15 @@ internal interface IPrintBackend
     Task<SpoolWaitResult> WaitForJobAsync(string printerName, int jobId, TimeSpan timeout, CancellationToken cancellationToken);
 }
 
-/// <summary>Gerçek Windows yazdırma biriktiricisi.</summary>
-internal sealed class WindowsPrintBackend : IPrintBackend
+/// <summary>İşletim sisteminin gerçek yazdırma kuyruğu (Windows biriktiricisi ya da macOS'ta CUPS).</summary>
+internal sealed class SystemPrintBackend : IPrintBackend
 {
-    public static readonly WindowsPrintBackend Instance = new();
+    public static readonly SystemPrintBackend Instance = new();
 
     public PrinterStatusSnapshot GetStatus(string printerName) => PrinterDiscovery.GetStatus(printerName);
 
-    public IRawJobWriter StartJob(string printerName, string documentName) => RawPrintJob.Start(printerName, documentName);
+    public IRawJobWriter StartJob(string printerName, string documentName) =>
+        OperatingSystem.IsMacOS() ? CupsPrintSystem.StartRawJob(printerName, documentName) : RawPrintJob.Start(printerName, documentName);
 
     public Task<SpoolWaitResult> WaitForJobAsync(string printerName, int jobId, TimeSpan timeout, CancellationToken cancellationToken) =>
         SpoolerMonitor.WaitForJobAsync(printerName, jobId, timeout, null, cancellationToken);
@@ -33,7 +34,7 @@ public sealed class TsplPrintService
     private readonly IPrintBackend _backend;
 
     public TsplPrintService()
-        : this(WindowsPrintBackend.Instance)
+        : this(SystemPrintBackend.Instance)
     {
     }
 
@@ -312,7 +313,7 @@ public sealed class TsplPrintService
         catch (OperationCanceledException)
         {
             report.QueueOutcome = SpoolOutcome.TimedOut;
-            report.QueueMessage = L10n.T("Kuyruk takibi iptal edildi; işlerin durumunu Windows yazıcı kuyruğundan kontrol edin.");
+            report.QueueMessage = PrintPlatform.Adapt(L10n.T("Kuyruk takibi iptal edildi; işlerin durumunu Windows yazıcı kuyruğundan kontrol edin."));
             return;
         }
 
@@ -359,7 +360,9 @@ public sealed class TsplPrintService
         return false;
     }
 
-    internal static string Advice(PrinterInfo printer)
+    internal static string Advice(PrinterInfo printer) => PrintPlatform.Adapt(WindowsAdvice(printer));
+
+    private static string WindowsAdvice(PrinterInfo printer)
     {
         if (printer.UsbConnected == false)
             return L10n.T("Yazıcının açık ve USB kablosunun takılı olduğunu kontrol edin; kabloyu farklı bir USB yuvasına taktıysanız Windows yeni bir yazıcı kopyası oluşturmuş olabilir.");

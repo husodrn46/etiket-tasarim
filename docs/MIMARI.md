@@ -38,8 +38,10 @@ graph TD
 İstenen altı modül (Editor, BarcodeEngine, ImageProcessor, PrintEngine, DataImport, ProjectManager) ayrı
 projelerdir; ortak **Core** (tasarım modeli) ve **Rendering** (ekran ve baskının ortak motoru) eklenmiştir.
 Yalnızca `App` WPF'e ve Windows'a bağlıdır; görünüm modelleri dahil tüm mantık arayüzsüz test edilebilir ve düz
-`net10.0` hedefler (macOS'ta da derlenir, testleri çalışır). `PrintEngine` içindeki kuyruk ve sürücü yolları
-Windows'a özeldir; diğer sistemlerde yerel çağrıya gidilmez, `PrintPlatform` anlaşılır bir hata döndürür.
+`net10.0` hedefler (macOS'ta da derlenir, testleri çalışır). `PrintEngine` yazdırma kuyruğuna Windows'ta
+biriktirici (winspool), macOS'ta CUPS (`CupsPrintSystem`) üzerinden ulaşır; ikisi de aynı `PrinterInfo`,
+`JobSnapshot` ve ham iş türlerini doldurur. Sürücü (GDI) üzerinden baskı Windows'a özeldir. Desteklenmeyen bir
+sistemde yerel çağrıya gidilmez, `PrintPlatform` anlaşılır bir hata döndürür.
 
 `AkelEtiket.App.Mac` aynı `Editor` katmanının üstündeki ikinci arayüzdür (Avalonia, macOS). Görünüm modeli, render ya
 da dosya biçimi kopyalanmaz; yalnızca görünümler, tuval denetimi ve platform servisleri (`IDialogService`,

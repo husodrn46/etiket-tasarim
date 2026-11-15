@@ -1,0 +1,97 @@
+<views:DialogWindow xmlns:loc="using:AkelEtiket.App.Mac.Localization" x:CompileBindings="False" x:Class="AkelEtiket.App.Mac.Views.CalibrationWindow"
+                    xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:views="using:AkelEtiket.App.Mac.Views"
+                    xmlns:controls="using:AkelEtiket.App.Mac.Controls"
+                    Title="{loc:Text T_ddbd4ae5b72e}" Width="760" Height="800" MinWidth="640" MinHeight="560" CanResize="True">
+    <DockPanel Margin="22,16,22,14">
+        <StackPanel DockPanel.Dock="Top">
+            <TextBlock Text="{loc:Text T_ddbd4ae5b72e}" Classes="title" FontSize="18" />
+            <TextBlock Classes="hint" Margin="0,4,0,0" TextWrapping="Wrap">
+                <Run Text="{Binding PrinterText, Mode=OneWay}" FontWeight="SemiBold" />
+                <Run Text=" · " />
+                <Run Text="{Binding LabelText, Mode=OneWay}" />
+            </TextBlock>
+            <TextBlock Classes="hint" Foreground="{DynamicResource Brush.Warning}" TextWrapping="Wrap" Margin="0,6,0,0"
+                       Text="{loc:Text T_5b2207e11590}"
+                       IsVisible="{Binding !IsTspl}" />
+        </StackPanel>
+
+        <DockPanel DockPanel.Dock="Bottom" Margin="0,12,0,0">
+            <Button DockPanel.Dock="Right" Content="{loc:Text T_7b31a9fc4816}" MinWidth="96" IsCancel="True" Click="OnClose" />
+            <TextBlock Text="{Binding Status}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,16,0" FontWeight="SemiBold"
+                       Foreground="{DynamicResource Brush.Info}" />
+        </DockPanel>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Margin="0,0,10,0">
+                <!-- 1. Sensör -->
+                <TextBlock Text="{loc:Text T_4a36c90d53b0}" Classes="section" />
+                <TextBlock Text="{Binding SensorText}" TextWrapping="Wrap" FontSize="12.5" />
+                <Button Content="{loc:Text T_7f296ad00591}" Command="{Binding DetectSensorCommand}" HorizontalAlignment="Left" Margin="0,8,0,0" Padding="12,4"
+                        IsEnabled="{Binding CanDetectSensor}" ToolTip.Tip="{loc:Text T_c499a29709ad}" />
+
+                <!-- 2. Kalibrasyon etiketi -->
+                <TextBlock Text="{loc:Text T_2ab1921b90e7}" Classes="section" />
+                <TextBlock TextWrapping="Wrap" FontSize="12.5"
+                           Text="{loc:Text T_b02f503935f9}" />
+                <Button Content="{loc:Text T_ebe90565b1f1}" Command="{Binding PrintLabelCommand}" HorizontalAlignment="Left" Margin="0,8,0,0" Padding="12,4" />
+
+                <!-- 3. Yön -->
+                <TextBlock Text="{loc:Text T_9113527ea795}" Classes="section" />
+                <TextBlock TextWrapping="Wrap" FontSize="12.5"
+                           Text="{loc:Text T_96a91ee0f726}" />
+                <TextBlock Text="{Binding DirectionText}" Classes="hint" Margin="0,6,0,0" />
+                <Button Content="{loc:Text T_5d8db23d1ade}" Command="{Binding FlipDirectionCommand}" HorizontalAlignment="Left" Margin="0,8,0,0" Padding="12,4" />
+
+                <!-- 4. Ölçüm -->
+                <TextBlock Text="{loc:Text T_6b5c49a00271}" Classes="section" />
+                <TextBlock TextWrapping="Wrap" FontSize="12.5"
+                           Text="{loc:Text T_821596a74dfb}" />
+                <Grid Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="230" />
+                        <ColumnDefinition Width="90" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="8" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{loc:Text T_c8b3461f3891}" Classes="label" />
+                    <controls:NumberBox Grid.Column="1" Value="{Binding MeasuredLeftMm}" Minimum="0" Maximum="50" Step="0.25" Decimals="2" />
+                    <TextBlock Grid.Column="2" Text="{loc:Text T_8fa1dddd5360}" Classes="unit" />
+                    <TextBlock Grid.Row="2" Text="{loc:Text T_9dce5fdba924}" Classes="label" />
+                    <controls:NumberBox Grid.Row="2" Grid.Column="1" Value="{Binding MeasuredTopMm}" Minimum="0" Maximum="50" Step="0.25" Decimals="2" />
+                    <TextBlock Grid.Row="2" Grid.Column="2" Text="{loc:Text T_8fa1dddd5360}" Classes="unit" />
+                </Grid>
+                <Border Classes="card" Padding="12,9" Margin="0,12,0,0">
+                    <StackPanel>
+                        <TextBlock FontSize="12.5">
+                            <Run Text="{loc:Text T_c23ae4a11d0d}" />
+                            <Run Text="{Binding CurrentOffsetXMm, Mode=OneWay, StringFormat={}{0:0.###}}" FontWeight="SemiBold" />
+                            <Run Text="/" />
+                            <Run Text="{Binding CurrentOffsetYMm, Mode=OneWay, StringFormat={}{0:0.###}}" FontWeight="SemiBold" />
+                            <Run Text="{loc:Text T_8fa1dddd5360}" />
+                        </TextBlock>
+                        <TextBlock FontSize="12.5" Margin="0,4,0,0">
+                            <Run Text="{loc:Text T_be80215102ed}" />
+                            <Run Text="{Binding NewOffsetXMm, Mode=OneWay, StringFormat={}{0:0.###}}" FontWeight="SemiBold" />
+                            <Run Text="/" />
+                            <Run Text="{Binding NewOffsetYMm, Mode=OneWay, StringFormat={}{0:0.###}}" FontWeight="SemiBold" />
+                            <Run Text="{loc:Text T_8fa1dddd5360}" />
+                        </TextBlock>
+                        <TextBlock Text="{Binding ShiftText}" Classes="hint" TextWrapping="Wrap" Margin="0,6,0,0" />
+                        <TextBlock Text="{Binding TargetProfileText}" Classes="hint" TextWrapping="Wrap" Margin="0,4,0,0" />
+                    </StackPanel>
+                </Border>
+                <Button Content="{loc:Text T_c238092f9f80}" Command="{Binding ApplyCommand}" Classes="accent"
+                        HorizontalAlignment="Left" Margin="0,10,0,0" Padding="14,5" />
+                <TextBlock Classes="hint" TextWrapping="Wrap" Margin="0,8,0,0"
+                           Text="{loc:Text T_9e0d6f34b2bf}" />
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</views:DialogWindow>

@@ -152,6 +152,10 @@ internal static class DialogWindows
         CountersViewModel counters => new CountersWindow(counters),
         DataSourceViewModel data => new DataTableWindow(data),
         ProductionViewModel production => new ProductionWindow(production),
+        PrintViewModel print => new PrintWindow(print),
+        QuickPrintViewModel quick => new QuickPrintWindow(quick),
+        CalibrationViewModel calibration => new CalibrationWindow(calibration),
+        PrintHistoryViewModel history => new PrintHistoryWindow(history),
         _ => null,
     };
 }

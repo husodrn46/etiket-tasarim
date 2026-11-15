@@ -6731,4 +6731,13 @@ Ayrıntılar "{0}" dosyasında.</value>
   <data name="T_be2e1a247597" xml:space="preserve">
     <value>Ayarlar…</value>
   </data>
+  <data name="T_c33f3172fd39" xml:space="preserve">
+    <value>Yazıcılar listelenemedi: macOS yazdırma hizmetine ulaşılamadı.</value>
+  </data>
+  <data name="T_902766fc5b93" xml:space="preserve">
+    <value>'{0}' adlı yazıcı bulunamadı. Yazıcının Sistem Ayarları → Yazıcılar ve Tarayıcılar'da ekli olduğunu ve Ayarlar'da doğru yazıcının seçildiğini kontrol edin.</value>
+  </data>
+  <data name="T_e0be5844b80a" xml:space="preserve">
+    <value>macOS'ta sürücü üzerinden baskı yoktur. Baskı yöntemi olarak 'TSPL doğrudan (RAW)' seçin.</value>
+  </data>
 </root>

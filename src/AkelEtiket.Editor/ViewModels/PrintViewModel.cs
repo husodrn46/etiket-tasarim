@@ -195,11 +195,14 @@ public sealed partial class PrintViewModel : ObservableObject
 
     public IReadOnlyList<int> SpeedChoices { get; } = [2, 3, 4, 5, 6];
 
-    public IReadOnlyList<KeyValuePair<PrintMethod, string>> MethodChoices { get; } =
-    [
-        new(PrintMethod.TsplRaw, L10n.T("TSPL doğrudan (RAW) — önerilen")),
-        new(PrintMethod.WindowsDriver, L10n.T("Windows sürücüsü üzerinden")),
-    ];
+    /// <summary>Sürücü üzerinden baskı yalnızca Windows'ta vardır; diğer sistemlerde listede gösterilmez.</summary>
+    public IReadOnlyList<KeyValuePair<PrintMethod, string>> MethodChoices { get; } = OperatingSystem.IsWindows()
+        ?
+        [
+            new(PrintMethod.TsplRaw, L10n.T("TSPL doğrudan (RAW) — önerilen")),
+            new(PrintMethod.WindowsDriver, L10n.T("Windows sürücüsü üzerinden")),
+        ]
+        : [new(PrintMethod.TsplRaw, L10n.T("TSPL doğrudan (RAW) — önerilen"))];
 
     public IReadOnlyList<KeyValuePair<TearMode, string>> TearChoices { get; } =
     [

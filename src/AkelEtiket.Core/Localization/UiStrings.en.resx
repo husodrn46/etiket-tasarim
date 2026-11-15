@@ -6731,4 +6731,13 @@ Details are in "{0}".</value>
   <data name="T_be2e1a247597" xml:space="preserve">
     <value>Settings…</value>
   </data>
+  <data name="T_c33f3172fd39" xml:space="preserve">
+    <value>Printers could not be listed: the macOS printing service could not be reached.</value>
+  </data>
+  <data name="T_902766fc5b93" xml:space="preserve">
+    <value>The printer named '{0}' was not found. Check that it is added in System Settings → Printers &amp; Scanners and that the right printer is selected in Settings.</value>
+  </data>
+  <data name="T_e0be5844b80a" xml:space="preserve">
+    <value>Printing through the driver is not available on macOS. Choose 'TSPL direct (RAW)' as the print method.</value>
+  </data>
 </root>

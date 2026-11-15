@@ -82,6 +82,7 @@ public static class SpoolerMonitor
     public static JobSnapshot? GetJob(string printerName, int jobId)
     {
         if (string.IsNullOrWhiteSpace(printerName) || jobId <= 0 || !PrintPlatform.IsSupported) return null;
+        if (OperatingSystem.IsMacOS()) return CupsPrintSystem.GetJob(printerName, jobId);
         if (!NativeMethods.TryOpen(printerName, out var handle, out _)) return null;
         using (handle)
         {
@@ -104,6 +105,7 @@ public static class SpoolerMonitor
     public static IReadOnlyList<JobSnapshot> GetJobs(string printerName)
     {
         if (string.IsNullOrWhiteSpace(printerName) || !PrintPlatform.IsSupported) return [];
+        if (OperatingSystem.IsMacOS()) return CupsPrintSystem.GetJobs(printerName);
         if (!NativeMethods.TryOpen(printerName, out var handle, out _)) return [];
         using (handle)
         {
@@ -212,6 +214,7 @@ public static class SpoolerMonitor
     public static bool CancelJob(string printerName, int jobId)
     {
         if (string.IsNullOrWhiteSpace(printerName) || jobId <= 0 || !PrintPlatform.IsSupported) return false;
+        if (OperatingSystem.IsMacOS()) return CupsPrintSystem.CancelJob(printerName, jobId);
         if (!NativeMethods.TryOpen(printerName, out var handle, out _)) return false;
         using (handle)
         {
@@ -247,7 +250,7 @@ public static class SpoolerMonitor
     public static string DescribeOutcome(SpoolOutcome outcome, JobSnapshot? snapshot = null)
     {
         string driver = string.IsNullOrWhiteSpace(snapshot?.DriverStatus) ? "" : $" (Windows: {snapshot!.DriverStatus})";
-        return outcome switch
+        return PrintPlatform.Adapt(outcome switch
         {
             SpoolOutcome.LeftQueue =>
                 L10n.T("İş Windows kuyruğundan çıktı; veri yazıcı portuna iletildi. Etiketin basıldığını yazıcıdan kontrol edin."),
@@ -265,7 +268,7 @@ public static class SpoolerMonitor
             SpoolOutcome.TimedOut =>
                 L10n.T("İş belirtilen sürede kuyruktan çıkmadı; yazıcı bağlı, açık ve hazır mı? Windows yazıcı kuyruğunu kontrol edin.") + driver,
             _ => outcome.ToString(),
-        };
+        });
     }
 
     internal static string DescribeJobStatus(JobStatusFlags status, string? driverStatus)

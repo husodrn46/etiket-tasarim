@@ -1,75 +1,86 @@
 using AkelEtiket.Core;
 using AkelEtiket.Core.Imaging;
 using AkelEtiket.Core.Model;
+using AkelEtiket.PrintEngine.Interop;
 
 namespace AkelEtiket.PrintEngine.Tests;
 
 /// <summary>
-/// Windows dışındaki sistemlerde yazdırma kuyruğu henüz yok. Yerel Windows çağrısına gidilmemeli
-/// (DllNotFoundException olmamalı); her giriş noktası anlaşılır bir hata ya da boş sonuç vermeli.
+/// Windows dışındaki sistemler. macOS'ta yazıcılar ve ham (TSPL) gönderim CUPS üzerinden çalışır; sürücü üzerinden
+/// baskı yoktur. Hiçbir giriş noktası yerel Windows çağrısına gitmemeli (DllNotFoundException olmamalı); her biri
+/// anlaşılır bir hata ya da boş sonuç vermeli. GÜVENLİK: fiziksel yazıcıya hiçbir iş gönderilmez; yalnızca var
+/// olmayan bir yazıcı adı kullanılır.
 /// </summary>
 public class UnsupportedPlatformTests
 {
-    private const string Printer = "Xprinter XP-470B";
-    private const string Unsupported = "Bu işletim sisteminde yazdırma henüz desteklenmiyor.";
+    private const string MissingPrinter = "LabelHarbor-Olmayan-Yazici-7f3c";
     private static LabelMedia Media => new(100, 100, 3, 0, MediaType.Gap);
 
-    [NonWindowsFact]
-    public void Discovery_ReportsUnsupported_WithoutNativeCalls()
+    [MacFact]
+    public void Mac_ListsPrinters_ThroughCups_WithoutThrowing()
     {
-        Assert.False(PrinterDiscovery.TryGetPrinters(out var printers, out string? error));
-        Assert.Empty(printers);
-        Assert.Equal(Unsupported, error);
-        Assert.Equal(Unsupported, Assert.Throws<PrintEngineException>(() => PrinterDiscovery.GetPrinters()).Message);
+        // Yazıcı eklenmemiş bir Mac'te liste boştur; yazdırma hizmeti kapalıysa hata iletisiyle false döner.
+        bool ok = PrinterDiscovery.TryGetPrinters(out var printers, out string? error);
+        if (ok) Assert.All(printers, p => Assert.False(string.IsNullOrWhiteSpace(p.StatusText)));
+        else Assert.False(string.IsNullOrWhiteSpace(error));
+        Assert.Null(SpoolerMonitor.GetJob(MissingPrinter, int.MaxValue - 7));
+        Assert.Empty(SpoolerMonitor.GetJobs(MissingPrinter));
+    }
 
-        var status = PrinterDiscovery.GetStatus(Printer);
+    [MacFact]
+    public async Task Mac_MissingPrinter_IsExplainedInMacTerms_AndNothingIsSent()
+    {
+        var status = PrinterDiscovery.GetStatus(MissingPrinter);
         Assert.False(status.Exists);
-        Assert.Equal(Unsupported, status.ErrorMessage);
+        Assert.Contains("Sistem Ayarları", status.ErrorMessage);
 
-        Assert.Null(PrinterDiscovery.GetDefaultPrinterName());
-        Assert.Null(PrinterDiscovery.FindPreferredLabelPrinter());
-    }
-
-    [NonWindowsFact]
-    public void Queue_ReturnsEmptyResults()
-    {
-        Assert.Null(SpoolerMonitor.GetJob(Printer, 1));
-        Assert.Empty(SpoolerMonitor.GetJobs(Printer));
-        Assert.False(SpoolerMonitor.CancelJob(Printer, 1));
-    }
-
-    [NonWindowsFact]
-    public async Task TsplPrint_ReturnsErrorReport_AndSendsNothing()
-    {
-        var settings = new LabelPrinterSettings { PrinterName = Printer };
-        var report = await new TsplPrintService().PrintAsync(Media, settings, [new LabelPage(new MonoBitmap(800, 800), 1)], 1);
+        var report = await new TsplPrintService().PrintAsync(Media, new LabelPrinterSettings { PrinterName = MissingPrinter },
+            [new LabelPage(new MonoBitmap(800, 800), 1)], 1);
         Assert.False(report.Success);
         Assert.False(report.Spooled);
-        Assert.Contains(Unsupported, report.Errors);
+        Assert.Empty(report.JobIds);
+        Assert.Contains(report.Errors, e => e.Contains("bulunamadı"));
+        // Rapor macOS'ta "Windows kuyruğu" demez.
+        Assert.Contains("2) macOS yazdırma kuyruğuna gönderilmedi.", report.Summary);
+        Assert.DoesNotContain("Windows yazdırma kuyruğu", report.Summary);
+    }
 
-        var raw = await new TsplPrintService().SendRawAsync(Printer, TsplCommandBuilder.BuildFormFeed(), "test");
-        Assert.False(raw.Success);
-        Assert.False(raw.Spooled);
-        Assert.Contains(Unsupported, raw.Errors);
+    [MacFact]
+    public void Cups_StatesMapToTheSharedFlags()
+    {
+        Assert.Equal(JobStatusFlags.None, CupsPrintSystem.ToStatus(CupsNative.JobPending));
+        Assert.Equal(JobStatusFlags.Printing, CupsPrintSystem.ToStatus(CupsNative.JobProcessing));
+        Assert.Equal(JobStatusFlags.Paused, CupsPrintSystem.ToStatus(CupsNative.JobHeld));
+        Assert.Equal(JobStatusFlags.Deleted, CupsPrintSystem.ToStatus(CupsNative.JobCanceled));
+        Assert.Equal(JobStatusFlags.Error, CupsPrintSystem.ToStatus(CupsNative.JobAborted));
+        Assert.True(CupsPrintSystem.ToStatus(CupsNative.JobCompleted).HasFlag(JobStatusFlags.Printed));
+
+        // Durum nedenleri son ekle gelir ve birden çok olabilir.
+        Assert.True(CupsPrintSystem.HasReason("offline-report", "offline"));
+        Assert.True(CupsPrintSystem.HasReason("toner-low-warning,media-empty-error", "media-empty"));
+        Assert.False(CupsPrintSystem.HasReason("none", "offline"));
+        Assert.True(CupsNative.IsOk(0x0001));
+        Assert.False(CupsNative.IsOk(0x0406));
     }
 
     [NonWindowsFact]
-    public async Task DriverPrint_ReturnsErrorReport_AndProbeExplainsWhy()
+    public async Task DriverPrint_IsWindowsOnly_AndSaysSo()
     {
-        var report = await new DriverPrintService().PrintAsync(Printer, Media, 1, (_, _, _) => new MonoBitmap(10, 10), _ => 1);
+        var report = await new DriverPrintService().PrintAsync(MissingPrinter, Media, 1, (_, _, _) => new MonoBitmap(10, 10), _ => 1);
         Assert.False(report.Success);
-        Assert.Contains(Unsupported, report.Errors);
+        Assert.NotEmpty(report.Errors);
 
-        Assert.Null(DriverPrintService.Probe(Printer, Media, out string? error));
-        Assert.Equal(Unsupported, error);
-        Assert.Null(DriverPrintService.FindMatchingPaper(Printer, Media));
+        Assert.Null(DriverPrintService.Probe(MissingPrinter, Media, out string? error));
+        Assert.False(string.IsNullOrWhiteSpace(error));
+        if (OperatingSystem.IsMacOS()) Assert.Contains("TSPL", error);
+        Assert.Null(DriverPrintService.FindMatchingPaper(MissingPrinter, Media));
     }
 
-    /// <summary>Kuyruk olmasa da TSPL verisi her sistemde üretilir (Mac baskısının üstüne kurulacağı parça).</summary>
+    /// <summary>TSPL verisi her sistemde üretilir.</summary>
     [Fact]
     public void TsplData_IsGeneratedOnEveryPlatform()
     {
-        byte[] setup = TsplCommandBuilder.BuildSetup(Media, new LabelPrinterSettings { PrinterName = Printer });
+        byte[] setup = TsplCommandBuilder.BuildSetup(Media, new LabelPrinterSettings { PrinterName = MissingPrinter });
         Assert.Contains("SIZE 100", System.Text.Encoding.ASCII.GetString(setup));
     }
 }
