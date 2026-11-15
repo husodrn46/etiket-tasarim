@@ -1,0 +1,52 @@
+<views:DialogWindow xmlns:loc="using:AkelEtiket.App.Mac.Localization" x:CompileBindings="False" x:Class="AkelEtiket.App.Mac.Views.DataTableWindow"
+                    xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:views="using:AkelEtiket.App.Mac.Views"
+                    Title="{loc:Text T_e511509b5c89}" Width="1100" Height="720" MinWidth="760" MinHeight="480" CanResize="True">
+    <DockPanel Margin="18,14,18,14">
+        <DockPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button Content="{loc:Text T_716df669b395}" Command="{Binding MapColumnsCommand}" Margin="0,0,14,0"/>
+                <TextBlock Text="{loc:Text T_26bfc08ea86f}" Classes="label" />
+                <ComboBox Width="160" ItemsSource="{Binding Columns}" SelectedItem="{Binding CopiesColumn}" />
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="{Binding Summary}" Classes="title" />
+                <TextBlock Text="{Binding ValidationSummary}" Classes="hint" Margin="0,3,0,0" />
+            </StackPanel>
+        </DockPanel>
+        <WrapPanel DockPanel.Dock="Top" Margin="0,0,0,8">
+            <TextBlock Text="{loc:Text T_17233932ffda}" Classes="label" />
+            <TextBox x:Name="SearchBox" Width="240" Margin="0,0,14,0" VerticalContentAlignment="Center" KeyDown="OnSearchKeyDown"
+                     Text="{Binding SearchText, Delay=250}"
+                     ToolTip.Tip="{loc:Text T_98571bdc7b21}" />
+            <CheckBox Content="{loc:Text T_9bbb9a0bba95}" IsChecked="{Binding OnlyErrorRows}" VerticalAlignment="Center" Margin="0,0,14,0" />
+            <CheckBox Content="{loc:Text T_43c026680c1f}" IsChecked="{Binding OnlySelectedRows}" VerticalAlignment="Center" Margin="0,0,14,0" />
+            <TextBlock Text="{Binding VisibleSummary}" Classes="hint" VerticalAlignment="Center" />
+        </WrapPanel>
+        <WrapPanel DockPanel.Dock="Top" Margin="0,0,0,6">
+            <Button Content="{Binding SelectVisibleLabel}" Command="{Binding SelectVisibleRowsCommand}" Margin="0,0,6,0" />
+            <Button Content="{Binding DeselectVisibleLabel}" Command="{Binding DeselectVisibleRowsCommand}" Margin="0,0,6,0" />
+            <Button Content="{loc:Text T_102efb6b9493}" Command="{Binding SelectValidRowsCommand}" Margin="0,0,16,0" />
+            <TextBlock Text="{loc:Text T_96f19d2d96d4}" Classes="label" />
+            <TextBox x:Name="RangeBox" Width="160" VerticalContentAlignment="Center" KeyDown="OnRangeKeyDown"
+                     Text="{Binding RowRangeText}"
+                     ToolTip.Tip="{loc:Text T_ac359f8530b7}" />
+            <Button Content="{loc:Text T_6caa06b138cc}" Command="{Binding SelectRowRangeCommand}" Margin="6,0,16,0" />
+            <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource Brush.TextSecondary}">
+                <Run Text="{loc:Text T_4a66f7780c8e}" />
+                <Run Text="{Binding SelectedLabelCount, Mode=OneWay}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text}" />
+            </TextBlock>
+        </WrapPanel>
+        <TextBlock DockPanel.Dock="Top" Text="{Binding RangeMessage}" TextWrapping="Wrap" Margin="0,0,0,8"
+                   IsVisible="{Binding RangeMessage, Converter={StaticResource NotEmpty}}"
+                   Foreground="{Binding RangeMessageIsError, Converter={StaticResource ErrorText}}" />
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <TextBlock Text="{loc:Text T_2e85d12ddea4}"
+                       Classes="hint" VerticalAlignment="Center" Margin="0,0,16,0" />
+            <Button Content="{loc:Text T_7b31a9fc4816}" MinWidth="96" Classes="accent" IsDefault="True" IsCancel="True" Click="OnClose" />
+        </StackPanel>
+        <!-- ItemsSource kod tarafında verilir (süzgeç değişince önce düzenleme kaydedilir). -->
+        <DataGrid x:Name="Grid" FrozenColumnCount="4" AutoGenerateColumns="False" HeadersVisibility="Column" GridLinesVisibility="Horizontal" />
+    </DockPanel>
+</views:DialogWindow>

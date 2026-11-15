@@ -56,6 +56,8 @@
     <PackageVersion Include="Avalonia.Desktop" Version="12.1.6" />
     <PackageVersion Include="Avalonia.Themes.Fluent" Version="12.1.6" />
     <PackageVersion Include="Avalonia.Headless" Version="12.1.6" />
+    <!-- MIT. Veri ızgarası Avalonia çekirdeğinden ayrı paketlenir ve kendi sürüm hattını izler (12.1.2 = 14.11.2026). -->
+    <PackageVersion Include="Avalonia.Controls.DataGrid" Version="12.1.2" />
   </ItemGroup>
 
   <ItemGroup Label="Test">

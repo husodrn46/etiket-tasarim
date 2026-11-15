@@ -149,6 +149,9 @@ internal static class DialogWindows
         BackupsViewModel backups => new BackupsWindow(backups),
         ColumnMappingViewModel mapping => new ColumnMappingWindow(mapping),
         ProductsViewModel products => new ProductsWindow(products),
+        CountersViewModel counters => new CountersWindow(counters),
+        DataSourceViewModel data => new DataTableWindow(data),
+        ProductionViewModel production => new ProductionWindow(production),
         _ => null,
     };
 }

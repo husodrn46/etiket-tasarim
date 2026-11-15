@@ -94,9 +94,10 @@ kuyruğu testleri orada atlanır.
 macOS masaüstü uygulaması `src/AkelEtiket.App.Mac` altında geliştiriliyor (Avalonia; görünüm modelleri, render ve
 dosya biçimi Windows uygulamasıyla ortaktır). Henüz yayımlanmadı. Bugün etiket açıp kaydeder; tasarım tuvali,
 belge sekmeleri, cetveller, kılavuz çizgileri, sol panel (öğeler, şablonlar, veri, katmanlar) ve özellikler
-paneli ve dokuz pencere (etiket ölçüsü, önizleme, ayarlar, ilk kurulum, yardım, hazır paketler, yedekler, sütun
-eşleştirme, ürünler) çalışır. Henüz taşınanlar: yapay zekâ paneli, veri tablosu ile baskı, GS1 ve üretim
-pencereleri. macOS'ta baskı yoktur; etiketler PNG veya PDF olarak dışa aktarılır.
+paneli ve on iki pencere (etiket ölçüsü, önizleme, ayarlar, ilk kurulum, yardım, hazır paketler, yedekler, sütun
+eşleştirme, ürünler, sayaçlar, veri tablosu ve toplu PDF/PNG çıktısı veren üretim çalışma alanı) çalışır. Henüz
+taşınanlar: yapay zekâ paneli ile baskı ve GS1 pencereleri. macOS'ta baskı yoktur; etiketler PNG veya PDF
+olarak dışa aktarılır.
 
 Çift tıklanabilir `LabelHarbor.app` (çalışma zamanı içinde, `.akelabel` dosyalarını Finder'dan açar) yerelde şu
 komutla üretilir:

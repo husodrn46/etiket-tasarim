@@ -31,15 +31,18 @@ public class DialogTests
     public static TheoryData<string> Dialogs => new()
     {
         "LabelSetup", "Preview", "Settings", "FirstSetup", "Help", "StarterPacks", "Backups", "ColumnMapping", "Products",
+        "Counters", "DataTable", "Production",
     };
+
+    private static bool NeedsData(string dialog) => dialog is "ColumnMapping" or "DataTable" or "Production";
 
     [Theory]
     [MemberData(nameof(Dialogs))]
     public void Dialog_OpensWithItsRealViewModel_AndResolvesEveryBinding(string dialog) => Ui.Run(() =>
     {
         // Sütun eşleştirme, veri alanı içeren bir tasarım ve bir veri kaynağı ister.
-        using var app = dialog == "ColumnMapping" ? new AppHarness("Ornek-100x100-Excel-Toplu-Etiket.akelabel") : new AppHarness();
-        if (dialog == "ColumnMapping")
+        using var app = NeedsData(dialog) ? new AppHarness("Ornek-100x100-Excel-Toplu-Etiket.akelabel") : new AppHarness();
+        if (NeedsData(dialog))
         {
             app.Vm.HandleFileDrop([AppHarness.SamplePath("ornek-urunler-utf8.csv")], null, null);
             Ui.WaitFor(() => app.Vm.Data.HasData, "veri kaynağı yüklendi");
@@ -68,13 +71,25 @@ public class DialogTests
             "StarterPacks" => app.Vm.OpenStarterPacksCommand,
             "Backups" => app.Vm.OpenBackupsCommand,
             "ColumnMapping" => app.Vm.OpenColumnMappingCommand,
+            "Counters" => app.Vm.OpenCountersCommand,
+            "Production" => app.Vm.OpenProductionCommand,
+            "DataTable" => null,
             _ => (System.Windows.Input.ICommand)app.Vm.OpenProductsCommand,
         };
-        command.Execute(null);
-        Ui.Pump();
-        Assert.True(app.Dialogs.RequestedDialogs.Count == 1,
-            $"Komut pencere istemedi. İletiler: {string.Join(" | ", app.Dialogs.Messages)}");
-        object viewModel = app.Dialogs.RequestedDialogs[0];
+        object viewModel;
+        if (command is null)
+        {
+            // Veri tablosu sol paneldeki düğmeyle, veri kaynağının kendi görünüm modeliyle açılır.
+            viewModel = app.Vm.Data;
+        }
+        else
+        {
+            command.Execute(null);
+            Ui.Pump();
+            Assert.True(app.Dialogs.RequestedDialogs.Count == 1,
+                $"Komut pencere istemedi. İletiler: {string.Join(" | ", app.Dialogs.Messages)}");
+            viewModel = app.Dialogs.RequestedDialogs[0];
+        }
 
         var window = DialogWindows.Create(viewModel);
         Assert.NotNull(window);
@@ -171,5 +186,104 @@ public class DialogTests
         Ui.Pump();
         object? print = app.Dialogs.RequestedDialogs.LastOrDefault(vm => vm is PrintViewModel);
         if (print is not null) Assert.Null(DialogWindows.Create(print));
+    });
+
+    [Fact]
+    public void DataTable_ShowsEveryColumn_AndSearchFiltersRows() => Ui.Run(() =>
+    {
+        using var app = new AppHarness("Ornek-100x100-Excel-Toplu-Etiket.akelabel");
+        app.Vm.HandleFileDrop([AppHarness.SamplePath("ornek-urunler-utf8.csv")], null, null);
+        Ui.WaitFor(() => app.Vm.Data.HasData, "veri kaynağı yüklendi");
+        var data = app.Vm.Data;
+
+        var window = Assert.IsType<DataTableWindow>(DialogWindows.Create(data));
+        window.Show();
+        Ui.Wait(150);
+        var grid = window.FindControl<DataGrid>("Grid")!;
+        // Seçim, satır no, adet, durum + veri sütunları + sorun
+        Assert.Equal(data.Columns.Count + 5, grid.Columns.Count);
+        int all = data.VisibleRows.Count;
+        Assert.Equal(120, all);
+        Assert.Same(data.VisibleRows, grid.ItemsSource);
+
+        // Arama kutusuna yazıp Enter'a basmak gecikmeyi beklemeden süzer; pencere kapanmaz.
+        var search = window.FindControl<TextBox>("SearchBox")!;
+        Click(window, search);
+        window.KeyTextInput(data.VisibleRows[7].Values[0]);
+        window.KeyPress(Key.Enter, RawInputModifiers.None, PhysicalKey.None, null);
+        Ui.Wait(50);
+        Assert.InRange(data.VisibleRows.Count, 1, all - 1);
+        Assert.Same(data.VisibleRows, grid.ItemsSource);
+        Assert.True(window.IsVisible);
+        Assert.Empty(BindingErrors.Take());
+        window.Close();
+    });
+
+    [Fact]
+    public void Production_ChecksQuality_AndExportsPdf_ThroughTheWindow() => Ui.Run(() =>
+    {
+        using var app = new AppHarness("Ornek-100x100-Excel-Toplu-Etiket.akelabel");
+        app.Vm.HandleFileDrop([AppHarness.SamplePath("ornek-urunler-utf8.csv")], null, null);
+        Ui.WaitFor(() => app.Vm.Data.HasData, "veri kaynağı yüklendi");
+        string pdf = Path.Combine(TestDataRoot.Root, Guid.NewGuid().ToString("N") + ".pdf");
+        app.Dialogs.NextSavePath = pdf;
+        string status = "";
+        app.Dialogs.OnShowDialog = viewModel =>
+        {
+            var production = (ProductionViewModel)viewModel;
+            var window = Assert.IsType<ProductionWindow>(DialogWindows.Create(viewModel));
+            window.Show();
+            Ui.Wait(150);
+            var check = window.FindControl<Button>("CheckQualityButton")!;
+            var export = window.FindControl<Button>("ExportButton")!;
+            Assert.False(export.IsEffectivelyEnabled); // kalite denetimi yapılmadan çıktı alınamaz
+
+            void CheckQuality()
+            {
+                string before = production.QualitySummary;
+                Click(window, check);
+                try
+                {
+                    Ui.WaitFor(() => !production.IsBusy && production.QualitySummary != before, "kalite denetimi bitti", 60_000);
+                }
+                catch (TimeoutException)
+                {
+                    Assert.Fail($"Kalite denetimi bitmedi. busy={production.IsBusy} özet={production.QualitySummary} durum={production.Status}");
+                }
+                status = production.QualitySummary + " | " + production.Status;
+            }
+
+            // Örnek veride bilerek hatalı bir barkod satırı vardır: denetim onu bulur ve çıktıyı engeller.
+            CheckQuality();
+            Assert.Contains("1 hata", production.QualitySummary);
+            Assert.False(export.IsEffectivelyEnabled, "Hatalı kayıt varken çıktı düğmesi açık: " + status);
+            Assert.NotEmpty(production.Findings);
+
+            // Yalnız geçerli satırlar seçilince iş temizdir ve çıktı alınabilir.
+            app.Vm.Data.ValidateAgainst(app.Vm.Session.Document);
+            app.Vm.Data.SelectValidRowsCommand.Execute(null);
+            Ui.Pump();
+            CheckQuality();
+            Assert.Contains("0 hata", production.QualitySummary);
+            Assert.True(export.IsEffectivelyEnabled, "Kalite denetiminden sonra çıktı düğmesi açılmadı: " + status);
+
+            Click(window, export);
+            Ui.WaitFor(() => !production.IsBusy && File.Exists(pdf), "PDF yazıldı", 120_000);
+            status = production.Status;
+            window.Close();
+            return false;
+        };
+
+        app.Vm.OpenProductionCommand.Execute(null);
+        Ui.Pump();
+
+        Assert.True(File.Exists(pdf), "PDF oluşmadı: " + status);
+        byte[] head = new byte[5];
+        using (var stream = File.OpenRead(pdf))
+        {
+            Assert.Equal(5, stream.Read(head, 0, 5));
+            Assert.True(stream.Length > 20_000, $"PDF beklenenden küçük: {stream.Length} bayt");
+        }
+        Assert.Equal("%PDF-", System.Text.Encoding.ASCII.GetString(head));
     });
 }

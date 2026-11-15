@@ -144,6 +144,15 @@ public sealed class ErrorFrameConverter : IValueConverter
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => BindingOperations.DoNothing;
 }
 
+/// <summary>true → hata rengi, aksi halde ikincil metin rengi (durum iletileri).</summary>
+public sealed class ErrorTextConverter : IValueConverter
+{
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        AppResources.Find<IBrush>(value is true ? "Brush.Error" : "Brush.TextSecondary");
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => BindingOperations.DoNothing;
+}
+
 /// <summary>Uygulama kaynaklarından etkin temaya göre değer okur.</summary>
 internal static class AppResources
 {
