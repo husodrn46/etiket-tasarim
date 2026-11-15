@@ -31,7 +31,7 @@ public class DialogTests
     public static TheoryData<string> Dialogs => new()
     {
         "LabelSetup", "Preview", "Settings", "FirstSetup", "Help", "StarterPacks", "Backups", "ColumnMapping", "Products",
-        "Counters", "DataTable", "Production",
+        "Counters", "DataTable", "Production", "Print", "QuickPrint", "PrintHistory", "Calibration",
     };
 
     private static bool NeedsData(string dialog) => dialog is "ColumnMapping" or "DataTable" or "Production";
@@ -73,6 +73,9 @@ public class DialogTests
             "ColumnMapping" => app.Vm.OpenColumnMappingCommand,
             "Counters" => app.Vm.OpenCountersCommand,
             "Production" => app.Vm.OpenProductionCommand,
+            "Print" or "Calibration" => app.Vm.PrintCommand,
+            "QuickPrint" => app.Vm.OpenQuickPrintCommand,
+            "PrintHistory" => app.Vm.OpenPrintHistoryCommand,
             "DataTable" => null,
             _ => (System.Windows.Input.ICommand)app.Vm.OpenProductsCommand,
         };
@@ -89,6 +92,13 @@ public class DialogTests
             Assert.True(app.Dialogs.RequestedDialogs.Count == 1,
                 $"Komut pencere istemedi. İletiler: {string.Join(" | ", app.Dialogs.Messages)}");
             viewModel = app.Dialogs.RequestedDialogs[0];
+            if (dialog == "Calibration")
+            {
+                // Kalibrasyon yardımcısı yazdırma penceresinin içinden açılır.
+                app.Dialogs.RequestedDialogs.Clear();
+                ((PrintViewModel)viewModel).OpenCalibrationCommand.Execute(null);
+                viewModel = Assert.Single(app.Dialogs.RequestedDialogs);
+            }
         }
 
         var window = DialogWindows.Create(viewModel);
@@ -178,15 +188,11 @@ public class DialogTests
     });
 
     [Fact]
-    public void UnportedDialog_SaysSo_InsteadOfFailingSilently() => Ui.Run(() =>
+    public void UnknownViewModel_HasNoWindow_SoTheServiceCanSaySo()
     {
-        using var app = new AppHarness();
-        // Yazdırma penceresi henüz taşınmadı: pencere yok, ama eşleme null döner ve servis bunu kullanıcıya söyler.
-        app.Vm.PrintCommand.Execute(null);
-        Ui.Pump();
-        object? print = app.Dialogs.RequestedDialogs.LastOrDefault(vm => vm is PrintViewModel);
-        if (print is not null) Assert.Null(DialogWindows.Create(print));
-    });
+        // Penceresi olmayan bir görünüm modeli için eşleme null döner; servis bunu sessizce yutmaz, kullanıcıya söyler.
+        Assert.Null(DialogWindows.Create(new object()));
+    }
 
     [Fact]
     public void DataTable_ShowsEveryColumn_AndSearchFiltersRows() => Ui.Run(() =>
@@ -285,5 +291,40 @@ public class DialogTests
             Assert.True(stream.Length > 20_000, $"PDF beklenenden küçük: {stream.Length} bayt");
         }
         Assert.Equal("%PDF-", System.Text.Encoding.ASCII.GetString(head));
+    });
+
+    [Fact]
+    public void Print_ToAMissingPrinter_ShowsTheReasonInTheWindow_AndSendsNothing() => Ui.Run(() =>
+    {
+        // GÜVENLİK: gerçek yazıcıya iş gönderilmez; yalnızca var olmayan bir yazıcı adı kullanılır.
+        using var app = new AppHarness();
+        app.Dialogs.OnShowDialog = viewModel =>
+        {
+            var print = (PrintViewModel)viewModel;
+            var window = Assert.IsType<PrintWindow>(DialogWindows.Create(viewModel));
+            window.Show();
+            Ui.Wait(150);
+            // Baskı yöntemi listesi yalnız bu sistemde çalışanları gösterir.
+            Assert.Equal(OperatingSystem.IsWindows() ? 2 : 1, print.MethodChoices.Count);
+
+            print.Printers.Add(new AkelEtiket.PrintEngine.PrinterInfo { Name = "LabelHarbor-Olmayan-Yazici-7f3c" });
+            print.SelectedPrinter = print.Printers[^1];
+            Ui.Pump();
+            Assert.True(print.PrintCommand.CanExecute(null), "Yazdır düğmesi kapalı: " + print.ReportText);
+            print.PrintCommand.Execute(null);
+            Ui.WaitFor(() => !print.IsBusy && print.ReportText.Length > 0, "baskı raporu yazıldı", 30_000);
+
+            Assert.Contains("bulunamadı", print.ReportText);
+            // Rapor satırları pencerede görünür: nedeni kullanıcı okuyabilir.
+            Assert.NotEmpty(print.ReportLines);
+            Ui.Pump();
+            Assert.Contains(window.GetVisualDescendants().OfType<TextBlock>(),
+                text => text.IsEffectivelyVisible && (text.Text ?? "").Contains("bulunamadı"));
+            window.Close();
+            return false;
+        };
+        app.Vm.PrintCommand.Execute(null);
+        Ui.Pump();
+        Assert.Contains(app.Dialogs.RequestedDialogs, vm => vm is PrintViewModel);
     });
 }

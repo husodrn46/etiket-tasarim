@@ -13,8 +13,15 @@ public static class UiText
     public static string Language => CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "tr" ? "tr" : "en";
     public static CultureInfo ResourceCulture => CultureInfo.GetCultureInfo(Language);
     public static string Key(string source) => "T_" + Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(source)))[..12];
-    public static string Get(string key) => Resources.GetString(key, ResourceCulture) ?? key;
-    public static string T(string source) => Resources.GetString(Key(source), ResourceCulture) ?? source;
+    /// <summary>
+    /// Optional last step for a host on another platform: rewrites platform wording in an already translated UI string
+    /// (the macOS app turns "Windows print queue" into "macOS print queue" and Ctrl shortcuts into the command key).
+    /// Null on Windows, where strings are returned exactly as before.
+    /// </summary>
+    public static Func<string, string>? PlatformWording { get; set; }
+    private static string Worded(string text) => PlatformWording is { } wording ? wording(text) : text;
+    public static string Get(string key) => Worded(Resources.GetString(key, ResourceCulture) ?? key);
+    public static string T(string source) => Worded(Resources.GetString(Key(source), ResourceCulture) ?? source);
     public static string T(ref UiStringHandler message) => string.Format(CultureInfo.CurrentCulture, T(message.Pattern), message.Arguments);
     public static string TInvariant(ref UiStringHandler message) => string.Format(CultureInfo.InvariantCulture, T(message.Pattern), message.Arguments);
     public static string ResolveLanguage(string? preference, CultureInfo systemCulture) => preference switch

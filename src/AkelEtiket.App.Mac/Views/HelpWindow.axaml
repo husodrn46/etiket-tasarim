@@ -24,7 +24,7 @@
                                     <ColumnDefinition Width="210" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding Key}" FontFamily="Menlo,Consolas,monospace" FontWeight="SemiBold" />
+                                <TextBlock Text="{Binding Key, Converter={StaticResource Shortcut}}" FontFamily="Menlo,Consolas,monospace" FontWeight="SemiBold" />
                                 <TextBlock Grid.Column="1" Text="{Binding Value}" TextWrapping="Wrap" />
                             </Grid>
                         </DataTemplate>

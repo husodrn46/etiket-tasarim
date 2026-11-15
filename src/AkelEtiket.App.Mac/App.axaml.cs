@@ -26,7 +26,12 @@ public partial class App : Application
         Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0]
         ?? "2.1.0";
 
-    public override void Initialize() => AvaloniaXamlLoader.Load(this);
+    public override void Initialize()
+    {
+        // Ortak katalogdaki Windows'a özgü ifadeler macOS'ta uyarlanır (kuyruk adı, komut tuşu).
+        if (OperatingSystem.IsMacOS()) UiText.PlatformWording = Localization.MacWording.Adapt;
+        AvaloniaXamlLoader.Load(this);
+    }
 
     public override void OnFrameworkInitializationCompleted()
     {

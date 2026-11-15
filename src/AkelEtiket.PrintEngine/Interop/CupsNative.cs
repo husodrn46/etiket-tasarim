@@ -56,6 +56,13 @@ internal static unsafe class CupsNative
     [DllImport(Library)]
     private static extern IntPtr cupsLastErrorString();
 
+    /// <summary>Son çağrının IPP durum kodu.</summary>
+    [DllImport(Library)]
+    public static extern int cupsLastError();
+
+    /// <summary>Yazdırma hizmeti yanıt vermiyor (IPP_STATUS_ERROR_SERVICE_UNAVAILABLE).</summary>
+    public const int ServiceUnavailable = 0x0502;
+
     public static string LastError() => Marshal.PtrToStringUTF8(cupsLastErrorString()) ?? "";
 
     /// <summary>cups_dest_t: name, instance, is_default, num_options, options (64 bit: 32 bayt).</summary>

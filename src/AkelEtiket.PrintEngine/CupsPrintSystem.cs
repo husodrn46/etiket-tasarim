@@ -21,10 +21,10 @@ internal static class CupsPrintSystem
         {
             if (count <= 0)
             {
-                string error = CupsNative.LastError();
-                // Hiç yazıcı eklenmemişse hata metni boştur ya da "yazıcı yok" der; bu bir hata değildir.
-                if (dests == IntPtr.Zero && error.Length > 0 && !error.Contains("No destinations", StringComparison.OrdinalIgnoreCase))
-                    throw new PrintEngineException(L10n.T("Yazıcılar listelenemedi: macOS yazdırma hizmetine ulaşılamadı.") + $" ({error})");
+                // Hiç yazıcı eklenmemiş bir Mac'te de sayı sıfırdır ve sistem "hedef eklenmedi" der (ileti sistemin
+                // dilindedir, metne bakılmaz); bu bir hata değildir. Yalnız hizmete ulaşılamaması hatadır.
+                if (CupsNative.cupsLastError() == CupsNative.ServiceUnavailable)
+                    throw new PrintEngineException(L10n.T("Yazıcılar listelenemedi: macOS yazdırma hizmetine ulaşılamadı.") + $" ({CupsNative.LastError()})");
                 return [];
             }
             var jobCounts = ActiveJobCounts();

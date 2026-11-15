@@ -153,6 +153,15 @@ public sealed class ErrorTextConverter : IValueConverter
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => BindingOperations.DoNothing;
 }
 
+/// <summary>Kısayol metni: macOS'ta "Ctrl+S" yerine "⌘S" (yardım penceresi).</summary>
+public sealed class ShortcutConverter : IValueConverter
+{
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        value is string text && OperatingSystem.IsMacOS() ? Localization.MacWording.Shortcut(text) : value;
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => BindingOperations.DoNothing;
+}
+
 /// <summary>Uygulama kaynaklarından etkin temaya göre değer okur.</summary>
 internal static class AppResources
 {

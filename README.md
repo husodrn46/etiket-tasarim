@@ -96,10 +96,14 @@ print queue tests are skipped.
 A macOS desktop app is being built in `src/AkelEtiket.App.Mac` (Avalonia; it shares the view models, rendering and
 file format with the Windows app). It is not released yet. Today it opens and saves labels and has the design
 canvas, document tabs, rulers and guides, the left panel (elements, templates, data, layers) and the properties
-panel, and twelve dialogs (label size, preview, settings, first setup, help, starter packs, backups, column
-mapping, products, counters, the data table and the production workspace with batch PDF/PNG output). Still being
-ported: the AI panel and the printing and GS1 windows. There is no macOS printing; labels are exported as PNG
-or PDF.
+panel, and sixteen dialogs (label size, preview, settings, first setup, help, starter packs, backups, column
+mapping, products, counters, the data table, the production workspace with batch PDF/PNG output, print, quick
+print, calibration and print history). Still being ported: the AI panel and the GS1 windows.
+
+Printing on macOS sends TSPL directly (RAW) through the system print queue (CUPS): add the label printer in
+System Settings → Printers & Scanners first, then pick it in the print window. Printing through a printer driver
+is Windows only. The macOS path was verified against the print queue with a test device, not yet on a physical
+label printer.
 
 A double-clickable `LabelHarbor.app` (self-contained, opens `.akelabel` files from Finder) is built locally with
 
