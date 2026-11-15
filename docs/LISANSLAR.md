@@ -39,6 +39,7 @@ nuget.org ve kaynak depoları üzerinden doğrulandı:
 |---|---|---|---|
 | Avalonia (+ Desktop, Native, Skia, HarfBuzz, Themes.Fluent ve bağımlılıkları) | 12.1.6 | MIT | macOS arayüz çatısı; projedeki SkiaSharp 3.119.4 ve HarfBuzzSharp 8.3.1.3 sürümlerini kullanır |
 | MicroCom.Runtime | 0.11.6 | MIT | Avalonia bağımlılığı |
+| Avalonia.Controls.DataGrid | 12.1.2 | MIT | Veri tablosu, sayaçlar ve üretim bulguları ızgarası |
 | Fluent UI System Icons (Microsoft) | 20 birim, regular | MIT | Araç çubuğu simgelerinin çizimleri (`Themes/Icons.axaml` içine gömülü; Windows'taki Segoe Fluent Icons yazı tipinin karşılığı) |
 
 Yalnızca geliştirmede kullanılan araçlar (uygulamayla dağıtılmaz): Avalonia.Headless 12.1.6 (MIT; macOS arayüz testleri),

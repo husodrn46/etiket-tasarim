@@ -96,9 +96,10 @@ print queue tests are skipped.
 A macOS desktop app is being built in `src/AkelEtiket.App.Mac` (Avalonia; it shares the view models, rendering and
 file format with the Windows app). It is not released yet. Today it opens and saves labels and has the design
 canvas, document tabs, rulers and guides, the left panel (elements, templates, data, layers) and the properties
-panel, and nine dialogs (label size, preview, settings, first setup, help, starter packs, backups, column
-mapping, products). Still being ported: the AI panel, the data table and the printing, GS1 and production
-windows. There is no macOS printing; labels are exported as PNG or PDF.
+panel, and twelve dialogs (label size, preview, settings, first setup, help, starter packs, backups, column
+mapping, products, counters, the data table and the production workspace with batch PDF/PNG output). Still being
+ported: the AI panel and the printing and GS1 windows. There is no macOS printing; labels are exported as PNG
+or PDF.
 
 A double-clickable `LabelHarbor.app` (self-contained, opens `.akelabel` files from Finder) is built locally with
 

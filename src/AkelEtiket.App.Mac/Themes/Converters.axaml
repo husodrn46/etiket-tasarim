@@ -9,6 +9,7 @@
   <c:KindToIconConverter x:Key="KindToIcon" />
   <c:PngBytesToImageConverter x:Key="PngBytesToImage" />
   <c:ErrorFrameConverter x:Key="ErrorFrame" />
+  <c:ErrorTextConverter x:Key="ErrorText" />
   <c:NotEmptyConverter x:Key="NotEmpty" />
   <c:IsEmptyConverter x:Key="IsEmpty" />
   <c:IsPositiveConverter x:Key="IsPositive" />
