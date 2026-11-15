@@ -32,6 +32,7 @@ public class DialogTests
     {
         "LabelSetup", "Preview", "Settings", "FirstSetup", "Help", "StarterPacks", "Backups", "ColumnMapping", "Products",
         "Counters", "DataTable", "Production", "Print", "QuickPrint", "PrintHistory", "Calibration",
+        "Gs1Profile", "Gs1Builder", "AiSettings",
     };
 
     private static bool NeedsData(string dialog) => dialog is "ColumnMapping" or "DataTable" or "Production";
@@ -58,6 +59,13 @@ public class DialogTests
             app.Vm.SaveDocumentCommand.Execute(null);
             Ui.Pump();
         }
+        if (dialog == "Gs1Builder")
+        {
+            // GS1 içerik oluşturucu, seçili bir GS1 barkodu ister (örnek etiketteki GS1-128).
+            app.Vm.Session.Select(app.Vm.Session.Elements.First(e =>
+                e.Model is AkelEtiket.Core.Model.BarcodeElement b && AkelEtiket.Core.Model.BarcodeElement.IsGs1(b.Symbology)));
+            Ui.Pump();
+        }
         app.Dialogs.RequestedDialogs.Clear();
         app.Dialogs.Messages.Clear();
 
@@ -74,6 +82,9 @@ public class DialogTests
             "Counters" => app.Vm.OpenCountersCommand,
             "Production" => app.Vm.OpenProductionCommand,
             "Print" or "Calibration" => app.Vm.PrintCommand,
+            "Gs1Profile" => app.Vm.OpenSettingsCommand,
+            "Gs1Builder" => app.Vm.OpenGs1BuilderCommand,
+            "AiSettings" => app.Vm.Ai.OpenSettingsCommand,
             "QuickPrint" => app.Vm.OpenQuickPrintCommand,
             "PrintHistory" => app.Vm.OpenPrintHistoryCommand,
             "DataTable" => null,
@@ -92,6 +103,13 @@ public class DialogTests
             Assert.True(app.Dialogs.RequestedDialogs.Count == 1,
                 $"Komut pencere istemedi. İletiler: {string.Join(" | ", app.Dialogs.Messages)}");
             viewModel = app.Dialogs.RequestedDialogs[0];
+            if (dialog == "Gs1Profile")
+            {
+                // GS1 firma profili ayarlar penceresinin içinden açılır.
+                app.Dialogs.RequestedDialogs.Clear();
+                ((SettingsViewModel)viewModel).OpenGs1ProfileCommand.Execute(null);
+                viewModel = Assert.Single(app.Dialogs.RequestedDialogs);
+            }
             if (dialog == "Calibration")
             {
                 // Kalibrasyon yardımcısı yazdırma penceresinin içinden açılır.

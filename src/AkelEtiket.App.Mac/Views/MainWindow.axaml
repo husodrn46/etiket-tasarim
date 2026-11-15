@@ -273,6 +273,8 @@
 
       <!-- Özellikler / Yapay Zekâ -->
       <views:PropertiesPanel x:Name="PropertiesHost" Grid.Column="4" />
+      <!-- Veri bağlamı kod tarafında verilir (MainWindow kurucusu): panel ana görünüm modeline hiç bağlanmaz. -->
+      <views:AiPanel x:Name="AiPanelHost" Grid.Column="4" IsVisible="False" />
     </Grid>
 
     <!-- ───────────── Durum çubuğu ───────────── -->

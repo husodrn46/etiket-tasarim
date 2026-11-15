@@ -187,6 +187,47 @@ public class PanelTests
         }
     });
 
+    [Fact]
+    public void MainWindow_OpensWithoutAnyBindingError() => Ui.Run(() =>
+    {
+        // Pencere kurulurken bir an için yanlış bağlama düşen görünüm (ör. kendi görünüm modeli sonradan gelen
+        // panel) burada yakalanır.
+        BindingErrors.Take();
+        using var app = new AppHarness();
+        Ui.Pump();
+        Assert.Empty(BindingErrors.Take());
+    });
+
+    [Fact]
+    public void AiPanel_ReplacesTheProperties_WhenOpened_AndResolvesEveryBinding() => Ui.Run(() =>
+    {
+        using var app = new AppHarness();
+        var panel = app.Window.FindControl<AiPanel>("AiPanelHost")!;
+        Assert.False(panel.IsVisible);
+        Assert.True(Properties(app).IsVisible);
+        BindingErrors.Take();
+
+        app.Vm.ToggleAiPanelCommand.Execute(null);
+        Ui.Pump();
+        Assert.True(panel.IsVisible);
+        Assert.False(Properties(app).IsVisible);
+        Assert.Same(app.Vm.Ai, panel.DataContext);
+        app.Screenshot("ai-panel");
+        Assert.Empty(BindingErrors.Take());
+
+        // Sağlayıcı seçilmeden gönderilen istek dışarı bir şey göndermez; panel nedenini yazar.
+        app.Vm.Ai.Prompt = "Başlığı büyüt";
+        app.Vm.Ai.SendCommand.Execute(null);
+        Ui.Pump();
+        Assert.NotEmpty(app.Vm.Ai.Messages);
+        Assert.Contains(panel.GetVisualDescendants().OfType<TextBlock>(), t => t.IsEffectivelyVisible && t.Text == app.Vm.Ai.Messages[^1].Text);
+        Assert.Empty(BindingErrors.Take());
+
+        app.Vm.ToggleAiPanelCommand.Execute(null);
+        Ui.Pump();
+        Assert.False(panel.IsVisible);
+    });
+
     private sealed class Sample
     {
         public Sample? Child { get; set; }

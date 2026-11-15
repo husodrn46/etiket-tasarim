@@ -1,0 +1,170 @@
+<views:DialogWindow xmlns:loc="using:AkelEtiket.App.Mac.Localization" x:CompileBindings="False" x:Class="AkelEtiket.App.Mac.Views.AiSettingsWindow"
+                    xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:views="using:AkelEtiket.App.Mac.Views"
+                    xmlns:controls="using:AkelEtiket.App.Mac.Controls"
+                    Title="{loc:Text T_d317cff69e0e}" Width="760" Height="820" MinWidth="640" MinHeight="560" CanResize="True">
+    <DockPanel Margin="22,16,22,14">
+        <StackPanel DockPanel.Dock="Top" Margin="0,0,0,8">
+            <TextBlock Text="{loc:Text T_d317cff69e0e}" Classes="title" FontSize="18" />
+            <TextBlock Classes="hint" Margin="0,4,0,0" TextWrapping="Wrap"
+                       Text="{loc:Text T_dbcfc6eb2fd9}" />
+        </StackPanel>
+
+        <DockPanel DockPanel.Dock="Bottom" Margin="0,12,0,0">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button Content="{loc:Text T_39a8d28c1c6b}" MinWidth="96" IsCancel="True" Margin="0,0,8,0" />
+                <Button Content="{loc:Text T_c1fe2ecdff02}" MinWidth="96" Classes="accent" IsDefault="True" Click="OnSave" />
+            </StackPanel>
+            <TextBlock x:Name="ErrorText" Foreground="{DynamicResource Brush.Error}" VerticalAlignment="Center" TextWrapping="Wrap" />
+        </DockPanel>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Margin="0,0,10,0">
+
+                <!-- DIŞ AJAN BAĞLANTISI -->
+                <TextBlock Text="{loc:Text T_4528ef4bf893}" Classes="section" />
+                <CheckBox IsChecked="{Binding Enabled}" FontWeight="SemiBold" Margin="0,0,0,4"
+                          Content="{loc:Text T_4478ccfbc5d5}" />
+                <TextBlock Classes="hint" TextWrapping="Wrap" Margin="24,0,0,10"
+                           Text="{loc:Text T_14add07ada4a}" />
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="190" />
+                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{loc:Text T_72e9a59f5a1d}" Classes="label" />
+                    <controls:NumberBox Grid.Column="1" Value="{Binding Port}" Minimum="1024" Maximum="65535" Step="1" Decimals="0" />
+                    <TextBlock Grid.Column="2" Text="{loc:Text T_3b94d5d1f5ac}" Classes="label" Margin="8,0,0,0" />
+                </Grid>
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="190" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{loc:Text T_deed1b6acf10}" Classes="label" />
+                    <TextBox Grid.Column="1" Text="{Binding TokenDisplay, Mode=OneWay}" Classes="mono" />
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="8,0,0,0">
+                        <CheckBox Content="{loc:Text T_9d119cdc2fad}" IsChecked="{Binding ShowToken}" VerticalAlignment="Center" Margin="0,0,8,0" />
+                        <Button Content="{loc:Text T_a8bcca42d9ce}" Click="OnCopyToken" Margin="0,0,6,0" />
+                        <Button Content="{loc:Text T_63cd725787a8}" Command="{Binding RegenerateTokenCommand}" />
+                    </StackPanel>
+                </Grid>
+                <CheckBox IsChecked="{Binding ShareOpenDocument}" Margin="0,0,0,6"
+                          Content="{loc:Text T_eac1097bfdb0}" />
+                <CheckBox IsChecked="{Binding EnableHttpMcp}" Margin="0,0,0,6"
+                          Content="{loc:Text T_31ec96e448ca}" />
+                <Grid Margin="0,0,0,4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="190" />
+                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{loc:Text T_59ab35ebe9b4}" Classes="label" />
+                    <controls:NumberBox Grid.Column="1" Value="{Binding WorkerIdleMinutes}" Minimum="1" Maximum="1440" Step="1" Decimals="0" />
+                    <TextBlock Grid.Column="2" Text="{loc:Text T_9494ff896e95}" Classes="label" Margin="8,0,0,0" />
+                </Grid>
+
+                <!-- DEĞİŞİKLİK MODU -->
+                <TextBlock Text="{loc:Text T_99de9ce1e0f7}" Classes="section" />
+                <RadioButton GroupName="Mode" Margin="0,0,0,4" IsChecked="{Binding DirectMode, Converter={StaticResource InverseBool}}"
+                             Content="{loc:Text T_e3f53b8bb3fe}" />
+                <RadioButton GroupName="Mode" IsChecked="{Binding DirectMode}"
+                             Content="{loc:Text T_2ac0b6855963}" />
+                <TextBlock Classes="hint" TextWrapping="Wrap" Margin="24,4,0,0"
+                           Text="{loc:Text T_c8a2802b9e76}" />
+
+                <!-- İZİNLİ KLASÖRLER -->
+                <TextBlock Text="{loc:Text T_1be26e1dfd26}" Classes="section" />
+                <TextBlock Classes="hint" TextWrapping="Wrap" Margin="0,0,0,6"
+                           Text="{loc:Text T_8dc19058a96f}" />
+                <Grid Margin="0,0,0,4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <ListBox ItemsSource="{Binding AllowedFolders}" SelectedItem="{Binding SelectedFolder}" MinHeight="70" MaxHeight="140" />
+                    <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                        <Button Content="{loc:Text T_920fb19d923a}" Click="OnAddFolder" Margin="0,0,0,6" />
+                        <Button Content="{loc:Text T_b88019aa289e}" Command="{Binding RemoveFolderCommand}" />
+                    </StackPanel>
+                </Grid>
+
+                <!-- UYGULAMA İÇİ ASİSTAN -->
+                <TextBlock Text="{loc:Text T_54edb8ea5194}" Classes="section" />
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="190" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{loc:Text T_c47c939160e2}" Classes="label" />
+                    <ComboBox Grid.Column="1" ItemsSource="{Binding ProviderChoices}" DisplayMemberBinding="{Binding Value}" SelectedValueBinding="{Binding Key}" SelectedValue="{Binding ProviderKind}" />
+                </Grid>
+                <StackPanel IsVisible="{Binding IsProviderSelected}">
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="190" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{loc:Text T_5e2c614c23f0}" Classes="label" />
+                        <ComboBox Grid.Column="1" IsEditable="True" ItemsSource="{Binding ModelSuggestions}" Text="{Binding Model}" />
+                    </Grid>
+                    <Grid Margin="0,0,0,8" IsVisible="{Binding NeedsBaseUrl}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="190" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{loc:Text T_a4d1a301b437}" Classes="label" />
+                        <TextBox Grid.Column="1" Text="{Binding BaseUrl}" ToolTip.Tip="{loc:Text T_abc0eead78bd}" />
+                    </Grid>
+                    <Grid Margin="0,0,0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="190" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{loc:Text T_d7e68641832c}" Classes="label" />
+                        <TextBox PasswordChar="●" x:Name="KeyBox" Grid.Column="1" TextChanged="OnKeyChanged" />
+                        <Button Grid.Column="2" Content="{loc:Text T_f698e9b40f9f}" Margin="8,0,0,0" Command="{Binding ClearKeyCommand}" Click="OnClearKey" />
+                    </Grid>
+                    <TextBlock Text="{Binding KeyStatus}" Classes="hint" Margin="190,0,0,10" />
+                    <Border Classes="card" Padding="12,9" Margin="0,0,0,8">
+                        <StackPanel>
+                            <CheckBox IsChecked="{Binding Consent}" FontWeight="SemiBold">
+                                <TextBlock Text="{Binding ConsentText}" TextWrapping="Wrap" />
+                            </CheckBox>
+                            <TextBlock Classes="hint" TextWrapping="Wrap" Margin="24,6,0,0"
+                                       Text="{loc:Text T_f6af2d22b3bd}" />
+                        </StackPanel>
+                    </Border>
+                    <CheckBox IsChecked="{Binding SendPreviewImages}" Content="{loc:Text T_a30d1d5791a1}" />
+                </StackPanel>
+
+                <!-- BAĞLANTI BİLGİLERİ -->
+                <TextBlock Text="{loc:Text T_74be5e6b5fe8}" Classes="section" />
+                <TextBlock Classes="hint" TextWrapping="Wrap" Margin="0,0,0,6"
+                           Text="{loc:Text T_3c51fed99bcb}" />
+                <DockPanel Margin="0,0,0,8">
+                    <Button DockPanel.Dock="Right" Content="{loc:Text T_a8bcca42d9ce}" Margin="8,0,0,0" Click="OnCopy" Tag="{Binding ClaudeCodeCommand}" />
+                    <TextBox Text="{Binding ClaudeCodeCommand, Mode=OneWay}" Classes="mono" />
+                </DockPanel>
+                <TextBlock Classes="hint" TextWrapping="Wrap" Margin="0,0,0,6"
+                           Text="{loc:Text T_2bcf6be9b3e7}" />
+                <DockPanel Margin="0,0,0,8">
+                    <Button DockPanel.Dock="Right" Content="{loc:Text T_a8bcca42d9ce}" Margin="8,0,0,0" Click="OnCopy" Tag="{Binding ClaudeDesktopJson}" />
+                    <TextBox Text="{Binding ClaudeDesktopJson, Mode=OneWay}" Classes="mono" />
+                </DockPanel>
+                <TextBlock Classes="hint" TextWrapping="Wrap" Margin="0,0,0,6"
+                           Text="{loc:Text T_8df3e5bf101a}" />
+                <DockPanel Margin="0,0,0,8">
+                    <Button DockPanel.Dock="Right" Content="{loc:Text T_a8bcca42d9ce}" Margin="8,0,0,0" Click="OnCopy" Tag="{Binding ClaudeCodeHttpCommand}" />
+                    <TextBox Text="{Binding ClaudeCodeHttpCommand, Mode=OneWay}" Classes="mono" />
+                </DockPanel>
+                <TextBlock Classes="hint" TextWrapping="Wrap"
+                           Text="{loc:Text T_b944868efd23}" />
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</views:DialogWindow>

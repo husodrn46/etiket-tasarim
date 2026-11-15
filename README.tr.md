@@ -94,9 +94,11 @@ kuyruğu testleri orada atlanır.
 macOS masaüstü uygulaması `src/AkelEtiket.App.Mac` altında geliştiriliyor (Avalonia; görünüm modelleri, render ve
 dosya biçimi Windows uygulamasıyla ortaktır). Henüz yayımlanmadı. Bugün etiket açıp kaydeder; tasarım tuvali,
 belge sekmeleri, cetveller, kılavuz çizgileri, sol panel (öğeler, şablonlar, veri, katmanlar) ve özellikler
-paneli ve on altı pencere (etiket ölçüsü, önizleme, ayarlar, ilk kurulum, yardım, hazır paketler, yedekler, sütun
+paneli ve on dokuz pencerenin tamamı (etiket ölçüsü, önizleme, ayarlar, ilk kurulum, yardım, hazır paketler, yedekler, sütun
 eşleştirme, ürünler, sayaçlar, veri tablosu, toplu PDF/PNG çıktısı veren üretim çalışma alanı, yazdır, hızlı
-baskı, kalibrasyon ve baskı geçmişi) çalışır. Henüz taşınanlar: yapay zekâ paneli ile GS1 pencereleri.
+baskı, kalibrasyon, baskı geçmişi, GS1 profili ve içerik oluşturucu, yapay zekâ ayarları) ile yapay zekâ paneli
+çalışır. Windows uygulamasındaki her pencerenin artık macOS karşılığı var. macOS'ta henüz olmayan: arayüz ölçeği
+ayarı.
 
 macOS'ta baskı, TSPL verisini doğrudan (RAW) sistemin yazdırma kuyruğuna (CUPS) gönderir: etiket yazıcısını önce
 Sistem Ayarları → Yazıcılar ve Tarayıcılar'dan ekleyin, sonra yazdırma penceresinde seçin. Yazıcı sürücüsü

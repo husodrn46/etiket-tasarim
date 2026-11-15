@@ -175,6 +175,12 @@
     <Setter Property="MinHeight" Value="64" />
     <Setter Property="MaxHeight" Value="160" />
   </Style>
+  <Style Selector="TextBox.mono">
+    <Setter Property="FontFamily" Value="Menlo,Consolas,monospace" />
+    <Setter Property="FontSize" Value="11.5" />
+    <Setter Property="IsReadOnly" Value="True" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
   <Style Selector="CheckBox">
     <Setter Property="MinHeight" Value="28" />
   </Style>

@@ -1,0 +1,126 @@
+<views:DialogWindow xmlns:loc="using:AkelEtiket.App.Mac.Localization" x:CompileBindings="False" x:Class="AkelEtiket.App.Mac.Views.Gs1ContentBuilderWindow"
+                    xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:views="using:AkelEtiket.App.Mac.Views"
+                    Title="{loc:Text T_b9a73526483a}" Width="860" Height="720" MinWidth="700" MinHeight="520" CanResize="True">
+    <DockPanel Margin="22,16,22,14">
+        <!-- BAŞLIK -->
+        <StackPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+            <TextBlock Text="{Binding Title}" Classes="title" FontSize="18" />
+            <TextBlock Classes="hint" Margin="0,4,0,0" TextWrapping="Wrap"
+                       Text="{loc:Text T_ca6500f8231e}" />
+            <TextBlock Text="{Binding LoadNote}" Classes="hint" Foreground="{DynamicResource Brush.Warning}" TextWrapping="Wrap" Margin="0,6,0,0"
+                       IsVisible="{Binding LoadNote, Converter={StaticResource NotEmpty}}" />
+        </StackPanel>
+
+        <!-- DÜĞMELER -->
+        <DockPanel DockPanel.Dock="Bottom" Margin="0,12,0,0">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button Content="{loc:Text T_39a8d28c1c6b}" MinWidth="96" IsCancel="True" Margin="0,0,8,0" />
+                <Button Content="{loc:Text T_08a24723d591}" MinWidth="96" Classes="accent" IsDefault="True" Click="OnApply"
+                        IsEnabled="{Binding CanAccept}" />
+            </StackPanel>
+            <TextBlock Classes="hint" VerticalAlignment="Center" TextWrapping="Wrap" Margin="0,0,16,0"
+                       Text="{loc:Text T_bab1af3efa7e}" />
+        </DockPanel>
+
+        <!-- SONUÇ VE DENETİM -->
+        <StackPanel DockPanel.Dock="Bottom" Margin="0,8,0,0">
+            <TextBlock Text="{loc:Text T_06e63e63f6a1}" Classes="section" />
+            <TextBox Text="{Binding Content, Mode=OneWay}" IsReadOnly="True" FontFamily="Menlo,Consolas,monospace" FontSize="13.5" TextWrapping="Wrap" />
+            <ItemsControl ItemsSource="{Binding Messages}" Margin="0,8,0,0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel Margin="0,0,0,4">
+                            <PathIcon Data="{Binding Key, Converter={StaticResource StateToIcon}}" Width="13" Height="13" DockPanel.Dock="Left" Margin="0,1,8,0" Foreground="{Binding Key, Converter={StaticResource SeverityToBrush}}" />
+                            <TextBlock Text="{Binding Text}" TextWrapping="Wrap" FontSize="12" />
+                        </DockPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+
+        <!-- KISAYOLLAR -->
+        <StackPanel DockPanel.Dock="Top" Margin="0,0,0,8">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                <Button Command="{Binding AddRowCommand}" Margin="0,0,6,0">
+                    <StackPanel Orientation="Horizontal">
+                        <PathIcon Data="{StaticResource Glyph.Add}" Width="13" Height="13" />
+                        <TextBlock Text="{loc:Text T_c45e14c36e61}" Margin="7,0,0,0" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding AddSsccCommand}" Content="{loc:Text T_af2bb2217169}"
+                        ToolTip.Tip="{loc:Text T_a039831c42de}" />
+            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{loc:Text T_1428d629a9e2}" Classes="label" VerticalAlignment="Center" Margin="0,0,10,0" />
+                <ComboBox Grid.Column="1" ItemsSource="{Binding Gtins}" SelectedItem="{Binding SelectedGtin}" DisplayMemberBinding="{Binding Display}"
+                          IsEnabled="{Binding HasGtins}" FontFamily="Menlo,Consolas,monospace" />
+                <Button Grid.Column="2" Content="{loc:Text T_b0dc157fef6d}" Command="{Binding UseGtinAs01Command}" Margin="6,0,0,0"
+                        ToolTip.Tip="{loc:Text T_e8872de8dde1}" />
+                <Button Grid.Column="3" Content="{loc:Text T_6d4bc8079cee}" Command="{Binding UseGtinAs02Command}" Margin="6,0,0,0"
+                        ToolTip.Tip="{loc:Text T_f026903626e5}" />
+            </Grid>
+            <TextBlock Text="{Binding GtinNote}" Classes="hint" TextWrapping="Wrap" Margin="0,4,0,0" />
+        </StackPanel>
+
+        <!-- AI SATIRLARI -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl ItemsSource="{Binding Rows}" Margin="0,0,8,0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Classes="card" Padding="10,8" Margin="0,0,0,6">
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="250" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox ItemsSource="{Binding $parent[Window].DataContext.AiChoices}"
+                                              SelectedItem="{Binding Ai}" IsTextSearchEnabled="True" TextSearch.TextBinding="{Binding Ai}" ToolTip.Tip="{loc:Text T_989c70e40d2d}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock>
+                                                    <Run Text="{Binding Display, Mode=OneWay}" FontFamily="Menlo,Consolas,monospace" />
+                                                    <Run Text="{Binding Title, Mode=OneWay}" />
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                    <ComboBox Grid.Column="1" Margin="8,0,0,0" IsEditable="True" ItemsSource="{Binding Suggestions}"
+                                              Text="{Binding Value}" FontFamily="Menlo,Consolas,monospace"
+                                              ToolTip.Tip="{loc:Text T_5977c361f198}" />
+                                    <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="6,0,0,0">
+                                        <Button Classes="icon" ToolTip.Tip="{loc:Text T_6820b3bd2486}" CommandParameter="{Binding}"
+                                                Command="{Binding $parent[Window].DataContext.MoveRowUpCommand}">
+                                            <PathIcon Data="{StaticResource Glyph.ChevronUp}" Width="12" Height="12" />
+                                        </Button>
+                                        <Button Classes="icon" ToolTip.Tip="{loc:Text T_9b1be60f99f3}" CommandParameter="{Binding}"
+                                                Command="{Binding $parent[Window].DataContext.MoveRowDownCommand}">
+                                            <PathIcon Data="{StaticResource Glyph.ChevronDown}" Width="12" Height="12" />
+                                        </Button>
+                                        <Button Classes="icon" ToolTip.Tip="{loc:Text T_6665d044932d}" CommandParameter="{Binding}"
+                                                Command="{Binding $parent[Window].DataContext.RemoveRowCommand}">
+                                            <PathIcon Data="{StaticResource Glyph.Delete}" Width="13" Height="13" />
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                                <TextBlock Text="{Binding Hint}" Classes="hint" TextWrapping="Wrap" Margin="0,5,0,0" />
+                                <TextBlock Text="{Binding Problem}" TextWrapping="Wrap" FontSize="12" Margin="0,3,0,0"
+                                           Foreground="{Binding ProblemKey, Converter={StaticResource SeverityToBrush}}"
+                                           IsVisible="{Binding Problem, Converter={StaticResource NotEmpty}}" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</views:DialogWindow>
