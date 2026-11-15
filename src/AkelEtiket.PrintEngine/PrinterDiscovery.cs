@@ -131,6 +131,7 @@ public static class PrinterDiscovery
     public static IReadOnlyList<PrinterInfo> GetPrinters()
     {
         PrintPlatform.ThrowIfUnsupported();
+        if (OperatingSystem.IsMacOS()) return CupsPrintSystem.GetPrinters();
         int flags = NativeMethods.PRINTER_ENUM_LOCAL | NativeMethods.PRINTER_ENUM_CONNECTIONS;
         NativeMethods.EnumPrinters(flags, null, Level2, IntPtr.Zero, 0, out int needed, out _);
         int error = Marshal.GetLastPInvokeError();
@@ -187,6 +188,7 @@ public static class PrinterDiscovery
     {
         if (string.IsNullOrWhiteSpace(printerName)) return null;
         PrintPlatform.ThrowIfUnsupported();
+        if (OperatingSystem.IsMacOS()) return CupsPrintSystem.GetPrinter(printerName);
         if (!NativeMethods.TryOpen(printerName, out var handle, out int error))
         {
             if (IsNotFound(error)) return null;
@@ -225,7 +227,9 @@ public static class PrinterDiscovery
                 {
                     PrinterName = printerName,
                     Win32Error = Win32ErrorText.ErrorInvalidPrinterName,
-                    ErrorMessage = Win32ErrorText.Explain(Win32ErrorText.ErrorInvalidPrinterName, printerName),
+                    ErrorMessage = OperatingSystem.IsMacOS()
+                        ? CupsPrintSystem.NotFoundMessage(printerName)
+                        : Win32ErrorText.Explain(Win32ErrorText.ErrorInvalidPrinterName, printerName),
                 }
                 : new PrinterStatusSnapshot { PrinterName = printerName, Printer = printer };
         }
@@ -253,6 +257,7 @@ public static class PrinterDiscovery
     public static unsafe string? GetDefaultPrinterName()
     {
         if (!PrintPlatform.IsSupported) return null;
+        if (OperatingSystem.IsMacOS()) return CupsPrintSystem.GetDefaultPrinterName();
         int length = 0;
         NativeMethods.GetDefaultPrinter(null, ref length);
         if (length <= 0) return null;
@@ -318,7 +323,7 @@ internal static class PrinterStatusText
         else if (status.HasFlag(PrinterStatusFlags.Busy) || status.HasFlag(PrinterStatusFlags.Processing)) parts.Add(L10n.T("Meşgul"));
         if (status.HasFlag(PrinterStatusFlags.DriverUpdateNeeded)) parts.Add(L10n.T("Sürücü güncellemesi gerekiyor"));
 
-        string text = parts.Count == 0 ? L10n.T("Hazır") : string.Join(", ", parts);
+        string text = PrintPlatform.Adapt(parts.Count == 0 ? L10n.T("Hazır") : string.Join(", ", parts));
         if (jobCount > 0) text += L10n.T($" ({jobCount} iş kuyrukta)");
         return text;
     }

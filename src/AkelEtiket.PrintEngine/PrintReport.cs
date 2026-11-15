@@ -88,11 +88,11 @@ public sealed class PrintReport
             if (Spooled)
             {
                 string jobs = JobIds.Count > 0 ? L10n.T($" (iş no: {string.Join(", ", JobIds)})") : "";
-                sb.AppendLine(L10n.T($"2) Windows yazdırma kuyruğuna gönderildi: {LabelsSpooled} etiket görüntüsü{jobs}."));
+                sb.AppendLine(PrintPlatform.Adapt(L10n.T($"2) Windows yazdırma kuyruğuna gönderildi: {LabelsSpooled} etiket görüntüsü{jobs}.")));
             }
             else
             {
-                sb.AppendLine(L10n.T("2) Windows yazdırma kuyruğuna gönderilmedi."));
+                sb.AppendLine(PrintPlatform.Adapt(L10n.T("2) Windows yazdırma kuyruğuna gönderilmedi.")));
             }
 
             sb.AppendLine(QueueOutcome is null

@@ -98,7 +98,9 @@ public class StatusTextTests
         Assert.False(report.Success);
         string summary = report.Summary;
         Assert.Contains("1) Baskı verisi üretilmedi.", summary);
-        Assert.Contains("2) Windows yazdırma kuyruğuna gönderilmedi.", summary);
+        // Kuyruğun adı sisteme göre yazılır (macOS'ta "Windows kuyruğu" denmez).
+        string system = OperatingSystem.IsMacOS() ? "macOS" : "Windows";
+        Assert.Contains($"2) {system} yazdırma kuyruğuna gönderilmedi.", summary);
         Assert.Contains("3) Kuyruk sonucu: bilinmiyor.", summary);
         Assert.Contains("4) Fiziksel baskı uygulama tarafından doğrulanamaz", summary);
     }
