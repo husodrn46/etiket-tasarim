@@ -29,8 +29,11 @@ public partial class MainWindow : Window
     public MainWindow(MainViewModel vm)
     {
         _vm = vm;
-        DataContext = vm;
         InitializeComponent();
+        // Yapay zekâ paneli kendi görünüm modeliyle çalışır; pencerenin bağlamından önce verilir ki panel bir an
+        // bile ana görünüm modeline bağlanmaya çalışmasın.
+        AiPanelHost.DataContext = vm.Ai;
+        DataContext = vm;
         RestorePlacement();
 
         vm.FitRequested += (_, _) =>
@@ -95,7 +98,7 @@ public partial class MainWindow : Window
 
     private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName is nameof(MainViewModel.IsFocusMode) or nameof(MainViewModel.IsPanelOpen)) UpdatePanels();
+        if (e.PropertyName is nameof(MainViewModel.IsFocusMode) or nameof(MainViewModel.IsPanelOpen) or nameof(MainViewModel.IsAiPanelOpen)) UpdatePanels();
         if (e.PropertyName == nameof(MainViewModel.Settings))
         {
             UpdateRulerVisibility();
@@ -113,7 +116,8 @@ public partial class MainWindow : Window
         MainGrid.ColumnDefinitions[4].Width = new GridLength(focus ? 0 : 310);
         NavigationRail.IsVisible = !focus;
         LeftPanelHost.IsVisible = !focus && _vm.IsPanelOpen;
-        PropertiesHost.IsVisible = !focus;
+        PropertiesHost.IsVisible = !focus && !_vm.IsAiPanelOpen;
+        AiPanelHost.IsVisible = !focus && _vm.IsAiPanelOpen;
     }
 
     private void ApplyTheme()

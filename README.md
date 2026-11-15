@@ -96,9 +96,10 @@ print queue tests are skipped.
 A macOS desktop app is being built in `src/AkelEtiket.App.Mac` (Avalonia; it shares the view models, rendering and
 file format with the Windows app). It is not released yet. Today it opens and saves labels and has the design
 canvas, document tabs, rulers and guides, the left panel (elements, templates, data, layers) and the properties
-panel, and sixteen dialogs (label size, preview, settings, first setup, help, starter packs, backups, column
+panel, all nineteen dialogs (label size, preview, settings, first setup, help, starter packs, backups, column
 mapping, products, counters, the data table, the production workspace with batch PDF/PNG output, print, quick
-print, calibration and print history). Still being ported: the AI panel and the GS1 windows.
+print, calibration, print history, the GS1 profile and content builder, and AI settings) and the AI panel. Every
+window of the Windows app now has a macOS counterpart. Not yet on macOS: the interface scale setting.
 
 Printing on macOS sends TSPL directly (RAW) through the system print queue (CUPS): add the label printer in
 System Settings → Printers & Scanners first, then pick it in the print window. Printing through a printer driver

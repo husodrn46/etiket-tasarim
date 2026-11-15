@@ -156,6 +156,9 @@ internal static class DialogWindows
         QuickPrintViewModel quick => new QuickPrintWindow(quick),
         CalibrationViewModel calibration => new CalibrationWindow(calibration),
         PrintHistoryViewModel history => new PrintHistoryWindow(history),
+        Gs1ProfileViewModel gs1 => new Gs1ProfileWindow(gs1),
+        Gs1ContentBuilderViewModel builder => new Gs1ContentBuilderWindow(builder),
+        AkelEtiket.Editor.Ai.AiSettingsViewModel ai => new AiSettingsWindow(ai),
         _ => null,
     };
 }
